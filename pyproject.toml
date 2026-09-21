@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dsm-ae"
+version = "0.1.0"
+description = "DSM Agentic Edition — Diagnostic Statistical Manual for agentic ill-behaviours"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2.0",
+  "typer>=0.12",
+  "rich>=13.0",
+]
+
+[project.optional-dependencies]
+# litellm imports tenacity lazily for its retry-on-5xx path but does not declare
+# it. Without it, `num_retries` silently does nothing: a single transient 502
+# from a model gateway aborts the whole run with
+# "tenacity import failed please run 'pip install tenacity'".
+llm = ["litellm>=1.40", "tenacity>=8.0"]
+web = [
+  "fastapi>=0.110",
+  "uvicorn[standard]>=0.27",
+  "python-multipart>=0.0.9",
+]
+dev = ["pytest>=8.0", "pytest-cov>=5.0", "httpx>=0.27"]
+
+[project.scripts]
+dsm-ae = "dsm_ae.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

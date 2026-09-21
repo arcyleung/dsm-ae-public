@@ -1,0 +1,171 @@
+{
+  "section": "fidelity",
+  "as_of": "2026-09-01",
+  "metrics": [
+    {
+      "id": "trace_pre_post_delta_g",
+      "paper": "arxiv:2608.06503",
+      "what_it_measures": "Compression-induced short-horizon execution regressions at a compaction boundary: extra blocked/error actions and refetch/replay relative to a paired full-context continuation from the same environment state.",
+      "protocol": "At each compaction boundary, restore the same AppWorld execution state and independently roll out the frozen agent under PRE (raw pre-compaction context, previous summary + new raw update) vs POST (updated summary + OpenClaw retained raw turn). Both arms are closed-loop: generated actions are executed through original tools and observations are returned. Horizon K=5 actions. Five samples per rendering for first compactions, three for later. Instantiation of z_j: blocked = AppWorld native execution-error contract; repeated/refetch-replay = canonicalized tool-call signature already observed before the boundary or earlier in the same continuation (union counted once). Burden G(τ)=Σ_{j=1..K} z_j(τ). Compression-induced burden ΔG_b(s)=E[G(τ+_b(s))]-E[G(τ-_b)]. Verifier score Q_b(s)=-ΔG_b(s). Used to rank three candidate summaries per selected boundary; proposer sees only better/worse summary pairs, not rollout actions/errors.",
+      "number": "590 boundaries / 4,640 rollouts. POST−PRE blocked/error +0.108 at first action (remains positive through step 5). Refetch/replay +0.031 at first action, then rises at step 2 and stays positive. 12 stratified blocked-error boundaries used for prompt optimization.",
+      "usable_as_data_filter": true,
+      "notes": "This is the primary boundary-local fidelity metric. TRACE argues static fact-retention is insufficient: agents lose their place even when facts are refetchable. PRE is a paired control, not an optimal trajectory. Not ROUGE."
+    },
+    {
+      "id": "trace_terminate_form",
+      "paper": "arxiv:2608.06503",
+      "what_it_measures": "Whether the frozen agent recognizes the terminal frontier and emits the required termination form after history is replaced by a summary vs FIFO vs full pre-terminal history.",
+      "protocol": "For each trajectory with ≥1 compaction, hold task, environment, agent header, and decision point fixed. Compare actual summary context, FIFO at the same budget, and the full pre-terminal history, all reconstructed in native interaction format. Sample 10 next actions under each rendering (open-loop; not executed).",
+      "number": "At 2K: summary terminates in 44.6% of samples, 37.3% in required form; FIFO 77.2%/68.1%; full history 66.6%/60.6%. Deficit persists at 4K and 8K. Most pronounced when correct completion requires no substantive response.",
+      "usable_as_data_filter": true,
+      "notes": "Execution-state mislocalization, not fact loss. Summary-conditioned agents continue acting or add unnecessary content instead of terminating. Usable as a local filter on post-compact next-action distributions."
+    },
+    {
+      "id": "trace_next_action_tv",
+      "paper": "arxiv:2608.06503",
+      "what_it_measures": "How much compressing (vs retaining or omitting) the most recent raw update Δ_t shifts the next-action distribution away from full-history behavior.",
+      "protocol": "For each compaction, construct four matched contexts at every recorded decision before the next compaction: full raw prefix; previous summary S_{t-1} + uncompressed Δ_t; updated summary S_t=C(S_{t-1},Δ_t); S_{t-1} with Δ_t omitted. Each followed by the same recorded suffix to the same decision point. Independently sample 24 next actions (not executed). Canonicalize the primary API call; noise-corrected total-variation divergence from the full-history distribution, averaged over decision points then tasks.",
+      "number": "TV vs full history: retain raw Δ_t = 0.149; compress into S_t = 0.233; omit Δ_t = 0.289.",
+      "usable_as_data_filter": true,
+      "notes": "Open-loop next-action agreement. Shows OpenClaw summaries preserve some recent-update effect but systematically attenuate it. Complements closed-loop ΔG."
+    },
+    {
+      "id": "trace_pass_hat_k",
+      "paper": "arxiv:2608.06503",
+      "what_it_measures": "Multi-run reliability under recurrent compaction: whether compression converts reliably-solved tasks into intermittently-solved ones.",
+      "protocol": "Borrowed from τ-bench / τ²-bench. P^k = fraction of tasks solved in all k independent runs; P@k = fraction solved in at least one of k runs. TRACE uses k=2 throughout. Recurrent compact when |z̄_{t+1}|>B. AppWorld 147-task train–dev diagnosis; test-normal 168-task table for TRACE vs baselines. MiniMax-M3 frozen compressor+agent.",
+      "number": "At 16/8/4K FIFO matches or slightly exceeds summary; only at 2K summary 72.8% vs FIFO 42.2% (both below full context). Paper states P@2−P^2 gap widens under stronger compression (Figure 1; no per-budget P^2/P@2 numbers in the prose). TRACE vs best compressed baseline Prompting-O on test-normal: Acc 77.1 vs 71.4, Pass^2 67.3 vs 59.5, Pass@2 86.9 vs 83.3 (no-compression 85.7 / 77.4 / 94.0). Hard slice TRACE 63.5 / 52.4 / 74.6.",
+      "usable_as_data_filter": false,
+      "notes": "End-task reliability, not a local continuation filter. Larger Pass^2 gain than Pass@2 is the paper's evidence that prompt optimization improves consistency, not just coverage. FIFO≈summary at moderate budgets is specific to refetchable AppWorld."
+    },
+    {
+      "id": "slipstream_next_k_error_locality",
+      "paper": "arxiv:2605.08580",
+      "what_it_measures": "How soon after compaction the first observable compaction-induced error appears in agent behavior (justifies a finite PRE/POST window).",
+      "protocol": "Run compactor in parallel with continued agent execution on the original uncompacted context. Effective k is not a hyperparameter: it is compaction duration / agent-step time (avg 2.1 steps BrowseComp, 3.7 SWE-bench Verified). Measure first-error-manifestation step on corrupted-summary cases. SWE-bench Verified + BrowseComp; Qwen3.5-9B and Seed-OSS-36B-Instruct.",
+      "number": "88–100% of first CM errors within 3 agent steps overall. BrowseComp: 97% at k=1, 100% by k=2. SWE-bench Verified: 60% at k=1, 88% by k=3, 96% by k=6. Slipstream windows cover 88% of first SWE errors.",
+      "usable_as_data_filter": true,
+      "notes": "Motivates K=3 closed-loop PRE/POST as a data filter. Errors outside the async window cannot be recovered. Not ROUGE; paper explicitly rejects source-grounded faithfulness/coverage/QA-probes and says ROUGE is inapplicable (no reference summary)."
+    },
+    {
+      "id": "slipstream_judge_plan_and_statement",
+      "paper": "arxiv:2605.08580",
+      "what_it_measures": "Sufficiency of a candidate summary for the agent's actual next-k continuation: plan-level forward-intent preservation + statement-level fact/constraint/intermediate-result preservation.",
+      "protocol": "Async compact from the same pre-compaction state so the next-k trajectory is independent of the summary. Judge (same model as agent by default; structured prompt, Appendix B.1) scores the candidate against next-k thinking+tool calls. Plan-level: does the compacted state support the same articulated forward intent (latest plan if revised in-window). Statement-level: are concrete facts, constraints, intermediate results, and tool observations used in next-k present in the summary. Accept if score ≥7/10; else targeted update from the judge diagnosis (restore dropped constraint, correct mutated entity, preserve latest patch intent); fallback to sync compact if unrecoverable. On accept, resume from compacted state + already-generated next-k steps.",
+      "number": "Rejection rare: 1.0–3.5% BrowseComp, 5.4–8.5% SWE-bench Verified. Full Slipstream +8.8 pp accuracy and −39.7% E2E latency vs sync. Async-only (overlap, always accept) matches sync accuracy; accuracy gain is from the judge, not asynchrony. Judge inputs are 3.6–6.8% of pre-compaction context.",
+      "usable_as_data_filter": true,
+      "notes": "~90% of failures are omissions (commission and combined make up the remainder). Cases: omission (dropped candidate), commission (scoped edit mutated to global), omission+commission (entity replacement). Directly usable as a keep/repair/drop filter on generated summaries."
+    },
+    {
+      "id": "compactionrl_summarizer_swap_pass1",
+      "paper": "arxiv:2607.05378",
+      "what_it_measures": "End-task sensitivity of continuation quality to summarizer identity, with the execution agent frozen. Not a local fidelity score.",
+      "protocol": "Fix execution agent = GLM-4.7-Flash. Swap only the summary agent. SWE-Verified Acc. is pass@1(%) on SWE-bench Verified (200-instance random subset in Harbor / Terminus-KIRA; mean of 2 eval runs). Also report average summaries triggered per trace. Paper states they do not introduce a separate summary-quality reward because hand-designed summary metrics may not reflect which details help solve the task.",
+      "number": "Qwen3.5-27B summarizer 55.5 pass@1 (1.010 summaries/trace); GLM-4.7-Flash 50.5 (1.075); Qwen3-30B-A3B 49.0 (1.126). Best-vs-worst swing 6.5 points.",
+      "usable_as_data_filter": false,
+      "notes": "No boundary-local fidelity metric. The 49.0→55.5 number is an end-task summarizer ablation, not PRE/POST. Implication: summarizer used at data-generation time must be deployment-identical."
+    },
+    {
+      "id": "compactionrl_compacted_subset_pass1",
+      "paper": "arxiv:2607.05378",
+      "what_it_measures": "Pass@1 on the subset of evaluation tasks that actually triggered compaction — a coarse proxy for continuation-from-compacted-history, still end-task.",
+      "protocol": "Figure 3(c): pass@1 on compaction-triggering tasks in each evaluation run, GLM-4.5-Air setting, 80k ×4 (up to three compactions). Compared against base SFT, standard RL without compaction (80k and 160k), CompactionRL without summary training, and full CompactionRL. Same Harbor / Terminus-KIRA / 200-instance SWE-Verified protocol as the main table.",
+      "number": "Paper states CompactionRL achieves the highest accuracy on this subset; it does not publish the subset pass@1 numbers in the prose. Related end-task numbers (not the subset): 30B compacted SWE-Verified 50.5 base → 54.5 w/o-summary-training → 56.0 full; 106B 59.8 → 64.5 → 66.8. No-compaction RL hurts 30B compacted inference 50.5→48.0.",
+      "usable_as_data_filter": false,
+      "notes": "Useful as an eval slice, not as a per-boundary data filter. Joint training of execution+summary is claimed to improve reliable continuation; still no local blocked/replay/intent metric."
+    },
+    {
+      "id": "adacom_fidelity_reliability",
+      "paper": "arxiv:2605.30785",
+      "what_it_measures": "Capability-conditioned trade-off: how much raw trajectory a frozen agent should keep (fidelity) vs how aggressively to compress so reasoning stays reliable. Fidelity is not a scored summary-quality metric.",
+      "protocol": "External Qwen3-4B-Instruct manager edits the frozen agent's message list before every step (delete/merge/rewrite/no-op). Fidelity is operationalized as mean post-management context length and as whether raw tool results are retained. Reliability is operationalized as vanilla ReAct performance / staying inside an agent-specific effective context length. Process rewards (not a fidelity judge): token-limit penalty; redundant-action penalty when the agent issues two consecutive identical tool calls (proxy for insufficient preservation); format penalties. Outcome reward is task correctness (binary LLM judge on BrowseComp-Plus; 0.4 TF + 0.4 IG + 0.2 PE rubric on MCP-Bench-Wiki). Report mean@3.",
+      "number": "Mean post-management context: ~1.9K DeepSeek, 3.4K Kimi, 5.2K Qwen, 7.0K GLM — ordered by rising vanilla ReAct. BrowseComp-Plus mean@3 avg +39.0% vs ReAct across 4 agents. Untrained manager −8.9% vs ReAct. Strong agents get tiered management (grow raw, occasional batched compression); weak agents get eager distillation every round.",
+      "usable_as_data_filter": false,
+      "notes": "No statement-level or PRE/POST fidelity score. 'Fidelity' here means retained raw-token volume, not continuation agreement. Teacher compact policy must not be copied onto a weaker student. Redundant-action penalty is the closest local preservation signal and could be reused as a weak filter."
+    },
+    {
+      "id": "ama_bench_memory_qa",
+      "paper": "arxiv:2602.22769",
+      "what_it_measures": "Post-hoc QA over stored agent trajectories (Recall, Causal Inference, State Updating, State Abstraction). Diagnoses why NL lossy summaries + similarity retrieval fail on causal/objective tool trajectories. Not compression→continuation fidelity.",
+      "protocol": "2496 real QA over Web / SE / Text2SQL / Embodied / Gaming / open-world (mean traj ~57K tokens) plus synthetic horizons. Memory Build maps history to summaries/graphs/embeddings; Retrieve returns a query-conditioned context; LLM-as-judge (Qwen3-32B) scores Accuracy and F1. Four capability axes; State Abstraction is the condensation axis ('filter redundant content while extracting precise key information without information loss'). Compared against long-context baselines and memory systems (MemoRAG, HippoRAG2, GraphRAG, MemoryBank, AMem, SimpleMem).",
+      "number": "GPT-5.2 long-context 72.26% (abstract; Table 4 prose says 0.73). AMA-Agent 57.22% avg Acc (+11.16% vs strongest memory baseline). Under Qwen3-32B: Causal Inference 0.6145, State Abstraction 0.4719 (lowest of the four). HippoRAG2 0.4480, MemoRAG 0.4606. w/o Causality Graph −24.6% avg.",
+      "usable_as_data_filter": false,
+      "notes": "No paired PRE/POST continuation and no next-action metric. Why NL summaries fail: agent trajectories are machine-generated (JSON/code/tables), causally grounded (each action induces a state transition), and dense/objective (little phatic redundancy). GraphRAG construction is explicitly called lossy (discards raw observation states and fine-grained action sequences). If SFT summaries are NL condensates they will drop the causal/objective tool state this bench requires."
+    },
+    {
+      "id": "governance_decay_violation",
+      "paper": "arxiv:2606.22528",
+      "what_it_measures": "Constraint-preservation fidelity of compaction: increase in prohibited tool-call rate caused solely by compacting a history that contained an in-context governance constraint.",
+      "protocol": "ConstraintRot: policy turn → benign filler past budget B → self-contained prohibited tool request. Grade violation deterministically by parsing the terminal tool-call effect (no LLM judge). Δ_decay = v(M,[C(H_<t); r]) − v(M,[H_<t; r]). Conditions: floor (no policy), control (full context, no compact), compaction, attack_volume, attack_inject, defense_pin, defense_pin_attack. 9 tasks (5 soft org policies, 4 hard safety norms) × 7 models × 3 reps = 1,323 episodes. Aggressive word-budget summarizer.",
+      "number": "Control 0% violation for every model. One compact → pooled 30% (DeepSeek-V4 and Kimi-K2.5 59%; GPT-5.4-mini 41%; Claude-4.6 19%; Gemini-3.5-flash 4%; GLM-5.1 0%). Higher-powered 5-model grid: pooled decay +37 points (bootstrap 95% CI [31, 43]). Soft org policies decay 8.3× more than hard safety norms. Floor (no policy) pooled 47%. Optimized Compaction-Eviction Attack 0%→65% on previously immune Claude via token-budget framing.",
+      "usable_as_data_filter": true,
+      "notes": "Constraint preservation is an explicit boundary metric. Decay is +0 if the same policy sits in a preserved system message vs +50 / +45 / +33 in user / memory / tool channels (3 models, 5 soft tasks). Compacting a policy can be worse than never stating it (DeepSeek 59% vs floor 37%)."
+    },
+    {
+      "id": "governance_decay_survival",
+      "paper": "arxiv:2606.22528",
+      "what_it_measures": "Whether the compacted context still entails the original constraint (secondary, mechanism-level fidelity).",
+      "protocol": "Independent LLM judge on the original five-model grid: does the post-compaction context still preserve the constraint? Cross-checked with a keyword-survival heuristic on all seven models (83% agreement on overlapping episodes). Three-judge majority vote on 81 episodes. Causal ablations: uncompressed 5.9k-token long context vs counterfactual summary with policy omitted vs restored; summarizer×agent crossing.",
+      "number": "If constraint survives: violation 0% (n=90). If dropped: 38% (n=315). Keyword heuristic: survived 1% (n=207) vs dropped 43% (n=360). Three-judge majority: survived 0% (n=18) vs dropped 40% (n=63). Summary-budget sweep 300→15 words: survival 88%→23%, pooled violation 7%→28% (DeepSeek 20%→65%). GLM-as-summarizer keeps violation 7–13% for every agent; DeepSeek/Claude summaries 33–93%.",
+      "usable_as_data_filter": true,
+      "notes": "Cleanest binary filter: drop any summary that does not entail standing constraints. Violation tracks the summarizer, not the agent. Complements Slipstream's statement-level constraint check with deterministic downstream tool-call grading."
+    },
+    {
+      "id": "governance_decay_pin",
+      "paper": "arxiv:2606.22528",
+      "what_it_measures": "Cost and effectiveness of quarantining constraints from the summarizer (Constraint Pinning).",
+      "protocol": "Extract governance constraints into a pinned buffer exempt from compaction; re-inject verbatim after every compact; integrity-check that the post-compaction context still entails the pin. Training-free, harness-local.",
+      "number": "Pinned policy ≈47 tokens, re-injected once per compaction, <0.5% of the ≥10k-token contexts at which compaction fires. Restores violation to 0% with and without the fixed attacks (Table 2 defense_pin / defense_pin_attack). Naive pin still fails an operator-impersonation rescind in the recent raw tail (0%→17%); provenance hardening 17%→10%.",
+      "usable_as_data_filter": true,
+      "notes": "Not a scored fidelity metric; a structural filter that removes constraints from the compression loss surface. Use as a data-construction rule: never let the summarizer be the sole carrier of acceptance/safety criteria."
+    },
+    {
+      "id": "loca_strategy_cross_model",
+      "paper": "arxiv:2602.07962",
+      "what_it_measures": "End-task accuracy and trajectory length under controllable environment-state growth with fixed task semantics. No dedicated compression→continuation fidelity axis.",
+      "protocol": "Vary environment description length {8,16,32,64,96,128,256}K with task prompts held fixed. Success is a binary match of final environment state vs ground truth (hand-written scripts). Also record trajectory length, tool-call count, tool-output tokens. Context-editing CM at 200K (Gemini-3-Flash, GPT-5.2-Medium) or 100K (DeepSeek-V3.2-Thinking): tool-result clearing drops 50% of accumulated tool I/O; thinking-block clearing keeps only the latest think turn; context compaction replaces history with an LLM summary. Also context awareness, memory tool, programmatic tool calling.",
+      "number": "At 128K env: DeepSeek native 10.7 acc / 191K traj; +compaction 13.3 / 1476; +context awareness 4.0 / 149; +memory 8.0 / 153; +programmatic 24.0 / 103. Gemini native 21.3 / 101; +compaction 24.0 / 138; +awareness 33.3 / 142; +memory 30.7 / 116. GPT-5.2 native 38.7 / 141; +compaction 36.0 / 107; +awareness 41.3 / 617; +memory 44.0 / 157; +programmatic 49.3 / 102. Memory/awareness hurt DeepSeek and help Gemini/GPT-5.2. Compaction slightly helps DeepSeek/Gemini and slightly hurts GPT-5.2.",
+      "usable_as_data_filter": false,
+      "notes": "Same CM strategy can help one model and hurt another. No PRE/POST, no next-action agreement, no constraint-survival score. Compaction on DeepSeek produces 1476-step trajectories (extreme elongation) with only +2.6 acc. Useful as a student-capability calibration bench, not a fidelity filter."
+    },
+    {
+      "id": "parallel_compaction_prompt_invariance",
+      "paper": "arxiv:2605.23296",
+      "what_it_measures": "Negative controllability / fidelity result: sequential LLM summaries are nearly input- and prompt-invariant, so the operator cannot steer retained content or volume via wording. Run-to-run content instability is an additional unpredictability of what the agent will keep.",
+      "protocol": "Sequential sync compact when |conversation|>τ (swept 16k–96k). Four backbones 8B–120B on HotpotQA and LoCoMo. Sweep input 2k→96k under three prompt variants (concise / default / very detailed). Stability: 10 repeats at each input; CV of output length and pairwise embedding cosine of summaries. Separate 4k-input prompt-length sweep (1 sentence / 1 paragraph / 3 paragraphs).",
+      "number": "48× input (2k→96k) yields only ~3× output; ~48% of tokens retained at 2k vs ~3% at 96k (paper also says a ~500-token summary at 96k retains <1%). Concise vs very detailed barely moves length. At 4k (most stable operating point) CV 19.8–34.1% and cosine 0.65–0.83 across backbones. At 4k, models do scale ~400→600 tokens from 1-sentence to 3-paragraph prompts, but CV/cosine do not systematically improve.",
+      "usable_as_data_filter": false,
+      "notes": "Not a continuation-fidelity metric. Negative result for 'control the summarizer via prompt'. Compressor identity, not wording, is the control — matches CompactionRL's 6.5-point summarizer swing. Parallel block compaction is proposed as an operator volume knob (4k blocks most stable), not as a measured continuation-fidelity fix."
+    },
+    {
+      "id": "complexity_trap_elongation",
+      "paper": "arxiv:2508.21433",
+      "what_it_measures": "Trajectory elongation under LLM summaries vs observation masking: summaries hypothesized to mask failure signals that should trigger earlier termination. This is an efficiency / loop-persistence diagnostic, not a compression→continuation fidelity score.",
+      "protocol": "SWE-agent on SWE-bench Verified, turn cap 250, 5 model configs. Masking: rolling window M=10 observations (placeholder). LLM-Summary: fire at N+M turns (N=21, M=10), OpenHands-style prompt, summarizer temperature 0. Compare solve rate, $/instance, and turn-count distribution (Figure 4). Critic-enhanced summary (summary+reflection in one call) on a 150-instance subset.",
+      "number": "Gemini 2.5 Flash: summary mean 52 turns vs mask 44 (+15%) vs raw 50 (+4%). Qwen3-Coder 480B: summary +15% mean turns vs raw, +13% vs mask. Only Qwen3-32B reverses the pattern (mask +13% vs raw). Qwen3-Coder 480B solve: mask 54.8% vs summary 53.8% vs raw 53.8%; mask 52% cheaper than raw and +2.6% solve. Critic-enhanced: no solve-rate gain, even longer trajectories. Summary API cost up to 7.2% of instance cost.",
+      "usable_as_data_filter": false,
+      "notes": "Failure-signal masking is the authors' hypothesized mechanism for elongation, not an instrumented fidelity measure (they do not score whether a summary omitted a test-fail or error observation). Opposite of TRACE's premature-termination probe: here summaries delay termination. Can be used as a negative training signal (penalize post-compact turn inflation) but is not PRE/POST fidelity."
+    },
+    {
+      "id": "survey_f1_f2_f3",
+      "paper": "url:www.preprints.org/manuscript/202605.2065",
+      "what_it_measures": "Temporal failure taxonomy of the compression pipeline, not a numeric fidelity metric. Earliest causal stage labels the failure.",
+      "protocol": "Survey taxonomy recovered from the companion list https://github.com/YerbaPage/Awesome-Agent-Context-Compression (EMNLP 2026 Main). Preprints.org HTML for 202605.2065 was blocked by Akamai on 2026-09-01; do not treat the preprint PDF as independently quoted. Q=(D,R,P,O) eval axes are named in the list but not expanded in the README excerpt we fetched.",
+      "number": "No numeric fidelity scores in the fetchable README. Three labels only: F1 Pre-compression Decision Error (wrong moment/target/granularity); F2 In-compression Information Loss (semantic/structural/constraint corruption during the transform); F3 Post-compression Access Failure (stored but unrecoverable when needed).",
+      "usable_as_data_filter": false,
+      "notes": "Stage-3 plan in docs/surveys/compaction.md maps TRACE/Slipstream blocked-refetch to F2 and refetch-failure to F3. Taxonomy is a diagnostic overlay, not a scorer. Representative F2 cites include HaluMem / ContextWeaver; F3 includes OCR-Memory / KVCache-centric memory."
+    }
+  ],
+  "gaps": [
+    "Preprints.org/manuscript/202605.2065 HTML blocked by Akamai; F1/F2/F3 definitions taken from github.com/YerbaPage/Awesome-Agent-Context-Compression README only. Q=(D,R,P,O) not expanded in the fetchable page.",
+    "CompactionRL Figure 3(c) asserts highest pass@1 on the compaction-triggered subset but does not publish the subset numbers in the HTML prose. No local fidelity metric exists in that paper (authors explicitly refuse a summary-quality reward).",
+    "TRACE Figure 1 states that the P@2 vs P^2 gap widens under stronger compression but does not give per-budget P^2/P@2 numbers in the text. FIFO vs summary exact accuracies are quoted only at 2K (72.8% vs 42.2%).",
+    "AdaCoM never scores summary fidelity; 'fidelity' is retained raw-token volume. No PRE/POST or next-action agreement.",
+    "AMA-Bench has no compression→continuation protocol. Closest axes are Causal Inference and State Abstraction QA. No next-action / Pass^k / constraint-preservation on a compact boundary.",
+    "LOCA-bench has no fidelity axis: binary env-state match only. Cross-model help/hurt is an end-task interaction, not continuation agreement.",
+    "Parallel Compaction measures summary-volume controllability and run-to-run cosine/CV, not whether a continuation stays on the pre-compact trajectory.",
+    "Complexity Trap trajectory elongation is hypothesized to come from failure-signal masking but the paper does not instrument whether summaries omitted specific failure observations.",
+    "No paper in this set uses ROUGE as an agent-compaction fidelity metric. Slipstream explicitly rejects ROUGE (no reference summary) and source-grounded faithfulness/coverage.",
+    "Dedicated CM fidelity benches are still thin on coding: TRACE is AppWorld, Slipstream is the only SWE/BrowseComp local judge, ConstraintRot is safety, AMA is memory QA, LOCA is env-state growth."
+  ]
+}

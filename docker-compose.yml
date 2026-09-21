@@ -1,0 +1,52 @@
+# DSM-AE production stack — WebUI + benchmark worker
+#
+#   ./docker-build.sh
+#   open http://localhost:8765/dsm-ae/
+#
+# Mount models.yaml with live endpoint credentials. Offline mock/* works without keys.
+
+services:
+  dsm-ae:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: dsm-ae:latest
+    container_name: dsm-ae
+    restart: unless-stopped
+    ports:
+      - "${DSM_AE_PUBLISH_PORT:-8765}:8765"
+    environment:
+      DSM_AE_HOST: "0.0.0.0"
+      DSM_AE_PORT: "8765"
+      DSM_AE_PUBLIC_BASE: "${DSM_AE_PUBLIC_BASE:-/dsm-ae}"
+      DSM_AE_QUEUE_TOKEN: "${DSM_AE_QUEUE_TOKEN:-}"
+      DSM_AE_WITH_WORKER: "${DSM_AE_WITH_WORKER:-1}"
+      DSM_AE_WORKER_POLL: "${DSM_AE_WORKER_POLL:-2}"
+      DSM_AE_STALE_SECONDS: "${DSM_AE_STALE_SECONDS:-3600}"
+      DSM_AE_MODELS_YAML: "models.yaml"
+      DSM_AE_REPORTS_DIR: "reports"
+      DSM_AE_DB: "data/queue.db"
+      # Pass-through common provider keys if set on host
+      OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
+      DSM_AE_API_KEY: "${DSM_AE_API_KEY:-}"
+    volumes:
+      # Persistent queue DB + secrets
+      - ./data:/app/data
+      # Diagnosis artifacts (Git LFS when committed)
+      - ./reports:/app/reports
+      # Live model registry (create from models.yaml.example)
+      - ./models.yaml:/app/models.yaml:ro
+      # Optional operator logs
+      - ./logs:/app/logs
+      # Scratch workspaces (not LFS)
+      - dsm_ae_work:/app/work
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8765/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 25s
+
+volumes:
+  dsm_ae_work:

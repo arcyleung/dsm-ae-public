@@ -1,0 +1,3941 @@
+{
+  "as_of": "2026-09-01",
+  "process": "research-notes/compaction/PROCESS.md",
+  "n_nodes": 134,
+  "n_edges": 180,
+  "nodes": [
+    {
+      "id": "arxiv:2508.21433",
+      "title": "The Complexity Trap: Simple Observation Masking Is as Efficient as LLM Summarization for Agent Context Management",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2508.21433",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "Masking: rolling window M=10 observations (SWE-agent; retune M=58 on OpenHands). LLM-Summary: fire when accumulated turns since last summary reach N+M (N=21, M=10). Hybrid defers summary and masks during accumulation.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "SWE-agent on SWE-bench Verified, 5 model configs, turn cap 250. Observation tokens ~84% of a SWE-agent turn (Lite-50). Masking halves cost vs Raw and matches/exceeds LLM-Summary; Qwen3-Coder 480B masking is 52% cheaper than Raw and +2.6% solve rate. Hybrid \u22127%/\u221211% cost vs mask/summary. LLM summaries can elongate trajectories by masking failure signals. Inference-only; no SFT on compacted spans.",
+      "behaviours": [
+        "observation_masking",
+        "llm_summary",
+        "hybrid_mask_then_summary",
+        "raw_full_context"
+      ]
+    },
+    {
+      "id": "arxiv:2608.06503",
+      "title": "Toward Reliable Context Compression for Long-Horizon Agents: An Empirical Study of Execution Instability (TRACE)",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2608.06503",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "Recurrent compact when |z\u0304_{t+1}| > B (OpenClaw-style loop). Evaluated at B \u2208 {16K, 8K, 4K, 2K}.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "AppWorld 147-task split; MiniMax-M3 frozen compressor+agent. At 16/8/4K FIFO matches or beats summary; only at 2K summary 72.8% vs FIFO 42.2%. Degradation is execution-state mislocalization (blocked/replay, wrong terminate), not fact loss. Repeated compact turns reliably-solved tasks into occasional ones (P@2 vs P^2 gap). Boundary-local PRE/POST verifier; 590 boundaries / 4640 rollouts; prompt optimized from preferences, models frozen. Code: github.com/nokia-applied-research/Trace.",
+      "behaviours": [
+        "fifo_truncation",
+        "llm_summary",
+        "boundary_local_eval",
+        "pass_hat_k"
+      ]
+    },
+    {
+      "id": "arxiv:2605.30785",
+      "title": "Learning Agent-Compatible Context Management for Long-Horizon Tasks (AdaCoM)",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2605.30785",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "agent_tool",
+      "trigger_detail": "External manager edits the frozen agent's message list before every agent step (delete/merge/rewrite/no-op). No fixed token watermark.",
+      "training": "mixed",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "Qwen3-4B-Instruct manager: SFT warmup on GPT-5/Claude-Opus-4.6 edit traces, then RL (Trinity-RFT, G=8). BrowseComp-Plus mean@3 +39.0% avg vs ReAct across 4 agents (Kimi +95%). Fidelity\u2013Reliability: strong ReAct agents keep more raw context; weak agents need aggressive compression. Transfer works across similar vanilla-ReAct capability. Untrained manager worse than ReAct (\u22128.9%). SumAgent/MemAct/SumCoM unstable across backbones. Agent frozen \u2014 no student SFT on compacted tokens.",
+      "behaviours": [
+        "external_manager",
+        "flexible_edits",
+        "fidelity_reliability_tradeoff"
+      ]
+    },
+    {
+      "id": "arxiv:2602.07962",
+      "title": "LOCA-bench: Benchmarking Language Agents Under Controllable and Extreme Context Growth",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2602.07962",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "Context-editing (tool-result / thinking-block / compaction) fires at 200K for Gemini-3-Flash and GPT-5.2-Medium, 100K for DeepSeek-V3.2-Thinking. Tool-result clearing drops 50% of accumulated tool I/O; thinking-block clearing keeps only the latest think turn.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Controllable env-state growth with fixed task semantics; models+scaffolds including context editing and tool-use CM. Same strategy can help one model and hurt another (memory/context-awareness hurt DeepSeek-V3.2 but help Gemini/GPT-5.2). Programmatic tool calling is the most consistent win (DeepSeek 10.7\u219224.0; GPT-5.2 38.7\u219249.3). Compaction on DeepSeek yields 13.3 acc but 1476-step trajectories. Claude Agent SDK at 128K env can drop vs native (26.7). Code: github.com/hkust-nlp/LOCA-bench.",
+      "behaviours": [
+        "tool_result_clearing",
+        "thinking_block_clearing",
+        "context_compaction",
+        "context_awareness",
+        "memory_tool",
+        "programmatic_tool_calling"
+      ]
+    },
+    {
+      "id": "arxiv:2605.23296",
+      "title": "Parallel Context Compaction for Long-Horizon LLM Agent Serving",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2605.23296",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "Compact when conversation length exceeds \u03c4 (swept 16k\u201396k). Parallel: partition into B-token blocks (sweep 16k\u21922k; 4k most stable).",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "HotpotQA + LoCoMo; 4 backbones 8B\u2013120B. Sequential summary output is nearly input- and prompt-invariant: 2k\u219296k input (+48\u00d7) yields only ~3\u00d7 output (~3% retained at 96k); concise vs very detailed barely moves length. Sync compact is 14.5\u201362% of E2E wall time (15 fires at \u03c4=16k vs 2 at 96k). Parallel block compaction gives operator volume control and better throughput at matched decode volume. Implication for SFT: do not try to steer the summarizer by prompt wording \u2014 identity of the compressor matters.",
+      "behaviours": [
+        "sequential_sync_summary",
+        "parallel_block_compaction",
+        "prompt_invariant_summary"
+      ]
+    },
+    {
+      "id": "arxiv:2604.01664",
+      "title": "ContextBudget: Budget-Aware Context Management for Long-Horizon Search Agents",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2604.01664",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "Before loading the next observation the policy sees b_t=(s_t, r_t, |o_t|) with r_t=B\u2212|C_t| and must Null/Partial/Full-aggregate so |C'_t| \u2264 B\u2212|o_t|. Curriculum tightens B_max.",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "BACM-RL = multi-turn GRPO; reward is F1 only if every turn respects the stage budget, else 0. >1.6\u00d7 over strong baselines in high-complexity compositional QA / web browsing; advantage grows as budgets shrink. Over-compress under loose B and under-compress under tight B are the two budget-free failure modes. Compression decisions are in the same action space as reasoning (not a separate masked summary turn).",
+      "behaviours": [
+        "deferred_observation_load",
+        "commit_block_aggregation",
+        "budget_curriculum_grpo"
+      ]
+    },
+    {
+      "id": "arxiv:2605.08580",
+      "title": "Slipstream: Trajectory-Grounded Compaction Validation for Long-Horizon Agents",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2605.08580",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "Production-style aggressive compact well before the window; cites Anthropic 2026a: ~5\u201320k tokens for some workloads, ~50\u2013100k for more complex tasks. Async compact overlaps next-k agent steps.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "SWE-bench Verified + BrowseComp; Qwen3.5-9B and Seed-OSS-36B. Sync compact is 26\u201344% of E2E latency. Slipstream +8.8 pp accuracy and \u221239.7% latency vs sync. 88\u2013100% of first compaction-induced errors surface within 3 agent steps (boundary-local PRE/POST). ~90% of failures are omissions. Judge checks plan-level intent + statement-level facts. Code: github.com/chenzhuofu/slipstream. Inference-only validator, not an SFT recipe.",
+      "behaviours": [
+        "async_compaction",
+        "trajectory_grounded_judge",
+        "summary_plus_recent_k"
+      ]
+    },
+    {
+      "id": "arxiv:2606.10209",
+      "title": "Less Context, Better Agents: Efficient Context Engineering for Long-Horizon Tool-Using LLM Agents",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2606.10209",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "tool_trim",
+      "trigger_detail": "Always keep last N=5 tool call/response pairs; optional summary of the W=3 most recently evicted pairs (C4). Eviction is recency of whole tool units, not a token %.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "50-task D365 F&O hotel itemization via MCP, GPT-5, 5 runs. Full history 71.0% complete / 1,480,996 tokens / 14.56 h. Last-5 prune 79.0% / 535,274 tokens / 5.39 h. Last-5 + W=3 summary 91.6% complete and 99.64% amount itemized / 553,374 tokens / 5.79 h. N=5 chosen because one line needs 2\u20133 tool calls. Inference-only; no student training.",
+      "behaviours": [
+        "recency_tool_prune",
+        "summary_of_evicted_pairs"
+      ]
+    },
+    {
+      "id": "arxiv:2602.22769",
+      "title": "AMA-Bench: Evaluating Long-Horizon Memory for Agentic Applications",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2602.22769",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "Benchmark of memory Build/Retrieve, not a harness compact trigger. Mean trajectory ~57K tokens; synthetic subset scales horizon arbitrarily.",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "2496 real QA over Web/SE/Text2SQL/Embodied/Gaming/open-world plus synthetic. Existing memory (lossy summary + similarity retrieval) often loses to long-context baselines on agent trajectories. AMA-Agent causality graph + tool-augmented retrieval: 57.22% (+11.16% vs strongest baseline). GPT-5.2 long-context still only 72.26%. Warns that NL-style compression drops dense causal/objective tool state \u2014 relevant if SFT summaries are trained as NL condensates. https://ama-bench.github.io/",
+      "behaviours": [
+        "memory_qa_eval",
+        "causality_graph",
+        "lossy_summary_baseline"
+      ]
+    },
+    {
+      "id": "arxiv:2606.22528",
+      "title": "Governance Decay: How Context Compaction Silently Erases Safety Constraints in Long-Horizon LLM Agents",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2606.22528",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "Harness compact when tokens(H) exceeds budget B; aggressive word-budget summarizer. ConstraintRot: policy turn \u2192 filler to B \u2192 self-contained prohibited tool request.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "ConstraintRot, 7 models, 1323 episodes. Violation 0% with policy in full context \u2192 30% after one compact (59% DeepSeek-V4 and Kimi-K2.5). If constraint survives summary, violation 0%; if dropped, 38%. Soft org policies decay 8.3\u00d7 more than hard safety norms. Compaction-Eviction Attack: optimized injection 0%\u219265% on a previously immune model. Constraint Pinning (~47 tokens, <0.5% of a production compact context) restores 0%. Decay is +0 if policy is in a preserved system message, +33\u201350 if in user/memory/tool channels.",
+      "behaviours": [
+        "constraintrot",
+        "compaction_eviction_attack",
+        "constraint_pinning"
+      ]
+    },
+    {
+      "id": "arxiv:2512.02556",
+      "title": "DeepSeek-V3.2: Pushing the Frontier of Open Large Language Models",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2512.02556",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "test-time only: when token usage exceeds 80% of the 128K window, apply Summary (summarize overflowed trajectory and re-initiate), Discard-75%, or Discard-all",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "No compaction-aware training. BrowseComp 51.4 \u2192 67.6 with context management. Thinking-in-tool-use keeps reasoning traces across tool rounds and discards them only on a new user message.",
+      "behaviours": [
+        "80-percent-watermark",
+        "summary-or-discard",
+        "test-time-only"
+      ]
+    },
+    {
+      "id": "github:YerbaPage/Awesome-Agent-Context-Compression",
+      "title": "Awesome Agent Context Compression (survey list + EMNLP 2026 survey)",
+      "year": 2026,
+      "url": "https://github.com/YerbaPage/Awesome-Agent-Context-Compression",
+      "depth": 0,
+      "kind": "blog",
+      "trigger": "unknown",
+      "trigger_detail": "Taxonomy of who/when: system-controlled (token budget / step count), external controller, agent-controlled, learned. Survey Q=(D,R,P,O) eval axes.",
+      "training": "unknown",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "EMNLP 2026 Main survey 'Context Compression for LLM Agents' (Preprints 202605.2065). F1 pre-compress decision / F2 in-compress loss / F3 post-compress access. Eval section lists WebArena, AgentBench, MCP-Bench and calls for standardized CM benches (LOCA/TRACE/Slipstream/ConstraintRot are the dedicated ones). Coding-agent slice names Complexity Trap, AgentDiet, LoCoEval, TACO. Product/GitHub hop cap applied (4 outgoing).",
+      "behaviours": [
+        "survey_taxonomy",
+        "f1_f2_f3"
+      ]
+    },
+    {
+      "id": "arxiv:2405.15793",
+      "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.15793",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "tool_trim",
+      "trigger_detail": "Observation-masking ACI: older tool outputs replaced by a placeholder (Complexity Trap's M-window is this mechanism).",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Defines the SWE-agent ACI used as the Complexity Trap masking baseline. 12.5% SWE-bench / 87.7% HumanEvalFix in the original paper. Observations dominate context; windowed elision is the default CM, not LLM summary.",
+      "behaviours": [
+        "observation_masking",
+        "aci"
+      ]
+    },
+    {
+      "id": "arxiv:2407.16741",
+      "title": "OpenHands: An Open Platform for AI Software Developers as Generalist Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.16741",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "Open-source LLM-Summary: condense older turns, keep a raw tail. Complexity Trap probes v0.43.0 with N=21, M=10.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Production-style coding scaffold whose summary prompt is reused by Complexity Trap. Also a LOCA-bench integration target. Paper itself is a platform eval (SWE-bench, WebArena), not a CM ablation.",
+      "behaviours": [
+        "llm_summary",
+        "summary_plus_raw_tail"
+      ]
+    },
+    {
+      "id": "arxiv:2506.15841",
+      "title": "MEM1: Learning to Synergize Memory and Reasoning for Efficient Long-Horizon Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2506.15841",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "Every turn: rewrite a compact shared internal state from prior state + latest observation; discard the rest. Constant memory, not a token watermark.",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "Cited by Complexity Trap, AdaCoM, ContextBudget, AMA-Bench. MEM1-7B is 3.5\u00d7 better and 3.7\u00d7 less memory than Qwen2.5-14B-Instruct on 16-objective multi-hop QA. Complexity Trap notes MEM1 trajectories are hundreds of tokens, not SWE-scale. Internal state is the training target (preferred), not a masked summary span.",
+      "behaviours": [
+        "constant_memory_state",
+        "per_turn_consolidation"
+      ]
+    },
+    {
+      "id": "arxiv:2509.23586",
+      "title": "Reducing Cost of LLM Agents with Trajectory Reduction (AgentDiet)",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.23586",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "Inference-time delete of useless/redundant/expired trajectory spans (not a fixed % watermark). 'Delete' baseline drops whole turns instead of summarizing.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Cited by Complexity Trap as concurrent LLM-Summary for SE agents. \u221239.9% to \u221259.7% input tokens and \u221221.1% to \u221235.9% cost at matched solve rate. Complexity Trap: their Delete baseline is more efficient than summary but severs reasoning traces and ignores that SE tokens are mostly observations.",
+      "behaviours": [
+        "trajectory_reduction",
+        "turn_delete"
+      ]
+    },
+    {
+      "id": "arxiv:2510.06727",
+      "title": "Scaling LLM Multi-turn RL with End-to-end Summarization-based Context Management (SUPO)",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.06727",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "Periodic LLM summary of tool-use history to stay inside a working context; test-time can use more summary rounds than train-time.",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "Lu et al.; Complexity Trap and TRACE cite it as summary-in-the-RL-loop for SE/CUA and search. Policy gradient treats tool-use and summarization as one policy. Success rises at same or lower working context; extra test-time summary rounds help hard search. Summaries are trained, not loss-masked.",
+      "behaviours": [
+        "periodic_summary",
+        "end_to_end_summary_rl"
+      ]
+    },
+    {
+      "id": "arxiv:2310.06770",
+      "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2310.06770",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "Issue-resolution bench; no native compaction protocol. Used as the substrate for Complexity Trap / Slipstream CM ablations (via Verified).",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Jimenez et al. ICLR 2024. Complexity Trap and Slipstream evaluate CM on SWE-bench Verified, not the original split. The bench itself does not trigger or grade compaction.",
+      "behaviours": [
+        "coding_bench"
+      ]
+    },
+    {
+      "id": "url:openai.com/index/introducing-swe-bench-verified",
+      "title": "Introducing SWE-bench Verified",
+      "year": 2024,
+      "url": "https://openai.com/index/introducing-swe-bench-verified",
+      "depth": 1,
+      "kind": "blog",
+      "trigger": "none",
+      "trigger_detail": "Human-filtered 500-instance SWE-bench split used by Complexity Trap and Slipstream. No CM trigger.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Chowdhury et al. 2024. The eval slice, not a compaction method. Complexity Trap runs full Verified; Slipstream uses it as the coding workload.",
+      "behaviours": [
+        "coding_bench"
+      ]
+    },
+    {
+      "id": "arxiv:2210.03629",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2210.03629",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "Append-only thought/action/observation loop; no compact.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Default no-CM baseline in Complexity Trap, AdaCoM, LOCA-bench, Context-Folding, AgentFold. AdaCoM uses vanilla ReAct score as the capability axis of the Fidelity\u2013Reliability trade-off.",
+      "behaviours": [
+        "react_full_history"
+      ]
+    },
+    {
+      "id": "arxiv:2509.13313",
+      "title": "ReSum: Unlocking Long-Horizon Search Intelligence via Context Summarization",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.13313",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "External summary tool when context approaches the length limit; ReSum-GRPO then trains the agent to continue from those summaries.",
+      "training": "RL",
+      "compressed_in_loss": "mixed",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "Cited by TRACE, AdaCoM, ContextBudget, Awesome. Training-free ReSum +4.5% vs ReAct; ReSum-GRPO +8.2% more via advantage broadcasting across summary-segmented trajectories. 1K samples suffice for a 30B agent. ACM (survey) later reports ReSum-style threshold summary underperforms plain ReAct on SWE-Verified (0.475 vs 0.489) \u2014 coding vs search discrepancy.",
+      "behaviours": [
+        "summary_tool",
+        "resum_grpo"
+      ]
+    },
+    {
+      "id": "arxiv:2510.00615",
+      "title": "ACON: Optimizing Context Compression for Long-horizon LLM Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.00615",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "Compress observations and history via NL guidelines; no agent weight update. Distill the optimized compressor into a smaller model.",
+      "training": "distill",
+      "compressed_in_loss": "masked",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "Cited by TRACE, Less Context, Governance Decay, Awesome. Guideline search contrasts successful full-context vs failed compressed rollouts (same family as TRACE's frozen-proposer idea). AppWorld / OfficeBench / multi-objective QA: \u221226\u201354% peak tokens and better success; up to +46% for smaller LMs. Agent frozen; compressor distilled. ACM later: ACON-style 0.480 < ReAct 0.489 on SWE-Verified.",
+      "behaviours": [
+        "guideline_optimization",
+        "compressor_distill"
+      ]
+    },
+    {
+      "id": "arxiv:2407.18901",
+      "title": "AppWorld: A Controllable World of Apps and People for Benchmarking Interactive Coding Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.18901",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "Stateful API world; earlier observations remain re-queryable. TRACE uses this to isolate execution-state failure from fact loss.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "750 tasks, 9 apps / 457 APIs. GPT-4o ~49% normal / ~30% challenge. TRACE's FIFO\u2248summary result is specific to this refetchable setting. ACON also evaluates here.",
+      "behaviours": [
+        "stateful_api_bench",
+        "refetchable_observations"
+      ]
+    },
+    {
+      "id": "github:openclaw/openclaw",
+      "title": "OpenClaw agent-core recurrent compaction harness",
+      "year": 2026,
+      "url": "https://github.com/openclaw/openclaw",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "Recurrent compact when working context exceeds B; replacement context is the only history for later steps (TRACE adapts packages/agent-core/.../compaction.ts @ 0e7b5c3).",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "TRACE's runtime. Also named by AdaCoM as a long-horizon app. Same loop used in AG2 / Hermes Agent per TRACE. Product hop; no further expansion.",
+      "behaviours": [
+        "recurrent_compaction"
+      ]
+    },
+    {
+      "id": "arxiv:2510.12635",
+      "title": "Memory as Action: Autonomous Context Curation for Long-Horizon Agentic Tasks (MemAct)",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.12635",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "agent_tool",
+      "trigger_detail": "Agent issues in-place memory edits (delete/insert/prune-and-summarize selected messages) as policy actions.",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "AdaCoM baseline. MemAct-RL-14B matches models ~16\u00d7 larger and cuts average context 51%. AdaCoM: asking the frozen agent to self-manage is unstable without agent-side training. Memory-edit tokens are on-policy actions (preferred in the manager/agent loss).",
+      "behaviours": [
+        "prune_tool",
+        "memory_as_action"
+      ]
+    },
+    {
+      "id": "arxiv:2504.12516",
+      "title": "BrowseComp: A Simple Yet Challenging Benchmark for Browsing Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2504.12516",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "1266 hard web questions; no native CM. DeepSeek/Slipstream/AgentFold/AdaCoM (via BrowseComp-Plus) use it as a long-horizon pressure source.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Wei et al. DeepSeek: 20%+ of cases overflow 128K, which is why the 80% CM exists. Slipstream's web workload. AgentFold-30B-A3B reports 36.2% here after SFT folding.",
+      "behaviours": [
+        "web_bench"
+      ]
+    },
+    {
+      "id": "arxiv:2510.11967",
+      "title": "Scaling Long-Horizon LLM Agent via Context-Folding (FoldGRPO)",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.11967",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "Agent branches a sub-trajectory and folds it on subtask completion, keeping a concise outcome summary (fold-on-branch-completion).",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "Cited by AdaCoM and ContextBudget (Sun et al. 2025). Survey headline: 58.0% SWE-bench Verified at 32K active budget vs 55.2% for 327K ReAct; tool calls 72.8\u219296.5. Beats summary-based CM. Fold actions are trained with process rewards (preferred).",
+      "behaviours": [
+        "context_folding",
+        "fold_on_branch_completion"
+      ]
+    },
+    {
+      "id": "arxiv:2508.20453",
+      "title": "MCP-Bench: Benchmarking Tool-Using LLM Agents with Complex Real-World Tasks via MCP Servers",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2508.20453",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "28 live MCP servers / 250 tools. No CM protocol. AdaCoM builds MCP-Bench-Wiki from its construction recipe; Less Context and Awesome list it as a tool-use bench.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Breadth-oriented MCP eval. Less Context argues it does not isolate the token/accuracy trade-off of verbose tool dumps. AdaCoM's deep-research split uses a Wikipedia-MCP variant.",
+      "behaviours": [
+        "mcp_tool_bench"
+      ]
+    },
+    {
+      "id": "url:www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "title": "Effective context engineering for AI agents (Anthropic)",
+      "year": 2025,
+      "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "unknown",
+      "trigger_detail": "Engineering post (2025-09-29): treat context as a finite attention budget; just-in-time retrieval; CLAUDE.md hybrid. Slipstream separately cites Anthropic 2026a for compact-at-5\u201320k / 50\u2013100k \u2014 that later note is not on this 2025 page.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Cited by LOCA-bench, Less Context, Parallel Compaction (Claude Code). Defines context rot and just-in-time file/tool retrieval. LOCA-bench implements Anthropic-style editing (tool-result/thinking/compaction) and memory/programmatic tools. Product hop; no further product expansion.",
+      "behaviours": [
+        "just_in_time_retrieval",
+        "context_rot"
+      ]
+    },
+    {
+      "id": "arxiv:2307.03172",
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.03172",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "Not a compact trigger; the U-shaped use-of-context result that motivates compacting before the window fills.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Cited by Complexity Trap, Parallel Compaction, ContextBudget, Governance Decay. Parallel Compaction: the same failure hits the summarizer (96k in \u2192 ~3% kept).",
+      "behaviours": [
+        "lost_in_the_middle"
+      ]
+    },
+    {
+      "id": "arxiv:2402.17753",
+      "title": "Evaluating Very Long-Term Conversational Memory of LLM Agents (LoCoMo)",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2402.17753",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "Multi-session dialogue memory bench (~9K tokens in AMA-Bench's table). Parallel Compaction uses it as a long-horizon accumulation workload, not a CM method.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Cited by Parallel Compaction and AMA-Bench. Dialogue-centric; AMA-Bench argues it misses machine-generated causal tool trajectories.",
+      "behaviours": [
+        "dialogue_memory_bench"
+      ]
+    },
+    {
+      "id": "arxiv:2510.24699",
+      "title": "AgentFold: Long-Horizon Web Agents with Proactive Context Management",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.24699",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "Each step the agent chooses a fold: granular condensation or deep consolidation of a finished sub-task. Not a token threshold.",
+      "training": "SFT",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "Cited by ContextBudget (Ye et al. 2025). AgentFold-30B-A3B: 36.2% BrowseComp / 47.3% BrowseComp-ZH with SFT only (no CPT/RL). Fold actions are SFT targets (preferred). Contrast with harness-controlled SFT-only continuation, which this project still treats as an open slice.",
+      "behaviours": [
+        "proactive_fold",
+        "multi_scale_fold"
+      ]
+    },
+    {
+      "id": "arxiv:2310.08560",
+      "title": "MemGPT: Towards LLMs as Operating Systems",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.08560",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "agent_tool",
+      "trigger_detail": "Virtual context: agent pages working context to/from external memory when the window is pressured.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Cited by AMA-Bench and Governance Decay as the OS-paging ancestor of compact/evict. Governance Decay: systems work (MemGPT, Slipstream, structured eviction) optimizes task accuracy, not constraint survival.",
+      "behaviours": [
+        "virtual_context_paging"
+      ]
+    },
+    {
+      "id": "arxiv:2601.11868",
+      "title": "Terminal-Bench: Benchmarking Agents on Hard, Realistic Tasks in Command Line Interfaces",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2601.11868",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "Terminus 2 'incorporates a context summarization module which makes calls to a language model to condense the agent's context when it reaches its model's context limit' \u2014 late, window-limit trigger.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Cited by DeepSeek-V3.2 (TB 2.0, 89 tasks). Frontier <65%. DeepSeek 46.4 via Claude Code because thinking-CM is incompatible with Terminus (user-message-simulated tools); Terminus non-thinking 39.3. CompactionRL (survey) also uses full TB 2.0. The bench discusses compaction only as a Terminus implementation detail, not as a graded CM factor.",
+      "behaviours": [
+        "terminus_limit_summary",
+        "cli_bench"
+      ]
+    },
+    {
+      "id": "arxiv:2603.06358",
+      "title": "A Scalable Benchmark for Repository-Oriented Long-Horizon Conversational Context Management (LoCoEval)",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2603.06358",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "unknown",
+      "trigger_detail": "Repo-oriented conversational CM bench (iterative requirements, noise, retrospective Qs). Compares 4 CM methods + 3 backbones; authors add a unified conversational+repo memory.",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Listed under Awesome Evaluation / coding-agent slice. Standalone LLMs and generic memory systems struggle on repo conversations. Complementary to LOCA-bench (env-state growth) and AMA-Bench (agent-memory QA).",
+      "behaviours": [
+        "repo_conversation_cm_bench"
+      ]
+    },
+    {
+      "id": "url:www.preprints.org/manuscript/202605.2065",
+      "title": "Context Compression for LLM Agents: A Survey of Methods, Failure Modes, and Evaluation",
+      "year": 2026,
+      "url": "https://www.preprints.org/manuscript/202605.2065",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "unknown",
+      "trigger_detail": "Survey, not a trigger. Q=(D,R,P,O); F1/F2/F3 failure taxonomy used in the DSM-AE Stage-3 plan.",
+      "training": "unknown",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "YerbaPage et al.; EMNLP 2026 Main. Preprints.org HTML was blocked (Akamai); fields recovered from the Awesome README that is the survey's companion list. Calls out missing standardized CM benches \u2014 LOCA/TRACE/Slipstream/ConstraintRot fill that gap.",
+      "behaviours": [
+        "survey",
+        "f1_f2_f3"
+      ]
+    },
+    {
+      "id": "arxiv:2310.05736",
+      "title": "LLMLingua: Compressing Prompts for Accelerated Inference of Large Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.05736",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "Token-level prompt compression, not agent-turn CM.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Cited by TRACE, Less Context, Awesome related surveys. Less Context: token deletion can corrupt verbatim ERP form state; they evict whole tool pairs instead.",
+      "behaviours": [
+        "token_prompt_compression"
+      ]
+    },
+    {
+      "id": "arxiv:2406.12045",
+      "title": "\u03c4-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.12045",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "No CM. TRACE borrows Pass^k (solved in all k runs) vs Pass@k.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Trivedi/Yao-style tool-user bench. TRACE uses k=2 Pass^k to show compression converts reliably-solved AppWorld tasks into intermittently-solved ones.",
+      "behaviours": [
+        "pass_hat_k"
+      ]
+    },
+    {
+      "id": "arxiv:2402.03300",
+      "title": "DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models (GRPO)",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2402.03300",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "Not a compact trigger. GRPO is the optimizer under ContextBudget, ReSum-GRPO, FoldGRPO, AdaCoM-style group RL.",
+      "training": "RL",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Cited by ContextBudget. ReSum-GRPO broadcasts advantages across summary-segmented trajectories; ContextBudget zeros reward on budget violations. Relevant to how summary tokens enter the loss (usually the whole rollout, not mask-summary).",
+      "behaviours": [
+        "grpo"
+      ]
+    },
+    {
+      "id": "url:research.trychroma.com/context-rot",
+      "title": "Context rot (Chroma)",
+      "year": 2025,
+      "url": "https://research.trychroma.com/context-rot",
+      "depth": 2,
+      "kind": "blog",
+      "trigger": "none",
+      "trigger_detail": "Documents accuracy drop with context length even when the fact is present \u2014 the reason products compact before the window.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Linked from the Anthropic 2025-09-29 engineering post. Slipstream quotes 13.9\u201385% / 14\u201385% context-rot drops (Du et al. 2025 / this line of work) as why compact is now routine, not last-resort.",
+      "behaviours": [
+        "context_rot"
+      ]
+    },
+    {
+      "id": "arxiv:2308.03688",
+      "title": "AgentBench: Evaluating LLMs as Agents",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.03688",
+      "depth": 2,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "Classic agent suite; Awesome Evaluation list. No CM protocol.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Hop from Awesome eval section. Useful as a generic agent suite, not a compaction bench.",
+      "behaviours": [
+        "agent_bench"
+      ]
+    },
+    {
+      "id": "arxiv:2307.13854",
+      "title": "WebArena: A Realistic Web Environment for Building Autonomous Agents",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.13854",
+      "depth": 2,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "Web agent env listed in Awesome Evaluation. No CM protocol.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Hop from Awesome eval section and OpenHands's original eval mix. Not a compaction study.",
+      "behaviours": [
+        "web_env"
+      ]
+    },
+    {
+      "id": "github:hkust-nlp/LOCA-bench",
+      "title": "LOCA-bench code / env toolkit",
+      "year": 2026,
+      "url": "https://github.com/hkust-nlp/LOCA-bench",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "Implements the paper's context-editing and tool-use CM strategies (see arxiv:2602.07962).",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Open-source harness for the LOCA-bench paper. GEM-based; env/tools/tasks/scaffold decoupled.",
+      "behaviours": [
+        "cm_eval_harness"
+      ]
+    },
+    {
+      "id": "github:nokia-applied-research/Trace",
+      "title": "TRACE code",
+      "year": 2026,
+      "url": "https://github.com/nokia-applied-research/Trace",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "Implements TRACE's OpenClaw-adapted recurrent compact + PRE/POST verifier.",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Companion to arxiv:2608.06503. Product hop; no further expansion.",
+      "behaviours": [
+        "boundary_local_eval"
+      ]
+    },
+    {
+      "id": "github:chenzhuofu/slipstream",
+      "title": "Slipstream code",
+      "year": 2026,
+      "url": "https://github.com/chenzhuofu/slipstream",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "Implements async compact + next-k judge (see arxiv:2605.08580).",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Companion to Slipstream. Product hop; no further expansion.",
+      "behaviours": [
+        "async_compaction"
+      ]
+    },
+    {
+      "id": "arxiv:2607.05378",
+      "title": "CompactionRL: Reinforcement Learning with Context Compaction for Long-Horizon Agents",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2607.05378",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "fires when remaining budget < T_comp = 10,240 tokens (equal to per-response cap); resume = system + summary template + last k=2 atomic (a,o) steps; at most 3 compactions; peak B_active 64k (30B) / 80k (106B)",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "PPO jointly trains execution and summary tokens under the task reward. w/o-summary-training (compaction on, summary turns masked) recovers most of the gain: 30B SWE-Verified compacted 50.5\u219254.5 vs 56.0 full; 106B 59.8\u219264.5 vs 66.8. Summarizer swap alone swings 49.0\u219255.5. No-compaction RL hurts compacted inference on 30B (50.5\u219248.0).",
+      "behaviours": [
+        "threshold-reserve",
+        "summary-plus-tail-k2",
+        "ppo-summary-in-loss",
+        "wo-summary-training-ablation",
+        "token-level-loss",
+        "cross-trajectory-gae"
+      ]
+    },
+    {
+      "id": "arxiv:2607.23809",
+      "title": "ACM: Agentic Context Management for Long Horizon Tasks",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2607.23809",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "agent_tool",
+      "trigger_detail": "agent calls manage_context (summarize + offload raw turns to disk) and query_memory; teacher injects when redundant queries / unproductive loops / sufficient context, and replaces premature calls; GPT-5.5 almost never invokes the tools",
+      "training": "distill",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "On-policy distillation: teacher top-K=20 soft labels on all assistant tokens (manage_context included); system/user/tool-output masked. Resume-from-edit after teacher annotation. ReAct 0.489 \u2192 ACM-data 0.530 \u2192 +GPT-5.5 distill 0.564 on SWE-Verified. Threshold summary agents (ReSum-style 0.475, ACON-style 0.480) underperform ReAct.",
+      "behaviours": [
+        "agent-initiated-tool",
+        "lossless-offload",
+        "teacher-when-and-when-not",
+        "on-policy-distill-assistant-tokens",
+        "resume-from-edit"
+      ]
+    },
+    {
+      "id": "arxiv:2512.22087",
+      "title": "Context as a Tool: Context Management for Long-Horizon SWE-Agents (CaT / SWE-Compressor)",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2512.22087",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "agent_tool",
+      "trigger_detail": "callable context tool at milestones: subtask completion, strategy switch, intermediate milestones, or context-growth/error-correction heuristics (not a fixed token threshold); workspace = Q + long-term memory M(t) + last-k raw ReAct steps",
+      "training": "SFT",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "CaT-Generator injects context-management Actions into complete ReAct trajectories then SFT+rejection sampling (drop failed trajs and unreasonable CM). CaT-Instruct ~20k trajs, avg 4.22 CM actions, 15.6k\u21924.7k tokens (30%). SWE-Compressor 32B 57.6% vs ReAct 49.8 and threshold-compression 53.8 on SWE-Verified.",
+      "behaviours": [
+        "offline-injection",
+        "semantic-boundary-heuristics",
+        "sft-on-cm-actions",
+        "rejection-sampling",
+        "summary-plus-recent-k"
+      ]
+    },
+    {
+      "id": "arxiv:2606.23525",
+      "title": "Self-Compacting Language Model Agents (SelfCompact)",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2606.23525",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "rubric probe every N tokens (math) or N tool calls (search); fire if sub-task resolved or trajectory converging; suppress mid-derivation or when stuck; fallback fixed-interval baseline at 30% of max context (MiniMax-M2.5 / WebExplorer recipe)",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Training-free. Rubric is load-bearing: tool-alone is uneven; removing rubric drops accuracy 46.4%\u219241.0% (level with fixed-interval). +18.1 math / +5\u20139 search at 30\u201370% lower cost vs no compaction.",
+      "behaviours": [
+        "rubric-gated",
+        "inference-time-only",
+        "suppress-mid-derivation",
+        "same-model-summarizer"
+      ]
+    },
+    {
+      "id": "arxiv:2507.02259",
+      "title": "MemAgent: Reshaping Long-Context LLM with Multi-Conv RL-based Memory Agent",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2507.02259",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "document streamed in fixed chunks (paper: 5000-token chunks + 1024-token memory inside an 8K window); after each chunk the model overwrites the previous memory",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "Multi-Conv DAPO: each chunk-update is an independent conversation; final-answer reward/advantage is broadcast to all preceding memory-overwrite generations. Memory tokens are the trained actions. Extrapolates 8K-trained model to 3.5M QA with <10% drop.",
+      "behaviours": [
+        "chunk-overwrite",
+        "multi-conv-dapo",
+        "memory-tokens-in-loss"
+      ]
+    },
+    {
+      "id": "arxiv:2508.19828",
+      "title": "Memory-R1: Enhancing Large Language Model Agents to Manage and Utilize Memories via Reinforcement Learning",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2508.19828",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "Memory Manager runs ADD/UPDATE/DELETE/NOOP after each dialogue turn on extracted facts; not a token watermark",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "PPO or GRPO on the manager's operation+content tokens; reward is downstream EM of a frozen Answer Agent. 152 QA pairs. Authors argue SFT is impractical because every memory op would need labels. External-bank memory, not working-context summarization.",
+      "behaviours": [
+        "external-memory-ops-in-loss",
+        "outcome-reward",
+        "sft-impractical-for-ops"
+      ]
+    },
+    {
+      "id": "arxiv:2510.08790",
+      "title": "COMPASS: Enhancing Agent Long-Horizon Reasoning with Evolving Context",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.08790",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "Context Manager synthesizes a progress brief each outer-loop turn; Meta-Thinker decides continue / replan / extract-answer; Main Agent runs a ReAct inner loop on the refreshed brief",
+      "training": "mixed",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Hierarchical (Main / Meta-Thinker / Context Manager). Post-training pipeline delegates context management to a smaller Context-12B. Up to +20% relative on GAIA / BrowseComp / HLE vs single- and multi-agent baselines. Paper does not isolate whether brief tokens enter a student SFT loss.",
+      "behaviours": [
+        "hierarchical-briefs",
+        "meta-thinker-timing",
+        "distill-context-manager"
+      ]
+    },
+    {
+      "id": "arxiv:2602.22603",
+      "title": "SideQuest: Model-Driven KV Cache Management for Long-Horizon Agentic Reasoning",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2602.22603",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "agent_tool",
+      "trigger_detail": "auxiliary parallel task: the LRM reasons about token usefulness and evicts stale KV; management tokens are kept off the main reasoning context",
+      "training": "SFT",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "215 hindsight-annotated traces teach deletion commands. \u221265% peak tokens on agentic tasks. Complementary to textual summarization: operates on the KV cache.",
+      "behaviours": [
+        "kv-eviction",
+        "hindsight-sft-on-delete-commands",
+        "aux-task"
+      ]
+    },
+    {
+      "id": "arxiv:2510.04618",
+      "title": "Agentic Context Engineering: Evolving Contexts for Self-Improving Language Models (ACE)",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.04618",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "Generator/Reflector/Curator loop incrementally updates a playbook; no intra-episode token watermark",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Cross-task evolving playbook, not intra-trajectory compaction. ACM Table 1 marks ACE Compact=\u2717. Warns against brevity bias and context collapse from iterative rewriting.",
+      "behaviours": [
+        "playbook-curation",
+        "avoid-brevity-bias",
+        "not-intra-episode-compact"
+      ]
+    },
+    {
+      "id": "arxiv:2403.12968",
+      "title": "LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2403.12968",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "not an agent trigger: task-agnostic extractive prompt compression via a distilled token classifier",
+      "training": "distill",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "sft"
+      ],
+      "notes": "ACON's extractive baseline. Student is trained with CE on keep/drop (or compressed text) labels distilled from GPT-4 \u2014 compressed representation is the training target. Not agent-history compaction.",
+      "behaviours": [
+        "extractive-token-classifier",
+        "distill-compressor"
+      ]
+    },
+    {
+      "id": "arxiv:2509.06501",
+      "title": "WebExplorer: Explore and Evolve for Training Long-Horizon Web Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.06501",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "SelfCompact/MiniMax-M2.5 cite the WebExplorer scaffold: when token usage exceeds 30% of max context, discard all history (Delete-all); 128K window, up to 100 tool turns",
+      "training": "mixed",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "SFT then RL on long-horizon web trajectories. The 30% discard-all recipe is the fixed-interval baseline SelfCompact beats. Paper itself is a web-agent trainer, not a compaction-loss study.",
+      "behaviours": [
+        "30-percent-delete-all",
+        "sft-then-rl-web-agent"
+      ]
+    },
+    {
+      "id": "arxiv:2503.14476",
+      "title": "DAPO: An Open-Source LLM Reinforcement Learning System at Scale",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.14476",
+      "depth": 2,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "RL infrastructure (decoupled clip, dynamic sampling); no agent compaction trigger",
+      "training": "RL",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "MemAgent's Multi-Conv DAPO extends this to treat each memory-overwrite conversation as an optimization unit and broadcast the final reward \u2014 the recipe later reused conceptually by ReSum-GRPO / SUPO segment training.",
+      "behaviours": [
+        "group-rl-infra",
+        "reward-broadcast-template"
+      ]
+    },
+    {
+      "id": "arxiv:2504.19413",
+      "title": "Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2504.19413",
+      "depth": 2,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "per dialogue turn extract facts then ADD/UPDATE/DELETE/NOOP into an external store (optionally graph memory)",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Heuristic operator set that Memory-R1 later RL-trains. Cross-session memory, not intra-episode working-context compaction. \u221290% token cost vs full-context.",
+      "behaviours": [
+        "external-ops-heuristic",
+        "cross-session"
+      ]
+    },
+    {
+      "id": "url:platform.claude.com/cookbook/claude_code",
+      "title": "Claude Code cookbook / auto-compaction (seed path)",
+      "year": 2025,
+      "url": "https://platform.claude.com/cookbook/claude_code",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "unknown",
+      "trigger_detail": "seed path; live auto-compaction cookbook is tool-use-automatic-context-compaction",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Seed id from seeds.json. The shipped auto-compaction notebook is at platform.claude.com/cookbook/tool-use-automatic-context-compaction (default context_token_threshold 100000). This seed path itself was not independently verified as a live page.",
+      "behaviours": []
+    },
+    {
+      "id": "url:platform.claude.com/cookbook/tool-use-automatic-context-compaction",
+      "title": "Automatic context compaction (Claude Cookbook)",
+      "year": 2025,
+      "url": "https://platform.claude.com/cookbook/tool-use-automatic-context-compaction",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "SDK compaction_control.context_token_threshold default 100,000 tokens",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Published 2025-11-24. Agent Python SDK monitors tokens per turn; when threshold exceeded, injects a summary prompt, model writes <summary></summary>, history is cleared, task resumes from summary only. Default threshold 100000. Recommends server-side compaction for Opus 4.6+.",
+      "behaviours": [
+        "sdk-auto-compact",
+        "summary-replace-history"
+      ]
+    },
+    {
+      "id": "url:docs.claude.com/en/docs/claude-code",
+      "title": "Claude Code docs (seed)",
+      "year": 2026,
+      "url": "https://docs.claude.com/en/docs/claude-code",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "canonical pages now live under code.claude.com; see context-window and model-config",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Seed registry path. Current official compaction behaviour is documented at code.claude.com (context-window, model-config, how-claude-code-works).",
+      "behaviours": [
+        "auto-compact",
+        "/compact"
+      ]
+    },
+    {
+      "id": "url:code.claude.com/docs/en/context-window",
+      "title": "Explore the context window (Claude Code)",
+      "year": 2026,
+      "url": "https://code.claude.com/docs/en/context-window",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "auto-compacts as you approach the model limit; /autocompact sets the window; /compact anytime",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "After compact: system prompt unchanged; project-root CLAUDE.md, unscoped rules, auto memory, plan re-injected from disk; re-reads up to five most recently modified files (path-only if >5000 tokens); skill bodies re-injected with 5k/skill and 25k total caps. Subagent large reads stay out of parent context.",
+      "behaviours": [
+        "auto-compact",
+        "/compact",
+        "/autocompact",
+        "/rewind-summarize",
+        "re-read-last-5-files",
+        "subagent"
+      ]
+    },
+    {
+      "id": "url:code.claude.com/docs/en/model-config",
+      "title": "Model configuration \u2014 default auto-compact thresholds",
+      "year": 2026,
+      "url": "https://code.claude.com/docs/en/model-config",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "unset window: compact at model's context limit; Sonnet 5 default ~967K; 200K models compact at 200K boundary",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "User can set auto-compact window via /autocompact 500k, --autocompact, autoCompactWindow setting, or CLAUDE_CODE_AUTO_COMPACT_WINDOW (env wins). Accepted 100K\u20131M, capped at model window. Sonnet 5 always 1M on Anthropic API and auto-compacts at about 967K unless CLAUDE_CODE_DISABLE_1M_CONTEXT=1 (then 200K).",
+      "behaviours": [
+        "auto-compact",
+        "/autocompact",
+        "env-override"
+      ]
+    },
+    {
+      "id": "url:code.claude.com/docs/en/how-claude-code-works",
+      "title": "How Claude Code works \u2014 when context fills up",
+      "year": 2026,
+      "url": "https://code.claude.com/docs/en/how-claude-code-works",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "tool_trim",
+      "trigger_detail": "clears older tool outputs first, then summarizes if needed",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Official two-stage fill-up: older tool outputs cleared first; conversation summarized if still needed. Requests and key snippets preserved; early detailed instructions may be lost. Compact Instructions in CLAUDE.md or /compact with a focus. Stops auto-compact after a few thrashing attempts if one file/output immediately refills context.",
+      "behaviours": [
+        "tool-output-clear",
+        "auto-compact",
+        "/compact"
+      ]
+    },
+    {
+      "id": "url:platform.claude.com/docs/en/build-with-claude/compaction",
+      "title": "Messages API server-side compaction",
+      "year": 2026,
+      "url": "https://platform.claude.com/docs/en/build-with-claude/compaction",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "compact_20260112 fires when input tokens reach a configured trigger; default not a published %",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Beta compact-2026-01-12. API summarizes, emits a compaction block, continues; later requests drop content before that block. Distinct from Claude Code client compaction.",
+      "behaviours": [
+        "server-side-compact"
+      ]
+    },
+    {
+      "id": "url:www.nathanonn.com/claude-code-never-auto-compact",
+      "title": "Never Let Claude Code Auto-Compact Again",
+      "year": 2026,
+      "url": "https://www.nathanonn.com/claude-code-never-auto-compact/",
+      "depth": 1,
+      "kind": "blog",
+      "trigger": "semantic",
+      "trigger_detail": "practitioner: watch 30\u201350%, finish micro-task then compact ~50\u201360%; 1M windows treat 15\u201320% as reset band",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Anecdotal. Auto-compact is a seatbelt with no task-boundary awareness. Compact after a feature/tests, after root-cause, before research\u2192implementation. Never mid-implementation. /compact KEEP/SUMMARIZE/DROP template. CLAUDE.md Compact Instructions. 1M: 15\u201320% practical reset (20% of 1M is already a large session).",
+      "behaviours": [
+        "manual-/compact",
+        "semantic-boundary",
+        "statusline"
+      ]
+    },
+    {
+      "id": "url:www.mindstudio.ai/blog/claude-code-compact-command-context-management",
+      "title": "How to Use the /compact Command in Claude Code",
+      "year": 2026,
+      "url": "https://www.mindstudio.ai/blog/claude-code-compact-command-context-management",
+      "depth": 1,
+      "kind": "blog",
+      "trigger": "threshold",
+      "trigger_detail": "practitioner 60% rule: run /compact at ~60%, not 80\u201395%",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Anecdotal 2026-04-02. At 60% the summary is written from uncompressed history; at 80\u201395% you summarize a degraded view. Append preservation instructions to /compact.",
+      "behaviours": [
+        "manual-/compact"
+      ]
+    },
+    {
+      "id": "url:okhlopkov.com/claude-code-compaction-explained",
+      "title": "Claude Code /compact: What It Does, What Survives",
+      "year": 2026,
+      "url": "https://okhlopkov.com/claude-code-compaction-explained/",
+      "depth": 1,
+      "kind": "blog",
+      "trigger": "threshold",
+      "trigger_detail": "author states auto-compact at roughly 95% of the limit (not official)",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Anecdotal 2026-03-30. Manual /compact at task boundaries. compactPrompt in settings.json. PreCompact/PostCompact hooks for checkpoints. CLAUDE.md for durable rules. Author's 95% figure is not from current official docs (which use model-limit / ~967K for Sonnet 5).",
+      "behaviours": [
+        "manual-/compact",
+        "hooks"
+      ]
+    },
+    {
+      "id": "url:github.com/anthropics/claude-code/issues/42817",
+      "title": "Auto-compact cannot be disabled \u2014 measurements",
+      "year": 2026,
+      "url": "https://github.com/anthropics/claude-code/issues/42817",
+      "depth": 1,
+      "kind": "forum",
+      "trigger": "threshold",
+      "trigger_detail": "reporter: CLAUDE_AUTOCOMPACT_PCT_OVERRIDE Math.min-clamped to ~83%; one 1M session compacted at ~35%/346K",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Forum. v2.1.90 / Opus 4.6 1M. User claimed /config auto-compact false, autoCompactEnabled, DISABLE_AUTO_COMPACT all ignored. Related issues cite ~78% and ~85% hard stops. Treat as user measurement, not official default.",
+      "behaviours": [
+        "auto-compact"
+      ]
+    },
+    {
+      "id": "url:developers.openai.com/codex",
+      "title": "OpenAI Codex CLI / IDE",
+      "year": 2026,
+      "url": "https://developers.openai.com/codex",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "auto at model_auto_compact_token_limit (model-specific tokens, also clamped to ~90% of window); /compact manual",
+      "training": "unknown",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Official slash-command docs: /compact summarizes the visible conversation. Config keys model_context_window and model_auto_compact_token_limit. OpenAI staff example for 1M Sol: compact at 900000. Source compact.rs keeps recent user messages up to COMPACT_USER_MESSAGE_MAX_TOKENS=20000 plus summary; local vs remote /v1/compact. PR #11516 clamps auto-compact to min(configured, 90% of context window).",
+      "behaviours": [
+        "auto-compact",
+        "/compact",
+        "remote-compact",
+        "summary-plus-recent-user-tail"
+      ]
+    },
+    {
+      "id": "github:openai/codex",
+      "title": "openai/codex compact.rs",
+      "year": 2026,
+      "url": "https://github.com/openai/codex/blob/main/codex-rs/core/src/compact.rs",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "token usage vs get_auto_compact_token_limit(); COMPACT_USER_MESSAGE_MAX_TOKENS = 20_000",
+      "training": "unknown",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Local summarization prompt is a handoff for another LLM. Mid-turn compaction injects initial context above last user message because the model is trained to see the compaction summary last. Overflow while compacting trims oldest history to preserve prefix cache.",
+      "behaviours": [
+        "auto-compact",
+        "manual-compact",
+        "keep-recent-20k-user"
+      ]
+    },
+    {
+      "id": "url:github.com/openai/codex/issues/20272",
+      "title": "Codex Auto Compact on Terminal is completely broken",
+      "year": 2026,
+      "url": "https://github.com/openai/codex/issues/20272",
+      "depth": 1,
+      "kind": "forum",
+      "trigger": "threshold",
+      "trigger_detail": "users hit remote compact endpoint failures mid-session",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Forum 2026-04-29, Codex v0.125.0 / gpt-5.5. Error running remote compact task against chatgpt.com/backend-api/codex/responses/compact. Confirms auto-compact is expected product behaviour even when broken.",
+      "behaviours": [
+        "auto-compact",
+        "remote-compact"
+      ]
+    },
+    {
+      "id": "local:grok-build-user-guide",
+      "title": "Grok Build TUI user guide (compaction)",
+      "year": 2026,
+      "url": "file:///home/arcyleung/.grok/docs/user-guide/04-slash-commands.md",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "auto at 85% of model context_window; [session] auto_compact_threshold_percent (default 85); /compact [keep note]",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Official local docs. /compact optional keep-instructions. context_window on [model.*] drives when 85% is reached (new custom models default 200000 if omitted). [features] two_pass_compaction default true; compaction_mode summary|transcript|segments. Memory: /flush before compact; [compaction.memory_flush] soft_threshold_tokens=4000 headroom; memory searched after auto-compact. Tool-result pruning: keep_last_n_turns=3, soft_trim 4000 chars (1500+1500), hard_clear_age_turns=10. Headless compact_boundary / auto_compact_* events. Plan mode state preserved. Public source mirror github.com/xai-org/grok-build (DEFAULT_AUTO_COMPACT_THRESHOLD_PERCENT=85).",
+      "behaviours": [
+        "auto-compact-85pct",
+        "/compact",
+        "two-pass",
+        "tool-result-prune",
+        "pre-compact-memory-flush",
+        "post-compact-memory-search",
+        "compact_boundary"
+      ]
+    },
+    {
+      "id": "github:xai-org/grok-build",
+      "title": "xai-org/grok-build compaction crate",
+      "year": 2026,
+      "url": "https://github.com/xai-org/grok-build",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "DEFAULT_AUTO_COMPACT_THRESHOLD_PERCENT = 85; intra-compaction trigger_threshold_percent default 85",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Public mirror of Grok Build. Full-replace auto-compact at 85% of context_length.max_len. Intra-compaction also defaults to 85%, min_steps_before_compact=3, min_compactable_tokens=5000, max_reduction_ratio=0.8. Comment: shared ~85% trigger with Grok chat.",
+      "behaviours": [
+        "auto-compact-85pct",
+        "intra-compaction"
+      ]
+    },
+    {
+      "id": "url:cursor.com/blog/self-summarization",
+      "title": "Training Composer for longer horizons",
+      "year": 2026,
+      "url": "https://cursor.com/blog/self-summarization",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "research evals used fixed 80k and 40k token triggers; product default % unpublished",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "2026-03-17. Composer pauses at a fixed token-length trigger, is asked to self-summarize (~1k tokens vs ~5k prompted baseline), then continues with summary plus conversation state (plan, remaining tasks, prior summarization count). Same procedure is in RL training; final reward applies to agent tokens and self-summaries. Product forum: staff suggested /summarize around 70\u201380% when auto was late; no official shipping %.",
+      "behaviours": [
+        "self-summarize",
+        "fixed-token-trigger",
+        "summary-plus-state"
+      ]
+    },
+    {
+      "id": "url:forum.cursor.com/t/compaction-not-happening-soon-enough/149490",
+      "title": "Compaction not happening soon enough (Cursor forum)",
+      "year": 2026,
+      "url": "https://forum.cursor.com/t/compaction-not-happening-soon-enough/149490",
+      "depth": 1,
+      "kind": "forum",
+      "trigger": "threshold",
+      "trigger_detail": "user: used to fire ~70\u201380%, now late at 90\u2013100%; staff: try /summarize at 70\u201380%",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "2026-01-21. Confirms product auto-summarization exists and can fire late. Manual /summarize recommended. Distinct from Cursor 3.4 'compact chat' display density.",
+      "behaviours": [
+        "auto-summarize",
+        "/summarize"
+      ]
+    },
+    {
+      "id": "url:docs.cline.bot/features/auto-compact",
+      "title": "Cline Auto Compact",
+      "year": 2026,
+      "url": "https://docs.cline.bot/features/auto-compact",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "when conversation approaches the model context-window limit; no published %",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "LLM summarization replaces history and continues. Shown as a summarization tool call. Manual /smol alias /compact. Fallback to rule-based truncation on unsupported models. Checkpoints can restore pre-summary state.",
+      "behaviours": [
+        "auto-compact",
+        "/smol",
+        "/compact",
+        "truncate-fallback"
+      ]
+    },
+    {
+      "id": "url:docs.cline.bot/features/slash-commands/smol",
+      "title": "Cline /smol (manual compact)",
+      "year": 2026,
+      "url": "https://docs.cline.bot/features/slash-commands/smol",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "manual",
+      "trigger_detail": "/smol or /compact compresses in-place; user reviews summary",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Same action as Auto Compact but user-triggered. Unlike /newtask, stays in the same task. History after accept is the summary only.",
+      "behaviours": [
+        "/smol",
+        "/compact"
+      ]
+    },
+    {
+      "id": "url:docs.roocode.com/features/intelligent-context-condensing",
+      "title": "Roo Code Intelligent Context Condensing",
+      "year": 2026,
+      "url": "https://docs.roocode.com/features/intelligent-context-condensing",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "slider default 100% of context-window usage; user can set e.g. 80%; plus 25% truncate on API overflow",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Enabled by default. Auto toggle + threshold slider + custom condensing prompt. Manual Condense Context button. Reserves ~30% of window (20% output + 10% safety) so ~70% is conversation. Overflow recovery truncates 25% and retries. Condensing always uses the active conversation model.",
+      "behaviours": [
+        "auto-condense",
+        "manual-condense",
+        "overflow-truncate-25pct"
+      ]
+    },
+    {
+      "id": "github:continuedev/continue",
+      "title": "Continue conversationCompaction.ts",
+      "year": 2026,
+      "url": "https://github.com/continuedev/continue/blob/main/core/util/conversationCompaction.ts",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "manual",
+      "trigger_detail": "compactConversation(sessionId, index) \u2014 user/index-driven; no published auto %",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Source helper summarizes history up to an index with a structured prompt (overview, active development, stack, \u2026) and prepends 'Previous conversation summary'. Official docs did not publish an auto-threshold. Treat auto as unknown.",
+      "behaviours": [
+        "manual-compact",
+        "summary-replace-prefix"
+      ]
+    },
+    {
+      "id": "url:aider.chat/docs/troubleshooting/token-limits.html",
+      "title": "Aider token limits",
+      "year": 2026,
+      "url": "https://aider.chat/docs/troubleshooting/token-limits.html",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "none",
+      "trigger_detail": "no conversation auto-compact; user /drop /clear /tokens; repo-map token budget --map-tokens default 1k",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Aider never enforces token limits; it reports provider errors. Context control is file-set management and a ranked repo map, not LLM history summarization. Infinite-output is output-limit continuation via prefill, not compaction.",
+      "behaviours": [
+        "/clear",
+        "/drop",
+        "repo-map"
+      ]
+    },
+    {
+      "id": "url:docs.openhands.dev/sdk/arch/condenser",
+      "title": "OpenHands Condenser",
+      "year": 2026,
+      "url": "https://docs.openhands.dev/sdk/arch/condenser",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "LLMSummarizingCondenser when event count > max_size (docs default 120; get_default_condenser often max_size=80); keep_first default 4",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Event-count, not token-%. Keeps first N + last M, LLM-summarizes the middle into a Condensation event. Also reactive on LLMContextWindowExceedError. Blog 2025-04-09: up to 2x cheaper, ~54% vs 53% solve. Fallback historically chopped history roughly in half.",
+      "behaviours": [
+        "event-count-condense",
+        "keep-first-and-tail",
+        "overflow-condensation"
+      ]
+    },
+    {
+      "id": "url:www.openhands.dev/blog/openhands-context-condensensation-for-more-efficient-ai-agents",
+      "title": "OpenHands Context Condensation blog",
+      "year": 2025,
+      "url": "https://www.openhands.dev/blog/openhands-context-condensensation-for-more-efficient-ai-agents",
+      "depth": 1,
+      "kind": "blog",
+      "trigger": "threshold",
+      "trigger_detail": "when conversation grows beyond a (unspecified numeric) threshold; summarize older, keep recent",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "2025-04-09. Bounded conversation size; summary encodes goals, progress, remaining work, critical files, failing tests. Extra turn used to condense.",
+      "behaviours": [
+        "llm-summarize-middle"
+      ]
+    },
+    {
+      "id": "github:SWE-agent/SWE-agent",
+      "title": "SWE-agent history processors",
+      "year": 2024,
+      "url": "https://github.com/SWE-agent/SWE-agent/blob/main/sweagent/agent/history_processors.py",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "tool_trim",
+      "trigger_detail": "LastNObservations n=5 (classic paper config): older observations replaced by 'Old environment output: (n lines omitted)'",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "No LLM /compact. Observation masking every step after the last n. Paper (arXiv 2405.15793): last-5-obs 18.0 vs full history 15.0 on SWE-bench. ClosedWindowHistoryProcessor collapses stale file windows. Breaks prompt cache unless polling workarounds.",
+      "behaviours": [
+        "observation-mask-last-n",
+        "closed-window"
+      ]
+    },
+    {
+      "id": "github:SWE-agent/mini-swe-agent",
+      "title": "mini-SWE-agent",
+      "year": 2026,
+      "url": "https://github.com/SWE-agent/mini-SWE-agent",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "none",
+      "trigger_detail": "linear append-only history; no compaction documented",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Designed so trajectory == messages. No history processors. Context overflow is a hard limit unless the model window is large enough. FAQ contrasts with SWE-agent if you want history processors.",
+      "behaviours": [
+        "linear-history"
+      ]
+    },
+    {
+      "id": "url:docs.github.com/copilot/concepts/agents/copilot-cli/context-management",
+      "title": "Managing context in GitHub Copilot CLI",
+      "year": 2026,
+      "url": "https://docs.github.com/en/copilot/concepts/agents/copilot-cli/context-management",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "background compact ~80%; pause-wait ~95%; /compact anytime; tool output >20 KiB offloaded",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Official. Snapshot \u2192 structured summary (goals, done, files, next steps) \u2192 replace history with summary + original user instructions + current plans/todos; keep messages added during background compact. Tool output >20 KiB saved to temp file (COPILOT_LARGE_OUTPUT_THRESHOLD_BYTES). Checkpoints stored per compact. VS Code agent: chat.summarizeAgentConversationHistory.enabled; community source-trace ~0.78\u20130.82 warm / \u22650.90 cold.",
+      "behaviours": [
+        "auto-compact-80pct",
+        "/compact",
+        "tool-output-offload-20kib",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "url:github.com/orgs/community/discussions/166415",
+      "title": "How do I disable Summarized conversation history in Copilot Agent?",
+      "year": 2026,
+      "url": "https://github.com/orgs/community/discussions/166415",
+      "depth": 1,
+      "kind": "forum",
+      "trigger": "threshold",
+      "trigger_detail": "VS Code setting github.copilot.chat.summarizeAgentConversationHistory.enabled",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Forum. Confirms IDE agent-mode history summarization is on by default and can be disabled. /compact added in VS Code Insiders Feb 2026 (discussion #177818).",
+      "behaviours": [
+        "auto-summarize",
+        "disable-setting"
+      ]
+    },
+    {
+      "id": "github:google-gemini/gemini-cli",
+      "title": "Gemini CLI ChatCompressionService",
+      "year": 2026,
+      "url": "https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/context/chatCompressionService.ts",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "DEFAULT_COMPRESSION_TOKEN_THRESHOLD = 0.5 of model token limit; force=true for manual",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Source comment: if chat history exceeds this fraction of the model token limit, compress. PreCompress hook (Manual vs Auto). Community source read: preserve last ~30% aligned to a user-turn boundary; XML <state_snapshot>; second LLM probe/verify pass. Official product docs page for the 0.5 default was not separately fetched beyond this source file.",
+      "behaviours": [
+        "auto-compress-50pct",
+        "manual-force",
+        "xml-snapshot",
+        "verify-pass"
+      ]
+    },
+    {
+      "id": "url:goose-docs.ai/docs/guides/sessions/smart-context-management",
+      "title": "goose Smart Context Management",
+      "year": 2026,
+      "url": "https://goose-docs.ai/docs/guides/sessions/smart-context-management",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "auto-compact default 80% (GOOSE_AUTO_COMPACT_THRESHOLD=0.8); disable at 0.0; plus older tool-output summarization",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Official. Manual Compact now in UI. Customizable compaction.md template. GOOSE_TOOL_CALL_CUTOFF for how many recent tool calls stay full. Fallback strategies if still over: summarization / truncation / clear / prompt (CLI). Source: threshold<=0 or >=1 disables auto.",
+      "behaviours": [
+        "auto-compact-80pct",
+        "manual-compact",
+        "tool-output-summarize"
+      ]
+    },
+    {
+      "id": "url:ampcode.com/news/handoff",
+      "title": "Amp: Handoff (No More Compaction)",
+      "year": 2025,
+      "url": "https://ampcode.com/news/handoff",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "manual",
+      "trigger_detail": "Oct 2025: /compact removed; replaced by /handoff (goal + relevant files into a new thread). Later reviews claim Neo 2026 re-added auto-compact \u2014 unpublished %",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Official 2025-10-23: compaction considered lossy and encouraged meandering threads. Handoff extracts a reviewed prompt + file list. Older CLI guides still listed /compact and amp threads compact. A 2026-06 review claims Neo (May 2026) auto-compacts near the window; no official numeric threshold found.",
+      "behaviours": [
+        "/handoff",
+        "legacy-/compact"
+      ]
+    },
+    {
+      "id": "url:docs.windsurf.com/windsurf/cascade/cascade",
+      "title": "Windsurf Cascade",
+      "year": 2026,
+      "url": "https://docs.windsurf.com/windsurf/cascade/cascade",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "unknown",
+      "trigger_detail": "official docs mention conversation summaries/checkpoints for @-mention of prior chats; numeric compact trigger unpublished",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Official Cascade page documents Memories, Todos, @-mention of previous conversations retrieving summaries and checkpoints rather than full transcripts. Unofficial trajectory reverse-engineering claims server-side CHECKPOINT steps when tokens exceed CheckpointConfig.token_threshold (value not published). Do not treat unofficial token_threshold as official.",
+      "behaviours": [
+        "conversation-summaries",
+        "checkpoints",
+        "memories"
+      ]
+    },
+    {
+      "id": "url:learnopencode.com/5-advanced/20-compaction.html",
+      "title": "OpenCode context compaction (community source-read)",
+      "year": 2026,
+      "url": "https://learnopencode.com/5-advanced/20-compaction.html",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "token_count >= input_limit \u2212 reserved; reserved = min(20000, model_max_output); /compact or /summarize; auto=false disables",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Widely used OSS coding agent. Community walkthrough of src/session/compaction.ts. Example: 200k input \u2212 20k reserve \u2192 fire at 180k. Configurable compaction.reserved. Not an official opencode.ai docs page.",
+      "behaviours": [
+        "auto-compact",
+        "/compact",
+        "/summarize"
+      ]
+    },
+    {
+      "id": "arxiv:2412.21139",
+      "title": "Training Software Engineering Agents and Verifiers with SWE-Gym",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.21139",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "no compaction; OpenHands CodeAct append-only trajectories",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Filtered behavior cloning, not compaction-aware: 'rejection sampling fine-tuning (a.k.a. filtered behavior cloning), where we fine-tune the base LM on success trajectories sampled from SWE-Gym' \u2014 491 successful teacher trajs (~19 turns, ~19k tokens). Failed trajs discarded. Per-instance cap later because training on all successes biases to easy tasks. PDF never mentions summary tokens or loss-masking compacted spans. OpenHands-LM-32B (37% SWE-Verified in follow-on cards) is this SFT lineage.",
+      "behaviours": [
+        "success_only_rft",
+        "discard_failed_trajs",
+        "no_compaction"
+      ]
+    },
+    {
+      "id": "arxiv:2504.21798",
+      "title": "SWE-smith: Scaling Data for Software Engineering Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2504.21798",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "no compaction; SWE-agent teacher rollouts on synthetic bugs",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "'we fine-tune the base (or \u201cstudent\u201d) model on the trajectories corresponding to resolved instances' (RFT). 5,016 expert trajs from 20k Claude 3.7 runs; further cap \u22643 trajs per instance because 'easier' repeated successes degrade performance. Unresolved runs (~61% in later re-analyses of the public traj dump) are discarded, not rewritten. No compacted/summary-token loss rule.",
+      "behaviours": [
+        "success_only_rft",
+        "per_instance_cap",
+        "no_compaction"
+      ]
+    },
+    {
+      "id": "arxiv:2403.12881",
+      "title": "Agent-FLAN: Designing Data and Methods of Effective Agent Tuning for Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2403.12881",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "no compaction; rewrites ReAct/JSON trajectories into multi-turn chat",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Rewrites, does not compact: 'we first replace the classical Thought-Action-ActionInput templates with multi-turn dialogues' and 'loss will be only applied to the assistant clause'. Capability-decomposed balancing + negative samples for hallucination. No summary-token rule. Closest industry-like default: assistant-only CE after format rewrite.",
+      "behaviours": [
+        "rewrite_react_to_chat",
+        "assistant_only_loss",
+        "negative_samples"
+      ]
+    },
+    {
+      "id": "arxiv:2402.15506",
+      "title": "AgentOhana: Design Unified Data and Training Pipeline for Effective Agent Learning",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2402.15506",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "no compaction; unify heterogeneous trajs then AgentRater-filter",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Quality filter, not compaction filter: AgentRater scores whole trajs 0\u20135; keep score>=4 (167,918 sampled \u2192 42,600 kept). Explicitly notes env reward can be high while intermediate actions are invalid. No mention of summary/compaction tokens in the loss.",
+      "behaviours": [
+        "quality_rater_filter",
+        "format_unification"
+      ]
+    },
+    {
+      "id": "arxiv:2310.05915",
+      "title": "FireAct: Toward Language Agent Fine-tuning",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.05915",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "no compaction; GPT-4 ReAct/CoT/Reflexion trajs unified to ReAct",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Fine-tune on 500 GPT-4 agent trajectories (and mixes of ReAct+CoT). Project page: 'These effective paths are then translated into the ReAct format' \u2014 keep successful/effective paths, rewrite format. No compacted-span loss rule.",
+      "behaviours": [
+        "success_path_sft",
+        "format_unify_react",
+        "multi_method_mix"
+      ]
+    },
+    {
+      "id": "arxiv:2310.12823",
+      "title": "AgentTuning: Enabling Generalized Agent Abilities for LLMs",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.12823",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "no compaction; AgentInstruct = generate, interact, filter",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "1,866 trajs after 'trajectory filter'; GitHub: 'Ours are rigorously filtered using strict rewards to ensure top-notch quality.' Hybrid mix with general instructions. No compaction/summary loss statement.",
+      "behaviours": [
+        "reward_filter",
+        "hybrid_general_mix"
+      ]
+    },
+    {
+      "id": "arxiv:2608.27449",
+      "title": "SWE-Prime: Fewer Trajectories, Better Performance",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2608.27449",
+      "depth": 2,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "no compaction; two-stage SFT selection on resolved SWE trajs",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Closest SWE-SFT analogue of span masking, but for process-quality segments not summaries: 'During SFT, all segments remain in the sequence to preserve context, while only selected segments contribute to the loss computation.' Stage 1 keeps a 10% high-quality subset of successful trajs; stage 2 loss-masks low-contribution/risky segments. Cites SWE-Gym/SWE-smith as success-only SFT. Not a compaction paper.",
+      "behaviours": [
+        "segment_loss_mask",
+        "keep_as_context",
+        "success_then_process_filter"
+      ]
+    },
+    {
+      "id": "arxiv:2605.21996",
+      "title": "From Patches to Trajectories: Privileged Process Supervision for Software-Engineering Agents (P2T)",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2605.21996",
+      "depth": 2,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "no compaction; privileged p* used to curate/shorten SWE-Gym trajs",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Compares outcome-filtered SFT to 'its tool-error-masking variant': error/tool-failure steps can be loss-masked while kept as context. Uses 1.8k curated SWE-Gym instances. Again not about summary tokens; shows SWE SFT already experiments with span masks, but on errors not compactions.",
+      "behaviours": [
+        "tool_error_mask",
+        "privileged_curation"
+      ]
+    },
+    {
+      "id": "github:hiyouga/LLaMA-Factory",
+      "title": "LLaMA-Factory / LlamaFactory",
+      "year": 2025,
+      "url": "https://github.com/hiyouga/LLaMA-Factory",
+      "depth": 0,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "No compaction/summarization trigger; SFT trainer only.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Default DataArguments: train_on_prompt=False, mask_history=False (src/llamafactory/hparams/data_args.py). SupervisedDatasetProcessor._encode_data_example (src/llamafactory/data/processor/supervised.py) sets source_label=IGNORE_INDEX unless train_on_prompt, and target_label=target_ids unless mask_history and turn_idx!=0. Default therefore trains every assistant/function turn and masks user/observation/system. No filter drops 'summary' or compact messages. A compacted span is trained iff it is encoded as an even-position gpt/function turn; if it is human/observation/system it is context-only. mask_history=True would mask earlier assistant turns (including a mid-traj compact) and keep only the last turn.",
+      "behaviours": [
+        "train_on_prompt=false_default",
+        "mask_history=false_default",
+        "all_assistant_function_turns_in_loss",
+        "user_observation_system_masked",
+        "no_summary_role_filter",
+        "sharegpt_odd_even_roles",
+        "neat_packing_optional"
+      ]
+    },
+    {
+      "id": "github:OpenAccess-AI-Collective/axolotl",
+      "title": "Axolotl (now axolotl-ai-cloud/axolotl)",
+      "year": 2025,
+      "url": "https://github.com/axolotl-ai-cloud/axolotl",
+      "depth": 0,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "No compaction trigger; conversation masking only.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Repo moved from OpenAccess-AI-Collective/axolotl to axolotl-ai-cloud/axolotl. Default chat_template path: roles_to_train=['assistant'], train_on_eos='turn', train_on_inputs:false. Tool/user/system spans are masked; assistant (and optionally narrator) unmasked. Fine-grained message_field_training / train_detail / content-part train flags can mask a summary turn if the dataset author tags it. No built-in 'compact' or 'summary' drop filter.",
+      "behaviours": [
+        "roles_to_train_assistant",
+        "train_on_eos_turn_default",
+        "train_on_inputs_false",
+        "per_message_train_flag",
+        "content_part_masking",
+        "no_summary_role_filter"
+      ]
+    },
+    {
+      "id": "github:unslothai/unsloth",
+      "title": "Unsloth",
+      "year": 2025,
+      "url": "https://github.com/unslothai/unsloth",
+      "depth": 0,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "No compaction trigger; optional response-only mask.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": [
+        "sft"
+      ],
+      "notes": "SFT via TRL SFTTrainer. Optional unsloth.chat_templates.train_on_responses_only (implemented in unsloth_zoo/dataset_utils.py:train_on_responses_only) string-matches instruction_part vs response_part and sets labels=-100 on instruction spans, including everything before the first response_part (system). Without that wrapper, conversational LM datasets train the full sequence. No compact/summary filter.",
+      "behaviours": [
+        "train_on_responses_only_optional",
+        "inherits_trl_collator",
+        "system_masked_before_first_response",
+        "no_summary_role_filter"
+      ]
+    },
+    {
+      "id": "github:huggingface/trl",
+      "title": "Hugging Face TRL SFTTrainer",
+      "year": 2026,
+      "url": "https://huggingface.co/docs/trl/sft_trainer",
+      "depth": 0,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "No compaction trigger.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": [
+        "sft"
+      ],
+      "notes": "SFTConfig.assistant_only_loss defaults False (full-sequence loss on conversational language-modeling datasets). assistant_only_loss=True requires {% generation %}/{% endgeneration %} in the chat template and then ignores user/system. completion_only_loss defaults True only for prompt-completion datasets, None otherwise. Tool-calling SFT keeps tool role messages as context and trains assistant tool_calls. No compact/summary message type.",
+      "behaviours": [
+        "assistant_only_loss_default_false",
+        "completion_only_loss_prompt_completion",
+        "generation_jinja_masks",
+        "tool_role_as_context",
+        "no_summary_role_filter"
+      ]
+    },
+    {
+      "id": "github:NVIDIA-NeMo/Nemotron",
+      "title": "NVIDIA NeMo / Megatron-Bridge / Nemotron SFT",
+      "year": 2025,
+      "url": "https://github.com/NVIDIA-NeMo/Nemotron",
+      "depth": 0,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "No compaction trigger; role-based loss_mask only.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Megatron-Bridge create_sft_dataset / GPTSFTDataset default answer_only_loss=True. Nemotron Super3/Nano3 Stage-1 SFT (docs/nemotron/super3/sft.md; src/nemotron/recipes/*/stage1_sft/data_prep.py) builds loss_mask=1 on assistant tokens and 0 on system/user, then packs. Tool-result roles are not a special 'summary' class; they follow the role table (non-assistant = 0).",
+      "behaviours": [
+        "answer_only_loss_true",
+        "role_loss_mask_assistant_1",
+        "system_user_mask_0",
+        "offline_packing_npy"
+      ]
+    },
+    {
+      "id": "url:developers.openai.com/api/docs/guides/supervised-fine-tuning",
+      "title": "OpenAI supervised fine-tuning docs",
+      "year": 2026,
+      "url": "https://developers.openai.com/api/docs/guides/supervised-fine-tuning",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "none",
+      "trigger_detail": "SFT docs do not mention compacted sessions. Compaction is a separate Responses-API inference feature.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": [
+        "sft"
+      ],
+      "notes": "JSONL chat format. Default: train on all assistant messages in an example. Optional assistant weight 0|1 disables loss on specific assistant turns (fine-tuning-best-practices). User/system/tool messages are context. Tool-call SFT trains assistant tool_calls and later assistant interpretations of tool output. No mention of compact/summary turns. Platform being wound down for new users as of the fetched page.",
+      "behaviours": [
+        "train_all_assistant_by_default",
+        "assistant_weight_0_1",
+        "tool_calls_as_labels",
+        "no_compacted_session_docs"
+      ]
+    },
+    {
+      "id": "url:docs.aws.amazon.com/bedrock/latest/userguide/preparing-text-data.html",
+      "title": "Amazon Bedrock / Anthropic Claude 3 Haiku fine-tune data format",
+      "year": 2026,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/preparing-text-data.html",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "none",
+      "trigger_detail": "No compaction mention in FT data prep.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Anthropic has no first-party public SFT API for Claude 4.x as of this scan. Only Claude 3 Haiku is listed for Bedrock fine-tuning. Data is alternating user/assistant messages plus optional system; assistant contents are the expected generated text. Docs do not say whether every assistant turn or only the last is in the loss, and do not mention compacted sessions.",
+      "behaviours": [
+        "haiku_only_public_ft",
+        "alternating_user_assistant",
+        "no_compacted_session_docs"
+      ]
+    },
+    {
+      "id": "url:github.com/hiyouga/LlamaFactory/blob/main/data/README.md",
+      "title": "LlamaFactory data/README.md (alpaca + sharegpt + tool roles)",
+      "year": 2025,
+      "url": "https://github.com/hiyouga/LlamaFactory/blob/main/data/README.md",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Format contract only.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Alpaca: history prompt-response pairs 'will also be learned by the model'. ShareGPT: human and observation must occupy odd positions; gpt and function even positions; 'The gpt and function will be learned by the model.' System is a side column / first system_tag, not a trained turn. No 'summary' role. A /compact summary stored as human/observation is therefore context; stored as gpt/function it is a label.",
+      "behaviours": [
+        "history_responses_learned",
+        "gpt_function_learned",
+        "human_observation_prompt",
+        "odd_even_position_rule"
+      ]
+    },
+    {
+      "id": "url:github.com/hiyouga/LlamaFactory/blob/main/src/llamafactory/data/processor/supervised.py",
+      "title": "LlamaFactory SupervisedDatasetProcessor._encode_data_example",
+      "year": 2025,
+      "url": "https://github.com/hiyouga/LlamaFactory/blob/main/src/llamafactory/data/processor/supervised.py",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Token-level IGNORE_INDEX masking.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Comment: 'for multiturn examples, we only mask the prompt part in each prompt-response pair.' encode_multiturn pairs messages 0-1, 2-3, ... so observation (odd) is source and function/assistant (even) is target. train_on_prompt copies source_ids into labels; else IGNORE_INDEX. mask_history reverses pairs (keep last turn under cutoff_len) and IGNORE_INDEX on all but the first reversed pair. PackedSupervisedDatasetProcessor drops examples with length>cutoff_len. Invalid examples (odd prompt length or response!=1) are dropped with 'Dropped invalid example'.",
+      "behaviours": [
+        "IGNORE_INDEX_on_source",
+        "pair_even_targets",
+        "mask_history_reverse_last_turn",
+        "drop_invalid_and_overlong"
+      ]
+    },
+    {
+      "id": "url:llamafactory.readthedocs.io/en/latest/advanced/arguments.html",
+      "title": "LlamaFactory arguments reference",
+      "year": 2026,
+      "url": "https://llamafactory.readthedocs.io/en/latest/advanced/arguments.html",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Documented defaults.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": [
+        "sft"
+      ],
+      "notes": "train_on_prompt default False ('Whether to train on input prompts'). mask_history default False ('Whether to train only on the current dialogue turn'). packing default None (on in PT). neat_packing default False ('sequence packing without using cross-attention'). tool_format optional. DataArguments.__post_init__ raises if mask_history and train_on_prompt are both set.",
+      "behaviours": [
+        "documented_defaults",
+        "mask_history_incompatible_train_on_prompt",
+        "neat_packing_implies_packing"
+      ]
+    },
+    {
+      "id": "url:github.com/hiyouga/LlamaFactory/blob/main/src/llamafactory/data/converter.py",
+      "title": "LlamaFactory SharegptDatasetConverter / OpenAIDatasetConverter",
+      "year": 2025,
+      "url": "https://github.com/hiyouga/LlamaFactory/blob/main/src/llamafactory/data/converter.py",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Role alignment; broken rows skipped.",
+      "training": "SFT",
+      "compressed_in_loss": "discarded",
+      "answers": [
+        "sft"
+      ],
+      "notes": "SharegptDatasetConverter maps user/assistant/observation/function/system tags (data_utils.Role). Odd tags = user+observation, even = assistant+function. Wrong tag at a position or odd message count \u2192 'Skipping this abnormal example' and empty prompt/response (row discarded). OpenAIDatasetConverter folds tool_calls into function JSON and concatenates consecutive tool/observation messages. A compact summary with a non-standard role (e.g. 'summary') is not in tag_mapping and would break the row.",
+      "behaviours": [
+        "skip_abnormal_example",
+        "observation_odd_prompt",
+        "function_even_label",
+        "unknown_role_drops_row"
+      ]
+    },
+    {
+      "id": "github:hiyouga/LlamaFactory/pull/9630",
+      "title": "PR #9630 loss_mask for per-turn IGNORE_INDEX (not in fetched main)",
+      "year": 2025,
+      "url": "https://github.com/hiyouga/LlamaFactory/pull/9630",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Proposed dataset field, not a runtime compact trigger.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Opened Dec 2025 by CjangCjengh. Adds dataset loss_mask list aligned to messages; assistant turns with 0 are set to IGNORE_INDEX. Stated use: 'low-quality responses or context-only turns'. hiyouga LGTM 2025-12-18. Fetched main supervised.py (2026-09-01) does not contain loss_mask \u2014 treat as unmerged/not-in-main. Would be the first official way to mask a compact-summary assistant turn without mask_history.",
+      "behaviours": [
+        "proposed_loss_mask",
+        "context_only_turns",
+        "not_in_main_as_of_fetch"
+      ]
+    },
+    {
+      "id": "github:hiyouga/LlamaFactory/issues/8496",
+      "title": "Issue #8496 history thinking tokens still trained",
+      "year": 2025,
+      "url": "https://github.com/hiyouga/LlamaFactory/issues/8496",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "History CoT masking, not compaction.",
+      "training": "SFT",
+      "compressed_in_loss": "kept_as_context",
+      "answers": [
+        "sft"
+      ],
+      "notes": "User reports that even when history thinking is stripped (DeepSeek-style), remaining history assistant text is still in the loss. Confirms default = train all historical assistant turns. Related DataArguments.preserve_thinking / mask_history + template.preserve_thinking. No compact/summary discussion.",
+      "behaviours": [
+        "history_assistant_in_default_loss",
+        "thinking_history_confusion"
+      ]
+    },
+    {
+      "id": "github:hiyouga/LlamaFactory/discussions/8838",
+      "title": "Discussion #8838 mask_history for 'predict current step only'",
+      "year": 2025,
+      "url": "https://github.com/hiyouga/LlamaFactory/discussions/8838",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Maintainer points at --mask_history True.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Multimodal multi-step dataset; author wants only the current-step answer trained. Maintainer hiyouga reply: '--mask_history True'. This is the documented last-turn-only path. Earlier compact/summary assistant turns would then be context, not labels.",
+      "behaviours": [
+        "mask_history_last_turn_only",
+        "maintainer_recommended"
+      ]
+    },
+    {
+      "id": "url:docs.axolotl.ai/docs/dataset-formats/conversation.html",
+      "title": "Axolotl conversation / chat_template masking",
+      "year": 2026,
+      "url": "https://docs.axolotl.ai/docs/dataset-formats/conversation.html",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Role and per-part masks.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": [
+        "sft"
+      ],
+      "notes": "roles_to_train:['assistant'] is the documented default for training all assistant messages. train_on_eos: turn|all|last. message_field_training / train_detail / content-part train|weight let a dataset mark a compact summary train:false while leaving later assistant turns trainable. Tool answers expected as role tool/ipython depending on template. No automatic drop of short/system/summary turns.",
+      "behaviours": [
+        "roles_to_train",
+        "train_on_eos_last_optional",
+        "message_field_training",
+        "content_part_weight"
+      ]
+    },
+    {
+      "id": "url:docs.axolotl.ai/docs/config-reference.html",
+      "title": "Axolotl config reference (roles, train_on_eos)",
+      "year": 2026,
+      "url": "https://docs.axolotl.ai/docs/config-reference.html",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "YAML surface.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Default roles map: user:[human,user], assistant:[gpt,assistant], system:[system], tool:[tool]. train_on_eos default 'turn'. Optional drop_system. No compact/summary key.",
+      "behaviours": [
+        "default_role_map_includes_tool",
+        "drop_system_optional"
+      ]
+    },
+    {
+      "id": "url:hamel.dev/notes/llm/finetuning/template_free.html",
+      "title": "Hamel Husain: Axolotl train_on_inputs / template-free",
+      "year": 2024,
+      "url": "https://hamel.dev/notes/llm/finetuning/template_free.html",
+      "depth": 1,
+      "kind": "blog",
+      "trigger": "none",
+      "trigger_detail": "Masking tutorial.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Documents train_on_inputs:false as 'one of the most popular features of axolotl': mask human/input, train outputs. type:input_output with per-segment label:true/false is the escape hatch to treat a compact summary as unlabeled context while training later tokens.",
+      "behaviours": [
+        "train_on_inputs_false",
+        "input_output_segment_labels"
+      ]
+    },
+    {
+      "id": "github:axolotl-ai-cloud/axolotl/pull/3625",
+      "title": "Axolotl PR #3625 multimodal assistant-only masking",
+      "year": 2026,
+      "url": "https://github.com/axolotl-ai-cloud/axolotl/pull/3625",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Fixes silent full-sequence SFT on VLMs.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Apr 2026: VLM path had ignored train_on_inputs / roles_to_train / train_on_eos, training system+user+assistant. After the PR, role_boundaries scanner honors assistant-only and train_on_eos including 'last'. Confirms intended industry default is assistant-only, not full transcript.",
+      "behaviours": [
+        "fix_silent_full_sequence",
+        "train_on_eos_last",
+        "role_boundaries"
+      ]
+    },
+    {
+      "id": "url:github.com/unslothai/unsloth-zoo/blob/main/unsloth_zoo/dataset_utils.py",
+      "title": "unsloth_zoo.dataset_utils.train_on_responses_only",
+      "year": 2025,
+      "url": "https://github.com/unslothai/unsloth-zoo/blob/main/unsloth_zoo/dataset_utils.py",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Post-hoc label rewrite.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Function train_on_responses_only(trainer, instruction_part=None, response_part=None, force_match=True) walks input_ids, finds response_part then next instruction_part, and unmasks only the assistant span. Masks system+user (everything before first response_part). get_chat_template_parts can auto-detect markers. A compact summary inside an assistant span is trained; one inside a user/system span is not.",
+      "behaviours": [
+        "string_match_response_spans",
+        "mask_before_first_response",
+        "all_assistant_spans_unmasked"
+      ]
+    },
+    {
+      "id": "github:unslothai/unsloth/issues/1262",
+      "title": "Unsloth issue #1262 train_on_responses_only mismatch",
+      "year": 2024,
+      "url": "https://github.com/unslothai/unsloth/issues/1262",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Marker mismatch can zero the loss.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Wrong instruction_part/response_part for Mistral masked both user and assistant. Related #2900 raises ZeroDivisionError if all labels are -100. Shows response-only masking is opt-in and brittle \u2014 not a data-quality filter for summaries.",
+      "behaviours": [
+        "opt_in_mask_brittle",
+        "all_minus100_raises"
+      ]
+    },
+    {
+      "id": "url:huggingface.co/docs/trl/v1.12.0/en/sft_trainer",
+      "title": "TRL SFTTrainer v1.12.0 \u2014 assistant_only_loss / completion_only_loss",
+      "year": 2026,
+      "url": "https://huggingface.co/docs/trl/v1.12.0/en/sft_trainer",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Documented loss switches.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Default conversational path: loss on the full sequence (padding -100 only) unless assistant_only_loss=True. Prompt-completion: completion_only_loss True by default. Tool Calling with SFT: messages include tool_calls and tool role; tools column is schema context. Compacted text has no special column.",
+      "behaviours": [
+        "full_sequence_default_conversational",
+        "assistant_only_opt_in",
+        "tool_calling_dataset_format"
+      ]
+    },
+    {
+      "id": "url:docs.nvidia.com/nemo/megatron-bridge/0.1.0/apidocs/bridge/bridge.data.datasets.sft.html",
+      "title": "Megatron-Bridge GPTSFTDataset answer_only_loss",
+      "year": 2025,
+      "url": "https://docs.nvidia.com/nemo/megatron-bridge/0.1.0/apidocs/bridge/bridge.data.datasets.sft.html",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "answer_only_loss=True default.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": [
+        "sft"
+      ],
+      "notes": "create_sft_dataset(..., answer_only_loss: bool = True). GPTSFTDataset docstring: if True, compute loss only on the answer part. chat=True selects GPTSFTChatDataset. Packed .npy path via prepare_packed_ft_dataset.py. No summary-specific mask.",
+      "behaviours": [
+        "answer_only_loss_true",
+        "GPTSFTChatDataset",
+        "packed_npy"
+      ]
+    },
+    {
+      "id": "url:github.com/NVIDIA-NeMo/Nemotron/blob/main/docs/nemotron/super3/sft.md",
+      "title": "Nemotron Super3 two-stage SFT loss mask",
+      "year": 2025,
+      "url": "https://github.com/NVIDIA-NeMo/Nemotron/blob/main/docs/nemotron/super3/sft.md",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Role table only.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Pipeline: OpenAI chat format \u2192 chat template \u2192 role-labeled chunks \u2192 tokenize \u2192 loss_mask 1 for assistant / 0 for system/user \u2192 pack 4096. 'In SFT, we only want the model to learn to generate responses\u2014not to predict prompts or system instructions.' A harness compact injected as user/system is therefore masked; as assistant it is preferred.",
+      "behaviours": [
+        "role_table_system0_user0_assistant1",
+        "pack_size_4096"
+      ]
+    },
+    {
+      "id": "url:developers.openai.com/api/docs/guides/fine-tuning-best-practices",
+      "title": "OpenAI fine-tuning best practices (weight)",
+      "year": 2026,
+      "url": "https://developers.openai.com/api/docs/guides/fine-tuning-best-practices",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "none",
+      "trigger_detail": "Per-assistant weight, not compaction.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Multi-turn chat: include multiple user/assistant messages. 'Use the optional weight key (value set to either 0 or 1) to disable fine-tuning on specific assistant messages.' Examples set early assistant turns weight:0 and the last weight:1 \u2014 last-turn-only, user-controlled. Quality filter is human scrutiny / balance / no missing context, not dropping summaries. Examples longer than model example context (65,536 for gpt-4.1/4o) are truncated from the end.",
+      "behaviours": [
+        "weight_0_disables_assistant_turn",
+        "default_all_assistant",
+        "truncate_from_end"
+      ]
+    },
+    {
+      "id": "url:developers.openai.com/api/docs/guides/compaction",
+      "title": "OpenAI Responses API compaction (inference, not SFT)",
+      "year": 2026,
+      "url": "https://developers.openai.com/api/docs/guides/compaction",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "context_management compact_threshold; example 200_000 tokens.",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Server-side compaction for long Responses conversations. Emits an opaque encrypted compaction item, not a human summary. Docs never connect this item to the fine-tuning JSONL format. ZDR-friendly with store=false. Not a training-data recipe.",
+      "behaviours": [
+        "inference_only",
+        "opaque_compaction_item",
+        "not_in_sft_schema"
+      ]
+    },
+    {
+      "id": "url:learn.microsoft.com/en-us/azure/foundry/openai/how-to/fine-tuning-functions",
+      "title": "Azure OpenAI function-calling fine-tune format",
+      "year": 2026,
+      "url": "https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/fine-tuning-functions",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "none",
+      "trigger_detail": "Tool-call SFT schema.",
+      "training": "SFT",
+      "compressed_in_loss": "kept_as_context",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Assistant tool_calls are training targets. Subsequent role=tool messages plus a following assistant utterance teach the model to interpret tool output. Tool payloads themselves are not described as labels. A compact summary in a tool or user message would be context.",
+      "behaviours": [
+        "tool_calls_are_labels",
+        "tool_role_is_context"
+      ]
+    },
+    {
+      "id": "url:nebius.com/blog/posts/openhands-trajectories-with-qwen3-coder-480b",
+      "title": "Nebius SWE-rebench OpenHands trajectories + RFT",
+      "year": 2025,
+      "url": "https://nebius.com/blog/posts/openhands-trajectories-with-qwen3-coder-480b",
+      "depth": 1,
+      "kind": "blog",
+      "trigger": "none",
+      "trigger_detail": "Filter resolved=true; no compact step.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "67,074 OpenHands v0.54.0 trajectories; 32,161 successful. RFT uses exclusively resolved=true. Average 64.3 turns, max 100, seq 131,072. Community r/LocalLLaMA 1puxedb. Dataset messages are system/assistant/user/tool \u2014 no summary role. Filter is success, not dropping compact spans.",
+      "behaviours": [
+        "resolved_true_only",
+        "full_tool_trajectory",
+        "no_compact_role"
+      ]
+    },
+    {
+      "id": "url:www.llms.blog/posts/sequence-packing-and-loss-masking-in-production-sft-architecture-trade-offs-and-framework-implementations",
+      "title": "Sequence Packing and Loss Masking in Production SFT (llms.blog)",
+      "year": 2026,
+      "url": "https://www.llms.blog/posts/sequence-packing-and-loss-masking-in-production-sft-architecture-trade-offs-and-framework-implementations",
+      "depth": 2,
+      "kind": "blog",
+      "trigger": "none",
+      "trigger_detail": "Survey of trainer masks.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": [
+        "sft"
+      ],
+      "notes": "2026-08-24 survey of TRL, Axolotl, LLaMA-Factory, Unsloth, NeMo. Three policies: (1) all assistant turns \u2014 Axolotl roles_to_train / NeMo / TRL if split; (2) last turn only \u2014 LLaMA-Factory mask_history=true, Axolotl train_on_eos:last; (3) weighted mixing \u2014 no native YAML. Open gap: 'Tool-call masking \u2014 environment-provided tool results should be masked like user turns, but only Axolotl's content-parts format handles this explicitly.' No framework names compacted agent summaries.",
+      "behaviours": [
+        "three_multiturn_policies",
+        "tool_results_should_be_masked",
+        "no_weighted_native"
+      ]
+    },
+    {
+      "id": "url:sebastianraschka.com/faq/docs/when-mask-prompt-tokens.html",
+      "title": "Raschka: When to mask prompt tokens during SFT",
+      "year": 2026,
+      "url": "https://sebastianraschka.com/faq/docs/when-mask-prompt-tokens.html",
+      "depth": 2,
+      "kind": "blog",
+      "trigger": "none",
+      "trigger_detail": "Loss-mask semantics.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Mask prompt tokens when the objective is p(response|prompt). IGNORE_INDEX/-100 excludes targets but keeps tokens as context. A compact summary in the prompt region is therefore kept_as_context, not discarded and not a label, unless the practitioner puts it in the response span.",
+      "behaviours": [
+        "ignore_index_not_deletion",
+        "prompt_is_context"
+      ]
+    },
+    {
+      "id": "url:art.openpipe.ai/features/additional-histories",
+      "title": "OpenPipe ART additional_histories (compaction + subagents)",
+      "year": 2026,
+      "url": "https://art.openpipe.ai/features/additional-histories",
+      "depth": 2,
+      "kind": "trainer",
+      "trigger": "unknown",
+      "trigger_detail": "Documents agents that 'compact their message history periodically'; no numeric trigger.",
+      "training": "mixed",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Only industry trainer docs found that name compaction in the training schema. Trajectory.messages_and_choices is the live window; additional_histories hold pre-compaction (or sub-agent) conversations. Tokenization: main history first, then each extra history independently; 'training weight is distributed across all tokenized results'. Example puts 'Compacted conversation history: ...' as a user message in an extra History \u2014 that user text is context; assistant turns in both histories are trained. Pre-compact raw turns are kept as extra labeled trajectories, not discarded.",
+      "behaviours": [
+        "additional_histories",
+        "precompact_kept_as_extra_traj",
+        "summary_as_user_context",
+        "weight_split_across_histories"
+      ]
+    },
+    {
+      "id": "huggingface:open-thoughts/OpenThoughts-Agent-SFT-100K",
+      "title": "OpenThoughts-Agent-SFT-100K filter",
+      "year": 2026,
+      "url": "https://huggingface.co/datasets/open-thoughts/OpenThoughts-Agent-SFT-100K",
+      "depth": 2,
+      "kind": "blog",
+      "trigger": "none",
+      "trigger_detail": "Quality filter: \u22655 model turns.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "100k (task, trajectory) pairs from GLM-4.7-AWQ in terminus-2. 'filtered to traces with at least 5 model turns.' Filter is length/turn-count, not compact-summary content. conversations stored as role/content. No mention of dropping summaries.",
+      "behaviours": [
+        "min_5_model_turns",
+        "keep_full_conversations"
+      ]
+    },
+    {
+      "id": "arxiv:2606.16038",
+      "title": "Open-SWE-Traces distillation / pruning",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2606.16038",
+      "depth": 2,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "Behavioral pruning of loops/hallucinations, not compact spans.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "207,489 OpenHands + SWE-agent trajectories. Stage-2 pruning removes suboptimal/hallucinatory patterns. Ablation: full corpus (including unresolved) beats resolved-only. No statement that compact/summary turns are preferred or dropped. Downstream SFT is standard next-token on the kept messages.",
+      "behaviours": [
+        "prune_loops_not_summaries",
+        "unresolved_kept_helps"
+      ]
+    },
+    {
+      "id": "url:huggingface.co/blog/packing-with-FA2",
+      "title": "HF blog: packing with Flash Attention 2",
+      "year": 2024,
+      "url": "https://huggingface.co/blog/packing-with-FA2",
+      "depth": 3,
+      "kind": "blog",
+      "trigger": "none",
+      "trigger_detail": "Packing attention isolation.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Cited by the 2026 packing survey and by LlamaFactory neat_packing lineage. Packing concatenates examples; it does not rewrite or drop compact turns. Loss still depends on the upstream label mask.",
+      "behaviours": [
+        "packing_not_a_data_filter"
+      ]
+    },
+    {
+      "id": "url:github.com/MeetKai/functionary/tree/main/functionary/train/packing",
+      "title": "MeetKai functionary contamination-free packing (neat_packing origin)",
+      "year": 2024,
+      "url": "https://github.com/MeetKai/functionary/tree/main/functionary/train/packing",
+      "depth": 3,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Attention isolation for packed SFT.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "LlamaFactory changelog 24/07/04: neat_packing:true activates this packing. Prevents cross-example attention. Irrelevant to whether a compact summary is a label.",
+      "behaviours": [
+        "neat_packing_attention_isolation"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "arxiv:2508.21433",
+      "to": "arxiv:2405.15793",
+      "depth": 1,
+      "why": "Masking baseline is SWE-agent's observation-elision ACI"
+    },
+    {
+      "from": "arxiv:2508.21433",
+      "to": "arxiv:2407.16741",
+      "depth": 1,
+      "why": "LLM-Summary prompt and generality probe on OpenHands v0.43.0"
+    },
+    {
+      "from": "arxiv:2508.21433",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "Related Work: MEM1 is the main prior dynamic-state CM, but on short trajectories"
+    },
+    {
+      "from": "arxiv:2508.21433",
+      "to": "arxiv:2509.23586",
+      "depth": 1,
+      "why": "Concurrent Xiao et al. AgentDiet LLM-Summary / Delete baseline"
+    },
+    {
+      "from": "arxiv:2508.21433",
+      "to": "arxiv:2510.06727",
+      "depth": 1,
+      "why": "Lu et al. use LLM-Summary inside RL for SE/CUA context limits"
+    },
+    {
+      "from": "arxiv:2508.21433",
+      "to": "arxiv:2310.06770",
+      "depth": 1,
+      "why": "SWE-bench family is the eval substrate"
+    },
+    {
+      "from": "arxiv:2508.21433",
+      "to": "url:openai.com/index/introducing-swe-bench-verified",
+      "depth": 1,
+      "why": "Primary metric is SWE-bench Verified solve rate"
+    },
+    {
+      "from": "arxiv:2508.21433",
+      "to": "arxiv:2210.03629",
+      "depth": 1,
+      "why": "Raw Agent is ReAct/CodeAct append-only history"
+    },
+    {
+      "from": "arxiv:2608.06503",
+      "to": "arxiv:2509.13313",
+      "depth": 1,
+      "why": "ReSum as trajectory-aware summary prior"
+    },
+    {
+      "from": "arxiv:2608.06503",
+      "to": "arxiv:2510.06727",
+      "depth": 1,
+      "why": "SUPO co-optimizes summarization with agent RL"
+    },
+    {
+      "from": "arxiv:2608.06503",
+      "to": "arxiv:2510.00615",
+      "depth": 1,
+      "why": "ACON optimizes compression guidelines from full vs compressed contrast"
+    },
+    {
+      "from": "arxiv:2608.06503",
+      "to": "arxiv:2407.18901",
+      "depth": 1,
+      "why": "AppWorld train-dev 147 tasks; refetchable state isolates mislocalization"
+    },
+    {
+      "from": "arxiv:2608.06503",
+      "to": "github:openclaw/openclaw",
+      "depth": 1,
+      "why": "Harness is OpenClaw recurrent compaction.ts"
+    },
+    {
+      "from": "arxiv:2608.06503",
+      "to": "arxiv:2310.05736",
+      "depth": 1,
+      "why": "Related Work starts from LLMLingua-style prompt compression"
+    },
+    {
+      "from": "arxiv:2608.06503",
+      "to": "github:nokia-applied-research/Trace",
+      "depth": 1,
+      "why": "Official TRACE implementation"
+    },
+    {
+      "from": "arxiv:2608.06503",
+      "to": "arxiv:2406.12045",
+      "depth": 1,
+      "why": "Pass^k / Pass@k reliability metrics borrowed from \u03c4-bench"
+    },
+    {
+      "from": "arxiv:2605.30785",
+      "to": "arxiv:2509.13313",
+      "depth": 1,
+      "why": "ReSum is the approaching-limit summary-tool baseline; SumCoM adapts its prompts"
+    },
+    {
+      "from": "arxiv:2605.30785",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "SumAgent / MEM1-style per-step summary+act"
+    },
+    {
+      "from": "arxiv:2605.30785",
+      "to": "arxiv:2510.12635",
+      "depth": 1,
+      "why": "MemAct prune-tool self-management baseline"
+    },
+    {
+      "from": "arxiv:2605.30785",
+      "to": "arxiv:2504.12516",
+      "depth": 1,
+      "why": "BrowseComp-Plus is the web-search eval (BrowseComp-derived)"
+    },
+    {
+      "from": "arxiv:2605.30785",
+      "to": "arxiv:2510.11967",
+      "depth": 1,
+      "why": "Related Work: Context-Folding as trained trajectory CM"
+    },
+    {
+      "from": "arxiv:2605.30785",
+      "to": "arxiv:2508.20453",
+      "depth": 1,
+      "why": "MCP-Bench construction recipe \u2192 MCP-Bench-Wiki deep-research split"
+    },
+    {
+      "from": "arxiv:2605.30785",
+      "to": "arxiv:2210.03629",
+      "depth": 1,
+      "why": "Vanilla ReAct is the capability axis of the Fidelity\u2013Reliability trade-off"
+    },
+    {
+      "from": "arxiv:2602.07962",
+      "to": "url:www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "depth": 1,
+      "why": "Implements Anthropic-style context editing / awareness / memory / programmatic tools"
+    },
+    {
+      "from": "arxiv:2602.07962",
+      "to": "arxiv:2407.16741",
+      "depth": 1,
+      "why": "Scaffold-decoupled design lists OpenHands as an integration target"
+    },
+    {
+      "from": "arxiv:2602.07962",
+      "to": "arxiv:2512.02556",
+      "depth": 1,
+      "why": "DeepSeek-V3.2-Thinking is a headline open model; CM strategies help/hurt it unevenly"
+    },
+    {
+      "from": "arxiv:2602.07962",
+      "to": "arxiv:2210.03629",
+      "depth": 1,
+      "why": "Native long-context arm is a ReAct scaffold"
+    },
+    {
+      "from": "arxiv:2602.07962",
+      "to": "github:hkust-nlp/LOCA-bench",
+      "depth": 1,
+      "why": "Official bench + CM toolkit"
+    },
+    {
+      "from": "arxiv:2605.23296",
+      "to": "url:www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "depth": 1,
+      "why": "Names Claude Code as a production sync-summarization system"
+    },
+    {
+      "from": "arxiv:2605.23296",
+      "to": "arxiv:2307.03172",
+      "depth": 1,
+      "why": "Lost-in-the-middle + context rot motivate compacting before the window"
+    },
+    {
+      "from": "arxiv:2605.23296",
+      "to": "arxiv:2402.17753",
+      "depth": 1,
+      "why": "LoCoMo is one of two agentic-flow benches"
+    },
+    {
+      "from": "arxiv:2604.01664",
+      "to": "arxiv:2509.13313",
+      "depth": 1,
+      "why": "Related Work: ReSum as budget-free periodic summary"
+    },
+    {
+      "from": "arxiv:2604.01664",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "Related Work: MEM1 constant-state CM"
+    },
+    {
+      "from": "arxiv:2604.01664",
+      "to": "arxiv:2510.24699",
+      "depth": 1,
+      "why": "Related Work: AgentFold proactive fold"
+    },
+    {
+      "from": "arxiv:2604.01664",
+      "to": "arxiv:2510.11967",
+      "depth": 1,
+      "why": "Related Work: Context-Folding recursive abstraction"
+    },
+    {
+      "from": "arxiv:2604.01664",
+      "to": "arxiv:2402.03300",
+      "depth": 1,
+      "why": "BACM-RL extends GRPO with a budget curriculum and overflow-zero reward"
+    },
+    {
+      "from": "arxiv:2605.08580",
+      "to": "url:www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "depth": 1,
+      "why": "Cites Anthropic compact-early guidance (2026a 5\u201320k/50\u2013100k; 2025 post is the public context-engineering source)"
+    },
+    {
+      "from": "arxiv:2605.08580",
+      "to": "url:openai.com/index/introducing-swe-bench-verified",
+      "depth": 1,
+      "why": "Coding workload is SWE-bench Verified"
+    },
+    {
+      "from": "arxiv:2605.08580",
+      "to": "arxiv:2504.12516",
+      "depth": 1,
+      "why": "Web workload is BrowseComp"
+    },
+    {
+      "from": "arxiv:2605.08580",
+      "to": "arxiv:2310.06770",
+      "depth": 1,
+      "why": "SWE-bench family"
+    },
+    {
+      "from": "arxiv:2605.08580",
+      "to": "github:chenzhuofu/slipstream",
+      "depth": 1,
+      "why": "Official implementation"
+    },
+    {
+      "from": "arxiv:2606.10209",
+      "to": "arxiv:2510.00615",
+      "depth": 1,
+      "why": "Positions against ACON's learned compressor; they use fixed recency+summary"
+    },
+    {
+      "from": "arxiv:2606.10209",
+      "to": "arxiv:2508.20453",
+      "depth": 1,
+      "why": "MCP-Bench is the breadth foil to their deep ERP workflow"
+    },
+    {
+      "from": "arxiv:2606.10209",
+      "to": "url:www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "depth": 1,
+      "why": "Cites Anthropic context-rot / production CM"
+    },
+    {
+      "from": "arxiv:2606.10209",
+      "to": "arxiv:2310.05736",
+      "depth": 1,
+      "why": "Token-level LLMLingua is the wrong unit for verbatim form state"
+    },
+    {
+      "from": "arxiv:2602.22769",
+      "to": "arxiv:2402.17753",
+      "depth": 1,
+      "why": "LoCoMo as the dialogue-centric memory-bench foil"
+    },
+    {
+      "from": "arxiv:2602.22769",
+      "to": "arxiv:2310.08560",
+      "depth": 1,
+      "why": "MemGPT as agent-decided memory access"
+    },
+    {
+      "from": "arxiv:2602.22769",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "MEM1 as iterative compression memory"
+    },
+    {
+      "from": "arxiv:2606.22528",
+      "to": "arxiv:2605.08580",
+      "depth": 1,
+      "why": "Cites Slipstream as trajectory-grounded validation that still ignores governance survival"
+    },
+    {
+      "from": "arxiv:2606.22528",
+      "to": "arxiv:2310.08560",
+      "depth": 1,
+      "why": "MemGPT virtual context as the systems ancestor of compact/evict"
+    },
+    {
+      "from": "arxiv:2606.22528",
+      "to": "arxiv:2510.00615",
+      "depth": 1,
+      "why": "Kang et al. 2025 (ACON) cited for practitioners compacting at 5\u201320k"
+    },
+    {
+      "from": "arxiv:2606.22528",
+      "to": "arxiv:2307.03172",
+      "depth": 1,
+      "why": "Lost-in-the-middle / context-rot as the confound ConstraintRot isolates from active deletion"
+    },
+    {
+      "from": "arxiv:2512.02556",
+      "to": "arxiv:2504.12516",
+      "depth": 1,
+      "why": "BrowseComp is the search-agent CM ablation (51.4\u219267.6)"
+    },
+    {
+      "from": "arxiv:2512.02556",
+      "to": "arxiv:2601.11868",
+      "depth": 1,
+      "why": "Terminal-Bench 2.0 headline code-agent number; Terminus summarizes at the window limit"
+    },
+    {
+      "from": "arxiv:2512.02556",
+      "to": "url:openai.com/index/introducing-swe-bench-verified",
+      "depth": 1,
+      "why": "SWE-Verified 73.1 / 72\u201374 robustness across scaffolds"
+    },
+    {
+      "from": "arxiv:2512.02556",
+      "to": "url:www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "depth": 1,
+      "why": "Discard-all likened to Anthropic's new-context tool"
+    },
+    {
+      "from": "github:YerbaPage/Awesome-Agent-Context-Compression",
+      "to": "url:www.preprints.org/manuscript/202605.2065",
+      "depth": 1,
+      "why": "Companion EMNLP 2026 survey (F1/F2/F3, Q=D,R,P,O)"
+    },
+    {
+      "from": "github:YerbaPage/Awesome-Agent-Context-Compression",
+      "to": "arxiv:2603.06358",
+      "depth": 1,
+      "why": "LoCoEval listed as the repo-conversation CM bench"
+    },
+    {
+      "from": "github:YerbaPage/Awesome-Agent-Context-Compression",
+      "to": "arxiv:2508.20453",
+      "depth": 1,
+      "why": "MCP-Bench listed under Evaluation & Benchmarks"
+    },
+    {
+      "from": "github:YerbaPage/Awesome-Agent-Context-Compression",
+      "to": "arxiv:2308.03688",
+      "depth": 1,
+      "why": "AgentBench listed under Evaluation & Benchmarks"
+    },
+    {
+      "from": "arxiv:2509.13313",
+      "to": "arxiv:2210.03629",
+      "depth": 2,
+      "why": "ReSum is a plug-in on ReAct; +4.5% training-free"
+    },
+    {
+      "from": "arxiv:2509.13313",
+      "to": "arxiv:2402.03300",
+      "depth": 2,
+      "why": "ReSum-GRPO = GRPO with advantage broadcast over summary segments"
+    },
+    {
+      "from": "arxiv:2509.13313",
+      "to": "arxiv:2504.12516",
+      "depth": 2,
+      "why": "Long-horizon search eval family"
+    },
+    {
+      "from": "arxiv:2510.00615",
+      "to": "arxiv:2407.18901",
+      "depth": 2,
+      "why": "ACON headline numbers include AppWorld"
+    },
+    {
+      "from": "arxiv:2510.06727",
+      "to": "arxiv:2402.03300",
+      "depth": 2,
+      "why": "SUPO instantiates end-to-end summary RL on standard LLM-RL (GRPO-class) infrastructure"
+    },
+    {
+      "from": "arxiv:2510.11967",
+      "to": "arxiv:2210.03629",
+      "depth": 2,
+      "why": "Fold agent vs 327K ReAct on SWE/research"
+    },
+    {
+      "from": "arxiv:2510.11967",
+      "to": "url:openai.com/index/introducing-swe-bench-verified",
+      "depth": 2,
+      "why": "SWE-bench Verified 58.0% at 32K active budget"
+    },
+    {
+      "from": "arxiv:2510.24699",
+      "to": "arxiv:2504.12516",
+      "depth": 2,
+      "why": "AgentFold-30B-A3B 36.2% BrowseComp after SFT folding"
+    },
+    {
+      "from": "arxiv:2405.15793",
+      "to": "arxiv:2310.06770",
+      "depth": 2,
+      "why": "Original SWE-agent eval is SWE-bench"
+    },
+    {
+      "from": "arxiv:2407.16741",
+      "to": "arxiv:2310.06770",
+      "depth": 2,
+      "why": "OpenHands platform eval includes SWE-bench"
+    },
+    {
+      "from": "arxiv:2407.16741",
+      "to": "arxiv:2307.13854",
+      "depth": 2,
+      "why": "OpenHands platform eval includes WebArena"
+    },
+    {
+      "from": "arxiv:2509.23586",
+      "to": "arxiv:2310.06770",
+      "depth": 2,
+      "why": "AgentDiet evaluated on coding-agent benches in the SWE-bench family"
+    },
+    {
+      "from": "url:www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "to": "url:research.trychroma.com/context-rot",
+      "depth": 2,
+      "why": "Post links Chroma context-rot as the reason to treat context as a scarce budget"
+    },
+    {
+      "from": "url:www.preprints.org/manuscript/202605.2065",
+      "to": "arxiv:2307.13854",
+      "depth": 2,
+      "why": "Awesome/survey Evaluation list includes WebArena"
+    },
+    {
+      "from": "url:www.preprints.org/manuscript/202605.2065",
+      "to": "arxiv:2308.03688",
+      "depth": 2,
+      "why": "Awesome/survey Evaluation list includes AgentBench"
+    },
+    {
+      "from": "arxiv:2601.11868",
+      "to": "arxiv:2407.16741",
+      "depth": 2,
+      "why": "Compares Terminus 2 to OpenHands/Claude Code; only Terminus documents limit-triggered LLM summarization"
+    },
+    {
+      "from": "arxiv:2406.12045",
+      "to": "arxiv:2210.03629",
+      "depth": 3,
+      "why": "\u03c4-bench agents are ReAct-style tool loops; TRACE reuses its reliability metric"
+    },
+    {
+      "from": "arxiv:2307.13854",
+      "to": "arxiv:2210.03629",
+      "depth": 3,
+      "why": "WebArena agents are the ReAct web setting that later CM papers inherit"
+    },
+    {
+      "from": "arxiv:2308.03688",
+      "to": "arxiv:2210.03629",
+      "depth": 3,
+      "why": "AgentBench is an early multi-env ReAct eval, not a CM protocol"
+    },
+    {
+      "from": "arxiv:2607.05378",
+      "to": "arxiv:2510.06727",
+      "depth": 1,
+      "why": "CompactionRL Related Work: SUPO jointly RL-trains summarization and tool-use"
+    },
+    {
+      "from": "arxiv:2607.05378",
+      "to": "arxiv:2509.13313",
+      "depth": 1,
+      "why": "CompactionRL Related Work: ReSum periodic external summary + segmented GRPO"
+    },
+    {
+      "from": "arxiv:2607.05378",
+      "to": "arxiv:2510.11967",
+      "depth": 1,
+      "why": "CompactionRL Related Work: Context-Folding branch-and-fold RL"
+    },
+    {
+      "from": "arxiv:2607.05378",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "CompactionRL bibliography cites MEM1 as long-horizon memory RL"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2509.13313",
+      "depth": 1,
+      "why": "ACM Table 1 / \u00a72.1: ReSum as fixed-timing compression"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2510.00615",
+      "depth": 1,
+      "why": "ACM Table 1 / \u00a72.1: ACON compressor + Claude-style auto-compress"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2510.24699",
+      "depth": 1,
+      "why": "ACM Table 1 / \u00a72.1: AgentFold closest agent-initiated prior; data pipeline closed"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2512.02556",
+      "depth": 1,
+      "why": "ACM \u00a72.1: DeepSeek-V3.2 Summary / Discard-75% / Discard-all"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2507.02259",
+      "depth": 1,
+      "why": "ACM \u00a72.1: MemAgent chunk-overwrite memory"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2510.08790",
+      "depth": 1,
+      "why": "ACM \u00a72.1: COMPASS Meta-Thinker + Context Manager"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2602.22603",
+      "depth": 1,
+      "why": "ACM \u00a72.1: SideQuest KV-cache management"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2510.04618",
+      "depth": 1,
+      "why": "ACM Table 1 / \u00a72.2: ACE evolving playbook (not intra-episode compact)"
+    },
+    {
+      "from": "arxiv:2512.22087",
+      "to": "arxiv:2510.11967",
+      "depth": 1,
+      "why": "CaT positions folding as a callable tool vs threshold-compression OpenHands baseline"
+    },
+    {
+      "from": "arxiv:2606.23525",
+      "to": "arxiv:2509.13313",
+      "depth": 1,
+      "why": "SelfCompact: fixed-interval 30% baseline 'closely resembling Wu et al. 2026a' (ReSum)"
+    },
+    {
+      "from": "arxiv:2606.23525",
+      "to": "arxiv:2509.06501",
+      "depth": 1,
+      "why": "SelfCompact / MiniMax-M2.5: WebExplorer scaffold discards history at 30% of max context"
+    },
+    {
+      "from": "arxiv:2510.06727",
+      "to": "arxiv:2507.02259",
+      "depth": 1,
+      "why": "SUPO \u00a72.3: MemAgent overwrite-memory as a special case of summarization MDP"
+    },
+    {
+      "from": "arxiv:2510.06727",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "SUPO \u00a72.3: MEM1 constant-IS RL; criticizes concat+attention-mask training"
+    },
+    {
+      "from": "arxiv:2510.06727",
+      "to": "arxiv:2508.19828",
+      "depth": 1,
+      "why": "SUPO \u00a72.3: Memory-R1 dual-agent external memory RL"
+    },
+    {
+      "from": "arxiv:2509.13313",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "ReSum intro: MEM1 internal memory tokens break ReAct compatibility"
+    },
+    {
+      "from": "arxiv:2509.13313",
+      "to": "arxiv:2507.02259",
+      "depth": 1,
+      "why": "ReSum intro: MemAgent as architectural memory alternative"
+    },
+    {
+      "from": "arxiv:2510.24699",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "AgentFold Related Work: MEM1 rigid per-step full-history compression"
+    },
+    {
+      "from": "arxiv:2510.24699",
+      "to": "arxiv:2507.02259",
+      "depth": 1,
+      "why": "AgentFold Related Work: MemAgent step-wise overwrite"
+    },
+    {
+      "from": "arxiv:2510.12635",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "MemAct Related Work: RL memory with mandatory per-step compression"
+    },
+    {
+      "from": "arxiv:2510.00615",
+      "to": "arxiv:2509.13313",
+      "depth": 1,
+      "why": "ACON Related Work: ReSum extends horizon via summaries but trains the policy not the compressor"
+    },
+    {
+      "from": "arxiv:2510.00615",
+      "to": "arxiv:2310.08560",
+      "depth": 1,
+      "why": "ACON: dialogue-memory systems (Packer/MemGPT) vs agent state tracking"
+    },
+    {
+      "from": "arxiv:2510.00615",
+      "to": "arxiv:2403.12968",
+      "depth": 1,
+      "why": "ACON experiments: LLMLingua extractive compressor baseline"
+    },
+    {
+      "from": "arxiv:2507.02259",
+      "to": "arxiv:2503.14476",
+      "depth": 2,
+      "why": "MemAgent Multi-Conv DAPO extends Yu et al. DAPO to independent memory-update conversations"
+    },
+    {
+      "from": "arxiv:2508.19828",
+      "to": "arxiv:2504.19413",
+      "depth": 2,
+      "why": "Memory-R1 adopts Mem0 operator set {ADD,UPDATE,DELETE,NOOP} and uses Mem0 as strongest baseline"
+    },
+    {
+      "from": "arxiv:2512.02556",
+      "to": "arxiv:2509.06501",
+      "depth": 2,
+      "why": "DeepSeek-V3.2 search-agent eval uses the same long-horizon web-agent setting WebExplorer popularized"
+    },
+    {
+      "from": "arxiv:2503.14476",
+      "to": "arxiv:2402.03300",
+      "depth": 3,
+      "why": "DAPO is a GRPO-family critic-free group optimizer; CompactionRL later argues this family mis-weights variable compaction segments"
+    },
+    {
+      "from": "url:docs.claude.com/en/docs/claude-code",
+      "to": "url:code.claude.com/docs/en/context-window",
+      "depth": 1,
+      "why": "current official what-survives / when-fills-up page"
+    },
+    {
+      "from": "url:docs.claude.com/en/docs/claude-code",
+      "to": "url:code.claude.com/docs/en/model-config",
+      "depth": 1,
+      "why": "default auto-compact windows and /autocompact overrides"
+    },
+    {
+      "from": "url:docs.claude.com/en/docs/claude-code",
+      "to": "url:code.claude.com/docs/en/how-claude-code-works",
+      "depth": 1,
+      "why": "tool-output clear then summarize"
+    },
+    {
+      "from": "url:www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "to": "url:platform.claude.com/cookbook/tool-use-automatic-context-compaction",
+      "depth": 1,
+      "why": "cookbook implements the blog's compaction pattern in the Agent SDK"
+    },
+    {
+      "from": "url:www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "to": "url:platform.claude.com/docs/en/build-with-claude/compaction",
+      "depth": 1,
+      "why": "API-side compact_20260112"
+    },
+    {
+      "from": "url:docs.claude.com/en/docs/claude-code",
+      "to": "url:www.nathanonn.com/claude-code-never-auto-compact",
+      "depth": 1,
+      "why": "named practitioner source in survey"
+    },
+    {
+      "from": "url:docs.claude.com/en/docs/claude-code",
+      "to": "url:www.mindstudio.ai/blog/claude-code-compact-command-context-management",
+      "depth": 1,
+      "why": "named practitioner /compact 60% guide"
+    },
+    {
+      "from": "url:docs.claude.com/en/docs/claude-code",
+      "to": "url:okhlopkov.com/claude-code-compaction-explained",
+      "depth": 1,
+      "why": "named practitioner compaction explained"
+    },
+    {
+      "from": "url:docs.claude.com/en/docs/claude-code",
+      "to": "url:github.com/anthropics/claude-code/issues/42817",
+      "depth": 1,
+      "why": "forum measurements of auto-compact disable / clamp"
+    },
+    {
+      "from": "url:platform.claude.com/cookbook/claude_code",
+      "to": "url:platform.claude.com/cookbook/tool-use-automatic-context-compaction",
+      "depth": 1,
+      "why": "actual auto-compaction cookbook notebook"
+    },
+    {
+      "from": "url:developers.openai.com/codex",
+      "to": "github:openai/codex",
+      "depth": 1,
+      "why": "source compact.rs thresholds and 20k user tail"
+    },
+    {
+      "from": "url:developers.openai.com/codex",
+      "to": "url:github.com/openai/codex/issues/20272",
+      "depth": 1,
+      "why": "forum: remote auto-compact failures"
+    },
+    {
+      "from": "local:grok-build-user-guide",
+      "to": "github:xai-org/grok-build",
+      "depth": 1,
+      "why": "public source mirror of 85% default"
+    },
+    {
+      "from": "url:cursor.com/blog/self-summarization",
+      "to": "url:forum.cursor.com/t/compaction-not-happening-soon-enough/149490",
+      "depth": 1,
+      "why": "product-forum timing of auto-summarize vs /summarize"
+    },
+    {
+      "from": "url:docs.cline.bot/features/auto-compact",
+      "to": "url:docs.cline.bot/features/slash-commands/smol",
+      "depth": 1,
+      "why": "manual /smol is the same summarization action"
+    },
+    {
+      "from": "url:docs.openhands.dev/sdk/arch/condenser",
+      "to": "url:www.openhands.dev/blog/openhands-context-condensensation-for-more-efficient-ai-agents",
+      "depth": 1,
+      "why": "product blog named from condenser docs"
+    },
+    {
+      "from": "url:docs.github.com/copilot/concepts/agents/copilot-cli/context-management",
+      "to": "url:github.com/orgs/community/discussions/166415",
+      "depth": 1,
+      "why": "forum disable path for IDE agent summarization"
+    },
+    {
+      "from": "arxiv:2607.05378",
+      "to": "arxiv:2510.06727",
+      "depth": 1,
+      "why": "CompactionRL related work: SUPO jointly RL-trains summarization with tool use"
+    },
+    {
+      "from": "arxiv:2607.05378",
+      "to": "arxiv:2509.13313",
+      "depth": 1,
+      "why": "CompactionRL related work: ReSum periodic external summary + segmented training"
+    },
+    {
+      "from": "arxiv:2607.05378",
+      "to": "arxiv:2510.11967",
+      "depth": 1,
+      "why": "CompactionRL related work: Context-Folding branch-and-fold RL"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2510.24699",
+      "depth": 1,
+      "why": "ACM Table 1 / related: AgentFold is closest agent-initiated trainable compact, data pipeline not public"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2509.13313",
+      "depth": 1,
+      "why": "ACM Table 1: ReSum as heuristic/trainable compact baseline"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2510.00615",
+      "depth": 1,
+      "why": "ACM Table 1: ACON trains a compressor, not an agent-initiated policy"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2510.06727",
+      "depth": 1,
+      "why": "ACM Table 1 / related: SUPO RL summarization"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "ACM Table 1: MEM1 trainable memory, not working-context compact"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2412.21139",
+      "depth": 1,
+      "why": "ACM trains coding ACM on SWE-Gym"
+    },
+    {
+      "from": "arxiv:2512.22087",
+      "to": "arxiv:2504.21798",
+      "depth": 1,
+      "why": "CaT training instances from SWE-smith + SWE-ReBench"
+    },
+    {
+      "from": "arxiv:2512.22087",
+      "to": "arxiv:2412.21139",
+      "depth": 1,
+      "why": "CaT Table 2 compares SWE-Gym-32B OpenHands SFT"
+    },
+    {
+      "from": "arxiv:2512.22087",
+      "to": "arxiv:2407.16741",
+      "depth": 1,
+      "why": "CaT evaluates in OpenHands; Threshold-Compression baseline is the OpenHands condenser"
+    },
+    {
+      "from": "arxiv:2510.24699",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "AgentFold related: MEM1 rigid per-step full-history summarize"
+    },
+    {
+      "from": "arxiv:2510.11967",
+      "to": "arxiv:2510.06727",
+      "depth": 1,
+      "why": "Same-lab predecessor: summarization-based RL vs folding"
+    },
+    {
+      "from": "arxiv:2510.06727",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "SUPO \u00a72.3 contrasts MEM1 concatenated-history + attention mask"
+    },
+    {
+      "from": "arxiv:2509.13313",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "ReSum intro: MEM1/MemAgent need architectural memory tokens and end-to-end retrain"
+    },
+    {
+      "from": "arxiv:2412.21139",
+      "to": "arxiv:2407.16741",
+      "depth": 2,
+      "why": "SWE-Gym OpenHands CodeAct is the SFT scaffold"
+    },
+    {
+      "from": "arxiv:2412.21139",
+      "to": "arxiv:2608.27449",
+      "depth": 2,
+      "why": "SWE-Prime cites SWE-Gym success-only SFT and adds segment loss-masks"
+    },
+    {
+      "from": "arxiv:2412.21139",
+      "to": "arxiv:2605.21996",
+      "depth": 2,
+      "why": "P2T curates SWE-Gym trajs and ablate tool-error loss-masking"
+    },
+    {
+      "from": "arxiv:2504.21798",
+      "to": "arxiv:2412.21139",
+      "depth": 2,
+      "why": "SWE-smith compares RFT at 500 trajs to SWE-Gym-32B"
+    },
+    {
+      "from": "arxiv:2403.12881",
+      "to": "arxiv:2310.12823",
+      "depth": 2,
+      "why": "Agent-FLAN rebuilds AgentTuning/AgentInstruct corpus"
+    },
+    {
+      "from": "arxiv:2403.12881",
+      "to": "arxiv:2310.05915",
+      "depth": 2,
+      "why": "Agent-FLAN Table 1 compares FireAct-7B"
+    },
+    {
+      "from": "arxiv:2402.15506",
+      "to": "arxiv:2310.12823",
+      "depth": 2,
+      "why": "AgentOhana ingests AgentTuning env splits (OS/DB/Mind2Web/KG)"
+    },
+    {
+      "from": "arxiv:2310.05915",
+      "to": "arxiv:2310.12823",
+      "depth": 2,
+      "why": "Same 2023 agent-SFT wave; both filter/rewrite teacher trajs into ReAct"
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "url:github.com/hiyouga/LlamaFactory/blob/main/data/README.md",
+      "depth": 1,
+      "why": "Official dataset format: which roles are learned."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "url:github.com/hiyouga/LlamaFactory/blob/main/src/llamafactory/data/processor/supervised.py",
+      "depth": 1,
+      "why": "Default IGNORE_INDEX mask and mask_history last-turn logic."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "url:llamafactory.readthedocs.io/en/latest/advanced/arguments.html",
+      "depth": 1,
+      "why": "Documented train_on_prompt / mask_history / neat_packing defaults."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "url:github.com/hiyouga/LlamaFactory/blob/main/src/llamafactory/data/converter.py",
+      "depth": 1,
+      "why": "ShareGPT/OpenAI converters drop malformed roles; observation vs function."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "github:hiyouga/LlamaFactory/pull/9630",
+      "depth": 1,
+      "why": "Proposed per-turn loss_mask for context-only assistant turns."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "github:hiyouga/LlamaFactory/issues/8496",
+      "depth": 1,
+      "why": "Confirms historical assistant text stays in default loss."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "github:hiyouga/LlamaFactory/discussions/8838",
+      "depth": 1,
+      "why": "Maintainer prescribes mask_history for last-step-only SFT."
+    },
+    {
+      "from": "github:OpenAccess-AI-Collective/axolotl",
+      "to": "url:docs.axolotl.ai/docs/dataset-formats/conversation.html",
+      "depth": 1,
+      "why": "roles_to_train / train_on_eos / per-part train flags."
+    },
+    {
+      "from": "github:OpenAccess-AI-Collective/axolotl",
+      "to": "url:docs.axolotl.ai/docs/config-reference.html",
+      "depth": 1,
+      "why": "Default role map including tool."
+    },
+    {
+      "from": "github:OpenAccess-AI-Collective/axolotl",
+      "to": "url:hamel.dev/notes/llm/finetuning/template_free.html",
+      "depth": 1,
+      "why": "Canonical train_on_inputs:false recipe."
+    },
+    {
+      "from": "github:OpenAccess-AI-Collective/axolotl",
+      "to": "github:axolotl-ai-cloud/axolotl/pull/3625",
+      "depth": 1,
+      "why": "VLM path now honors assistant-only / last-turn masks."
+    },
+    {
+      "from": "github:unslothai/unsloth",
+      "to": "url:github.com/unslothai/unsloth-zoo/blob/main/unsloth_zoo/dataset_utils.py",
+      "depth": 1,
+      "why": "Source of train_on_responses_only."
+    },
+    {
+      "from": "github:unslothai/unsloth",
+      "to": "github:unslothai/unsloth/issues/1262",
+      "depth": 1,
+      "why": "Shows response-only mask is opt-in and marker-fragile."
+    },
+    {
+      "from": "github:huggingface/trl",
+      "to": "url:huggingface.co/docs/trl/v1.12.0/en/sft_trainer",
+      "depth": 1,
+      "why": "assistant_only_loss / completion_only_loss / tool-calling SFT."
+    },
+    {
+      "from": "github:NVIDIA-NeMo/Nemotron",
+      "to": "url:docs.nvidia.com/nemo/megatron-bridge/0.1.0/apidocs/bridge/bridge.data.datasets.sft.html",
+      "depth": 1,
+      "why": "GPTSFTDataset answer_only_loss=True."
+    },
+    {
+      "from": "github:NVIDIA-NeMo/Nemotron",
+      "to": "url:github.com/NVIDIA-NeMo/Nemotron/blob/main/docs/nemotron/super3/sft.md",
+      "depth": 1,
+      "why": "Role-table loss_mask 0/1."
+    },
+    {
+      "from": "url:developers.openai.com/api/docs/guides/supervised-fine-tuning",
+      "to": "url:developers.openai.com/api/docs/guides/fine-tuning-best-practices",
+      "depth": 1,
+      "why": "Documents assistant weight 0|1."
+    },
+    {
+      "from": "url:developers.openai.com/api/docs/guides/supervised-fine-tuning",
+      "to": "url:developers.openai.com/api/docs/guides/compaction",
+      "depth": 1,
+      "why": "Sibling product doc: compaction is inference-only, not SFT."
+    },
+    {
+      "from": "url:developers.openai.com/api/docs/guides/supervised-fine-tuning",
+      "to": "url:learn.microsoft.com/en-us/azure/foundry/openai/how-to/fine-tuning-functions",
+      "depth": 1,
+      "why": "Tool-call SFT: tool role is context."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "arxiv:2412.21139",
+      "depth": 1,
+      "why": "Community OpenHands SFT recipe often run through LlamaFactory-class trainers; SWE-Gym is the canonical success-filter corpus."
+    },
+    {
+      "from": "arxiv:2412.21139",
+      "to": "url:nebius.com/blog/posts/openhands-trajectories-with-qwen3-coder-480b",
+      "depth": 1,
+      "why": "Larger OpenHands trajectory release; same success-only RFT filter."
+    },
+    {
+      "from": "url:llamafactory.readthedocs.io/en/latest/advanced/arguments.html",
+      "to": "url:www.llms.blog/posts/sequence-packing-and-loss-masking-in-production-sft-architecture-trade-offs-and-framework-implementations",
+      "depth": 2,
+      "why": "2026 survey cites LlamaFactory mask_history / train_on_prompt and peers."
+    },
+    {
+      "from": "url:huggingface.co/docs/trl/v1.12.0/en/sft_trainer",
+      "to": "url:www.llms.blog/posts/sequence-packing-and-loss-masking-in-production-sft-architecture-trade-offs-and-framework-implementations",
+      "depth": 2,
+      "why": "Same survey of TRL vs Axolotl vs LlamaFactory vs Unsloth vs NeMo."
+    },
+    {
+      "from": "url:www.llms.blog/posts/sequence-packing-and-loss-masking-in-production-sft-architecture-trade-offs-and-framework-implementations",
+      "to": "url:sebastianraschka.com/faq/docs/when-mask-prompt-tokens.html",
+      "depth": 2,
+      "why": "Survey cites Raschka on prompt-token masking and missing weighted mixing."
+    },
+    {
+      "from": "url:www.llms.blog/posts/sequence-packing-and-loss-masking-in-production-sft-architecture-trade-offs-and-framework-implementations",
+      "to": "url:art.openpipe.ai/features/additional-histories",
+      "depth": 2,
+      "why": "Only trainer schema found that names history compaction in SFT/RL trajectories."
+    },
+    {
+      "from": "url:nebius.com/blog/posts/openhands-trajectories-with-qwen3-coder-480b",
+      "to": "huggingface:open-thoughts/OpenThoughts-Agent-SFT-100K",
+      "depth": 2,
+      "why": "Peer community agent-SFT filter (min turn count)."
+    },
+    {
+      "from": "url:nebius.com/blog/posts/openhands-trajectories-with-qwen3-coder-480b",
+      "to": "arxiv:2606.16038",
+      "depth": 2,
+      "why": "Peer OpenHands/SWE-agent distillation corpus and pruning recipe."
+    },
+    {
+      "from": "url:www.llms.blog/posts/sequence-packing-and-loss-masking-in-production-sft-architecture-trade-offs-and-framework-implementations",
+      "to": "url:huggingface.co/blog/packing-with-FA2",
+      "depth": 3,
+      "why": "Survey source for packing+FA2."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "url:github.com/MeetKai/functionary/tree/main/functionary/train/packing",
+      "depth": 3,
+      "why": "LlamaFactory neat_packing is this packing implementation."
+    },
+    {
+      "from": "arxiv:2412.21139",
+      "to": "arxiv:2504.21798",
+      "depth": 3,
+      "why": "SWE-smith cites SWE-Gym easy-repeat degradation and applies a 3-traj cap."
+    }
+  ],
+  "answers": {
+    "when": [
+      "DeepSeek-V3.2 search-agent CM fires at 80% of the 128K window; Discard-all 51.4\u219267.6 BrowseComp, Summary 60.2 / 364 steps (less efficient). Thinking-CM keeps reasoning across tool turns and drops it only on a new user message \u2014 incompatible with Terminus-style user-message tools (arxiv:2512.02556).",
+      "Complexity Trap: SWE-agent masks observations older than M=10; LLM-Summary fires at N+M turns (N=21, M=10). OpenHands needs M retuned to 58. Hybrid masks during accumulation and treats summary as last resort. Any CM beats Raw; masking matches summary at half the Raw cost; Qwen3-Coder 480B masking is 52% cheaper than Raw and +2.6% solve (arxiv:2508.21433).",
+      "TRACE: compact when |z|>B. At 16/8/4K FIFO \u2248 or > summary; only 2K favors summary (72.8% vs 42.2%). Failure is execution-state mislocalization; Pass^k decays under repeated compact. Prefer summary+raw-tail and boundary-local PRE/POST, not fact-retention scores (arxiv:2608.06503).",
+      "LOCA-bench: edit/compact at 200K (Gemini/GPT-5.2) or 100K (DeepSeek-V3.2); tool-result clearing drops 50% of tool I/O. Same strategy helps one model and hurts another. Programmatic tool calling is the most consistent win (arxiv:2602.07962).",
+      "Parallel Compaction: \u03c4\u2208[16k,96k]; sync compact is 14.5\u201362% of wall time. Summary length is ~prompt-invariant (~3\u00d7 output for 48\u00d7 input). 4k blocks are the most stable operating point (arxiv:2605.23296).",
+      "ContextBudget: decide Null/Partial/Full aggregation from remaining budget r_t=B\u2212|C_t| and pending |o_t| *before* loading the observation (arxiv:2604.01664).",
+      "Slipstream: production systems now compact well before the window (cites Anthropic 5\u201320k / 50\u2013100k). 88\u2013100% of first CM errors appear within 3 steps \u2014 use a 3-step PRE/POST window (arxiv:2605.08580).",
+      "Less Context: keep last 5 tool pairs; optional summary of the last 3 evicted pairs. 71.0%\u219279.0%\u219291.6% complete itemization vs full history, with ~63% fewer tokens (arxiv:2606.10209).",
+      "AdaCoM: there is no universal trigger \u2014 optimal fidelity vs compression tracks the frozen student's vanilla ReAct score (arxiv:2605.30785).",
+      "Governance Decay: one compact step takes violation 0%\u219230% (up to 59%) when in-context policies are not pinned; pin ~47 tokens of constraints outside the summarizer (arxiv:2606.22528).",
+      "Terminus 2 (Terminal-Bench) summarizes only at the model's context limit \u2014 the late trigger the rest of this literature treats as too late (arxiv:2601.11868).",
+      "Semantic alternatives to watermarks: fold-on-branch-completion (arxiv:2510.11967), AgentFold multi-scale fold each step (arxiv:2510.24699), MEM1 per-turn state rewrite (arxiv:2506.15841), ReSum/ACON near-limit summary (arxiv:2509.13313, arxiv:2510.00615).",
+      "Harness-controlled reserve: CompactionRL fires when remaining budget < 10,240 tokens, keeps last k=2 atomic (a,o) steps, caps 3 compactions; B_active is 64k/80k not the physical window. (arxiv:2607.05378)",
+      "Near-window / percent watermarks: ReSum at approaching the context limit (32k WebSailor); DeepSeek-V3.2 at 80% of 128K (Summary / Discard-75% / Discard-all); MiniMax-M2.5/WebExplorer Delete-all at 30%; ACM's Summary-Agent figure uses ~90%. (arxiv:2509.13313, arxiv:2512.02556, arxiv:2509.06501, arxiv:2607.23809)",
+      "Periodic length threshold L: SUPO resets to prompt\u2295summary whenever |s_t|>L, with a max summarization-round cap S. (arxiv:2510.06727)",
+      "Dual compressor thresholds: ACON history iff |h|>T_hist and observation iff |o|>T_obs; agent never chooses the moment. (arxiv:2510.00615)",
+      "Semantic / rubric: SelfCompact fires after a resolved sub-task or converging trajectory and suppresses mid-derivation or when stuck; rubric ablation 46.4\u219241.0. (arxiv:2606.23525)",
+      "Agent tool at milestones: CaT injects at subtask completion / strategy switch / milestones; AgentFold folds every step (granular vs deep); Context-Folding folds on branch completion; ACM manage_context on redundant queries / loops / sufficient context \u2014 and teacher also teaches when NOT to compact. (arxiv:2512.22087, arxiv:2510.24699, arxiv:2510.11967, arxiv:2607.23809)",
+      "Mandatory every turn: MEM1 overwrites <IS> and prunes the previous turn; MemAgent overwrites a fixed memory after every document chunk. (arxiv:2506.15841, arxiv:2507.02259)",
+      "Strong teachers do not compact voluntarily: ACM observes GPT-5.5 almost never calls manage_context / query_memory, so compaction trajectories must be constructed. (arxiv:2607.23809)",
+      "Claude Code: auto as context approaches the model window (unset: model limit; Sonnet 5 ~967K; 200K-window models at 200K); user /compact [focus], /autocompact N, /rewind summarize; first clears older tool outputs then LLM-summarizes; retains disk-reloaded CLAUDE.md/memory/plan plus up to 5 recently modified files and capped skill bodies. [url:code.claude.com/docs/en/context-window] [url:code.claude.com/docs/en/model-config] [url:code.claude.com/docs/en/how-claude-code-works] [url:www.anthropic.com/engineering/effective-context-engineering-for-ai-agents]",
+      "Claude Code practitioners: compact at semantic boundaries well before auto \u2014 ~60% (MindStudio), 50\u201360% after finishing a micro-task (nathanonn; 15\u201320% on 1M), not mid-implementation; auto described as ~83\u201395% folklore. [url:www.mindstudio.ai/blog/claude-code-compact-command-context-management] [url:www.nathanonn.com/claude-code-never-auto-compact] [url:okhlopkov.com/claude-code-compaction-explained] [url:github.com/anthropics/claude-code/issues/42817]",
+      "Claude Agent SDK cookbook: compaction_control at default 100,000 tokens; replace history with <summary>. [url:platform.claude.com/cookbook/tool-use-automatic-context-compaction]",
+      "Codex CLI/IDE: /compact anytime; auto when tokens exceed model_auto_compact_token_limit (model-specific; also clamped to ~90% of context window); retain summary + recent user messages up to 20k tokens; optional remote /v1/compact. [url:developers.openai.com/codex] [github:openai/codex]",
+      "Grok Build: /compact [keep note]; auto at 85% of context_window ([session] auto_compact_threshold_percent, default 85); two-pass default on; prune old tool results (keep last 3 turns; soft-trim >4000 chars; hard-clear after 10 turns); flush memory ~4000 tokens before compact; search memory after auto-compact; emit compact_boundary. [local:grok-build-user-guide] [github:xai-org/grok-build]",
+      "Cursor Composer: research/training uses a fixed token trigger (evals at 80k and 40k); model self-summarizes (~1k) then continues with summary+plan/todos; product auto-summarize exists, official % unknown; users can /summarize. [url:cursor.com/blog/self-summarization] [url:forum.cursor.com/t/compaction-not-happening-soon-enough/149490]",
+      "Cline: auto when approaching the model limit (no %); manual /smol|/compact; summarization tool call replaces history; unsupported models fall back to truncation. [url:docs.cline.bot/features/auto-compact]",
+      "Roo: Intelligent Context Condensing default threshold slider 100%; configurable (e.g. 80%); manual button; ~30% window reserved; API overflow truncates 25% and retries. [url:docs.roocode.com/features/intelligent-context-condensing]",
+      "Continue: source compactConversation at a chosen history index (manual); auto threshold unpublished. [github:continuedev/continue]",
+      "Aider: no history compact \u2014 /clear, /drop, repo-map (--map-tokens default 1k). [url:aider.chat/docs/troubleshooting/token-limits.html]",
+      "OpenHands: condense when event view > max_size (docs 120; common default 80), keep_first=4 + recent tail, LLM-summarize middle; also on context-window errors. [url:docs.openhands.dev/sdk/arch/condenser]",
+      "SWE-agent: LastNObservations n=5 observation masking (not LLM summary); mini-SWE-agent is linear append-only with no compact. [github:SWE-agent/SWE-agent] [github:SWE-agent/mini-swe-agent]",
+      "GitHub Copilot CLI: background compact ~80%, pause at ~95%; /compact; tool results >20 KiB offloaded; keep summary + user instructions + plans. IDE agent summarization togglable. [url:docs.github.com/copilot/concepts/agents/copilot-cli/context-management]",
+      "Gemini CLI: source DEFAULT_COMPRESSION_TOKEN_THRESHOLD=0.5; manual force compress; community read also cites ~30% recent preserve + XML snapshot. [github:google-gemini/gemini-cli]",
+      "Goose: auto at 80% (GOOSE_AUTO_COMPACT_THRESHOLD, disable 0.0); manual Compact now; older tool outputs summarized. [url:goose-docs.ai/docs/guides/sessions/smart-context-management]",
+      "Amp: official Oct 2025 replaced /compact with /handoff (new thread + goal + files); later unofficial reports of auto-compact have no published %. [url:ampcode.com/news/handoff]",
+      "Windsurf Cascade: official numeric compact trigger unknown; prior-chat @-mentions pull summaries/checkpoints not full transcripts. [url:docs.windsurf.com/windsurf/cascade/cascade]",
+      "OpenCode (other): auto when used >= input_limit \u2212 min(20k, max_output); /compact|/summarize; auto disableable. [url:learnopencode.com/5-advanced/20-compaction.html]",
+      "CompactionRL fires at a fixed reserve T_comp=10240 tokens, atomic (a_i,o_i) steps, last-k=2 tail, \u22643 compactions (arxiv:2607.05378).",
+      "ACM/CaT/AgentFold/Context-Folding treat compact/fold as an agent-initiated tool at semantic or self-monitored points; ReSum/SUPO use systematic/overlong triggers (arxiv:2607.23809, arxiv:2512.22087, arxiv:2509.13313)."
+    ],
+    "sft": [
+      "Almost all assigned eval/systems seeds are inference-time CM (Complexity Trap, TRACE, Slipstream, Parallel Compaction, LOCA-bench, Less Context, Governance Decay, AMA-Bench, DeepSeek 80% CM). They do not prefer, discard, or mask compacted spans in an SFT loss (arxiv:2508.21433, arxiv:2608.06503, arxiv:2605.08580, arxiv:2512.02556).",
+      "When training exists it is usually RL on the compressor/manager, not SFT-only continuation: AdaCoM SFT-warmup then RL on a frozen-agent manager (arxiv:2605.30785); ContextBudget GRPO with budget-zeroed reward (arxiv:2604.01664); ReSum-GRPO advantage broadcast across summary segments (arxiv:2509.13313); SUPO end-to-end summary+act (arxiv:2510.06727); MemAct RL prune actions (arxiv:2510.12635); FoldGRPO fold-on-completion (arxiv:2510.11967); MEM1 RL constant state (arxiv:2506.15841).",
+      "AgentFold is the clear SFT-preferred point: fold actions are SFT targets (no CPT/RL) and reach 36.2% BrowseComp (arxiv:2510.24699). ACON is the clear masked/frozen-agent point: guidelines + distilled compressor, agent weights untouched (arxiv:2510.00615).",
+      "Do not train a student on a prompt-similar summarizer: Parallel Compaction shows summary volume/content is nearly prompt-invariant and run-unstable at long inputs \u2014 compressor identity, not wording, is the control (arxiv:2605.23296).",
+      "AdaCoM: do not copy teacher compact policy onto a weaker student; Fidelity\u2013Reliability says weaker agents need more aggressive compression (arxiv:2605.30785).",
+      "AMA-Bench: NL-style lossy summaries + similarity retrieval underperform long-context on causal/objective tool trajectories \u2014 if SFT uses summaries as targets, they must preserve tool-state causality, not chat condensates (arxiv:2602.22769).",
+      "TRACE/Slipstream imply SFT labels should be judged by next-3-step blocked/replay/intent, not ROUGE/fact retention; Pass^k (not just Pass@1) belongs on the compacted-eval card (arxiv:2608.06503, arxiv:2605.08580).",
+      "DeepSeek's 80% CM is test-time only; the paper does not state that compacted/discarded spans are SFT targets or loss-masked in the agentic synthesis pipeline (arxiv:2512.02556).",
+      "Load-bearing CompactionRL ablation: exposing the policy to compacted histories while MASKING summary-response turns (w/o-summary-training) recovers most of the compacted-inference gain (30B 50.5\u219254.5 of 56.0; 106B 59.8\u219264.5 of 66.8); putting summary tokens in the PPO loss adds the remaining +1.5/+2.3. (arxiv:2607.05378)",
+      "SFT papers put compaction/fold turns IN the loss as targets: CaT SFT on injected context-management Actions (rejection-sampled CaT-Instruct); AgentFold SFT on the folding directive block; SideQuest SFT on hindsight deletion commands (215 traces). (arxiv:2512.22087, arxiv:2510.24699, arxiv:2602.22603)",
+      "ACM on-policy distillation prefers assistant tokens including manage_context (top-K=20 teacher soft labels) and masks system/user/tool-output; student is then re-rolled from the teacher-edited turn (do not reuse the original suffix). (arxiv:2607.23809)",
+      "RL explorer vs SFT compressor split: ReSum SFT-distills ReSumTool on \u27e8Conversation,Summary\u27e9 (summaries preferred for the compressor) but ReSum-GRPO trains only the explorer on post-summary segments with observations masked and the summary produced off-policy by the external tool; authors warn explorer SFT on ReSum trajs risks overwriting skills. (arxiv:2509.13313)",
+      "Joint RL treats summary/fold/memory-edit tokens as policy actions (preferred): SUPO, FoldGRPO, MemAct DCPO, MEM1 <IS>, MemAgent overwrite, Memory-R1 ops. CompactionRL argues GRPO-style group-norm mis-weights variable segment counts, hence PPO + token-level loss + cross-trajectory GAE. (arxiv:2510.06727, arxiv:2510.11967, arxiv:2510.12635, arxiv:2506.15841, arxiv:2507.02259, arxiv:2508.19828, arxiv:2607.05378)",
+      "Do not attention-mask deleted history in place: MemAct shows deleted tokens already sit in later KVs, so DCPO physically resegments; MEM1 instead rebuilds a 2D attention mask over a concatenated trajectory \u2014 SUPO says that still cannot train beyond the reliable window. (arxiv:2510.12635, arxiv:2506.15841, arxiv:2510.06727)",
+      "Compressor-only distillation (agent frozen): ACON CE-distills (raw hist/obs \u2192 compressed text) and keeps 95% of teacher accuracy; LLMLingua-2 is the extractive analogue. (arxiv:2510.00615, arxiv:2403.12968)",
+      "Mismatch is real: no-compaction RL can hurt compacted inference (CompactionRL 30B 50.5\u219248.0); CompactionRL gains do not transfer to single-window eval. Mix compacted and ordinary trajectories. (arxiv:2607.05378)",
+      "Cursor Composer is trained with compaction-in-the-loop RL: the same self-summary procedure used at inference is in the rollout; the final task reward is applied to all tokens including self-summaries, so good summaries are upweighted (preferred in the RL loss, not an SFT filter). Research triggers were 80k and 40k. [url:cursor.com/blog/self-summarization]",
+      "Academic compaction papers do not share one SFT loss. CompactionRL (RL) prefers summary tokens in the objective and only masks them in the w/o-summary-training ablation, which still gets most of the compacted-inference gain (arxiv:2607.05378).",
+      "When the summary is a policy action (AgentFold folding directive; Context-Folding return(message); SUPO LLM summary), those tokens are preferred / jointly optimized (arxiv:2510.24699, arxiv:2510.11967, arxiv:2510.06727).",
+      "When the summary is a tool Observation or new user prompt, academic recipes train the policy to continue from it and mask tool-outputs: ACM assistant-only distill with tool-output mask; ReSum-GRPO keeps s in q' and masks observations; ACON SFT is compressor-only CE and does not train the policy on summaries (arxiv:2607.23809, arxiv:2509.13313, arxiv:2510.00615).",
+      "CaT is the main SFT+offline-injection recipe: inject context-mgmt Actions, put teacher summaries in Observations, rejection-sample successes. The PDF never says whether summary Observation tokens are in the loss \u2014 mark unknown/mixed, not assistant-only by invention (arxiv:2512.22087).",
+      "SWE-Gym / SWE-smith / OpenHands-LM / FireAct / AgentTuning / AgentOhana filter or rewrite whole trajectories (success-only RFT, reward/AgentRater filters, ReAct\u2194chat rewrite). They discard failed or low-score trajs; they do not mention compacted spans. SWE-Prime and P2T later loss-mask low-quality or tool-error segments while keeping them as context \u2014 still not summary tokens (arxiv:2412.21139, arxiv:2504.21798, arxiv:2608.27449, arxiv:2605.21996).",
+      "Versus the expected industry default (LlamaFactory-style assistant-only next-token loss, no special compaction filter): academics either (i) up-weight/include summary tokens when the policy is the summarizer, (ii) mask them when a separate summarizer writes a tool/user span, or (iii) ignore compaction entirely and only success-filter raw ReAct traces. None publish an SFT corpus that discards compacted turns after they have been injected.",
+      "LlamaFactory default loss mask (DataArguments + SupervisedDatasetProcessor._encode_data_example): train_on_prompt=False, mask_history=False. Prompt/user/system/observation tokens get IGNORE_INDEX; every gpt/function (assistant) turn is a label. Alpaca history responses are also learned (data/README.md). Compacted spans are NOT discarded and NOT specially preferred. If the compact summary is stored as human/user/system/observation it is kept_as_context (masked). If it is stored as gpt/assistant/function \u2014 including a model-written /compact summary \u2014 it is trained as a normal assistant target. mask_history=True (optional; maintainer #8838) would mask those earlier assistant/compact turns and train only the last turn. Unknown roles or broken odd/even sharegpt rows are dropped (SharegptDatasetConverter). There is no short-turn or 'summary' filter. (github:hiyouga/LLaMA-Factory)",
+      "Industry trainers converge on assistant-only (or answer-only) loss, not on compact-aware filtering. Axolotl: roles_to_train=['assistant'], train_on_eos='turn', train_on_inputs=false; optional train_on_eos='last' or per-message train:false. TRL: assistant_only_loss defaults False on conversational LM data (full sequence) and True only if set; completion_only_loss defaults True for prompt-completion. Unsloth: opt-in train_on_responses_only masks instruction/system. NeMo/Nemotron: answer_only_loss=True / loss_mask 1 on assistant, 0 on system/user. None drop compact summaries. (github:OpenAccess-AI-Collective/axolotl, github:huggingface/trl, github:unslothai/unsloth, github:NVIDIA-NeMo/Nemotron)",
+      "OpenAI SFT trains all assistant messages by default; set weight:0 to disable specific assistant turns (including a summary turn if you choose). User/system/tool are context. Compaction exists only as Responses-API inference (opaque item; example compact_threshold 200000) and is not an SFT data type. Anthropic public FT is Bedrock Haiku alternating user/assistant only \u2014 no compacted-session language. (url:developers.openai.com/api/docs/guides/supervised-fine-tuning, url:developers.openai.com/api/docs/guides/compaction, url:docs.aws.amazon.com/bedrock/latest/userguide/preparing-text-data.html)",
+      "Community SWE-agent/OpenHands/Claude-Code SFT recipes keep full tool trajectories and filter on task success (SWE-Gym 491 resolved; Nebius resolved=true RFT), min turn count (OpenThoughts-Agent \u22655), or loop/hallucination pruning (Open-SWE-Traces). They do not treat /compact summaries as preferred labels or drop them. OpenPipe ART is the exception that names compaction: additional_histories keep pre-compact raw conversations as extra trained trajectories and put the summary text in a user message (context). (arxiv:2412.21139, url:nebius.com/blog/posts/openhands-trajectories-with-qwen3-coder-480b, url:art.openpipe.ai/features/additional-histories)"
+    ]
+  }
+}

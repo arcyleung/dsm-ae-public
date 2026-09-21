@@ -1,0 +1,61 @@
+# Python / build
+__pycache__/
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+*.pyc
+.venv/
+venv/
+web/node_modules/
+web/dist/
+tmp-layout/
+
+# Local secrets & runtime state (never commit)
+.env
+models.yaml
+models.yaml.local
+dgx.yaml
+
+# Imported benchmark run bundles (large tarballs + extracted trees)
+evalhub-runs/
+evalhub-extract/
+data/
+logs/
+work/
+.work/
+.worktrees/
+.superpowers/
+/tmp/
+*.bak
+
+# Ephemeral eval workspaces under reports (assembled JSON/MD/HTML go to Git LFS)
+reports/work/
+reports/**/work/
+reports/harbor_runs/
+reports/_request_logs_stage/
+reports/**/trajectories/
+reports/**/.dsm_ae_ckpt/
+reports/queue/progress/
+data/job_secrets/
+reports/**/*.log
+*nohup*.out
+
+# Transient report runner/debug artifacts
+reports/**/.monitor*.json
+reports/**/*.err
+reports/**/*-STATUS.txt
+reports/smoke_*.json
+reports/smoke_*.md
+reports/queue/*smoke-*
+reports/queue/cancel-target-*
+reports/queue/race-*
+reports/queue/ui-cancel-*
+reports/queue/ui-enqueue-*
+
+# Agent-authored scratch plans and UI audit screenshots (optional local)
+docs/superpowers/plans/
+docs/superpowers/reports/

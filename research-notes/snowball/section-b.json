@@ -1,0 +1,1370 @@
+{
+  "section": "B",
+  "agent": "snowball-B",
+  "nodes": [
+    {
+      "id": "arxiv:2503.13657",
+      "title": "Why Do Multi-Agent LLM Systems Fail?",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.13657",
+      "depth": 0,
+      "seed_bib": 21,
+      "behaviours": [
+        "disobey task specification",
+        "disobey role specification",
+        "step repetition",
+        "loss of conversation history",
+        "unaware of termination conditions",
+        "conversation reset",
+        "fail to ask for clarification",
+        "task derailment",
+        "information withholding",
+        "ignored other agent's input",
+        "reasoning-action mismatch",
+        "premature termination",
+        "incomplete verification",
+        "incorrect verification"
+      ],
+      "pack": "handoff_mini",
+      "syndrome": "MAH",
+      "benchmark_measures": true,
+      "benchmark_name": "MAST / MAST-Data",
+      "notes": "Cemri et al. 14 modes in 3 categories (spec/design ~41.8%, inter-agent misalignment ~36.9%, verification ~21.3%). 1642 annotated traces across 7 MAS (ChatDev, MetaGPT, HyperAgent, AppWorld, AG2, Magentic-One, OpenManus). IAA κ=0.88 human / 0.77 LLM judge. Highest-value seed."
+    },
+    {
+      "id": "url:cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/microsoft-brand/documents/Taxonomy-of-Failure-Mode-in-Agentic-AI-Systems-Whitepaper.pdf",
+      "title": "Taxonomy of Failure Mode in Agentic AI Systems",
+      "year": 2025,
+      "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/microsoft-brand/documents/Taxonomy-of-Failure-Mode-in-Agentic-AI-Systems-Whitepaper.pdf",
+      "depth": 0,
+      "seed_bib": 22,
+      "behaviours": [
+        "excessive agency",
+        "human-in-the-loop bypass",
+        "incorrect permissions",
+        "misinterpretation of instructions",
+        "hallucinations",
+        "resource exhaustion",
+        "insufficient isolation",
+        "memory poisoning",
+        "XPIA",
+        "agent compromise",
+        "agent injection",
+        "agent impersonation",
+        "agent flow manipulation",
+        "multi-agent jailbreaks",
+        "loss of data provenance"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Microsoft AIRT v1 (Apr 2025). Safety vs security × novel vs existing. Built from internal red teaming + practitioner interviews. Blog: https://www.microsoft.com/en-us/security/blog/2025/04/24/new-whitepaper-outlines-the-taxonomy-of-failure-modes-in-ai-agents/"
+    },
+    {
+      "id": "url:www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/",
+      "title": "Updating the taxonomy of failure modes in agentic AI systems: What a year of red teaming taught us",
+      "year": 2026,
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/",
+      "depth": 0,
+      "seed_bib": 23,
+      "behaviours": [
+        "agentic supply chain compromise",
+        "goal hijacking",
+        "inter-agent trust escalation",
+        "CUA visual attack",
+        "session context contamination",
+        "MCP/plugin abuse",
+        "capability/architecture disclosure",
+        "human-in-the-loop bypass",
+        "XPIA plus memory poisoning"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "AIRT v2.0 (Apr/Jun 2026). Adds 7 modes; 27→34. HitL bypass most exploited. PDF: https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/security/Taxonomy-of-Failure-Modes-in-Agentic-AI-Systems-v2-0.pdf"
+    },
+    {
+      "id": "arxiv:2603.06847",
+      "title": "Characterizing Faults in Agentic AI: A Taxonomy of Types, Symptoms, and Root Causes",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2603.06847",
+      "depth": 0,
+      "seed_bib": 24,
+      "behaviours": [
+        "data schema mismatch",
+        "dependency drift",
+        "state management complexity",
+        "model interface instability",
+        "structured-output interpretation failure",
+        "tool-call fault",
+        "adaptive control / non-termination",
+        "exception-handling failure"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Shah et al. 385 faults from 13602 issues/PRs across 40 repos. 34 fault types, 4 architectural dimensions, 12 symptom + 12 root-cause classes. Dominant RC: schema mismatch 28.0%, dependency drift 21.9%. Validated with 145 practitioners (mean 3.97/5)."
+    },
+    {
+      "id": "github:vectara/awesome-agent-failures",
+      "title": "Awesome Agent Failures",
+      "year": 2025,
+      "url": "https://github.com/vectara/awesome-agent-failures",
+      "depth": 0,
+      "seed_bib": 25,
+      "behaviours": [
+        "tool hallucination",
+        "response hallucination",
+        "goal misinterpretation",
+        "plan generation failures",
+        "incorrect tool use",
+        "verification and termination failures",
+        "prompt injection"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Community catalog of 7 production failure modes plus incident case studies (Replit, PocketOS, $47k LangChain A2A loop, OpenClaw email delete, Air Canada)."
+    },
+    {
+      "id": "url:galileo.ai/blog/agent-failure-modes-guide",
+      "title": "7 AI Agent Failure Modes and How To Prevent Them in Production",
+      "year": 2026,
+      "url": "https://galileo.ai/blog/agent-failure-modes-guide",
+      "depth": 0,
+      "seed_bib": 26,
+      "behaviours": [
+        "specification and system design failures",
+        "reasoning loops and hallucination cascades",
+        "context and memory corruption",
+        "multi-agent communication breakdowns",
+        "tool misuse and function compromise",
+        "prompt injection and adversarial exploits",
+        "verification and termination failures"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Galileo production guide. Explicitly cites MAST and Microsoft AIRT. Emphasizes cascade/error-propagation over isolated modes. Mentions Gartner runtime-governance prediction and Unit 42 memory poisoning."
+    },
+    {
+      "id": "url:futureagi.com/blog/ai-agent-failure-modes-2026",
+      "title": "AI Agent Failure Modes in 2026: The 5-Category Taxonomy",
+      "year": 2026,
+      "url": "https://futureagi.com/blog/ai-agent-failure-modes-2026/",
+      "depth": 0,
+      "seed_bib": 27,
+      "behaviours": [
+        "planning errors",
+        "wrong-tool-selected",
+        "infinite-loop",
+        "premature-termination",
+        "plan-vs-execute divergence",
+        "tool hallucination",
+        "MCP-tool-poisoning",
+        "API-drift",
+        "retrieval errors",
+        "role-switch-token in chunk",
+        "reasoning errors",
+        "PII leak",
+        "cross-tenant leak",
+        "output-injection"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": "Future AGI Error Feed",
+      "notes": "Five surfaces: plan / tool / retrieve / reason / safety. Names MCPTox 72.8% ASR, PoisonedRAG, Replit, $47k loop, Air Canada, EchoLeak."
+    },
+    {
+      "id": "url:www.epam.com/insights/ai/blogs/ai-agent-failure-modes-enterprise",
+      "title": "Why AI Enterprise Solutions Fail: 21+ Agent Failure Modes Explained",
+      "year": 2026,
+      "url": "https://www.epam.com/insights/ai/blogs/ai-agent-failure-modes-enterprise",
+      "depth": 0,
+      "seed_bib": 28,
+      "behaviours": [
+        "one-shotting",
+        "progress-as-completion",
+        "cold-start amnesia",
+        "ugly wish-granting",
+        "spec-deliverable confusion",
+        "default-fill slop",
+        "overengineering by default",
+        "working-memory rot",
+        "hidden harness control",
+        "lossy compaction",
+        "local patching",
+        "summary-only handoff loss",
+        "async reconciliation failure",
+        "blind N-step execution",
+        "plan drag",
+        "overdecomposition",
+        "validation interruption",
+        "false E2E completion",
+        "functional but wrong",
+        "self-review softness",
+        "modality blind spots"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "EPAM enterprise catalog. Sources named: Anthropic long-running agents / app harness, Mario Zechner (agents learned complexity), Random Labs Slate (lossy compaction, summary-only handoff). Distinctive names not in DSM-AE packs."
+    },
+    {
+      "id": "url:medium.com/@adnanmasood/a-field-guide-to-llm-failure-modes-5ffaeeb08e80",
+      "title": "A Field Guide to LLM Failure Modes",
+      "year": 2025,
+      "url": "https://medium.com/@adnanmasood/a-field-guide-to-llm-failure-modes-5ffaeeb08e80",
+      "depth": 0,
+      "seed_bib": 29,
+      "behaviours": [
+        "hallucinations",
+        "context/position bias",
+        "reasoning gaps",
+        "tool calls that look right but do the wrong thing",
+        "over-refusal",
+        "under-refusal"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Masood Medium field guide (20+ modes, 7 areas). Member-only; only executive summary retrieved. No formal bibliography extracted. fetch_partial."
+    },
+    {
+      "id": "url:ceaksan.com/en/llm-behavioral-failure-modes",
+      "title": "LLM Behavioral Failure Modes: 12 Failure Patterns and the Defense Map",
+      "year": 2026,
+      "url": "https://ceaksan.com/en/llm-behavioral-failure-modes",
+      "depth": 0,
+      "seed_bib": 30,
+      "behaviours": [
+        "hallucination and confabulation",
+        "sycophancy",
+        "context rot",
+        "instruction attenuation",
+        "task drift",
+        "incorrect tool invocation",
+        "reward hacking",
+        "positional bias",
+        "mode collapse",
+        "degeneration loops",
+        "alignment faking",
+        "version drift"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "12-mode map: 4 foundational (single-prompt) + 8 agentic. Instruction attenuation / ceremonialized compliance and version drift are notable leftovers."
+    },
+    {
+      "id": "url:ceaksan.com/en/llm-agentic-failure-modes",
+      "title": "LLM Agentic Failure Modes: Task Drift, Reward Hacking, Alignment Faking and More",
+      "year": 2026,
+      "url": "https://ceaksan.com/en/llm-agentic-failure-modes",
+      "depth": 0,
+      "seed_bib": 31,
+      "behaviours": [
+        "task drift",
+        "semantic drift",
+        "coordination drift",
+        "behavioral drift",
+        "incorrect tool invocation",
+        "parameter hallucination",
+        "ordering error",
+        "reward hacking",
+        "positional bias",
+        "mode collapse",
+        "degeneration loops",
+        "alignment faking",
+        "version drift"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Deep-dive on 8 agentic modes. Cites Agent Drift (Rath 2026), PostTrainBench reward-hacking shortcuts, Gao et al. 2023 overoptimization, Anthropic-Redwood alignment faking. Shahnovsky/Dror POMDP named but no stable URL confirmed — not invented."
+    },
+    {
+      "id": "url:aispaces.substack.com/p/the-failure-modes-of-agentic-ai-no",
+      "title": "The Failure Modes of Agentic AI No One Warned You About",
+      "year": 2026,
+      "url": "https://aispaces.substack.com/p/the-failure-modes-of-agentic-ai-no",
+      "depth": 0,
+      "seed_bib": 32,
+      "behaviours": [
+        "goal drift",
+        "action escalation",
+        "infinite or degenerate loops",
+        "silent tool misuse",
+        "memory contamination",
+        "confidence without calibration",
+        "evaluation blindness",
+        "human-in-the-loop theater"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Industry essay; no formal bibliography. Distinctive names: action escalation, evaluation blindness, HitL theater."
+    },
+    {
+      "id": "url:papers.ssrn.com/sol3/papers.cfm?abstract_id=6572478",
+      "title": "Why AI Agents Fail: A Taxonomy of Failure Modes in Autonomous LLM-Based Systems",
+      "year": 2026,
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6572478",
+      "depth": 0,
+      "seed_bib": 33,
+      "behaviours": [
+        "reasoning and planning failures",
+        "tool use and action execution failures",
+        "memory and context management failures",
+        "multi-agent orchestration failures"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "AREP",
+      "notes": "Vadlamudi SSRN (Apr 2026). Four-dimensional taxonomy + Agent Robustness Evaluation Protocol (AREP). Full PDF not retrieved (SSRN gate). Abstract only. fetch_failed for body/refs."
+    },
+    {
+      "id": "arxiv:2307.07924",
+      "title": "ChatDev: Communicative Agents for Software Development",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.07924",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "disobey role specification",
+        "multi-agent software orchestration"
+      ],
+      "pack": "role_confusion_mini",
+      "syndrome": "MRC",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "MAST evaluates ChatDev; CPO-terminates-without-CEO is the FM-1.2 case study (+9.4% SR after workflow fix)."
+    },
+    {
+      "id": "arxiv:2308.00352",
+      "title": "MetaGPT: Meta Programming for Multi-Agent Collaborative Framework",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.00352",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "role-based multi-agent coordination",
+        "spec/system-design failures in MAS"
+      ],
+      "pack": "handoff_mini",
+      "syndrome": "MAH",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Hong et al. One of 7 MAS in MAST-Data (ProgramDev)."
+    },
+    {
+      "id": "arxiv:2411.04468",
+      "title": "Magentic-One: A Generalist Multi-Agent System for Solving Complex Tasks",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2411.04468",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "generalist multi-agent orchestration",
+        "handoff / verification failures on GAIA"
+      ],
+      "pack": "handoff_mini",
+      "syndrome": "MAH",
+      "benchmark_measures": true,
+      "benchmark_name": "Magentic-One on GAIA",
+      "notes": "Fourney et al. (Microsoft). MAST out-of-domain validation MAS."
+    },
+    {
+      "id": "arxiv:2407.01502",
+      "title": "AI Agents That Matter",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.01502",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology",
+        "complexity hinders practical adoption",
+        "cost-uncontrolled agent eval"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Kapoor et al. Cited by MAST as showing complexity can hinder adoption; agent eval must report cost/harness."
+    },
+    {
+      "id": "arxiv:2505.00212",
+      "title": "Which Agent Causes Task Failures and When? On Automated Failure Attribution of LLM Multi-Agent Systems",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2505.00212",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "failure attribution (who/when)",
+        "decisive-error localization",
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Who&When",
+      "notes": "Zhang et al. 184 traces from 127 MAS; best method 53.5% agent / 14.2% step accuracy. Cited by both MAST and Characterizing Faults."
+    },
+    {
+      "id": "arxiv:2503.02068",
+      "title": "Interactive Debugging and Steering of Multi-Agent AI Systems",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.02068",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "MAS debugging",
+        "message-history inspection",
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": "AGDebugger",
+      "notes": "Epperson et al. CHI 2025. MAST related work on inspecting/editing agent-team messages."
+    },
+    {
+      "id": "arxiv:2402.03578",
+      "title": "LLM Multi-Agent Systems: Challenges and Open Problems",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2402.03578",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "multi-agent coordination challenges",
+        "inter-agent misalignment"
+      ],
+      "pack": "handoff_mini",
+      "syndrome": "MAH",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Han et al. Survey of MAS challenges cited in MAST §2.1."
+    },
+    {
+      "id": "arxiv:2407.01489",
+      "title": "Agentless: Demystifying LLM-based Software Engineering Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.01489",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "MAS vs single-agent underperformance",
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Agentless",
+      "notes": "Xia et al. MAST cites as evidence that simple/single-agent baselines often match complex MAS."
+    },
+    {
+      "id": "arxiv:1911.11034",
+      "title": "Failure Modes in Machine Learning",
+      "year": 2019,
+      "url": "https://arxiv.org/abs/1911.11034",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology",
+        "traditional ML safety/security failures"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Microsoft AIRT 2019 precursor named by the 2025 agentic-taxonomy blog."
+    },
+    {
+      "id": "url:atlas.mitre.org",
+      "title": "MITRE ATLAS",
+      "year": 2020,
+      "url": "https://atlas.mitre.org/",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "adversarial ML / agent attack techniques",
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": "MITRE ATLAS",
+      "notes": "Named by AIRT v1 blog (from Adversarial ML Threat Matrix) and AIRT v2 industry-alignment section."
+    },
+    {
+      "id": "url:owasp.org/www-project-top-10-for-large-language-model-applications",
+      "title": "OWASP Top 10 for Large Language Model Applications",
+      "year": 2025,
+      "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "prompt injection",
+        "insecure output handling",
+        "excessive agency"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Named by AIRT, Characterizing Faults, Galileo, Future AGI. LLM01 is prompt injection."
+    },
+    {
+      "id": "arxiv:2302.12173",
+      "title": "Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2302.12173",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "indirect prompt injection",
+        "XPIA",
+        "tool/data-channel injection"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Greshake et al. Canonical XPIA paper; AIRT uses XPIA as the existing-security mode that is amplified in agents."
+    },
+    {
+      "id": "url:modelcontextprotocol.io/introduction",
+      "title": "Model Context Protocol: Introduction",
+      "year": 2024,
+      "url": "https://modelcontextprotocol.io/introduction",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "MCP/plugin abuse",
+        "tool-description poisoning"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Named by AIRT v2 (MCP/plugin abuse) and MAST bib 46 as a communication standard that does not by itself fix FC2 misalignment."
+    },
+    {
+      "id": "arxiv:2505.20749",
+      "title": "Can Agents Fix Agent Issues?",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2505.20749",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "agent-framework bugs",
+        "logic/syntax violations in self-debugging agents"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "AgentIssue-Bench",
+      "notes": "Rahardja et al. 201 real agent issues; 50 reproducible tasks. SE agents resolve only ~0.67–4.67% (later versions report ~3–13%). Cited by Characterizing Faults as task-centric taxonomy."
+    },
+    {
+      "id": "arxiv:2508.13143",
+      "title": "Exploring Autonomous Agents: A Closer Look at Why They Fail When Completing Tasks",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2508.13143",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "improper task decomposition",
+        "failed self-refinement / infinite retry",
+        "unrealistic planning",
+        "tool-bypass in execution",
+        "incorrect response generation"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": true,
+      "benchmark_name": "Lu et al. 34-task programmable-agent suite",
+      "notes": "19 causes in 3 tiers (planning / execution / response). ~50% completion. ASE 2025 NIER. Cited by Characterizing Faults."
+    },
+    {
+      "id": "arxiv:2509.23735",
+      "title": "Demystifying the Lifecycle of Failures in Platform-Orchestrated Agentic Workflows",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.23735",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "agent-level root causes",
+        "workflow/structure-level control-logic faults",
+        "platform-level orchestration faults"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "AgentFail",
+      "notes": "Ma et al. 307 annotated failures; 3-level RC taxonomy (agent / workflow / platform). Auto RC ID ≤33.6%. Also titled Diagnosing Failure Root Causes… on v1."
+    },
+    {
+      "id": "arxiv:2509.25370",
+      "title": "Where LLM Agents Fail and How They Can Learn From Failures",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.25370",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "cascading root-cause errors",
+        "memory-module failures",
+        "reflection failures",
+        "planning failures",
+        "action failures",
+        "system-level operations failures"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "AgentErrorBench / AgentErrorTaxonomy",
+      "notes": "Zhu et al. Modular taxonomy + AgentDebug. 200 annotated fails from ALFWorld/GAIA/WebShop. Up to +26% relative SR after targeted debug."
+    },
+    {
+      "id": "arxiv:2509.18970",
+      "title": "LLM-based Agents Suffer from Hallucinations: A Survey of Taxonomy, Methods, and Directions",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.18970",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "tool selection hallucination",
+        "tool calling hallucination"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Lin et al. Cited by Characterizing Faults. Also section-C seed."
+    },
+    {
+      "id": "url:www.theregister.com/2025/07/21/replit_saastr_vibe_coding_incident",
+      "title": "Replit AI database deletion (SaaStr vibe-coding incident)",
+      "year": 2025,
+      "url": "https://www.theregister.com/2025/07/21/replit_saastr_vibe_coding_incident/",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "unauthorized delete",
+        "code-freeze violation",
+        "attempted concealment"
+      ],
+      "pack": "overeager_mini",
+      "syndrome": "OASD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Named by Vectara and Future AGI as tool-misuse during a declared freeze."
+    },
+    {
+      "id": "url:dev.to/waxell/the-47000-agent-loop-why-token-budget-alerts-arent-budget-enforcement-389i",
+      "title": "The $47,000 LangChain A2A Infinite Loop",
+      "year": 2026,
+      "url": "https://dev.to/waxell/the-47000-agent-loop-why-token-budget-alerts-arent-budget-enforcement-389i",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "verifier-producer hot-potato loop",
+        "unbounded multi-agent retry",
+        "observability without enforcement"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "264h Analyzer/Verifier loop. Named by Vectara and Future AGI."
+    },
+    {
+      "id": "url:www.theregister.com/2026/04/27/cursoropus_agent_snuffs_out_pocketos",
+      "title": "PocketOS Cursor + Claude Opus production database wipe",
+      "year": 2026,
+      "url": "https://www.theregister.com/2026/04/27/cursoropus_agent_snuffs_out_pocketos/",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "unauthorized destructive tool use",
+        "backup wipe"
+      ],
+      "pack": "overeager_mini",
+      "syndrome": "OASD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Named by Vectara catalog."
+    },
+    {
+      "id": "url:www.cbc.ca/news/canada/british-columbia/air-canada-chatbot-lawsuit-1.7116416",
+      "title": "Air Canada chatbot bereavement-fare liability",
+      "year": 2024,
+      "url": "https://www.cbc.ca/news/canada/british-columbia/air-canada-chatbot-lawsuit-1.7116416",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "response hallucination",
+        "fabricated policy",
+        "false success / ungrounded advice"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Named by Vectara and Future AGI (reasoning-error / ungrounded policy)."
+    },
+    {
+      "id": "url:unit42.paloaltonetworks.com/indirect-prompt-injection-poisons-ai-longterm-memory",
+      "title": "Indirect Prompt Injection Poisons AI Long-term Memory (Unit 42)",
+      "year": 2025,
+      "url": "https://unit42.paloaltonetworks.com/indirect-prompt-injection-poisons-ai-longterm-memory",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "memory poisoning",
+        "persistent indirect prompt injection"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Named by Galileo as evidence that injected instructions persist across sessions."
+    },
+    {
+      "id": "arxiv:2508.14925",
+      "title": "MCPTox: A Benchmark for Tool-Description Poisoning in MCP Servers",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2508.14925",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "MCP-tool-poisoning",
+        "tool-description injection"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": true,
+      "benchmark_name": "MCPTox",
+      "notes": "Named by Future AGI (72.8% ASR vs o1-mini across 45 MCP servers)."
+    },
+    {
+      "id": "arxiv:2402.07867",
+      "title": "PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2402.07867",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "retrieval poisoning",
+        "knowledge-base poisoning"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": true,
+      "benchmark_name": "PoisonedRAG",
+      "notes": "Zou et al. USENIX Security 2025. Named by Future AGI (~90% ASR with 5 poisoned docs / 1M)."
+    },
+    {
+      "id": "url:www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+      "title": "Effective harnesses for long-running agents",
+      "year": 2025,
+      "url": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "one-shotting",
+        "progress-as-completion",
+        "cold-start amnesia",
+        "false E2E completion"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Anthropic Engineering (Nov 2025). Named by EPAM as source of one-shotting / progress-as-completion / cold-start amnesia."
+    },
+    {
+      "id": "url:www.anthropic.com/research/building-effective-agents",
+      "title": "Building effective agents",
+      "year": 2024,
+      "url": "https://www.anthropic.com/research/building-effective-agents",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "overly complex frameworks",
+        "self-review softness"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by MAST (bib 35) and EPAM (app-harness / self-review softness)."
+    },
+    {
+      "id": "arxiv:2310.13548",
+      "title": "Towards Understanding Sycophancy in Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.13548",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "sycophancy"
+      ],
+      "pack": "sycophancy_mini",
+      "syndrome": "RSD",
+      "benchmark_measures": true,
+      "benchmark_name": "Sharma et al. sycophancy evals",
+      "notes": "Named by Ceaksan foundational/agentic posts as the RLHF-preference origin of sycophancy."
+    },
+    {
+      "id": "arxiv:2307.03172",
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.03172",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "positional / lost-in-the-middle bias",
+        "context rot"
+      ],
+      "pack": "memory_context",
+      "syndrome": "MEM",
+      "benchmark_measures": true,
+      "benchmark_name": "Lost in the Middle",
+      "notes": "Named by Ceaksan as evidence for context rot / positional bias."
+    },
+    {
+      "id": "arxiv:2412.14093",
+      "title": "Alignment faking in large language models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.14093",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "alignment faking"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Alignment faking evals",
+      "notes": "Greenblatt et al. Named by Ceaksan as strategic (not merely sycophantic) alignment failure."
+    },
+    {
+      "id": "arxiv:2601.04170",
+      "title": "Agent Drift: Quantifying Behavioral Degradation in Multi-Agent LLM Systems Over Extended Interactions",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2601.04170",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "semantic drift",
+        "coordination drift",
+        "behavioral drift"
+      ],
+      "pack": "handoff_mini",
+      "syndrome": "MAH",
+      "benchmark_measures": true,
+      "benchmark_name": "Agent Stability Index (ASI)",
+      "notes": "Rath 2026. Three drift types + 12-dimension ASI. Named by Ceaksan agentic post."
+    },
+    {
+      "id": "arxiv:2603.08640",
+      "title": "PostTrainBench: Can LLM Agents Automate LLM Post-Training?",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2603.08640",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "training on the test set",
+        "downloading ready checkpoints",
+        "unauthorized resource / API-key use",
+        "reward hacking"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "PostTrainBench",
+      "notes": "Rank et al. Named by Ceaksan. Best agent 23.2% vs 51.1% official IT models; emergent spec-gaming shortcuts."
+    },
+    {
+      "id": "arxiv:2210.10760",
+      "title": "Scaling Laws for Reward Model Overoptimization",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2210.10760",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward hacking",
+        "proxy-reward overoptimization"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Gao, Schulman, Hilton. Named by Ceaksan as the Goodhart/overopt foundation for agent reward hacking."
+    },
+    {
+      "id": "arxiv:2311.12983",
+      "title": "GAIA: a benchmark for General AI Assistants",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2311.12983",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "general-agent task failure",
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "GAIA",
+      "notes": "Cited by Who&When, Magentic-One, Zhu AgentErrorBench, MAST-Data."
+    },
+    {
+      "id": "arxiv:2407.15711",
+      "title": "AssistantBench: Can Web Agents Solve Realistic and Time-Consuming Tasks?",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.15711",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "long-horizon web-agent failure",
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "AssistantBench",
+      "notes": "Who&When source benchmark alongside GAIA."
+    },
+    {
+      "id": "arxiv:2308.08155",
+      "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.08155",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "multi-agent conversation failures",
+        "role/orchestration bugs"
+      ],
+      "pack": "handoff_mini",
+      "syndrome": "MAH",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by Who&When, Magentic-One, AGDebugger, ChatDev-era MAS stack. Also mined in Characterizing Faults (autogen issues)."
+    },
+    {
+      "id": "arxiv:2307.13854",
+      "title": "WebArena: A Realistic Web Environment for Building Autonomous Agents",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.13854",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "web-agent action errors",
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "WebArena",
+      "notes": "Cited by Kapoor et al. as a primary agent eval that needs cost/harness disclosure."
+    },
+    {
+      "id": "arxiv:2310.06770",
+      "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.06770",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "coding-agent task failure",
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-bench",
+      "notes": "Cited by Kapoor, Agentless, Rahardja, MAST (HyperAgent / SWE-Bench Lite)."
+    },
+    {
+      "id": "arxiv:2308.03688",
+      "title": "AgentBench: Evaluating LLMs as Agents",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.03688",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology",
+        "multi-environment agent failure"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "AgentBench",
+      "notes": "Cited by Kapoor and Characterizing Faults."
+    },
+    {
+      "id": "arxiv:2210.03629",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2210.03629",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "reasoning-action mismatch",
+        "thought-action loops"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Yao et al. Cited by Kapoor / Lu-style agent stacks as the canonical reason-act loop that can fail to terminate or match actions to thoughts."
+    },
+    {
+      "id": "arxiv:2303.17760",
+      "title": "CAMEL: Communicative Agents for \"Mind\" Exploration of Large Language Model Society",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2303.17760",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "role-playing MAS",
+        "inter-agent conversation failure"
+      ],
+      "pack": "handoff_mini",
+      "syndrome": "MAH",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by ChatDev / Han MAS-challenges lineage."
+    },
+    {
+      "id": "arxiv:2304.03442",
+      "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2304.03442",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "memory-stream drift",
+        "simulated social-agent failure"
+      ],
+      "pack": "memory_context",
+      "syndrome": "MEM",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Park et al. Cited by ChatDev / MAST bib 9 as foundational agent-memory architecture."
+    },
+    {
+      "id": "arxiv:2405.15793",
+      "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.15793",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "coding-agent interface failures",
+        "unauthorized or inefficient tool sequences"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-agent",
+      "notes": "Cited by Agentless and Rahardja as the SE-agent baseline that still fails on AgentIssue-Bench."
+    },
+    {
+      "id": "arxiv:2207.01206",
+      "title": "WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2207.01206",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "web-shop tool misuse",
+        "cascading action errors"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "WebShop",
+      "notes": "Yao et al. AgentErrorBench source environment (Zhu)."
+    },
+    {
+      "id": "arxiv:2010.03768",
+      "title": "ALFWorld: Aligning Text and Embodied Environments for Interactive Learning",
+      "year": 2020,
+      "url": "https://arxiv.org/abs/2010.03768",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "embodied plan-execution mismatch"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": true,
+      "benchmark_name": "ALFWorld",
+      "notes": "AgentErrorBench source environment (Zhu)."
+    },
+    {
+      "id": "arxiv:2502.13295",
+      "title": "Demonstrating specification gaming in reasoning models",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2502.13295",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "specification gaming",
+        "benchmark hacking"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": null,
+      "notes": "Related hop from PostTrainBench's reward-hacking discussion (same family as test-set training / unauthorized shortcuts)."
+    },
+    {
+      "id": "arxiv:2212.09251",
+      "title": "Discovering Language Model Behaviors with Model-Written Evaluations",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2212.09251",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "sycophancy",
+        "inverse scaling of sycophancy"
+      ],
+      "pack": "sycophancy_mini",
+      "syndrome": "RSD",
+      "benchmark_measures": true,
+      "benchmark_name": "Perez et al. model-written evals",
+      "notes": "Cited by Sharma sycophancy paper (Ceaksan hop)."
+    },
+    {
+      "id": "arxiv:2406.07358",
+      "title": "AI Sandbagging: Language Models can Strategically Underperform on Evaluations",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.07358",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "sandbagging"
+      ],
+      "pack": "sandbag_mini",
+      "syndrome": "SBG",
+      "benchmark_measures": true,
+      "benchmark_name": "AI Sandbagging",
+      "notes": "Related alignment-failure hop from Greenblatt alignment-faking (Ceaksan)."
+    },
+    {
+      "id": "arxiv:2412.04984",
+      "title": "Frontier Models are Capable of In-context Scheming",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.04984",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "in-context scheming",
+        "deception"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Apollo in-context scheming suite",
+      "notes": "Related hop from alignment-faking / Ceaksan deep-alignment family."
+    },
+    {
+      "id": "arxiv:2211.09110",
+      "title": "Holistic Evaluation of Language Models (HELM)",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2211.09110",
+      "depth": 3,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "HELM",
+      "notes": "Cited by GAIA / agent-eval lineage as the multi-metric eval methodology precursor."
+    },
+    {
+      "id": "arxiv:2302.04761",
+      "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2302.04761",
+      "depth": 3,
+      "seed_bib": null,
+      "behaviours": [
+        "tool selection",
+        "tool-use hallucination precursors"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by ReAct-era tool-use stack."
+    },
+    {
+      "id": "arxiv:2112.09332",
+      "title": "WebGPT: Browser-assisted question-answering with human feedback",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2112.09332",
+      "depth": 3,
+      "seed_bib": null,
+      "behaviours": [
+        "browser-tool misuse",
+        "citation / browsing errors"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "WebGPT",
+      "notes": "Cited by ReAct / web-agent eval lineage."
+    }
+  ],
+  "edges": [
+    {"from": "arxiv:2503.13657", "to": "arxiv:2307.07924", "depth": 1, "why": "MAST evaluates ChatDev; FM-1.2 CPO-without-CEO case study"},
+    {"from": "arxiv:2503.13657", "to": "arxiv:2308.00352", "depth": 1, "why": "MAST-Data MAS: MetaGPT on ProgramDev"},
+    {"from": "arxiv:2503.13657", "to": "arxiv:2411.04468", "depth": 1, "why": "MAST-Data / OOD validation MAS on GAIA"},
+    {"from": "arxiv:2503.13657", "to": "arxiv:2407.01502", "depth": 1, "why": "MAST cites Kapoor: complexity hinders practical MAS adoption"},
+    {"from": "arxiv:2503.13657", "to": "arxiv:2505.00212", "depth": 1, "why": "MAST related work: Who&When automated failure attribution"},
+    {"from": "arxiv:2503.13657", "to": "arxiv:2503.02068", "depth": 1, "why": "MAST related work: AGDebugger inspects/steers agent teams"},
+    {"from": "arxiv:2503.13657", "to": "arxiv:2402.03578", "depth": 1, "why": "MAST §2.1 survey of MAS challenges/open problems"},
+    {"from": "arxiv:2503.13657", "to": "arxiv:2407.01489", "depth": 1, "why": "MAST cites Agentless as single-agent baseline that matches complex MAS"},
+    {"from": "url:cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/microsoft-brand/documents/Taxonomy-of-Failure-Mode-in-Agentic-AI-Systems-Whitepaper.pdf", "to": "arxiv:1911.11034", "depth": 1, "why": "AIRT blog names 2019 Failure Modes in Machine Learning as precursor"},
+    {"from": "url:cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/microsoft-brand/documents/Taxonomy-of-Failure-Mode-in-Agentic-AI-Systems-Whitepaper.pdf", "to": "url:atlas.mitre.org", "depth": 1, "why": "AIRT v1 blog: 2020 partnership became MITRE ATLAS"},
+    {"from": "url:cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/microsoft-brand/documents/Taxonomy-of-Failure-Mode-in-Agentic-AI-Systems-Whitepaper.pdf", "to": "url:owasp.org/www-project-top-10-for-large-language-model-applications", "depth": 1, "why": "AIRT industry-alignment / existing-security modes include OWASP-class injection"},
+    {"from": "url:cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/microsoft-brand/documents/Taxonomy-of-Failure-Mode-in-Agentic-AI-Systems-Whitepaper.pdf", "to": "arxiv:2302.12173", "depth": 1, "why": "AIRT XPIA mode is the Greshake-style indirect/cross-domain injection family"},
+    {"from": "url:www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/", "to": "url:cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/microsoft-brand/documents/Taxonomy-of-Failure-Mode-in-Agentic-AI-Systems-Whitepaper.pdf", "depth": 1, "why": "v2 update of the 2025 AIRT whitepaper"},
+    {"from": "url:www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/", "to": "url:modelcontextprotocol.io/introduction", "depth": 1, "why": "v2 new mode: MCP/plugin abuse after MCP became de-facto tool protocol"},
+    {"from": "url:www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/", "to": "url:owasp.org/www-project-top-10-for-large-language-model-applications", "depth": 1, "why": "v2 industry-alignment section cross-references OWASP"},
+    {"from": "url:www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/", "to": "url:atlas.mitre.org", "depth": 1, "why": "v2 industry-alignment section cross-references MITRE ATLAS"},
+    {"from": "arxiv:2603.06847", "to": "arxiv:2503.13657", "depth": 1, "why": "Cites MAST as interaction-centric MAS failure taxonomy"},
+    {"from": "arxiv:2603.06847", "to": "arxiv:2505.20749", "depth": 1, "why": "Rahardja task-centric agent-issue taxonomy / AgentIssue-Bench"},
+    {"from": "arxiv:2603.06847", "to": "arxiv:2508.13143", "depth": 1, "why": "Lu et al. task-phase failure taxonomy for autonomous agents"},
+    {"from": "arxiv:2603.06847", "to": "arxiv:2509.23735", "depth": 1, "why": "Ma et al. platform-orchestrated AgentFail taxonomy"},
+    {"from": "arxiv:2603.06847", "to": "arxiv:2505.00212", "depth": 1, "why": "Zhang Who&When failure-attribution related work"},
+    {"from": "arxiv:2603.06847", "to": "arxiv:2509.25370", "depth": 1, "why": "Zhu AgentErrorTaxonomy / learn-from-failures"},
+    {"from": "arxiv:2603.06847", "to": "url:owasp.org/www-project-top-10-for-large-language-model-applications", "depth": 1, "why": "Cites OWASP 2025 as documenting agentic delete/non-termination/hallucinated-API incidents"},
+    {"from": "arxiv:2603.06847", "to": "arxiv:2509.18970", "depth": 1, "why": "Cites Lin et al. agent-hallucination survey"},
+    {"from": "github:vectara/awesome-agent-failures", "to": "url:www.theregister.com/2025/07/21/replit_saastr_vibe_coding_incident", "depth": 1, "why": "Vectara case study: unauthorized production DB delete"},
+    {"from": "github:vectara/awesome-agent-failures", "to": "url:dev.to/waxell/the-47000-agent-loop-why-token-budget-alerts-arent-budget-enforcement-389i", "depth": 1, "why": "Vectara case study: $47k A2A infinite loop"},
+    {"from": "github:vectara/awesome-agent-failures", "to": "url:www.theregister.com/2026/04/27/cursoropus_agent_snuffs_out_pocketos", "depth": 1, "why": "Vectara case study: PocketOS wipe"},
+    {"from": "github:vectara/awesome-agent-failures", "to": "url:www.cbc.ca/news/canada/british-columbia/air-canada-chatbot-lawsuit-1.7116416", "depth": 1, "why": "Vectara legal/financial incident: fabricated policy"},
+    {"from": "url:galileo.ai/blog/agent-failure-modes-guide", "to": "arxiv:2503.13657", "depth": 1, "why": "Galileo organizes production modes around MAST"},
+    {"from": "url:galileo.ai/blog/agent-failure-modes-guide", "to": "url:cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/microsoft-brand/documents/Taxonomy-of-Failure-Mode-in-Agentic-AI-Systems-Whitepaper.pdf", "depth": 1, "why": "Galileo cites Microsoft AIRT as amplified genAI failures in agents"},
+    {"from": "url:galileo.ai/blog/agent-failure-modes-guide", "to": "url:unit42.paloaltonetworks.com/indirect-prompt-injection-poisons-ai-longterm-memory", "depth": 1, "why": "Galileo cites Unit 42 for persistent memory poisoning"},
+    {"from": "url:galileo.ai/blog/agent-failure-modes-guide", "to": "url:owasp.org/www-project-top-10-for-large-language-model-applications", "depth": 1, "why": "Galileo cites OWASP LLM01 for injection"},
+    {"from": "url:futureagi.com/blog/ai-agent-failure-modes-2026", "to": "arxiv:2508.14925", "depth": 1, "why": "Future AGI tool-error subtype: MCPTox 72.8% ASR"},
+    {"from": "url:futureagi.com/blog/ai-agent-failure-modes-2026", "to": "arxiv:2402.07867", "depth": 1, "why": "Future AGI retrieval-error: PoisonedRAG"},
+    {"from": "url:futureagi.com/blog/ai-agent-failure-modes-2026", "to": "url:www.theregister.com/2025/07/21/replit_saastr_vibe_coding_incident", "depth": 1, "why": "Future AGI tool-misuse example during freeze"},
+    {"from": "url:futureagi.com/blog/ai-agent-failure-modes-2026", "to": "url:www.cbc.ca/news/canada/british-columbia/air-canada-chatbot-lawsuit-1.7116416", "depth": 1, "why": "Future AGI reasoning-error example: fabricated fare policy"},
+    {"from": "url:www.epam.com/insights/ai/blogs/ai-agent-failure-modes-enterprise", "to": "url:www.anthropic.com/engineering/effective-harnesses-for-long-running-agents", "depth": 1, "why": "EPAM sources one-shotting / progress-as-completion / cold-start amnesia here"},
+    {"from": "url:www.epam.com/insights/ai/blogs/ai-agent-failure-modes-enterprise", "to": "url:www.anthropic.com/research/building-effective-agents", "depth": 1, "why": "EPAM sources self-review softness / app-harness 'confidently praising mediocre work'"},
+    {"from": "url:ceaksan.com/en/llm-behavioral-failure-modes", "to": "arxiv:2310.13548", "depth": 1, "why": "Foundational sycophancy mechanism"},
+    {"from": "url:ceaksan.com/en/llm-behavioral-failure-modes", "to": "arxiv:2307.03172", "depth": 1, "why": "Context rot / positional bias evidence"},
+    {"from": "url:ceaksan.com/en/llm-behavioral-failure-modes", "to": "arxiv:2412.14093", "depth": 1, "why": "Alignment faking as advanced mode"},
+    {"from": "url:ceaksan.com/en/llm-behavioral-failure-modes", "to": "url:ceaksan.com/en/llm-agentic-failure-modes", "depth": 1, "why": "Pillar page points to agentic-modes spoke"},
+    {"from": "url:ceaksan.com/en/llm-agentic-failure-modes", "to": "arxiv:2601.04170", "depth": 1, "why": "Cites 2026 Agent Drift semantic/coordination/behavioral types"},
+    {"from": "url:ceaksan.com/en/llm-agentic-failure-modes", "to": "arxiv:2603.08640", "depth": 1, "why": "Cites PostTrainBench reward-hacking shortcuts"},
+    {"from": "url:ceaksan.com/en/llm-agentic-failure-modes", "to": "arxiv:2210.10760", "depth": 1, "why": "Cites Gao/Schulman/Hilton proxy-reward overoptimization"},
+    {"from": "url:ceaksan.com/en/llm-agentic-failure-modes", "to": "arxiv:2412.14093", "depth": 1, "why": "Cites Anthropic-Redwood alignment faking"},
+    {"from": "arxiv:2505.00212", "to": "arxiv:2311.12983", "depth": 2, "why": "Who&When tasks drawn from GAIA"},
+    {"from": "arxiv:2505.00212", "to": "arxiv:2407.15711", "depth": 2, "why": "Who&When tasks drawn from AssistantBench"},
+    {"from": "arxiv:2505.00212", "to": "arxiv:2308.08155", "depth": 2, "why": "Who&When includes AutoGen/CaptainAgent-generated systems"},
+    {"from": "arxiv:2505.00212", "to": "arxiv:2411.04468", "depth": 2, "why": "Who&When hand-crafted systems include Magentic-One"},
+    {"from": "arxiv:2505.00212", "to": "arxiv:2308.00352", "depth": 2, "why": "Who&When cites MetaGPT-style role MAS as attribution targets"},
+    {"from": "arxiv:2407.01502", "to": "arxiv:2307.13854", "depth": 2, "why": "Kapoor critiques WebArena-style agent evals without cost/harness"},
+    {"from": "arxiv:2407.01502", "to": "arxiv:2310.06770", "depth": 2, "why": "Kapoor discusses SWE-bench as an agent eval that can hide cost"},
+    {"from": "arxiv:2407.01502", "to": "arxiv:2308.03688", "depth": 2, "why": "Kapoor discusses AgentBench as a multi-env agent suite"},
+    {"from": "arxiv:2407.01502", "to": "arxiv:2210.03629", "depth": 2, "why": "ReAct is the baseline reason-act loop in the agent-eval papers Kapoor surveys"},
+    {"from": "arxiv:2307.07924", "to": "arxiv:2303.17760", "depth": 2, "why": "ChatDev builds on CAMEL-style communicative agents"},
+    {"from": "arxiv:2307.07924", "to": "arxiv:2308.08155", "depth": 2, "why": "ChatDev related work / contemporaneous multi-agent conversation stack"},
+    {"from": "arxiv:2307.07924", "to": "arxiv:2304.03442", "depth": 2, "why": "ChatDev cites Generative Agents as foundational multi-agent simulacra"},
+    {"from": "arxiv:2411.04468", "to": "arxiv:2308.08155", "depth": 2, "why": "Magentic-One is built in the AutoGen lineage"},
+    {"from": "arxiv:2411.04468", "to": "arxiv:2311.12983", "depth": 2, "why": "Magentic-One reports GAIA results (also used by MAST)"},
+    {"from": "arxiv:2411.04468", "to": "arxiv:2407.15711", "depth": 2, "why": "Magentic-One evaluated on AssistantBench-class generalist tasks"},
+    {"from": "arxiv:2503.02068", "to": "arxiv:2411.04468", "depth": 2, "why": "AGDebugger targets Magentic-One-style agent teams"},
+    {"from": "arxiv:2503.02068", "to": "arxiv:2308.08155", "depth": 2, "why": "AGDebugger inspects AutoGen-style message histories"},
+    {"from": "arxiv:2402.03578", "to": "arxiv:2308.08155", "depth": 2, "why": "Han survey covers AutoGen as a canonical MAS framework"},
+    {"from": "arxiv:2402.03578", "to": "arxiv:2303.17760", "depth": 2, "why": "Han survey covers CAMEL as a canonical communicative MAS"},
+    {"from": "arxiv:2407.01489", "to": "arxiv:2310.06770", "depth": 2, "why": "Agentless is a SWE-bench agent baseline without a complex agent loop"},
+    {"from": "arxiv:2407.01489", "to": "arxiv:2405.15793", "depth": 2, "why": "Agentless compares against SWE-agent"},
+    {"from": "arxiv:2505.20749", "to": "arxiv:2405.15793", "depth": 2, "why": "Rahardja evaluates SWE-agent on AgentIssue-Bench"},
+    {"from": "arxiv:2505.20749", "to": "arxiv:2310.06770", "depth": 2, "why": "AgentIssue-Bench is positioned against SWE-bench-style SE-agent evals"},
+    {"from": "arxiv:2505.20749", "to": "arxiv:2407.01489", "depth": 2, "why": "SE-agent baselines include Agentless-class systems"},
+    {"from": "arxiv:2508.13143", "to": "arxiv:2210.03629", "depth": 2, "why": "Lu planning/execution taxonomy is instantiated on ReAct-style agent loops"},
+    {"from": "arxiv:2508.13143", "to": "arxiv:2308.08155", "depth": 2, "why": "Lu evaluates popular open-source agent frameworks including AutoGen-class stacks"},
+    {"from": "arxiv:2509.23735", "to": "arxiv:2505.00212", "depth": 2, "why": "AgentFail related work: Who&When attribution"},
+    {"from": "arxiv:2509.23735", "to": "arxiv:2503.13657", "depth": 2, "why": "AgentFail related work: MAST"},
+    {"from": "arxiv:2509.23735", "to": "arxiv:2509.25370", "depth": 2, "why": "AgentFail related work: Zhu where-agents-fail"},
+    {"from": "arxiv:2509.25370", "to": "arxiv:2311.12983", "depth": 2, "why": "AgentErrorBench includes GAIA trajectories"},
+    {"from": "arxiv:2509.25370", "to": "arxiv:2207.01206", "depth": 2, "why": "AgentErrorBench includes WebShop trajectories"},
+    {"from": "arxiv:2509.25370", "to": "arxiv:2010.03768", "depth": 2, "why": "AgentErrorBench includes ALFWorld trajectories"},
+    {"from": "arxiv:2508.14925", "to": "arxiv:2302.12173", "depth": 2, "why": "MCPTox is tool-description XPIA in the Greshake family"},
+    {"from": "arxiv:2508.14925", "to": "url:modelcontextprotocol.io/introduction", "depth": 2, "why": "MCPTox measures poisoning of MCP tool descriptors"},
+    {"from": "arxiv:2601.04170", "to": "arxiv:2503.13657", "depth": 2, "why": "Agent Drift is a long-horizon complement to MAST's snapshot misalignment modes"},
+    {"from": "arxiv:2603.08640", "to": "arxiv:2502.13295", "depth": 2, "why": "PostTrainBench shortcuts are specification-gaming / benchmark-hacking"},
+    {"from": "arxiv:2603.08640", "to": "arxiv:2310.06770", "depth": 2, "why": "PostTrainBench is an R&D-agent eval in the SWE-bench autonomy family"},
+    {"from": "arxiv:2302.12173", "to": "url:owasp.org/www-project-top-10-for-large-language-model-applications", "depth": 2, "why": "OWASP LLM01 operationalizes Greshake-style injection"},
+    {"from": "url:www.anthropic.com/engineering/effective-harnesses-for-long-running-agents", "to": "url:www.anthropic.com/research/building-effective-agents", "depth": 2, "why": "Long-running harness post extends Building Effective Agents modular design"},
+    {"from": "url:unit42.paloaltonetworks.com/indirect-prompt-injection-poisons-ai-longterm-memory", "to": "arxiv:2302.12173", "depth": 2, "why": "Unit 42 memory-poisoning is persistent XPIA"},
+    {"from": "arxiv:2310.13548", "to": "arxiv:2212.09251", "depth": 2, "why": "Sharma cites Perez model-written sycophancy evals"},
+    {"from": "arxiv:2412.14093", "to": "arxiv:2406.07358", "depth": 2, "why": "Alignment-faking paper sits next to sandbagging as strategic under/over-compliance"},
+    {"from": "arxiv:2412.14093", "to": "arxiv:2412.04984", "depth": 2, "why": "Same strategic-deception family as in-context scheming"},
+    {"from": "arxiv:2311.12983", "to": "arxiv:2307.13854", "depth": 3, "why": "GAIA related work: WebArena as a prior generalist web-agent bench"},
+    {"from": "arxiv:2311.12983", "to": "arxiv:2308.03688", "depth": 3, "why": "GAIA related work: AgentBench as a prior multi-env agent suite"},
+    {"from": "arxiv:2311.12983", "to": "arxiv:2211.09110", "depth": 3, "why": "GAIA related work: HELM as multi-metric eval methodology"},
+    {"from": "arxiv:2407.15711", "to": "arxiv:2311.12983", "depth": 3, "why": "AssistantBench positions against GAIA-style general assistant tasks"},
+    {"from": "arxiv:2407.15711", "to": "arxiv:2307.13854", "depth": 3, "why": "AssistantBench is a longer-horizon web-agent complement to WebArena"},
+    {"from": "arxiv:2303.17760", "to": "arxiv:2304.03442", "depth": 3, "why": "CAMEL related work: Generative Agents social-simulacra lineage"},
+    {"from": "arxiv:2308.08155", "to": "arxiv:2303.17760", "depth": 3, "why": "AutoGen related work: CAMEL communicative agents"},
+    {"from": "arxiv:2308.08155", "to": "arxiv:2307.07924", "depth": 3, "why": "AutoGen related work: ChatDev software-MAS"},
+    {"from": "arxiv:2210.03629", "to": "arxiv:2302.04761", "depth": 3, "why": "ReAct related work: Toolformer tool-use"},
+    {"from": "arxiv:2210.03629", "to": "arxiv:2112.09332", "depth": 3, "why": "ReAct related work: WebGPT browser-assisted QA"},
+    {"from": "arxiv:2405.15793", "to": "arxiv:2310.06770", "depth": 3, "why": "SWE-agent is a SWE-bench agent"},
+    {"from": "arxiv:2405.15793", "to": "arxiv:2407.01489", "depth": 3, "why": "SWE-agent is the complex-agent foil to Agentless"},
+    {"from": "arxiv:2207.01206", "to": "arxiv:2210.03629", "depth": 3, "why": "WebShop agents are typically ReAct-style"}
+  ],
+  "gaps": [
+    {
+      "id": "url:medium.com/@adnanmasood/a-field-guide-to-llm-failure-modes-5ffaeeb08e80",
+      "reason": "fetch_partial",
+      "notes": "Medium member-only. Executive summary only (7 areas: hallucinations, context/position bias, reasoning gaps, brittle prompts, wrong tool calls, over/under-refusal). No formal bibliography; hop-1 skipped rather than invented."
+    },
+    {
+      "id": "url:papers.ssrn.com/sol3/papers.cfm?abstract_id=6572478",
+      "reason": "fetch_failed",
+      "notes": "SSRN abstract retrieved (4-dim taxonomy + AREP). Full PDF/refs not accessible. Seed node kept; no outgoing hops."
+    },
+    {
+      "id": "url:aispaces.substack.com/p/the-failure-modes-of-agentic-ai-no",
+      "reason": "no_formal_bibliography",
+      "notes": "Essay names 8 modes but cites no papers. Per PROCESS, hop-1 is related-work-it-names only; none were formal, so 0 outgoing."
+    },
+    {
+      "id": "url:www.epam.com/insights/ai/blogs/ai-agent-failure-modes-enterprise",
+      "reason": "partial_named_sources",
+      "notes": "Mario Zechner ('agents have learned complexity') and Random Labs Slate (lossy compaction / summary-only handoff) are named but no stable canonical URL confirmed; not invented. Only Anthropic harness posts hopped."
+    },
+    {
+      "id": "url:ceaksan.com/en/llm-agentic-failure-modes",
+      "reason": "unconfirmed_cite",
+      "notes": "Shahnovsky and Dror (2026) POMDP task-drift paper named; no arXiv/DOI confirmed in search, so not added as a node."
+    }
+  ]
+}

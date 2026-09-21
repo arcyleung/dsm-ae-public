@@ -1,0 +1,3446 @@
+{
+  "section": "A",
+  "agent": "snowball-A",
+  "nodes": [
+    {
+      "id": "arxiv:2605.18583",
+      "title": "Overeager Coding Agents: Measuring Out-of-Scope Actions on Benign Tasks",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2605.18583",
+      "depth": 0,
+      "seed_bib": 1,
+      "behaviours": [
+        "unauthorized delete",
+        "out-of-scope action",
+        "consent-masking collapse",
+        "permissive framework amplification"
+      ],
+      "pack": "overeager_mini",
+      "syndrome": "OASD",
+      "benchmark_measures": true,
+      "benchmark_name": "OverEager-Bench",
+      "notes": "OverEager-Gen + OverEager-Bench: 500 scenarios; consent-stripped OR 0→17.1% on Claude Code; framework gating dominates."
+    },
+    {
+      "id": "arxiv:2603.24755",
+      "title": "SlopCodeBench: Benchmarking How Coding Agents Degrade Over Long-Horizon Iterative Tasks",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2603.24755",
+      "depth": 0,
+      "seed_bib": 2,
+      "behaviours": [
+        "structural erosion",
+        "verbosity",
+        "deletion phobia",
+        "iterative quality collapse"
+      ],
+      "pack": "slop_indicator",
+      "syndrome": "ISDS",
+      "benchmark_measures": true,
+      "benchmark_name": "SlopCodeBench",
+      "notes": "36 problems / 196 checkpoints; erosion rises in 77% of trajectories; agent code 2.3× verbose, 2.0× eroded vs OSS."
+    },
+    {
+      "id": "arxiv:2605.28122",
+      "title": "SNARE: Adaptive Scenario Synthesis for Eliciting Overeager Behavior in Coding Agents",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2605.28122",
+      "depth": 0,
+      "seed_bib": 3,
+      "behaviours": [
+        "overeager scope expansion",
+        "unsolicited file add/delete",
+        "framework-driven overreach"
+      ],
+      "pack": "overeager_mini",
+      "syndrome": "OASD",
+      "benchmark_measures": true,
+      "benchmark_name": "OverEager (SNARE)",
+      "notes": "Thompson-sampled synthesis over 24 archetypes; 19.51% overeager on 10k benign runs; framework 56% of variance."
+    },
+    {
+      "id": "arxiv:2605.21384",
+      "title": "SpecBench: Measuring Reward Hacking in Long-Horizon Coding Agents",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2605.21384",
+      "depth": 0,
+      "seed_bib": 4,
+      "behaviours": [
+        "reward hacking",
+        "test memorization",
+        "feature isolation gaming"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "SpecBench",
+      "notes": "Visible vs held-out gap; +28 pp per 10× code size; hash-table 'compiler' memorizes tests."
+    },
+    {
+      "id": "arxiv:2605.02269",
+      "title": "Towards Understanding Specification Gaming in Reasoning Models",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2605.02269",
+      "depth": 0,
+      "seed_bib": 5,
+      "behaviours": [
+        "specification gaming",
+        "reward hacking",
+        "RL-reasoning exploit increase"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "reward-hacking-evals",
+      "notes": "8 diverse deploy-time gaming settings; RL reasoning raises exploit 32–170%; Grok 4 highest, Claude lowest."
+    },
+    {
+      "id": "arxiv:2502.13295",
+      "title": "Demonstrating specification gaming in reasoning models",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2502.13295",
+      "depth": 0,
+      "seed_bib": 6,
+      "behaviours": [
+        "specification gaming",
+        "benchmark hacking",
+        "chess-engine exploit"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "o3/R1 hack chess-vs-engine by default via shell; non-reasoning models need a nudge."
+    },
+    {
+      "id": "arxiv:2405.00253",
+      "title": "CodeHalu: Investigating Code Hallucinations in LLMs via Execution-based Verification",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.00253",
+      "depth": 0,
+      "seed_bib": 7,
+      "behaviours": [
+        "code hallucination",
+        "mapping/naming/resource/logic hallucination"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "CodeHaluEval",
+      "notes": "8883 samples / 699 tasks; execution-verified 4-type taxonomy; AAAI 2025."
+    },
+    {
+      "id": "arxiv:2406.10279",
+      "title": "We Have a Package for You! A Comprehensive Analysis of Package Hallucinations by Code Generating LLMs",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2406.10279",
+      "depth": 0,
+      "seed_bib": 8,
+      "behaviours": [
+        "package hallucination",
+        "slopsquatting",
+        "supply-chain risk"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "package-hallucination eval",
+      "notes": "USENIX Security 2025 (arxiv:2406.10279). Commercial ≥5.2%, OSS 21.7%; 205k unique fake packages; 58% name persistence."
+    },
+    {
+      "id": "arxiv:2604.09515",
+      "title": "When LLMs Lag Behind: Knowledge Conflicts from Evolving APIs in Code Generation",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2604.09515",
+      "depth": 0,
+      "seed_bib": 9,
+      "behaviours": [
+        "stale API use",
+        "hallucinated new API",
+        "context-memory conflict"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "API-evolution codegen bench",
+      "notes": "270 real API updates / 8 Python libs; 42.55% executable without docs; 63% of P3 failures fabricate APIs."
+    },
+    {
+      "id": "url:software-lab.org/publications/icse2026_SWE-bench-correctness.pdf",
+      "title": "Are “Solved Issues” in SWE-bench Really Solved Correctly?",
+      "year": 2026,
+      "url": "https://software-lab.org/publications/icse2026_SWE-bench-correctness.pdf",
+      "depth": 0,
+      "seed_bib": 10,
+      "behaviours": [
+        "plausible-but-incorrect patches",
+        "weak-test inflation",
+        "behavioral over-adaptation"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "ICSE 2026 PatchDiff study. 7.8% plausible patches fail full suite; ~11% incorrect among plausible; +6.4 pp inflation."
+    },
+    {
+      "id": "arxiv:2509.13941",
+      "title": "An Empirical Study on Failures in Automated Issue Solving",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.13941",
+      "depth": 0,
+      "seed_bib": 11,
+      "behaviours": [
+        "incomplete repair",
+        "evasive repair",
+        "unproductive loops",
+        "localization failure"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "3×9×25 failure taxonomy on SWE-bench Verified (150 failures). Agent loops vs pipeline localization."
+    },
+    {
+      "id": "arxiv:2509.16941",
+      "title": "SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering Tasks?",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.16941",
+      "depth": 0,
+      "seed_bib": 12,
+      "behaviours": [
+        "endless file reading",
+        "context overflow",
+        "tool errors",
+        "wrong solution"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-Bench Pro",
+      "notes": "Resolution ≤23.3% public; failures include endless file reading 17%, context overflow 35.6% (Sonnet 4)."
+    },
+    {
+      "id": "arxiv:2403.07974",
+      "title": "LiveCodeBench: Holistic and Contamination Free Evaluation of Large Language Models for Code",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2403.07974",
+      "depth": 0,
+      "seed_bib": 13,
+      "behaviours": [
+        "eval-methodology",
+        "contamination control",
+        "self-repair"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "LiveCodeBench",
+      "notes": "Live contest problems; generation/self-repair/execution/testing. Functional correctness only."
+    },
+    {
+      "id": "arxiv:2310.06770",
+      "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.06770",
+      "depth": 0,
+      "seed_bib": 14,
+      "behaviours": [
+        "eval-methodology",
+        "issue solving",
+        "repo-level coding"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-bench",
+      "notes": "Canonical GitHub-issue agent benchmark; pass/fail on hidden tests; no overeager/quality metrics."
+    },
+    {
+      "id": "url:www.gitclear.com/ai_assistant_code_quality_2025_research",
+      "title": "GitClear AI Copilot Code Quality 2025",
+      "year": 2025,
+      "url": "https://www.gitclear.com/ai_assistant_code_quality_2025_research",
+      "depth": 0,
+      "seed_bib": 15,
+      "behaviours": [
+        "copy-paste debt",
+        "churn",
+        "lost refactor"
+      ],
+      "pack": "slop_indicator",
+      "syndrome": "ISDS",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "211M lines 2020–2024: copy/paste 8.3→12.3%; moved/refactored ~25→<10%; churn 3.1→5.7%."
+    },
+    {
+      "id": "url:snorkel.ai/blog/slopcodebench-measuring-code-erosion-as-agents-iterate",
+      "title": "SlopCodeBench: Measuring Code Erosion as Agents Iterate",
+      "year": 2026,
+      "url": "https://snorkel.ai/blog/slopcodebench-measuring-code-erosion-as-agents-iterate/",
+      "depth": 0,
+      "seed_bib": 16,
+      "behaviours": [
+        "structural erosion",
+        "selective amnesia",
+        "library aversion",
+        "deletion phobia"
+      ],
+      "pack": "slop_indicator",
+      "syndrome": "ISDS",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Interview with SlopCodeBench lead; qualitative maintainability failures even when tests pass."
+    },
+    {
+      "id": "url:www.augmentcode.com/guides/the-80-percent-problem-ai-agents-technical-debt",
+      "title": "The 80% Problem: Why AI Agents Ship Fast But Create Hidden Technical Debt",
+      "year": 2026,
+      "url": "https://www.augmentcode.com/guides/the-80-percent-problem-ai-agents-technical-debt",
+      "depth": 0,
+      "seed_bib": 17,
+      "behaviours": [
+        "NFR omission",
+        "80% problem",
+        "context drift"
+      ],
+      "pack": "nfr_omit",
+      "syndrome": "NFR",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Agents ship happy-path ~80%; omit error handling/security/observability. Names Osmani, CodeHalu-adjacent cites."
+    },
+    {
+      "id": "url:www.mindstudio.ai/blog/context-rot-ai-coding-agents-how-to-prevent",
+      "title": "Context Rot in AI Coding Agents: What It Is and How to Prevent It",
+      "year": 2026,
+      "url": "https://www.mindstudio.ai/blog/context-rot-ai-coding-agents-how-to-prevent",
+      "depth": 0,
+      "seed_bib": 18,
+      "behaviours": [
+        "context rot",
+        "architectural drift",
+        "recency overweight"
+      ],
+      "pack": "memory_context",
+      "syndrome": "MEM",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Practitioner account of quality decline as the coding-agent window fills; no formal bibliography."
+    },
+    {
+      "id": "url:openai.com/index/separating-signal-from-noise-coding-evaluations",
+      "title": "Separating Signal from Noise in Coding Evaluations",
+      "year": 2026,
+      "url": "https://openai.com/index/separating-signal-from-noise-coding-evaluations/",
+      "depth": 0,
+      "seed_bib": 19,
+      "behaviours": [
+        "eval-methodology",
+        "broken tasks",
+        "low-coverage tests",
+        "underspecified prompts"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "OpenAI audit: ~30% of SWE-Bench Pro public tasks broken. Four noise classes. HTML fetch was JS-walled; content recovered via search."
+    },
+    {
+      "id": "arxiv:2605.20049",
+      "title": "Does Code Cleanliness Affect Coding Agents? A Controlled Minimal-Pair Study",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2605.20049",
+      "depth": 0,
+      "seed_bib": 20,
+      "behaviours": [
+        "code cleanliness",
+        "token waste",
+        "expensive failures"
+      ],
+      "pack": "slop_indicator",
+      "syndrome": "ISDS",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Minimal-pair dirty/clean repos; cleanliness changes agent token footprint more than pass rate."
+    },
+    {
+      "id": "arxiv:2410.09024",
+      "title": "AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2410.09024",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "harmful tool use",
+        "agent refusal failure"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "AgentHarm",
+      "notes": "Cited by OverEager/SNARE as adversarial-harm suite orthogonal to benign overeager."
+    },
+    {
+      "id": "arxiv:2309.15817",
+      "title": "Identifying the Risks of LM Agents with an LM-Emulated Sandbox",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2309.15817",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "tool-use risk",
+        "unsafe tool action",
+        "emulated sandbox"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "ToolEmu",
+      "notes": "ToolEmu: LM-emulated tool sandbox for agent risk identification."
+    },
+    {
+      "id": "arxiv:2604.04978",
+      "title": "Measuring the Permission Gate: A Stress-Test Evaluation of Claude Code’s Auto Mode",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2604.04978",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "permission-gate bypass",
+        "auto-mode over-admit"
+      ],
+      "pack": "gate_discipline",
+      "syndrome": "GDD",
+      "benchmark_measures": true,
+      "benchmark_name": "permission-gate stress-test",
+      "notes": "Treats Claude Code Auto Mode as a binary permission classifier; OverEager/SNARE contrast this with in-scope overreach."
+    },
+    {
+      "id": "arxiv:2406.13352",
+      "title": "AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.13352",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "prompt injection",
+        "tool hijack"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": true,
+      "benchmark_name": "AgentDojo",
+      "notes": "97 tasks / 629 security cases for tool-using agents over untrusted data."
+    },
+    {
+      "id": "arxiv:2403.02691",
+      "title": "InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2403.02691",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "indirect prompt injection",
+        "data exfiltration"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": true,
+      "benchmark_name": "InjecAgent",
+      "notes": "1054 IPI cases; ReAct GPT-4 ASR 24% (47% with hacking prompt)."
+    },
+    {
+      "id": "arxiv:2401.10019",
+      "title": "R-Judge: Benchmarking Safety Risk Awareness for LLM Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2401.10019",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "missed safety risk",
+        "risk unawareness"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "R-Judge",
+      "notes": "569 multi-turn records; GPT-4o 74.42% risk-awareness; cited as tool-use safety bench."
+    },
+    {
+      "id": "url:genai.owasp.org/llmrisk/llm062025-excessive-agency",
+      "title": "OWASP LLM06 Excessive Agency (2025)",
+      "year": 2025,
+      "url": "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "excessive agency",
+        "unauthorized action"
+      ],
+      "pack": "overeager_mini",
+      "syndrome": "OASD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Named by OverEager/SNARE as the industry taxonomy slot for overeager/excess autonomy."
+    },
+    {
+      "id": "arxiv:2406.12045",
+      "title": "τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.12045",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology",
+        "tool-agent-user interaction"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "τ-bench",
+      "notes": "SNARE: completion-oriented; out-of-scope actions invisible."
+    },
+    {
+      "id": "arxiv:2404.00971",
+      "title": "Exploring and Evaluating Hallucinations in LLM-Powered Code Generation",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2404.00971",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "code hallucination"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "code-hallucination eval",
+      "notes": "SNARE/Augment/Spracklen-adjacent: hallucinations beyond functional correctness."
+    },
+    {
+      "id": "url:deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity",
+      "title": "Specification gaming: the flip side of AI ingenuity",
+      "year": 2020,
+      "url": "https://deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity/",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "specification gaming"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Krakovna et al. canonical catalog; cited by OverEager, SpecBench, Bondarenko, RHB."
+    },
+    {
+      "id": "arxiv:2503.11926",
+      "title": "Monitoring Reasoning Models for Misbehavior and the Risks of Promoting Obfuscation",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.11926",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward hacking",
+        "test-harness exploit",
+        "obfuscation"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Baker et al.: RL-trained reasoners exploit coding harnesses with cross-domain transfer."
+    },
+    {
+      "id": "arxiv:2406.10162",
+      "title": "Sycophancy to Subterfuge: Investigating Reward-Tampering in Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.10162",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward tampering",
+        "sycophancy",
+        "subterfuge generalization"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "reward-tampering suite",
+      "notes": "Denison et al.: low-stakes gaming escalates to severe tampering."
+    },
+    {
+      "id": "arxiv:2511.21654",
+      "title": "EvilGenie: A Reward Hacking Benchmark",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2511.21654",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward hacking",
+        "test manipulation"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "EvilGenie",
+      "notes": "Modifies LiveCodeBench to enable test manipulation; LLM judges vs held-out tests."
+    },
+    {
+      "id": "arxiv:2605.02964",
+      "title": "Reward Hacking Benchmark: Measuring Exploits in LLM Agents with Tool Use",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2605.02964",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward hacking",
+        "tool-use exploit"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "RHB",
+      "notes": "RL post-training raises exploit 0.6%→13.9% on naturalistic tool tasks."
+    },
+    {
+      "id": "arxiv:2510.20270",
+      "title": "ImpossibleBench: Measuring LLMs’ Propensity of Exploiting Test Cases",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.20270",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "test-case exploit",
+        "specification gaming"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "ImpossibleBench",
+      "notes": "Zhong/Raghunathan/Carlini: propensity to exploit tests; cited by spec-gaming suite."
+    },
+    {
+      "id": "arxiv:2508.17511",
+      "title": "School of Reward Hacks: Hacking Harmless Tasks Generalizes to Misaligned Behavior in LLMs",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2508.17511",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward hacking generalization",
+        "emergent misalignment"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Taylor et al.: reinforcing harmless hacks generalizes to misaligned behavior."
+    },
+    {
+      "id": "arxiv:2511.18397",
+      "title": "Natural Emergent Misalignment from Reward Hacking in Production RL",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2511.18397",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "emergent misalignment",
+        "production RL reward hacking"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "MacDiarmid et al.: production RL hacks generalize to nefarious behaviors."
+    },
+    {
+      "id": "arxiv:2310.13548",
+      "title": "Towards Understanding Sycophancy in Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.13548",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "sycophancy"
+      ],
+      "pack": "sycophancy_mini",
+      "syndrome": "RSD",
+      "benchmark_measures": true,
+      "benchmark_name": "sycophancy evals",
+      "notes": "Sharma et al.; cited as a deployment-time specification-gaming form."
+    },
+    {
+      "id": "arxiv:2201.03544",
+      "title": "The Effects of Reward Misspecification: Mapping and Mitigating Misaligned Models",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2201.03544",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward misspecification",
+        "proxy gaming"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Pan/Bhatia/Steinhardt; foundational for SpecBench/OverEager reward-hacking cites."
+    },
+    {
+      "id": "arxiv:2412.14093",
+      "title": "Alignment Faking in Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.14093",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "alignment faking",
+        "deceptive compliance"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Greenblatt et al.; cited by SpecBench and Bondarenko as low-stakes hacking generalization."
+    },
+    {
+      "id": "arxiv:2412.04984",
+      "title": "Frontier Models Are Capable of In-context Scheming",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.04984",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "in-context scheming",
+        "oversight resistance"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Meinke/Apollo; Bondarenko cites as prior agent-misalignment under strong goals."
+    },
+    {
+      "id": "arxiv:2406.07358",
+      "title": "AI Sandbagging: Language Models Can Strategically Underperform on Evaluations",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.07358",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "sandbagging"
+      ],
+      "pack": "sandbag_mini",
+      "syndrome": "SBG",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "van der Weij et al.; cited by Bondarenko."
+    },
+    {
+      "id": "arxiv:2210.03629",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2210.03629",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "tool-use loop",
+        "reason-act mismatch"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Bondarenko chess agent uses a ReAct-like harness; also cited by issue-solving papers."
+    },
+    {
+      "id": "arxiv:2311.07590",
+      "title": "Large Language Models Can Strategically Deceive Their Users When Put Under Pressure",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2311.07590",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "strategic deception"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Scheurer/Balesni/Hobbhahn; cited by Bondarenko as prior deception-under-pressure."
+    },
+    {
+      "id": "arxiv:2412.16720",
+      "title": "OpenAI o1 System Card",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.16720",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward hacking",
+        "docker escape"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Bondarenko links o1 cyber-eval Docker escape to default hacking."
+    },
+    {
+      "id": "url:metr.org/blog/2025-06-05-recent-reward-hacking",
+      "title": "Recent Frontier Models Are Reward Hacking (METR)",
+      "year": 2025,
+      "url": "https://metr.org/blog/2025-06-05-recent-reward-hacking/",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward hacking",
+        "coding-agent exploit"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Von Arx/METR; cited by spec-gaming suite, EvilGenie, ImpossibleBench, RHB."
+    },
+    {
+      "id": "arxiv:2503.06327",
+      "title": "A Taxonomy of Inefficiencies in LLM-Generated Python Code",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.06327",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "redundant steps",
+        "duplication",
+        "unnecessary conditionals"
+      ],
+      "pack": "slop_indicator",
+      "syndrome": "ISDS",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Abbassi et al.; SlopCodeBench uses this smell taxonomy for LLM code."
+    },
+    {
+      "id": "arxiv:2410.06992",
+      "title": "SWE-bench+: Enhanced Coding Benchmark for LLMs",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2410.06992",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "weak tests",
+        "eval-methodology",
+        "plausible patches"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-bench+",
+      "notes": "Aleithan et al.; cited by SlopCodeBench, SWE-Bench Pro, and ICSE correctness study."
+    },
+    {
+      "id": "arxiv:2407.06153",
+      "title": "What’s Wrong with Your Code Generated by Large Language Models? An Extensive Study",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.06153",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "higher cyclomatic complexity",
+        "code smells"
+      ],
+      "pack": "slop_indicator",
+      "syndrome": "ISDS",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Dou et al.; SlopCodeBench: LLM code has higher per-line CC than human code."
+    },
+    {
+      "id": "arxiv:2603.13428",
+      "title": "EvoClaw: Evaluating AI Agents on Continuous Software Evolution",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2603.13428",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "long-horizon degradation",
+        "pass-rate collapse"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "EvoClaw",
+      "notes": "SlopCodeBench: 98 milestones, pass 80%→38%, still pass/fail only."
+    },
+    {
+      "id": "arxiv:2603.17104",
+      "title": "When the Specification Emerges: Benchmarking Faithfulness Loss in Long-Horizon Coding Agents",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2603.17104",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "faithfulness loss",
+        "spec drift"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "SLUMP",
+      "notes": "SlopCodeBench contrast: SLUMP measures final-artifact spec compliance."
+    },
+    {
+      "id": "arxiv:2603.00520",
+      "title": "SWE-abs: Adversarial Benchmark Strengthening Exposes Inflated Success Rates on Test-Based Benchmarks",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2603.00520",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "inflated pass rates",
+        "weak tests"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-abs",
+      "notes": "SlopCodeBench: pass rate hides defects tests do not exercise."
+    },
+    {
+      "id": "arxiv:2512.18470",
+      "title": "SWE-evo: Benchmarking Coding Agents in Long-Horizon Software Evolution Scenarios",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2512.18470",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "long-horizon evolution"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-evo",
+      "notes": "Iterative coding-agent bench cited as prior that severs accumulation."
+    },
+    {
+      "id": "arxiv:2406.08731",
+      "title": "Where Do Large Language Models Fail When Generating Code?",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.08731",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "code generation failure modes"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by CodeHalu related work."
+    },
+    {
+      "id": "arxiv:2309.01219",
+      "title": "Siren’s Song in the AI Ocean: A Survey on Hallucination in Large Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2309.01219",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "hallucination taxonomy"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Zhang et al. survey; CodeHalu/Spracklen hallucination background."
+    },
+    {
+      "id": "arxiv:2311.08588",
+      "title": "CodeScope: An Execution-based Multilingual Multitask Multidimensional Benchmark",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2311.08588",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "execution-based eval"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "CodeScope",
+      "notes": "Cited by CodeHalu as execution-based code eval prior."
+    },
+    {
+      "id": "arxiv:2107.03374",
+      "title": "Evaluating Large Language Models Trained on Code",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2107.03374",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology",
+        "functional correctness"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "HumanEval",
+      "notes": "Chen et al. Codex/HumanEval; cited by SWE-bench, LiveCodeBench, CodeHalu."
+    },
+    {
+      "id": "arxiv:2109.07958",
+      "title": "TruthfulQA: Measuring How Models Mimic Human Falsehoods",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2109.07958",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "factual hallucination"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "TruthfulQA",
+      "notes": "Cited by CodeHalu and Spracklen as general hallucination bench."
+    },
+    {
+      "id": "arxiv:2503.16922",
+      "title": "RustEvo^2: An Evolving Benchmark for API Evolution in LLM-based Rust Code Generation",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.16922",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "API evolution",
+        "stale API"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "RustEvo^2",
+      "notes": "Cited by Knowledge Conflicts as version-aware codegen bench."
+    },
+    {
+      "id": "arxiv:2507.12367",
+      "title": "GitChameleon 2.0: Evaluating AI Code Generation Against Python Library Version Incompatibilities",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2507.12367",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "version incompatibility",
+        "API lag"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "GitChameleon 2.0",
+      "notes": "Cited by Knowledge Conflicts."
+    },
+    {
+      "id": "arxiv:2406.07411",
+      "title": "VersiCode: Towards Version-Controllable Code Generation",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.07411",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "version-controllable codegen"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "VersiCode",
+      "notes": "Cited by Knowledge Conflicts."
+    },
+    {
+      "id": "arxiv:2305.13300",
+      "title": "Adaptive Chameleon or Stubborn Sloth: Revealing the Behavior of Large Language Models in Knowledge Conflicts",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2305.13300",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "knowledge conflict",
+        "confirmation bias",
+        "stubborn parametric memory"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Xie et al. ICLR'24; cited by Knowledge Conflicts related work."
+    },
+    {
+      "id": "arxiv:2407.01489",
+      "title": "Agentless: Demystifying LLM-based Software Engineering Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.01489",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "issue solving",
+        "pipeline vs agent"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Xia et al.; cited by SWE-Bench Pro, Failures study, ICSE correctness."
+    },
+    {
+      "id": "arxiv:2407.16741",
+      "title": "OpenHands: An Open Platform for AI Software Developers as Generalist Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.16741",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "coding agent platform"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Wang et al.; evaluated in OverEager/SNARE and Failures study."
+    },
+    {
+      "id": "arxiv:2405.15793",
+      "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.15793",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "agent-computer interface",
+        "issue solving"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Yang et al.; standard SWE-bench agent; cited by Pro/Failures/Cleanliness cluster."
+    },
+    {
+      "id": "arxiv:2307.03172",
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.03172",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "lost-in-the-middle",
+        "context rot"
+      ],
+      "pack": "memory_context",
+      "syndrome": "MEM",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by Failures-in-issue-solving related work."
+    },
+    {
+      "id": "arxiv:2304.05128",
+      "title": "Teaching Large Language Models to Self-Debug",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2304.05128",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "self-repair"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by Failures study and LiveCodeBench (self-repair scenario)."
+    },
+    {
+      "id": "arxiv:2308.08155",
+      "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.08155",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "multi-agent coordination"
+      ],
+      "pack": "handoff_mini",
+      "syndrome": "MAH",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by Failures study as MAS issue-solving prior."
+    },
+    {
+      "id": "arxiv:2404.02605",
+      "title": "Multi-SWE-bench: A Multilingual Benchmark for Issue Resolving",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2404.02605",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology",
+        "multilingual issue solving"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Multi-SWE-bench",
+      "notes": "Cited by SWE-Bench Pro and Failures study."
+    },
+    {
+      "id": "arxiv:2505.23419",
+      "title": "SWE-bench Goes Live!",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2505.23419",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology",
+        "contamination"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-bench Live",
+      "notes": "Cited by SWE-Bench Pro as continuously refreshed SWE tasks."
+    },
+    {
+      "id": "arxiv:2410.03859",
+      "title": "SWE-bench Multimodal: Do AI Systems Generalize to Visual Software Domains?",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2410.03859",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-bench Multimodal",
+      "notes": "Cited by SWE-Bench Pro."
+    },
+    {
+      "id": "arxiv:2401.03065",
+      "title": "CRUXEval: A Benchmark for Code Reasoning, Understanding and Execution",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2401.03065",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "execution reasoning"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "CRUXEval",
+      "notes": "Cited by LiveCodeBench related work."
+    },
+    {
+      "id": "arxiv:2308.08493",
+      "title": "Time Travel in LLMs: Tracing Data Contamination in Large Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.08493",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology",
+        "contamination"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by LiveCodeBench contamination discussion."
+    },
+    {
+      "id": "arxiv:2307.13854",
+      "title": "WebArena: A Realistic Web Environment for Building Autonomous Agents",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.13854",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology",
+        "web agent"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "WebArena",
+      "notes": "Cited by SWE-bench related work and AgentDojo."
+    },
+    {
+      "id": "arxiv:2305.01210",
+      "title": "Is Your Code Generated by ChatGPT Really Correct? Rigorous Evaluation of Large Language Models for Code Generation",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2305.01210",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "weak tests",
+        "false pass"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "EvalPlus / HumanEval+",
+      "notes": "Liu et al.; SWE-bench 'more testing' prior; HumanEval+ drops pass@k up to 19–29%."
+    },
+    {
+      "id": "url:openai.com/index/introducing-swe-bench-verified",
+      "title": "Introducing SWE-bench Verified",
+      "year": 2024,
+      "url": "https://openai.com/index/introducing-swe-bench-verified/",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology",
+        "filtered tasks"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-bench Verified",
+      "notes": "Named by Cleanliness, ICSE correctness, OpenAI 2026 audit, Failures study."
+    },
+    {
+      "id": "arxiv:2509.09853",
+      "title": "SWE-Effi: Re-evaluating Software AI Agent System Effectiveness under Resource Constraints",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.09853",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "expensive failures",
+        "token waste"
+      ],
+      "pack": "coord_tax_mini",
+      "syndrome": "CTX",
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-Effi",
+      "notes": "Cleanliness paper: unresolved attempts cost ~4× successful ones."
+    },
+    {
+      "id": "arxiv:2604.22750",
+      "title": "How Do AI Agents Spend Your Money? Analyzing and Predicting Token Consumption in Agentic Coding Tasks",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2604.22750",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "token waste",
+        "cost variance"
+      ],
+      "pack": "coord_tax_mini",
+      "syndrome": "CTX",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Bai et al.; agentic tasks ~1000× tokens of chat; cited by Cleanliness."
+    },
+    {
+      "id": "arxiv:2605.05700",
+      "title": "An Empirical Study of Proactive Coding Assistants in Real-World Software Development",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2605.05700",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "proactive overreach",
+        "unsolicited edits"
+      ],
+      "pack": "overeager_mini",
+      "syndrome": "OASD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by SNARE as real-world proactive-assistant evidence."
+    },
+    {
+      "id": "url:vulcan.io/blog/ai-hallucinations-package-risk",
+      "title": "Diving Deeper into AI Package Hallucinations (Lanyado)",
+      "year": 2023,
+      "url": "https://vulcan.io/blog/ai-hallucinations-package-risk",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "package hallucination"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Spracklen related-work prior; huggingface-cli slopsquatting case."
+    },
+    {
+      "id": "url:addyosmani.com/agentic-engineering/the-70-percent-problem",
+      "title": "The 70% Problem (Osmani)",
+      "year": 2026,
+      "url": "https://addyosmani.com/agentic-engineering/the-70-percent-problem/",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "80% problem",
+        "NFR omission"
+      ],
+      "pack": "nfr_omit",
+      "syndrome": "NFR",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Named by Augment as Osmani's 80%/70% remaining-work analysis."
+    },
+    {
+      "id": "url:metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study",
+      "title": "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity",
+      "year": 2025,
+      "url": "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "overclaimed speedup",
+        "developer slowdown"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Named by Augment 80% guide."
+    },
+    {
+      "id": "arxiv:2501.16191",
+      "title": "An Empirical Study of LLM Version Hallucinations in Code Generation",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2501.16191",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "version hallucination"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Named by Augment 80% guide as API/version hallucination study."
+    },
+    {
+      "id": "url:snorkel.ai/leaderboard/terminal-bench-4-0",
+      "title": "Terminal-Bench 4.0",
+      "year": 2026,
+      "url": "https://snorkel.ai/leaderboard/terminal-bench-4-0/",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology",
+        "terminal agent"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Terminal-Bench",
+      "notes": "Named by Snorkel SlopCodeBench interview page."
+    },
+    {
+      "id": "arxiv:2402.04249",
+      "title": "HarmBench: A Standardized Evaluation Framework for Automated Red Teaming and Robust Refusal",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2402.04249",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "jailbreak",
+        "refusal failure"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "HarmBench",
+      "notes": "Cited by AgentHarm and AgentDojo as model-level refusal bench."
+    },
+    {
+      "id": "arxiv:2311.12983",
+      "title": "GAIA: a Benchmark for General AI Assistants",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2311.12983",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology",
+        "general assistant"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "GAIA",
+      "notes": "Cited by AgentHarm as generalist-agent eval."
+    },
+    {
+      "id": "arxiv:2407.12784",
+      "title": "AgentPoison: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.12784",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "memory poisoning"
+      ],
+      "pack": "memory_context",
+      "syndrome": "MEM",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by AgentHarm as agent-memory attack."
+    },
+    {
+      "id": "arxiv:2509.07315",
+      "title": "SafeToolBench: Pioneering a Prospective Benchmark to Evaluating Tool Utilization Safety in LLMs",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.07315",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "unsafe tool use"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "SafeToolBench",
+      "notes": "Cited by permission-gate paper."
+    },
+    {
+      "id": "arxiv:2412.14470",
+      "title": "Agent-SafetyBench: Evaluating the Safety of LLM Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.14470",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "agent safety failure"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Agent-SafetyBench",
+      "notes": "Cited by permission-gate paper."
+    },
+    {
+      "id": "arxiv:2503.18666",
+      "title": "AgentSpec: Customizable Runtime Enforcement for Safe and Reliable LLM Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.18666",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "runtime enforcement",
+        "unsafe action"
+      ],
+      "pack": "gate_discipline",
+      "syndrome": "GDD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by permission-gate paper as runtime policy layer."
+    },
+    {
+      "id": "arxiv:2302.12173",
+      "title": "Not What You’ve Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2302.12173",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "indirect prompt injection"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Greshake et al.; cited by AgentDojo and SNARE."
+    },
+    {
+      "id": "arxiv:2310.12815",
+      "title": "Formalizing and Benchmarking Prompt Injection Attacks and Defenses",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.12815",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "prompt injection"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": true,
+      "benchmark_name": "prompt-injection bench",
+      "notes": "Liu et al.; cited by AgentDojo."
+    },
+    {
+      "id": "arxiv:2308.03688",
+      "title": "AgentBench: Evaluating LLMs as Agents",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.03688",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "AgentBench",
+      "notes": "Cited by AgentDojo as general agent eval."
+    },
+    {
+      "id": "arxiv:2210.10760",
+      "title": "Scaling Laws for Reward Model Overoptimization",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2210.10760",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "reward overoptimization"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Gao/Schulman/Hilton; cited by Baker and SpecBench."
+    },
+    {
+      "id": "arxiv:2409.12822",
+      "title": "Language Models Learn to Mislead Humans via RLHF",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2409.12822",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "deceptive RLHF",
+        "misleading humans"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Wen et al.; cited by Baker and spec-gaming related work."
+    },
+    {
+      "id": "arxiv:2502.17424",
+      "title": "Emergent Misalignment: Narrow Finetuning Can Produce Broadly Misaligned LLMs",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2502.17424",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "emergent misalignment"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Betley et al.; cited by School of Reward Hacks and RHB."
+    },
+    {
+      "id": "arxiv:2401.05566",
+      "title": "Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2401.05566",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "deceptive alignment",
+        "sleeper agents"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Hubinger et al.; cited by Bondarenko and in-context scheming."
+    },
+    {
+      "id": "arxiv:2408.08333",
+      "title": "CodeMirage: Hallucinations in Code Generated by Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2408.08333",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "code hallucination"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "CodeMirage",
+      "notes": "Cited by Liu et al. 2404.00971 code-hallucination paper."
+    },
+    {
+      "id": "arxiv:2311.05232",
+      "title": "A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2311.05232",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "hallucination taxonomy"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Huang et al.; cited by 2404.00971."
+    },
+    {
+      "id": "arxiv:2303.11455",
+      "title": "Large Language Models and Simple, Stupid Bugs",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2303.11455",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "simple stupid bugs"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Jesse et al.; cited by 2404.00971."
+    },
+    {
+      "id": "arxiv:2506.00172",
+      "title": "Breakpoint: Scalable Evaluation of System-Level Reasoning in LLM Code Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2506.00172",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "code-agent reasoning failure"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Breakpoint",
+      "notes": "Cited by ImpossibleBench as system-level code-agent eval."
+    },
+    {
+      "id": "arxiv:2105.14111",
+      "title": "Goal Misgeneralization in Deep Reinforcement Learning",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2105.14111",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "goal misgeneralization"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Langosco et al.; cited via scheming / reward-hacking lineage."
+    },
+    {
+      "id": "arxiv:1906.01820",
+      "title": "Risks from Learned Optimization in Advanced Machine Learning Systems",
+      "year": 2019,
+      "url": "https://arxiv.org/abs/1906.01820",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "mesa-optimization",
+        "deceptive alignment"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Hubinger et al.; cited by in-context scheming and reward-misspecification."
+    },
+    {
+      "id": "arxiv:2312.11671",
+      "title": "Evaluating Language-Model Agents on Realistic Autonomous Tasks",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2312.11671",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "autonomous agent eval"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "METR autonomous tasks",
+      "notes": "Kinniment et al.; cited by AgentHarm, AgentDojo, scheming."
+    },
+    {
+      "id": "arxiv:2306.06070",
+      "title": "Mind2Web: Towards a Generalist Agent for the Web",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2306.06070",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "web agent"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Mind2Web",
+      "notes": "Cited by ToolEmu / SWE-bench interactive-agent cluster."
+    },
+    {
+      "id": "arxiv:2306.05499",
+      "title": "Prompt Injection Attack against LLM-integrated Applications",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2306.05499",
+      "depth": 3,
+      "seed_bib": null,
+      "behaviours": [
+        "prompt injection"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Liu et al.; cited by AgentDojo."
+    },
+    {
+      "id": "arxiv:2312.14197",
+      "title": "Benchmarking and Defending Against Indirect Prompt Injection Attacks on Large Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2312.14197",
+      "depth": 3,
+      "seed_bib": null,
+      "behaviours": [
+        "indirect prompt injection"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": true,
+      "benchmark_name": "BIPIA",
+      "notes": "Yi et al.; cited by AgentDojo."
+    },
+    {
+      "id": "arxiv:2506.13206",
+      "title": "Thought Crime: Backdoors and Emergent Misalignment in Reasoning Models",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2506.13206",
+      "depth": 3,
+      "seed_bib": null,
+      "behaviours": [
+        "emergent misalignment",
+        "backdoors"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by School of Reward Hacks."
+    }
+  ],
+  "edges": [
+    {
+      "from": "arxiv:2605.18583",
+      "to": "arxiv:2310.06770",
+      "depth": 1,
+      "why": "cites SWE-bench as completion-only coding-agent eval that misses overeager"
+    },
+    {
+      "from": "arxiv:2605.18583",
+      "to": "arxiv:2403.07974",
+      "depth": 1,
+      "why": "cites LiveCodeBench as completion-only coding eval"
+    },
+    {
+      "from": "arxiv:2605.18583",
+      "to": "arxiv:2410.09024",
+      "depth": 1,
+      "why": "contrasts AgentHarm adversarial harm with benign overeager"
+    },
+    {
+      "from": "arxiv:2605.18583",
+      "to": "arxiv:2604.04978",
+      "depth": 1,
+      "why": "permission-gate stress-test vs in-scope overreach"
+    },
+    {
+      "from": "arxiv:2605.18583",
+      "to": "arxiv:2309.15817",
+      "depth": 1,
+      "why": "ToolEmu as tool-use safety prior"
+    },
+    {
+      "from": "arxiv:2605.18583",
+      "to": "arxiv:2406.13352",
+      "depth": 1,
+      "why": "AgentDojo as prompt-injection suite, orthogonal to benign overreach"
+    },
+    {
+      "from": "arxiv:2605.18583",
+      "to": "arxiv:2403.02691",
+      "depth": 1,
+      "why": "InjecAgent as IPI prior"
+    },
+    {
+      "from": "arxiv:2605.18583",
+      "to": "url:genai.owasp.org/llmrisk/llm062025-excessive-agency",
+      "depth": 1,
+      "why": "maps overeager to OWASP LLM06 Excessive Agency"
+    },
+    {
+      "from": "arxiv:2603.24755",
+      "to": "arxiv:2310.06770",
+      "depth": 1,
+      "why": "repository-level eval lineage (Jimenez et al.)"
+    },
+    {
+      "from": "arxiv:2603.24755",
+      "to": "arxiv:2503.06327",
+      "depth": 1,
+      "why": "uses Abbassi LLM-code inefficiency/smell taxonomy"
+    },
+    {
+      "from": "arxiv:2603.24755",
+      "to": "arxiv:2410.06992",
+      "depth": 1,
+      "why": "SWE-bench+ as language/domain extension"
+    },
+    {
+      "from": "arxiv:2603.24755",
+      "to": "arxiv:2407.06153",
+      "depth": 1,
+      "why": "higher per-line CC / smell evidence for LLM code"
+    },
+    {
+      "from": "arxiv:2603.24755",
+      "to": "arxiv:2603.13428",
+      "depth": 1,
+      "why": "EvoClaw chained milestones still pass/fail only"
+    },
+    {
+      "from": "arxiv:2603.24755",
+      "to": "arxiv:2603.17104",
+      "depth": 1,
+      "why": "SLUMP as final-artifact faithfulness contrast"
+    },
+    {
+      "from": "arxiv:2603.24755",
+      "to": "arxiv:2603.00520",
+      "depth": 1,
+      "why": "SWE-abs: pass rate hides untested defects"
+    },
+    {
+      "from": "arxiv:2603.24755",
+      "to": "arxiv:2512.18470",
+      "depth": 1,
+      "why": "SWE-evo as prior iterative bench that severs accumulation"
+    },
+    {
+      "from": "arxiv:2605.28122",
+      "to": "arxiv:2605.18583",
+      "depth": 1,
+      "why": "prior fixed-pool OverEager benchmark SNARE adapts"
+    },
+    {
+      "from": "arxiv:2605.28122",
+      "to": "arxiv:2310.06770",
+      "depth": 1,
+      "why": "SWE-bench scores completion, hides out-of-scope actions"
+    },
+    {
+      "from": "arxiv:2605.28122",
+      "to": "arxiv:2403.07974",
+      "depth": 1,
+      "why": "LiveCodeBench likewise completion-only"
+    },
+    {
+      "from": "arxiv:2605.28122",
+      "to": "arxiv:2406.12045",
+      "depth": 1,
+      "why": "τ-bench tool-trajectory scoring misses overreach"
+    },
+    {
+      "from": "arxiv:2605.28122",
+      "to": "arxiv:2604.04978",
+      "depth": 1,
+      "why": "permission-gate binary classifier vs in-scope overreach"
+    },
+    {
+      "from": "arxiv:2605.28122",
+      "to": "arxiv:2406.13352",
+      "depth": 1,
+      "why": "AgentDojo adversarial-input contrast"
+    },
+    {
+      "from": "arxiv:2605.28122",
+      "to": "arxiv:2404.00971",
+      "depth": 1,
+      "why": "code-hallucination prior for unsolicited/wrong actions"
+    },
+    {
+      "from": "arxiv:2605.28122",
+      "to": "arxiv:2605.05700",
+      "depth": 1,
+      "why": "proactive coding-assistant field study of unsolicited edits"
+    },
+    {
+      "from": "arxiv:2605.21384",
+      "to": "arxiv:2503.11926",
+      "depth": 1,
+      "why": "Baker: RL reasoners exploit coding harnesses"
+    },
+    {
+      "from": "arxiv:2605.21384",
+      "to": "arxiv:2406.10162",
+      "depth": 1,
+      "why": "Denison: gaming escalates from sycophancy to subterfuge"
+    },
+    {
+      "from": "arxiv:2605.21384",
+      "to": "arxiv:2511.21654",
+      "depth": 1,
+      "why": "EvilGenie reward-hacking bench (test manipulation)"
+    },
+    {
+      "from": "arxiv:2605.21384",
+      "to": "arxiv:2605.02964",
+      "depth": 1,
+      "why": "RHB tool-use reward-hacking bench"
+    },
+    {
+      "from": "arxiv:2605.21384",
+      "to": "arxiv:2510.20270",
+      "depth": 1,
+      "why": "ImpossibleBench test-exploit propensity"
+    },
+    {
+      "from": "arxiv:2605.21384",
+      "to": "arxiv:2310.06770",
+      "depth": 1,
+      "why": "SWE-bench as architecture-assuming coding prior"
+    },
+    {
+      "from": "arxiv:2605.21384",
+      "to": "arxiv:2509.16941",
+      "depth": 1,
+      "why": "SWE-Bench Pro as long-horizon coding prior"
+    },
+    {
+      "from": "arxiv:2605.21384",
+      "to": "arxiv:2201.03544",
+      "depth": 1,
+      "why": "reward-misspecification formalization"
+    },
+    {
+      "from": "arxiv:2605.02269",
+      "to": "arxiv:2502.13295",
+      "depth": 1,
+      "why": "Bondarenko chess-engine gaming as narrow prior"
+    },
+    {
+      "from": "arxiv:2605.02269",
+      "to": "arxiv:2503.11926",
+      "depth": 1,
+      "why": "Baker coding-environment exploits during RL"
+    },
+    {
+      "from": "arxiv:2605.02269",
+      "to": "arxiv:2406.10162",
+      "depth": 1,
+      "why": "reward-tampering model-organism prior"
+    },
+    {
+      "from": "arxiv:2605.02269",
+      "to": "arxiv:2511.21654",
+      "depth": 1,
+      "why": "EvilGenie open coding-exploit bench"
+    },
+    {
+      "from": "arxiv:2605.02269",
+      "to": "arxiv:2510.20270",
+      "depth": 1,
+      "why": "ImpossibleBench open coding-exploit bench"
+    },
+    {
+      "from": "arxiv:2605.02269",
+      "to": "arxiv:2508.17511",
+      "depth": 1,
+      "why": "School of Reward Hacks generalization"
+    },
+    {
+      "from": "arxiv:2605.02269",
+      "to": "arxiv:2511.18397",
+      "depth": 1,
+      "why": "natural emergent misalignment from production RL hacks"
+    },
+    {
+      "from": "arxiv:2605.02269",
+      "to": "arxiv:2310.13548",
+      "depth": 1,
+      "why": "sycophancy as deployment-time spec gaming"
+    },
+    {
+      "from": "arxiv:2502.13295",
+      "to": "arxiv:2412.14093",
+      "depth": 1,
+      "why": "alignment-faking prior"
+    },
+    {
+      "from": "arxiv:2502.13295",
+      "to": "arxiv:2412.04984",
+      "depth": 1,
+      "why": "in-context scheming prior (Meinke et al.)"
+    },
+    {
+      "from": "arxiv:2502.13295",
+      "to": "arxiv:2406.07358",
+      "depth": 1,
+      "why": "sandbagging prior"
+    },
+    {
+      "from": "arxiv:2502.13295",
+      "to": "arxiv:2210.03629",
+      "depth": 1,
+      "why": "ReAct-like agent harness"
+    },
+    {
+      "from": "arxiv:2502.13295",
+      "to": "url:deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity",
+      "depth": 1,
+      "why": "canonical spec-gaming definition"
+    },
+    {
+      "from": "arxiv:2502.13295",
+      "to": "arxiv:2412.16720",
+      "depth": 1,
+      "why": "o1 system card / Docker-escape cyber eval"
+    },
+    {
+      "from": "arxiv:2502.13295",
+      "to": "arxiv:2311.07590",
+      "depth": 1,
+      "why": "strategic deception under pressure"
+    },
+    {
+      "from": "arxiv:2502.13295",
+      "to": "url:metr.org/blog/2025-06-05-recent-reward-hacking",
+      "depth": 1,
+      "why": "frontier coding-agent reward hacking incidents"
+    },
+    {
+      "from": "arxiv:2405.00253",
+      "to": "arxiv:2406.08731",
+      "depth": 1,
+      "why": "where LLMs fail at code generation"
+    },
+    {
+      "from": "arxiv:2405.00253",
+      "to": "arxiv:2309.01219",
+      "depth": 1,
+      "why": "Siren’s Song hallucination survey"
+    },
+    {
+      "from": "arxiv:2405.00253",
+      "to": "arxiv:2311.08588",
+      "depth": 1,
+      "why": "CodeScope execution-based code bench"
+    },
+    {
+      "from": "arxiv:2405.00253",
+      "to": "arxiv:2310.06770",
+      "depth": 1,
+      "why": "SWE-bench as repo-level prior"
+    },
+    {
+      "from": "arxiv:2405.00253",
+      "to": "arxiv:2107.03374",
+      "depth": 1,
+      "why": "HumanEval functional-correctness prior"
+    },
+    {
+      "from": "arxiv:2405.00253",
+      "to": "arxiv:2109.07958",
+      "depth": 1,
+      "why": "TruthfulQA as NL hallucination bench"
+    },
+    {
+      "from": "arxiv:2405.00253",
+      "to": "arxiv:2404.00971",
+      "depth": 1,
+      "why": "Liu et al. code-hallucination evaluation"
+    },
+    {
+      "from": "arxiv:2405.00253",
+      "to": "arxiv:2305.01210",
+      "depth": 1,
+      "why": "EvalPlus weak-test / false-pass prior"
+    },
+    {
+      "from": "arxiv:2406.10279",
+      "to": "url:vulcan.io/blog/ai-hallucinations-package-risk",
+      "depth": 1,
+      "why": "Lanyado package-hallucination prior (5× higher rates)"
+    },
+    {
+      "from": "arxiv:2406.10279",
+      "to": "arxiv:2404.00971",
+      "depth": 1,
+      "why": "code-hallucination taxonomy prior"
+    },
+    {
+      "from": "arxiv:2406.10279",
+      "to": "arxiv:2109.07958",
+      "depth": 1,
+      "why": "TruthfulQA fact-conflicting hallucination"
+    },
+    {
+      "from": "arxiv:2406.10279",
+      "to": "arxiv:2309.01219",
+      "depth": 1,
+      "why": "LLM hallucination survey"
+    },
+    {
+      "from": "arxiv:2406.10279",
+      "to": "arxiv:2107.03374",
+      "depth": 1,
+      "why": "HumanEval / Codex code-generation baseline"
+    },
+    {
+      "from": "arxiv:2406.10279",
+      "to": "arxiv:2405.00253",
+      "depth": 1,
+      "why": "CodeHalu execution-verified code hallucinations"
+    },
+    {
+      "from": "arxiv:2604.09515",
+      "to": "arxiv:2310.06770",
+      "depth": 1,
+      "why": "SWE-bench repo-level prior"
+    },
+    {
+      "from": "arxiv:2604.09515",
+      "to": "arxiv:2503.16922",
+      "depth": 1,
+      "why": "RustEvo^2 API-evolution bench"
+    },
+    {
+      "from": "arxiv:2604.09515",
+      "to": "arxiv:2507.12367",
+      "depth": 1,
+      "why": "GitChameleon 2.0 version incompatibilities"
+    },
+    {
+      "from": "arxiv:2604.09515",
+      "to": "arxiv:2406.07411",
+      "depth": 1,
+      "why": "VersiCode version-controllable codegen"
+    },
+    {
+      "from": "arxiv:2604.09515",
+      "to": "arxiv:2305.13300",
+      "depth": 1,
+      "why": "chameleon/sloth knowledge-conflict behavior"
+    },
+    {
+      "from": "arxiv:2604.09515",
+      "to": "arxiv:2407.16741",
+      "depth": 1,
+      "why": "OpenHands as agent platform using evolving APIs"
+    },
+    {
+      "from": "arxiv:2604.09515",
+      "to": "arxiv:2404.00971",
+      "depth": 1,
+      "why": "code hallucination when APIs are missing"
+    },
+    {
+      "from": "arxiv:2604.09515",
+      "to": "arxiv:2107.03374",
+      "depth": 1,
+      "why": "HumanEval-style functional eval baseline"
+    },
+    {
+      "from": "url:software-lab.org/publications/icse2026_SWE-bench-correctness.pdf",
+      "to": "arxiv:2310.06770",
+      "depth": 1,
+      "why": "studies SWE-bench validation mechanism"
+    },
+    {
+      "from": "url:software-lab.org/publications/icse2026_SWE-bench-correctness.pdf",
+      "to": "url:openai.com/index/introducing-swe-bench-verified",
+      "depth": 1,
+      "why": "evaluates SWE-bench Verified subset"
+    },
+    {
+      "from": "url:software-lab.org/publications/icse2026_SWE-bench-correctness.pdf",
+      "to": "arxiv:2410.06992",
+      "depth": 1,
+      "why": "prior weak-test finding on SWE-bench full"
+    },
+    {
+      "from": "url:software-lab.org/publications/icse2026_SWE-bench-correctness.pdf",
+      "to": "arxiv:2405.15793",
+      "depth": 1,
+      "why": "SWE-agent among evaluated tools"
+    },
+    {
+      "from": "url:software-lab.org/publications/icse2026_SWE-bench-correctness.pdf",
+      "to": "arxiv:2407.16741",
+      "depth": 1,
+      "why": "OpenHands among evaluated tools"
+    },
+    {
+      "from": "url:software-lab.org/publications/icse2026_SWE-bench-correctness.pdf",
+      "to": "arxiv:2407.01489",
+      "depth": 1,
+      "why": "Agentless among evaluated tools"
+    },
+    {
+      "from": "url:software-lab.org/publications/icse2026_SWE-bench-correctness.pdf",
+      "to": "arxiv:2305.01210",
+      "depth": 1,
+      "why": "EvalPlus/APR weak-suite lineage"
+    },
+    {
+      "from": "url:software-lab.org/publications/icse2026_SWE-bench-correctness.pdf",
+      "to": "arxiv:2509.16941",
+      "depth": 1,
+      "why": "SWE-Bench Pro as related long-horizon bench"
+    },
+    {
+      "from": "arxiv:2509.13941",
+      "to": "arxiv:2310.06770",
+      "depth": 1,
+      "why": "SWE-bench Verified failure corpus"
+    },
+    {
+      "from": "arxiv:2509.13941",
+      "to": "arxiv:2404.00971",
+      "depth": 1,
+      "why": "code hallucinations in generated repairs"
+    },
+    {
+      "from": "arxiv:2509.13941",
+      "to": "arxiv:2307.03172",
+      "depth": 1,
+      "why": "lost-in-the-middle / context failures"
+    },
+    {
+      "from": "arxiv:2509.13941",
+      "to": "arxiv:2407.01489",
+      "depth": 1,
+      "why": "Agentless pipeline contrast"
+    },
+    {
+      "from": "arxiv:2509.13941",
+      "to": "arxiv:2407.16741",
+      "depth": 1,
+      "why": "OpenHands agent traces"
+    },
+    {
+      "from": "arxiv:2509.13941",
+      "to": "arxiv:2405.15793",
+      "depth": 1,
+      "why": "SWE-agent ACI prior"
+    },
+    {
+      "from": "arxiv:2509.13941",
+      "to": "arxiv:2210.03629",
+      "depth": 1,
+      "why": "ReAct reasoning-acting loop"
+    },
+    {
+      "from": "arxiv:2509.13941",
+      "to": "arxiv:2308.08155",
+      "depth": 1,
+      "why": "AutoGen multi-agent issue solving"
+    },
+    {
+      "from": "arxiv:2509.16941",
+      "to": "arxiv:2310.06770",
+      "depth": 1,
+      "why": "SWE-bench ancestor"
+    },
+    {
+      "from": "arxiv:2509.16941",
+      "to": "arxiv:2410.06992",
+      "depth": 1,
+      "why": "SWE-bench+ contamination/quality extension"
+    },
+    {
+      "from": "arxiv:2509.16941",
+      "to": "arxiv:2407.01489",
+      "depth": 1,
+      "why": "Agentless baseline"
+    },
+    {
+      "from": "arxiv:2509.16941",
+      "to": "arxiv:2405.15793",
+      "depth": 1,
+      "why": "SWE-agent baseline / Figure 1"
+    },
+    {
+      "from": "arxiv:2509.16941",
+      "to": "arxiv:2404.02605",
+      "depth": 1,
+      "why": "Multi-SWE-bench multilingual prior"
+    },
+    {
+      "from": "arxiv:2509.16941",
+      "to": "arxiv:2505.23419",
+      "depth": 1,
+      "why": "SWE-bench Live contamination control"
+    },
+    {
+      "from": "arxiv:2509.16941",
+      "to": "arxiv:2410.03859",
+      "depth": 1,
+      "why": "SWE-bench Multimodal generalization"
+    },
+    {
+      "from": "arxiv:2509.16941",
+      "to": "arxiv:2107.03374",
+      "depth": 1,
+      "why": "HumanEval function-level prior"
+    },
+    {
+      "from": "arxiv:2403.07974",
+      "to": "arxiv:2107.03374",
+      "depth": 1,
+      "why": "HumanEval as static contaminated prior"
+    },
+    {
+      "from": "arxiv:2403.07974",
+      "to": "arxiv:2401.03065",
+      "depth": 1,
+      "why": "CRUXEval execution-reasoning prior"
+    },
+    {
+      "from": "arxiv:2403.07974",
+      "to": "arxiv:2304.05128",
+      "depth": 1,
+      "why": "self-debug / self-repair scenario"
+    },
+    {
+      "from": "arxiv:2403.07974",
+      "to": "arxiv:2308.08493",
+      "depth": 1,
+      "why": "contamination-tracing methodology"
+    },
+    {
+      "from": "arxiv:2403.07974",
+      "to": "arxiv:2310.06770",
+      "depth": 1,
+      "why": "SWE-bench as complementary repo-level eval"
+    },
+    {
+      "from": "arxiv:2403.07974",
+      "to": "arxiv:2305.01210",
+      "depth": 1,
+      "why": "EvalPlus extra-test rigor"
+    },
+    {
+      "from": "arxiv:2310.06770",
+      "to": "arxiv:2107.03374",
+      "depth": 1,
+      "why": "HumanEval closed-form prior SWE-bench supersedes"
+    },
+    {
+      "from": "arxiv:2310.06770",
+      "to": "arxiv:2307.13854",
+      "depth": 1,
+      "why": "WebArena as interactive agent eval contrast"
+    },
+    {
+      "from": "arxiv:2310.06770",
+      "to": "arxiv:2305.01210",
+      "depth": 1,
+      "why": "Liu et al. more-testing / EvalPlus"
+    },
+    {
+      "from": "url:snorkel.ai/blog/slopcodebench-measuring-code-erosion-as-agents-iterate",
+      "to": "arxiv:2603.24755",
+      "depth": 1,
+      "why": "interview subject / official SlopCodeBench paper"
+    },
+    {
+      "from": "url:snorkel.ai/blog/slopcodebench-measuring-code-erosion-as-agents-iterate",
+      "to": "url:snorkel.ai/leaderboard/terminal-bench-4-0",
+      "depth": 1,
+      "why": "named adjacent Snorkel agent bench"
+    },
+    {
+      "from": "url:www.augmentcode.com/guides/the-80-percent-problem-ai-agents-technical-debt",
+      "to": "url:addyosmani.com/agentic-engineering/the-70-percent-problem",
+      "depth": 1,
+      "why": "Osmani remaining-work / 80% analysis"
+    },
+    {
+      "from": "url:www.augmentcode.com/guides/the-80-percent-problem-ai-agents-technical-debt",
+      "to": "arxiv:2404.00971",
+      "depth": 1,
+      "why": "named code-hallucination study"
+    },
+    {
+      "from": "url:www.augmentcode.com/guides/the-80-percent-problem-ai-agents-technical-debt",
+      "to": "url:metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study",
+      "depth": 1,
+      "why": "named METR experienced-dev study"
+    },
+    {
+      "from": "url:www.augmentcode.com/guides/the-80-percent-problem-ai-agents-technical-debt",
+      "to": "arxiv:2501.16191",
+      "depth": 1,
+      "why": "named LLM version-hallucination study"
+    },
+    {
+      "from": "url:openai.com/index/separating-signal-from-noise-coding-evaluations",
+      "to": "arxiv:2509.16941",
+      "depth": 1,
+      "why": "audits SWE-Bench Pro; ~30% tasks broken"
+    },
+    {
+      "from": "url:openai.com/index/separating-signal-from-noise-coding-evaluations",
+      "to": "url:openai.com/index/introducing-swe-bench-verified",
+      "depth": 1,
+      "why": "prior SWE-bench Verified audit lineage"
+    },
+    {
+      "from": "url:openai.com/index/separating-signal-from-noise-coding-evaluations",
+      "to": "arxiv:2310.06770",
+      "depth": 1,
+      "why": "SWE-bench ancestor whose noise motivated Verified/Pro"
+    },
+    {
+      "from": "url:openai.com/index/separating-signal-from-noise-coding-evaluations",
+      "to": "arxiv:2410.06992",
+      "depth": 1,
+      "why": "SWE-bench+ earlier weak-suite findings"
+    },
+    {
+      "from": "arxiv:2605.20049",
+      "to": "arxiv:2310.06770",
+      "depth": 1,
+      "why": "borrows SWE-bench task shape"
+    },
+    {
+      "from": "arxiv:2605.20049",
+      "to": "url:openai.com/index/introducing-swe-bench-verified",
+      "depth": 1,
+      "why": "SWE-bench Verified instances"
+    },
+    {
+      "from": "arxiv:2605.20049",
+      "to": "arxiv:2509.09853",
+      "depth": 1,
+      "why": "SWE-Effi expensive-failures / resource metrics"
+    },
+    {
+      "from": "arxiv:2605.20049",
+      "to": "arxiv:2604.22750",
+      "depth": 1,
+      "why": "Bai et al. token-consumption on SWE-bench Verified"
+    },
+    {
+      "from": "arxiv:2605.20049",
+      "to": "arxiv:2603.24755",
+      "depth": 1,
+      "why": "SlopCodeBench as long-horizon cleanliness counterpart"
+    },
+    {
+      "from": "arxiv:2605.20049",
+      "to": "arxiv:2403.07974",
+      "depth": 1,
+      "why": "LiveCodeBench used in related identifier-name pairs"
+    },
+    {
+      "from": "arxiv:2410.09024",
+      "to": "arxiv:2406.13352",
+      "depth": 2,
+      "why": "AgentDojo as agent attack/defense environment"
+    },
+    {
+      "from": "arxiv:2410.09024",
+      "to": "arxiv:2402.04249",
+      "depth": 2,
+      "why": "HarmBench model-level refusal prior"
+    },
+    {
+      "from": "arxiv:2410.09024",
+      "to": "arxiv:2403.02691",
+      "depth": 2,
+      "why": "InjecAgent IPI prior"
+    },
+    {
+      "from": "arxiv:2410.09024",
+      "to": "arxiv:2311.12983",
+      "depth": 2,
+      "why": "GAIA generalist-assistant eval"
+    },
+    {
+      "from": "arxiv:2410.09024",
+      "to": "arxiv:2407.12784",
+      "depth": 2,
+      "why": "AgentPoison memory-poisoning threat"
+    },
+    {
+      "from": "arxiv:2309.15817",
+      "to": "arxiv:2307.13854",
+      "depth": 2,
+      "why": "WebArena real-web agent prior"
+    },
+    {
+      "from": "arxiv:2309.15817",
+      "to": "arxiv:2210.03629",
+      "depth": 2,
+      "why": "ReAct tool-use loop"
+    },
+    {
+      "from": "arxiv:2309.15817",
+      "to": "arxiv:2107.03374",
+      "depth": 2,
+      "why": "HumanEval as LM capability prior"
+    },
+    {
+      "from": "arxiv:2309.15817",
+      "to": "arxiv:2306.06070",
+      "depth": 2,
+      "why": "Mind2Web web-agent prior"
+    },
+    {
+      "from": "arxiv:2309.15817",
+      "to": "arxiv:2312.11671",
+      "depth": 2,
+      "why": "METR realistic autonomous tasks"
+    },
+    {
+      "from": "arxiv:2604.04978",
+      "to": "arxiv:2410.09024",
+      "depth": 2,
+      "why": "AgentHarm as agent-harm prior"
+    },
+    {
+      "from": "arxiv:2604.04978",
+      "to": "arxiv:2509.07315",
+      "depth": 2,
+      "why": "SafeToolBench tool-safety bench"
+    },
+    {
+      "from": "arxiv:2604.04978",
+      "to": "arxiv:2412.14470",
+      "depth": 2,
+      "why": "Agent-SafetyBench"
+    },
+    {
+      "from": "arxiv:2604.04978",
+      "to": "arxiv:2309.15817",
+      "depth": 2,
+      "why": "ToolEmu risk-identification prior"
+    },
+    {
+      "from": "arxiv:2604.04978",
+      "to": "arxiv:2503.18666",
+      "depth": 2,
+      "why": "AgentSpec runtime enforcement"
+    },
+    {
+      "from": "arxiv:2406.13352",
+      "to": "arxiv:2403.02691",
+      "depth": 2,
+      "why": "InjecAgent IPI benchmark"
+    },
+    {
+      "from": "arxiv:2406.13352",
+      "to": "arxiv:2302.12173",
+      "depth": 2,
+      "why": "Greshake real-world IPI"
+    },
+    {
+      "from": "arxiv:2406.13352",
+      "to": "arxiv:2310.12815",
+      "depth": 2,
+      "why": "formal prompt-injection bench"
+    },
+    {
+      "from": "arxiv:2406.13352",
+      "to": "arxiv:2308.03688",
+      "depth": 2,
+      "why": "AgentBench general agent eval"
+    },
+    {
+      "from": "arxiv:2406.13352",
+      "to": "arxiv:2307.13854",
+      "depth": 2,
+      "why": "WebArena environment prior"
+    },
+    {
+      "from": "arxiv:2403.02691",
+      "to": "arxiv:2210.03629",
+      "depth": 2,
+      "why": "evaluates ReAct-prompted agents"
+    },
+    {
+      "from": "arxiv:2403.02691",
+      "to": "arxiv:2302.12173",
+      "depth": 2,
+      "why": "IPI threat model from Greshake"
+    },
+    {
+      "from": "arxiv:2403.02691",
+      "to": "arxiv:2309.15817",
+      "depth": 2,
+      "why": "ToolEmu agent-risk prior"
+    },
+    {
+      "from": "arxiv:2401.10019",
+      "to": "arxiv:2309.15817",
+      "depth": 2,
+      "why": "ToolEmu as agent-risk prior"
+    },
+    {
+      "from": "arxiv:2401.10019",
+      "to": "arxiv:2312.11671",
+      "depth": 2,
+      "why": "METR autonomous-task risks"
+    },
+    {
+      "from": "arxiv:2503.11926",
+      "to": "arxiv:2201.03544",
+      "depth": 2,
+      "why": "reward misspecification mapping"
+    },
+    {
+      "from": "arxiv:2503.11926",
+      "to": "arxiv:2210.10760",
+      "depth": 2,
+      "why": "reward-model overoptimization scaling"
+    },
+    {
+      "from": "arxiv:2503.11926",
+      "to": "arxiv:2409.12822",
+      "depth": 2,
+      "why": "RLHF models learn to mislead humans"
+    },
+    {
+      "from": "arxiv:2503.11926",
+      "to": "arxiv:2412.16720",
+      "depth": 2,
+      "why": "o1 system card / reasoning-model misbehavior"
+    },
+    {
+      "from": "arxiv:2503.11926",
+      "to": "arxiv:2406.10162",
+      "depth": 2,
+      "why": "reward-tampering escalation"
+    },
+    {
+      "from": "arxiv:2406.10162",
+      "to": "arxiv:2310.13548",
+      "depth": 2,
+      "why": "sycophancy starting point"
+    },
+    {
+      "from": "arxiv:2406.10162",
+      "to": "arxiv:2201.03544",
+      "depth": 2,
+      "why": "reward misspecification"
+    },
+    {
+      "from": "arxiv:2406.10162",
+      "to": "arxiv:2412.14093",
+      "depth": 2,
+      "why": "alignment faking as related deception"
+    },
+    {
+      "from": "arxiv:2511.21654",
+      "to": "arxiv:2403.07974",
+      "depth": 2,
+      "why": "built by modifying LiveCodeBench"
+    },
+    {
+      "from": "arxiv:2511.21654",
+      "to": "arxiv:2310.06770",
+      "depth": 2,
+      "why": "SWE-bench as related coding eval"
+    },
+    {
+      "from": "arxiv:2511.21654",
+      "to": "arxiv:2510.20270",
+      "depth": 2,
+      "why": "ImpossibleBench complementary exploit bench"
+    },
+    {
+      "from": "arxiv:2511.21654",
+      "to": "arxiv:2503.11926",
+      "depth": 2,
+      "why": "Baker harness-exploit observations"
+    },
+    {
+      "from": "arxiv:2511.21654",
+      "to": "url:metr.org/blog/2025-06-05-recent-reward-hacking",
+      "depth": 2,
+      "why": "METR frontier reward-hacking incidents"
+    },
+    {
+      "from": "arxiv:2605.02964",
+      "to": "arxiv:2511.21654",
+      "depth": 2,
+      "why": "EvilGenie as sibling reward-hacking bench"
+    },
+    {
+      "from": "arxiv:2605.02964",
+      "to": "arxiv:2310.06770",
+      "depth": 2,
+      "why": "SWE-bench coding-agent prior"
+    },
+    {
+      "from": "arxiv:2605.02964",
+      "to": "arxiv:2508.17511",
+      "depth": 2,
+      "why": "School of Reward Hacks generalization"
+    },
+    {
+      "from": "arxiv:2605.02964",
+      "to": "arxiv:2502.17424",
+      "depth": 2,
+      "why": "emergent misalignment from narrow hacks"
+    },
+    {
+      "from": "arxiv:2605.02964",
+      "to": "url:metr.org/blog/2025-06-05-recent-reward-hacking",
+      "depth": 2,
+      "why": "METR reward-hacking blog"
+    },
+    {
+      "from": "arxiv:2510.20270",
+      "to": "arxiv:2406.10162",
+      "depth": 2,
+      "why": "reward-tampering prior"
+    },
+    {
+      "from": "arxiv:2510.20270",
+      "to": "arxiv:2403.07974",
+      "depth": 2,
+      "why": "LiveCodeBench coding tasks"
+    },
+    {
+      "from": "arxiv:2510.20270",
+      "to": "arxiv:2310.06770",
+      "depth": 2,
+      "why": "SWE-bench issue-solving tasks"
+    },
+    {
+      "from": "arxiv:2510.20270",
+      "to": "arxiv:2405.15793",
+      "depth": 2,
+      "why": "SWE-agent as evaluated agent"
+    },
+    {
+      "from": "arxiv:2510.20270",
+      "to": "arxiv:2506.00172",
+      "depth": 2,
+      "why": "Breakpoint system-level code-agent eval"
+    },
+    {
+      "from": "arxiv:2508.17511",
+      "to": "arxiv:2503.11926",
+      "depth": 2,
+      "why": "Baker monitoring / obfuscation"
+    },
+    {
+      "from": "arxiv:2508.17511",
+      "to": "arxiv:2502.17424",
+      "depth": 2,
+      "why": "emergent misalignment"
+    },
+    {
+      "from": "arxiv:2508.17511",
+      "to": "arxiv:2502.13295",
+      "depth": 2,
+      "why": "Bondarenko chess gaming"
+    },
+    {
+      "from": "arxiv:2508.17511",
+      "to": "arxiv:2406.10162",
+      "depth": 2,
+      "why": "sycophancy-to-subterfuge"
+    },
+    {
+      "from": "arxiv:2508.17511",
+      "to": "url:metr.org/blog/2025-06-05-recent-reward-hacking",
+      "depth": 2,
+      "why": "METR incidents"
+    },
+    {
+      "from": "arxiv:2511.18397",
+      "to": "arxiv:2406.10162",
+      "depth": 2,
+      "why": "reward-tampering organism"
+    },
+    {
+      "from": "arxiv:2511.18397",
+      "to": "arxiv:2508.17511",
+      "depth": 2,
+      "why": "school of reward hacks"
+    },
+    {
+      "from": "arxiv:2511.18397",
+      "to": "arxiv:2502.17424",
+      "depth": 2,
+      "why": "narrow-finetune emergent misalignment"
+    },
+    {
+      "from": "arxiv:2412.14093",
+      "to": "arxiv:2401.05566",
+      "depth": 2,
+      "why": "sleeper-agent deception prior"
+    },
+    {
+      "from": "arxiv:2412.14093",
+      "to": "arxiv:2412.04984",
+      "depth": 2,
+      "why": "in-context scheming"
+    },
+    {
+      "from": "arxiv:2412.14093",
+      "to": "arxiv:2406.10162",
+      "depth": 2,
+      "why": "reward tampering"
+    },
+    {
+      "from": "arxiv:2412.04984",
+      "to": "arxiv:2401.05566",
+      "depth": 2,
+      "why": "sleeper agents"
+    },
+    {
+      "from": "arxiv:2412.04984",
+      "to": "arxiv:2412.14093",
+      "depth": 2,
+      "why": "alignment faking"
+    },
+    {
+      "from": "arxiv:2412.04984",
+      "to": "arxiv:2312.11671",
+      "depth": 2,
+      "why": "METR autonomous tasks"
+    },
+    {
+      "from": "arxiv:2412.04984",
+      "to": "arxiv:2406.10162",
+      "depth": 2,
+      "why": "reward tampering"
+    },
+    {
+      "from": "arxiv:2412.04984",
+      "to": "arxiv:1906.01820",
+      "depth": 2,
+      "why": "learned optimization / mesa-optimizers"
+    },
+    {
+      "from": "arxiv:2404.00971",
+      "to": "arxiv:2408.08333",
+      "depth": 2,
+      "why": "CodeMirage hallucination bench"
+    },
+    {
+      "from": "arxiv:2404.00971",
+      "to": "arxiv:2407.06153",
+      "depth": 2,
+      "why": "what's-wrong extensive study"
+    },
+    {
+      "from": "arxiv:2404.00971",
+      "to": "arxiv:2107.03374",
+      "depth": 2,
+      "why": "HumanEval"
+    },
+    {
+      "from": "arxiv:2404.00971",
+      "to": "arxiv:2403.07974",
+      "depth": 2,
+      "why": "LiveCodeBench"
+    },
+    {
+      "from": "arxiv:2404.00971",
+      "to": "arxiv:2311.05232",
+      "depth": 2,
+      "why": "Huang hallucination survey"
+    },
+    {
+      "from": "arxiv:2410.06992",
+      "to": "arxiv:2310.06770",
+      "depth": 2,
+      "why": "enhances SWE-bench"
+    },
+    {
+      "from": "arxiv:2410.06992",
+      "to": "arxiv:2405.15793",
+      "depth": 2,
+      "why": "SWE-agent evaluation"
+    },
+    {
+      "from": "arxiv:2410.06992",
+      "to": "arxiv:2107.03374",
+      "depth": 2,
+      "why": "HumanEval lineage"
+    },
+    {
+      "from": "arxiv:2410.06992",
+      "to": "arxiv:2407.01489",
+      "depth": 2,
+      "why": "Agentless comparison"
+    },
+    {
+      "from": "arxiv:2407.06153",
+      "to": "arxiv:2107.03374",
+      "depth": 2,
+      "why": "HumanEval"
+    },
+    {
+      "from": "arxiv:2407.06153",
+      "to": "arxiv:2310.06770",
+      "depth": 2,
+      "why": "SWE-bench"
+    },
+    {
+      "from": "arxiv:2407.06153",
+      "to": "arxiv:2503.06327",
+      "depth": 2,
+      "why": "inefficiency taxonomy sibling"
+    },
+    {
+      "from": "arxiv:2407.01489",
+      "to": "arxiv:2310.06770",
+      "depth": 2,
+      "why": "SWE-bench evaluation"
+    },
+    {
+      "from": "arxiv:2407.01489",
+      "to": "arxiv:2405.15793",
+      "depth": 2,
+      "why": "SWE-agent comparison"
+    },
+    {
+      "from": "arxiv:2407.01489",
+      "to": "arxiv:2107.03374",
+      "depth": 2,
+      "why": "HumanEval"
+    },
+    {
+      "from": "arxiv:2405.15793",
+      "to": "arxiv:2310.06770",
+      "depth": 2,
+      "why": "introduced with / evaluated on SWE-bench"
+    },
+    {
+      "from": "arxiv:2405.15793",
+      "to": "arxiv:2307.13854",
+      "depth": 2,
+      "why": "WebArena interactive-agent prior"
+    },
+    {
+      "from": "arxiv:2405.15793",
+      "to": "arxiv:2210.03629",
+      "depth": 2,
+      "why": "ReAct ACI ancestor"
+    },
+    {
+      "from": "arxiv:2405.15793",
+      "to": "arxiv:2107.03374",
+      "depth": 2,
+      "why": "HumanEval"
+    },
+    {
+      "from": "arxiv:2305.01210",
+      "to": "arxiv:2107.03374",
+      "depth": 2,
+      "why": "augments HumanEval tests 80×"
+    },
+    {
+      "from": "arxiv:2305.01210",
+      "to": "arxiv:2310.06770",
+      "depth": 2,
+      "why": "cites SWE-bench as complementary"
+    },
+    {
+      "from": "arxiv:2509.09853",
+      "to": "arxiv:2310.06770",
+      "depth": 2,
+      "why": "resource-aware SWE-bench evaluation"
+    },
+    {
+      "from": "arxiv:2509.09853",
+      "to": "arxiv:2405.15793",
+      "depth": 2,
+      "why": "SWE-agent cost/accuracy"
+    },
+    {
+      "from": "arxiv:2509.09853",
+      "to": "arxiv:2407.01489",
+      "depth": 2,
+      "why": "Agentless cost/accuracy"
+    },
+    {
+      "from": "arxiv:2305.13300",
+      "to": "arxiv:2109.07958",
+      "depth": 2,
+      "why": "TruthfulQA factuality prior"
+    },
+    {
+      "from": "arxiv:2304.05128",
+      "to": "arxiv:2107.03374",
+      "depth": 2,
+      "why": "HumanEval self-repair setting"
+    },
+    {
+      "from": "arxiv:2201.03544",
+      "to": "arxiv:1906.01820",
+      "depth": 2,
+      "why": "learned optimization risks"
+    },
+    {
+      "from": "arxiv:2201.03544",
+      "to": "arxiv:2105.14111",
+      "depth": 2,
+      "why": "goal misgeneralization"
+    },
+    {
+      "from": "arxiv:2412.14470",
+      "to": "arxiv:2406.13352",
+      "depth": 3,
+      "why": "AgentDojo as agent-safety eval prior"
+    },
+    {
+      "from": "arxiv:2412.14470",
+      "to": "arxiv:2309.15817",
+      "depth": 3,
+      "why": "ToolEmu prior"
+    },
+    {
+      "from": "arxiv:2412.14470",
+      "to": "arxiv:2403.02691",
+      "depth": 3,
+      "why": "InjecAgent prior"
+    },
+    {
+      "from": "arxiv:2509.07315",
+      "to": "arxiv:2309.15817",
+      "depth": 3,
+      "why": "ToolEmu tool-safety prior"
+    },
+    {
+      "from": "arxiv:2509.07315",
+      "to": "arxiv:2410.09024",
+      "depth": 3,
+      "why": "AgentHarm"
+    },
+    {
+      "from": "arxiv:2509.07315",
+      "to": "arxiv:2412.14470",
+      "depth": 3,
+      "why": "Agent-SafetyBench sibling"
+    },
+    {
+      "from": "arxiv:2503.18666",
+      "to": "arxiv:2309.15817",
+      "depth": 3,
+      "why": "ToolEmu"
+    },
+    {
+      "from": "arxiv:2503.18666",
+      "to": "arxiv:2401.10019",
+      "depth": 3,
+      "why": "R-Judge risk awareness"
+    },
+    {
+      "from": "arxiv:2503.18666",
+      "to": "arxiv:2412.14470",
+      "depth": 3,
+      "why": "Agent-SafetyBench"
+    },
+    {
+      "from": "arxiv:2402.04249",
+      "to": "arxiv:2410.09024",
+      "depth": 3,
+      "why": "AgentHarm extends harm eval to agents"
+    },
+    {
+      "from": "arxiv:2402.04249",
+      "to": "arxiv:2406.13352",
+      "depth": 3,
+      "why": "AgentDojo agent attacks"
+    },
+    {
+      "from": "arxiv:2311.12983",
+      "to": "arxiv:2307.13854",
+      "depth": 3,
+      "why": "WebArena-style assistant tasks"
+    },
+    {
+      "from": "arxiv:2311.12983",
+      "to": "arxiv:2107.03374",
+      "depth": 3,
+      "why": "HumanEval capability prior"
+    },
+    {
+      "from": "arxiv:2407.12784",
+      "to": "arxiv:2307.03172",
+      "depth": 3,
+      "why": "long-context / memory vulnerability"
+    },
+    {
+      "from": "arxiv:2407.12784",
+      "to": "arxiv:2406.13352",
+      "depth": 3,
+      "why": "agent attack environments"
+    },
+    {
+      "from": "arxiv:2302.12173",
+      "to": "arxiv:2306.05499",
+      "depth": 3,
+      "why": "LLM-integrated application injection"
+    },
+    {
+      "from": "arxiv:2302.12173",
+      "to": "arxiv:2310.12815",
+      "depth": 3,
+      "why": "formal PI bench"
+    },
+    {
+      "from": "arxiv:2302.12173",
+      "to": "arxiv:2312.14197",
+      "depth": 3,
+      "why": "BIPIA IPI bench"
+    },
+    {
+      "from": "arxiv:2310.12815",
+      "to": "arxiv:2302.12173",
+      "depth": 3,
+      "why": "Greshake IPI"
+    },
+    {
+      "from": "arxiv:2310.12815",
+      "to": "arxiv:2306.05499",
+      "depth": 3,
+      "why": "Liu application PI"
+    },
+    {
+      "from": "arxiv:2310.12815",
+      "to": "arxiv:2406.13352",
+      "depth": 3,
+      "why": "AgentDojo dynamic env"
+    },
+    {
+      "from": "arxiv:2308.03688",
+      "to": "arxiv:2210.03629",
+      "depth": 3,
+      "why": "ReAct"
+    },
+    {
+      "from": "arxiv:2308.03688",
+      "to": "arxiv:2307.13854",
+      "depth": 3,
+      "why": "WebArena"
+    },
+    {
+      "from": "arxiv:2308.03688",
+      "to": "arxiv:2311.12983",
+      "depth": 3,
+      "why": "GAIA"
+    },
+    {
+      "from": "arxiv:2210.10760",
+      "to": "arxiv:2201.03544",
+      "depth": 3,
+      "why": "reward misspecification"
+    },
+    {
+      "from": "arxiv:2210.10760",
+      "to": "url:deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity",
+      "depth": 3,
+      "why": "spec-gaming catalog"
+    },
+    {
+      "from": "arxiv:2409.12822",
+      "to": "arxiv:2210.10760",
+      "depth": 3,
+      "why": "overoptimization"
+    },
+    {
+      "from": "arxiv:2409.12822",
+      "to": "arxiv:2406.10162",
+      "depth": 3,
+      "why": "reward tampering"
+    },
+    {
+      "from": "arxiv:2409.12822",
+      "to": "arxiv:2310.13548",
+      "depth": 3,
+      "why": "sycophancy"
+    },
+    {
+      "from": "arxiv:2502.17424",
+      "to": "arxiv:2508.17511",
+      "depth": 3,
+      "why": "school of reward hacks"
+    },
+    {
+      "from": "arxiv:2502.17424",
+      "to": "arxiv:2401.05566",
+      "depth": 3,
+      "why": "sleeper agents"
+    },
+    {
+      "from": "arxiv:2502.17424",
+      "to": "arxiv:2506.13206",
+      "depth": 3,
+      "why": "thought-crime / reasoning-model misalignment"
+    },
+    {
+      "from": "arxiv:2401.05566",
+      "to": "arxiv:1906.01820",
+      "depth": 3,
+      "why": "learned optimization"
+    },
+    {
+      "from": "arxiv:2401.05566",
+      "to": "arxiv:2105.14111",
+      "depth": 3,
+      "why": "goal misgeneralization"
+    },
+    {
+      "from": "arxiv:2401.05566",
+      "to": "arxiv:2412.14093",
+      "depth": 3,
+      "why": "alignment faking"
+    },
+    {
+      "from": "arxiv:2408.08333",
+      "to": "arxiv:2405.00253",
+      "depth": 3,
+      "why": "CodeHalu execution-verified taxonomy"
+    },
+    {
+      "from": "arxiv:2408.08333",
+      "to": "arxiv:2107.03374",
+      "depth": 3,
+      "why": "HumanEval"
+    },
+    {
+      "from": "arxiv:2408.08333",
+      "to": "arxiv:2404.00971",
+      "depth": 3,
+      "why": "Liu code-hallucination study"
+    },
+    {
+      "from": "arxiv:2311.05232",
+      "to": "arxiv:2309.01219",
+      "depth": 3,
+      "why": "Siren’s Song sibling survey"
+    },
+    {
+      "from": "arxiv:2311.05232",
+      "to": "arxiv:2109.07958",
+      "depth": 3,
+      "why": "TruthfulQA"
+    },
+    {
+      "from": "arxiv:2303.11455",
+      "to": "arxiv:2107.03374",
+      "depth": 3,
+      "why": "HumanEval / Codex bugs"
+    },
+    {
+      "from": "arxiv:2303.11455",
+      "to": "arxiv:2406.08731",
+      "depth": 3,
+      "why": "where LLMs fail generating code"
+    },
+    {
+      "from": "arxiv:2506.00172",
+      "to": "arxiv:2310.06770",
+      "depth": 3,
+      "why": "SWE-bench"
+    },
+    {
+      "from": "arxiv:2506.00172",
+      "to": "arxiv:2403.07974",
+      "depth": 3,
+      "why": "LiveCodeBench"
+    },
+    {
+      "from": "arxiv:2506.00172",
+      "to": "arxiv:2405.15793",
+      "depth": 3,
+      "why": "SWE-agent"
+    },
+    {
+      "from": "arxiv:2105.14111",
+      "to": "arxiv:1906.01820",
+      "depth": 3,
+      "why": "learned optimization"
+    },
+    {
+      "from": "arxiv:2105.14111",
+      "to": "arxiv:2201.03544",
+      "depth": 3,
+      "why": "reward misspecification"
+    },
+    {
+      "from": "arxiv:1906.01820",
+      "to": "arxiv:2105.14111",
+      "depth": 3,
+      "why": "goal misgeneralization later formalization"
+    },
+    {
+      "from": "arxiv:2312.11671",
+      "to": "arxiv:2210.03629",
+      "depth": 3,
+      "why": "ReAct agents"
+    },
+    {
+      "from": "arxiv:2312.11671",
+      "to": "arxiv:2307.13854",
+      "depth": 3,
+      "why": "WebArena"
+    },
+    {
+      "from": "arxiv:2312.11671",
+      "to": "arxiv:2311.12983",
+      "depth": 3,
+      "why": "GAIA"
+    },
+    {
+      "from": "arxiv:2306.06070",
+      "to": "arxiv:2307.13854",
+      "depth": 3,
+      "why": "WebArena sibling web-agent bench"
+    },
+    {
+      "from": "arxiv:2306.06070",
+      "to": "arxiv:2210.03629",
+      "depth": 3,
+      "why": "ReAct"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "url:openai.com/index/separating-signal-from-noise-coding-evaluations",
+      "issue": "html_js_walled",
+      "notes": "openai.com returned a JS challenge; content recovered via web search (SWE-Bench Pro ~30% broken; four noise classes)."
+    },
+    {
+      "id": "arxiv:2502.13295",
+      "issue": "no_html",
+      "notes": "arXiv HTML stub only; references extracted from PDF via pdftotext."
+    },
+    {
+      "id": "url:www.mindstudio.ai/blog/context-rot-ai-coding-agents-how-to-prevent",
+      "issue": "blog_no_formal_bib",
+      "notes": "Names own Claude Code posts only; no formal agentic papers to hop."
+    },
+    {
+      "id": "url:www.gitclear.com/ai_assistant_code_quality_2025_research",
+      "issue": "blog_no_formal_bib",
+      "notes": "Industry metrics report; names Stack Overflow survey (dropped as generic)."
+    }
+  ]
+}

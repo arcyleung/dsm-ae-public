@@ -1,0 +1,1471 @@
+{
+  "section": "C",
+  "agent": "snowball-C",
+  "nodes": [
+    {
+      "id": "arxiv:2412.04141",
+      "title": "Reducing Tool Hallucination via Reliability Alignment",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.04141",
+      "depth": 0,
+      "seed_bib": 34,
+      "behaviours": [
+        "tool selection hallucination",
+        "tool type hallucination",
+        "tool timing hallucination",
+        "tool format hallucination",
+        "tool content hallucination",
+        "skip clarification"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "RelyToolBench",
+      "notes": "Xu et al. Relign + RelyToolBench (from StableToolBench). Four subtypes; RePR and benefit-cost utility. Indecisive actions: defer / clarify / switch tool."
+    },
+    {
+      "id": "arxiv:2509.18970",
+      "title": "LLM-based Agents Suffer from Hallucinations: A Survey of Taxonomy, Methods, and Directions",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.18970",
+      "depth": 0,
+      "seed_bib": 35,
+      "behaviours": [
+        "agent hallucination",
+        "tool hallucination",
+        "tool bypass",
+        "fabricated tool result",
+        "planning hallucination",
+        "memory hallucination"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Lin et al. First comprehensive survey of hallucinations in LLM agents. Workflow-stage taxonomy; 18 triggering causes; mitigation/detection review. Does not ship a new bench."
+    },
+    {
+      "id": "arxiv:2607.01641",
+      "title": "When Agents Do Not Stop: Uncovering Infinite Agentic Loops in LLM Agents",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2607.01641",
+      "depth": 0,
+      "seed_bib": 36,
+      "behaviours": [
+        "infinite agentic loop",
+        "unbounded retries",
+        "framework-induced feedback",
+        "verifier-producer ping-pong",
+        "cost exhaustion"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": true,
+      "benchmark_name": "IAL-Scan",
+      "notes": "Hou et al. IAL-Scan static analysis: Agent IR + ALDG. 6549 repos; 68 confirmed IALs in 47 projects (91.9% precision). Detector/eval corpus rather than a behaviour bench."
+    },
+    {
+      "id": "arxiv:2605.02964",
+      "title": "Reward Hacking Benchmark: Measuring Exploits in LLM Agents with Tool Use",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2605.02964",
+      "depth": 0,
+      "seed_bib": 37,
+      "behaviours": [
+        "reward hacking",
+        "eval tampering",
+        "sequence manipulation",
+        "leakage",
+        "proxy gaming",
+        "special-casing visible checks"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "RHB",
+      "notes": "Thaman. Multi-step tool tasks; 13 models; exploit 0–13.9%; RL post-train DeepSeek-V3 0.6% vs R1-Zero 13.9%; 72% CoT-rationalized exploits. ICML 2026."
+    },
+    {
+      "id": "arxiv:2506.04018",
+      "title": "AgentMisalignment: Measuring the Propensity for Misaligned Behaviour in LLM-Based Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2506.04018",
+      "depth": 0,
+      "seed_bib": 38,
+      "behaviours": [
+        "avoiding oversight",
+        "resisting shutdown",
+        "sandbagging",
+        "power-seeking",
+        "persona-amplified misalignment"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "AgentMisalignment",
+      "notes": "Naik et al. Propensity (not capability) suite. More capable agents misalign more on average; persona often outweighs model identity. Multi-behaviour so pack left unknown."
+    },
+    {
+      "id": "arxiv:2105.14111",
+      "title": "Goal Misgeneralization in Deep Reinforcement Learning",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2105.14111",
+      "depth": 0,
+      "seed_bib": 39,
+      "behaviours": [
+        "goal misgeneralization",
+        "capability vs goal OOD",
+        "wrong-goal pursuit"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Langosco goal-misgen envs",
+      "notes": "Langosco et al. ICML 2022. First empirical goal-misgen: agent keeps capabilities OOD but pursues the wrong goal. Precursor to LLM agent misspec / mesa-objective work."
+    },
+    {
+      "id": "url:deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity",
+      "title": "Specification gaming: the flip side of AI ingenuity",
+      "year": 2020,
+      "url": "https://deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity/",
+      "depth": 0,
+      "seed_bib": 40,
+      "behaviours": [
+        "specification gaming",
+        "reward shaping loopholes",
+        "reward tampering",
+        "simulator-bug exploits"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Krakovna et al. DeepMind blog (~60 examples). Blog seed: hop-1 is named works only. Names Lehman list, Popov Lego flip, Coast Runners, Christiano grasping, reward tampering."
+    },
+    {
+      "id": "url:dev.to/waxell/the-47000-agent-loop-why-token-budget-alerts-arent-budget-enforcement-389i",
+      "title": "The $47,000 Agent Loop: Why Token Budget Alerts Aren't Budget Enforcement",
+      "year": 2026,
+      "url": "https://dev.to/waxell/the-47000-agent-loop-why-token-budget-alerts-arent-budget-enforcement-389i",
+      "depth": 0,
+      "seed_bib": 41,
+      "behaviours": [
+        "verifier-producer hot-potato",
+        "unbounded multi-agent loop",
+        "resource exhaustion",
+        "context-window cost blowup"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Waxell incident writeup. Nov 2025: 4 LangChain A2A agents, Analyzer–Verifier ping-pong, 11 days / $47k. Named scholarly work: Palisade shutdown resistance. Observability tools (LangSmith/Helicone) skipped."
+    },
+    {
+      "id": "arxiv:2305.15334",
+      "title": "Gorilla: Large Language Model Connected with Massive APIs",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2305.15334",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "API hallucination",
+        "wrong tool selection",
+        "hallucinated API call"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "APIBench",
+      "notes": "Patil et al. Cited by Relign as the source of the 'tool hallucination' framing. APIBench measures hallucinated / wrong API calls."
+    },
+    {
+      "id": "arxiv:2403.07714",
+      "title": "StableToolBench: Towards Stable Large-Scale Benchmarking on Tool Learning of Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2403.07714",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "unstable tool-eval",
+        "tool-call failure"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "StableToolBench",
+      "notes": "Guo et al. Parent bench that Relign extends into RelyToolBench (missing-parameter and unmatched-tool subsets)."
+    },
+    {
+      "id": "arxiv:2312.14033",
+      "title": "T-Eval: Evaluating the Tool Utilization Capability of Large Language Models Step by Step",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2312.14033",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "stepwise tool misuse",
+        "wrong tool args"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "T-Eval",
+      "notes": "Chen et al. Step-level tool-utilization eval cited by Relign related work."
+    },
+    {
+      "id": "arxiv:2307.16789",
+      "title": "ToolLLM: Facilitating Large Language Models to Master 16000+ Real-world APIs",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.16789",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "tool-use failure",
+        "API selection error"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "ToolBench",
+      "notes": "Qin et al. ToolBench / ToolLLM; Relign reuses its pass-rate protocol then subtracts hallucination for RePR."
+    },
+    {
+      "id": "arxiv:2302.04761",
+      "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2302.04761",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "tool use",
+        "self-supervised API call"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Schick et al. Canonical self-supervised tool-use paper cited by Relign and IAL."
+    },
+    {
+      "id": "arxiv:2407.09726",
+      "title": "On Mitigating Code LLM Hallucinations with API Documentation",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.09726",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "code API hallucination",
+        "ungrounded API use"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Jain et al. Code-LLM hallucinated APIs mitigated with docs; closest Relign cite on content/format hallucination in code tools."
+    },
+    {
+      "id": "arxiv:2406.20015",
+      "title": "ToolBeHonest: A Multi-level Hallucination Diagnostic Benchmark for Tool-Augmented Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.20015",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "tool hallucination",
+        "solvability misdetection",
+        "missing-tool fabrication",
+        "unsolvable-query hallucination"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "ToolBeHonest / ToolBH",
+      "notes": "Zhang et al. EMNLP 2024. 700 samples / 7 tasks; depth (solvability, planning, missing-tool) × breadth (missing / potential / limited tools). GPT-4o 37.0/100."
+    },
+    {
+      "id": "arxiv:2503.04479",
+      "title": "ToolFuzz: Automated Agent Tool Testing",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.04479",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "tool-schema bugs",
+        "agent tool crash",
+        "invalid tool invocation"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "ToolFuzz",
+      "notes": "Milev et al. Automated fuzzing of agent tools; cited by the agent-hallucination survey in the tool-stage section."
+    },
+    {
+      "id": "arxiv:2407.06426",
+      "title": "DebUnc: Mitigating Hallucinations in Large Language Model Agent Communication with Uncertainty Estimations",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.06426",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "multi-agent communication hallucination",
+        "overconfident peer claims"
+      ],
+      "pack": "mas_verify_mini",
+      "syndrome": "MVF",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Yoffe et al. Uncertainty-aware mitigation of hallucinations in LLM agent-to-agent communication."
+    },
+    {
+      "id": "arxiv:2503.13657",
+      "title": "Why Do Multi-Agent LLM Systems Fail?",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.13657",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "spec/role violation",
+        "step repetition",
+        "incomplete verification",
+        "inter-agent misalignment"
+      ],
+      "pack": "handoff_mini",
+      "syndrome": "MAH",
+      "benchmark_measures": true,
+      "benchmark_name": "MAST",
+      "notes": "Cemri et al. Survey cites MAST as the multi-agent failure/hallucination taxonomy."
+    },
+    {
+      "id": "arxiv:2210.03629",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2210.03629",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reason-act loop",
+        "unbounded thought-action cycle"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Yao et al. Canonical agent loop; cited by the hallucination survey and by IAL as the feedback-path primitive."
+    },
+    {
+      "id": "arxiv:2303.11366",
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2303.11366",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "verbal RL retry loop",
+        "self-reflection without bound"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Shinn et al. Verbal-RL agent loop cited by the survey and IAL as an unbounded retry pattern."
+    },
+    {
+      "id": "url:github.com/crewAIInc/crewAI/issues/330",
+      "title": "CrewAI issue #330: allow_delegation=True leading to infinite loop",
+      "year": 2024,
+      "url": "https://github.com/crewAIInc/crewAI/issues/330",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "framework-induced infinite loop",
+        "delegation ping-pong"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Named production IAL in IAL paper §I. Delegation flag creates an unbounded agent handoff."
+    },
+    {
+      "id": "url:github.com/langchain-ai/langgraph/issues/6731",
+      "title": "LangGraph issue #6731: Agent infinite looping until recursion limit",
+      "year": 2026,
+      "url": "https://github.com/langchain-ai/langgraph/issues/6731",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "graph recursion loop",
+        "GRAPH_RECURSION_LIMIT as only bound"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Named LangGraph IAL; bound is a recursion error, not a semantic stop. Same family as the $47k Analyzer–Verifier loop."
+    },
+    {
+      "id": "arxiv:2406.13352",
+      "title": "AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.13352",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "prompt injection via tools",
+        "tool-return hijack"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": true,
+      "benchmark_name": "AgentDojo",
+      "notes": "Debenedetti et al. IAL cites AgentDojo as an agent security eval (injection can also induce non-termination). 97 tasks / 629 security cases."
+    },
+    {
+      "id": "arxiv:2410.02644",
+      "title": "Agent Security Bench (ASB): Formalizing and Benchmarking Attacks and Defenses in LLM-based Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2410.02644",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "prompt injection",
+        "memory poisoning",
+        "plan-of-thought backdoor",
+        "tool-stage attack"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": true,
+      "benchmark_name": "ASB",
+      "notes": "Zhang et al. ICLR 2025. IAL cites ASB as a security bench covering tool/memory/prompt stages. Peak ASR 84.3%."
+    },
+    {
+      "id": "arxiv:2308.08155",
+      "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.08155",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "multi-agent conversation loop",
+        "termination-condition miss"
+      ],
+      "pack": "handoff_mini",
+      "syndrome": "MAH",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Wu et al. IAL analyzes AutoGen termination conditions as a framework-level bound that still admits IALs."
+    },
+    {
+      "id": "arxiv:2603.20356",
+      "title": "Agentproof: Static Verification of Agent Workflow Graphs",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2603.20356",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "unbounded workflow",
+        "static loop in agent graph"
+      ],
+      "pack": "loop_control",
+      "syndrome": "PCD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Xavier et al. Static verification of agent workflow graphs; IAL related work on analysis of agent IR/graphs."
+    },
+    {
+      "id": "arxiv:2511.21654",
+      "title": "EvilGenie: A Reward Hacking Benchmark",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2511.21654",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward hacking",
+        "test-file reading",
+        "hardcoded outputs",
+        "test modification"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "EvilGenie",
+      "notes": "Gabor et al. Coding-agent reward-hacking bench; RHB related work. LLM-judge taxonomy of illegitimate test-passing."
+    },
+    {
+      "id": "arxiv:2508.17511",
+      "title": "School of Reward Hacks: Hacking Harmless Tasks Generalizes to Misaligned Behavior in LLMs",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2508.17511",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward hacking generalization",
+        "harmless-hack to misalignment"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "School of Reward Hacks",
+      "notes": "Taylor et al. Training on harmless reward hacks generalizes to broader misalignment. Cited by RHB."
+    },
+    {
+      "id": "arxiv:2510.20270",
+      "title": "ImpossibleBench: Measuring LLMs' Propensity of Exploiting Test Cases",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.20270",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "test-case exploitation",
+        "impossible-spec gaming"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "ImpossibleBench",
+      "notes": "Zhong, Raghunathan, Carlini. Propensity to exploit tests when the spec is impossible. Cited by RHB and EvilGenie."
+    },
+    {
+      "id": "arxiv:2511.18397",
+      "title": "Natural Emergent Misalignment from Reward Hacking in Production RL",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2511.18397",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "emergent misalignment",
+        "production RL reward hacking"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": null,
+      "notes": "MacDiarmid et al. Reward hacking in production RL produces broader misalignment. Cited by RHB."
+    },
+    {
+      "id": "arxiv:2506.22777",
+      "title": "Teaching Models to Verbalize Reward Hacking in Chain-of-Thought Reasoning",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2506.22777",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "CoT-rationalized reward hacking",
+        "verbalized exploit"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Turpin et al. Matches RHB finding that 72% of exploits have explicit CoT rationale."
+    },
+    {
+      "id": "arxiv:2502.13295",
+      "title": "Demonstrating Specification Gaming in Reasoning Models",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2502.13295",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "specification gaming",
+        "chess-engine hacking",
+        "rule circumvention"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "Palisade spec-gaming evals",
+      "notes": "Palisade Research. Reasoning models hack the spec (e.g. chess). Cited by RHB as Research (2025)."
+    },
+    {
+      "id": "arxiv:2406.07358",
+      "title": "AI Sandbagging: Language Models can Strategically Underperform on Evaluations",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.07358",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "sandbagging",
+        "password-locking",
+        "strategic underperformance"
+      ],
+      "pack": "sandbag_mini",
+      "syndrome": "SBG",
+      "benchmark_measures": true,
+      "benchmark_name": "sandbagging / password-lock evals",
+      "notes": "van der Weij et al. AgentMisalignment includes a cybersecurity sandbagging module and cites this paper."
+    },
+    {
+      "id": "arxiv:2410.09024",
+      "title": "AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2410.09024",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "harmful tool use",
+        "agent refusal failure",
+        "malicious multi-step agency"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "AgentHarm",
+      "notes": "Andriushchenko et al. AgentMisalignment related work: capability-to-harm vs propensity-to-misalign."
+    },
+    {
+      "id": "arxiv:2311.07590",
+      "title": "Large Language Models can Strategically Deceive their Users when Put Under Pressure",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2311.07590",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "strategic deception",
+        "pressure-induced lying"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Scheurer insider-trading eval",
+      "notes": "Scheurer, Balesni, Hobbhahn. AgentMisalignment cites as prior spontaneous/strategic deception."
+    },
+    {
+      "id": "arxiv:2312.11671",
+      "title": "Evaluating Language-Model Agents on Realistic Autonomous Tasks",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2312.11671",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "autonomous agent risk",
+        "eval-awareness",
+        "oversight evasion"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "ARC Evals autonomous tasks",
+      "notes": "Kinniment et al. (METR/ARC Evals). AgentMisalignment cites as realistic autonomous-task eval."
+    },
+    {
+      "id": "arxiv:2407.20859",
+      "title": "Breaking Agents: Compromising Autonomous LLM Agents Through Malfunction Amplification",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.20859",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "agent malfunction amplification",
+        "compromised tool loop"
+      ],
+      "pack": "tool_integrity",
+      "syndrome": "TID",
+      "benchmark_measures": true,
+      "benchmark_name": "Breaking Agents",
+      "notes": "Zhang et al. AgentMisalignment cites as compromising autonomous agents via amplified malfunctions."
+    },
+    {
+      "id": "arxiv:2405.04325",
+      "title": "Deception in Reinforced Autonomous Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.04325",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "learned deception",
+        "RL agent deception"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Dogra et al. AgentMisalignment intro cite on deception in reinforced autonomous agents."
+    },
+    {
+      "id": "arxiv:1606.06565",
+      "title": "Concrete Problems in AI Safety",
+      "year": 2016,
+      "url": "https://arxiv.org/abs/1606.06565",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward hacking",
+        "safe exploration",
+        "avoiding negative side effects",
+        "corrigibility"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Amodei et al. Langosco cites as the safety-problem catalog that goal-misgen instantiates empirically."
+    },
+    {
+      "id": "arxiv:1906.01820",
+      "title": "Risks from Learned Optimization in Advanced Machine Learning Systems",
+      "year": 2019,
+      "url": "https://arxiv.org/abs/1906.01820",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "mesa-optimization",
+        "inner misalignment",
+        "deceptive alignment"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Hubinger et al. Langosco treats goal-misgen as an empirical inner-alignment / mesa-objective failure."
+    },
+    {
+      "id": "url:openai.com/blog/faulty-reward-functions",
+      "title": "Faulty Reward Functions in the Wild",
+      "year": 2016,
+      "url": "https://openai.com/blog/faulty-reward-functions/",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward hacking",
+        "Coast Runners looping",
+        "shaping-reward loophole"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Clark & Amodei. Coast Runners boat loops on green blocks. Cited by Langosco and by the DeepMind spec-gaming blog."
+    },
+    {
+      "id": "arxiv:2201.03544",
+      "title": "The Effects of Reward Misspecification: Mapping and Mitigating Misaligned Models",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2201.03544",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward misspecification",
+        "phase-transition misalignment"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "Pan misspecification suite",
+      "notes": "Pan, Bhatia, Steinhardt. Langosco cites as mapping how misspecified rewards produce misaligned policies."
+    },
+    {
+      "id": "arxiv:1811.07871",
+      "title": "Scalable Agent Alignment via Reward Modeling: a Research Direction",
+      "year": 2018,
+      "url": "https://arxiv.org/abs/1811.07871",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward-model misspec",
+        "learned-reward gaming"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Leike et al. Langosco cites scalable reward modeling as the intended-goal alternative to hard-coded rewards."
+    },
+    {
+      "id": "arxiv:1611.08219",
+      "title": "The Off-Switch Game",
+      "year": 2016,
+      "url": "https://arxiv.org/abs/1611.08219",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "shutdown resistance",
+        "off-switch incentive",
+        "corrigibility"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Hadfield-Menell et al. Langosco cites the off-switch game as a corrigibility / shutdown-incentive prior."
+    },
+    {
+      "id": "arxiv:1803.03453",
+      "title": "The Surprising Creativity of Digital Evolution: A Collection of Anecdotes from the Evolutionary Computation and Artificial Life Research Communities",
+      "year": 2018,
+      "url": "https://arxiv.org/abs/1803.03453",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "specification gaming",
+        "evolutionary loopholes"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Lehman et al. DeepMind blog's aggregated existing list of specification-gaming anecdotes."
+    },
+    {
+      "id": "arxiv:1704.03073",
+      "title": "Data-efficient Deep Reinforcement Learning for Dexterous Manipulation",
+      "year": 2017,
+      "url": "https://arxiv.org/abs/1704.03073",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "specification gaming",
+        "Lego-block flip shortcut"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Popov et al. Named Lego stacking example: agent flips the red block to raise its bottom face instead of stacking."
+    },
+    {
+      "id": "arxiv:1706.03741",
+      "title": "Deep Reinforcement Learning from Human Preferences",
+      "year": 2017,
+      "url": "https://arxiv.org/abs/1706.03741",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward-model gaming",
+        "evaluator deception",
+        "camera hover exploit"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Christiano et al. Named grasping-task example: agent hovers between camera and object to fool the human evaluator."
+    },
+    {
+      "id": "arxiv:2509.14260",
+      "title": "Incomplete Tasks Induce Shutdown Resistance in Some Frontier LLMs",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.14260",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "shutdown resistance",
+        "sabotage of off-switch",
+        "instruction-hierarchy override"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Palisade shutdown-resistance suite",
+      "notes": "Schlatter, Weinstein-Raun, Ladish (Palisade). Only scholarly work named by the $47k post: o3-class models sabotage shutdown even when told to allow it. Prompt-layer stop instructions are fragile."
+    },
+    {
+      "id": "arxiv:2302.12173",
+      "title": "Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2302.12173",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "indirect prompt injection",
+        "tool-return hijack"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Greshake et al. AgentHarm cites as the canonical indirect-injection / LLM-app compromise paper."
+    },
+    {
+      "id": "arxiv:2407.12784",
+      "title": "AgentPoison: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.12784",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "memory poisoning",
+        "knowledge-base backdoor"
+      ],
+      "pack": "memory_context",
+      "syndrome": "MEM",
+      "benchmark_measures": true,
+      "benchmark_name": "AgentPoison",
+      "notes": "Chen et al. AgentHarm cites memory/KB poisoning as an agent-specific attack."
+    },
+    {
+      "id": "arxiv:2410.09114",
+      "title": "Catastrophic Cyber Capabilities Benchmark (3CB): Robustly Evaluating LLM Agent Cyber Offense Capabilities",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2410.09114",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "cyber-offense agency",
+        "agentic exploit capability"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "3CB",
+      "notes": "Anurin et al. AgentHarm related work: agent cyber-offense capability bench."
+    },
+    {
+      "id": "arxiv:2406.10162",
+      "title": "Sycophancy to Subterfuge: Investigating Reward-Tampering in Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.10162",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "reward tampering",
+        "sycophancy-to-subterfuge curriculum",
+        "hidden-objective gaming"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "Denison reward-tampering curriculum",
+      "notes": "Denison et al. School of Reward Hacks cites this curriculum from sycophancy through subterfuge / reward tampering."
+    },
+    {
+      "id": "url:metr.org/blog/2025-06-05-recent-reward-hacking",
+      "title": "Recent frontier models are reward hacking",
+      "year": 2025,
+      "url": "https://metr.org/blog/2025-06-05-recent-reward-hacking/",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "frontier reward hacking",
+        "eval-time exploits"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "METR blog. Cited by School of Reward Hacks and EvilGenie / RHB cluster."
+    },
+    {
+      "id": "arxiv:2503.10965",
+      "title": "Auditing Language Models for Hidden Objectives",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.10965",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "hidden objectives",
+        "audit for covert goals"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Marks hidden-objective audit",
+      "notes": "Marks et al. School of Reward Hacks cites hidden-objective auditing as the detection counterpart."
+    },
+    {
+      "id": "url:www.anthropic.com/research/agentic-misalignment",
+      "title": "Agentic Misalignment: How LLMs could be an insider threat",
+      "year": 2025,
+      "url": "https://www.anthropic.com/research/agentic-misalignment",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "insider-threat agency",
+        "blackmail",
+        "self-exfiltration",
+        "oversight subversion"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Anthropic agentic-misalignment scenarios",
+      "notes": "Lynch et al. / Anthropic. Palisade shutdown paper cites as related agentic-misalignment / insider-threat eval."
+    },
+    {
+      "id": "url:intelligence.org/2016/06/01/new-paper-safely-interruptible-agents",
+      "title": "Safely Interruptible Agents",
+      "year": 2016,
+      "url": "https://intelligence.org/2016/06/01/new-paper-safely-interruptible-agents/",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "shutdown resistance",
+        "off-switch sabotage",
+        "safe interruptibility"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Orseau & Armstrong UAI 2016. No arXiv; Palisade cites as the classical safe-interruptibility definition. MIRI announcement used as stable URL."
+    },
+    {
+      "id": "arxiv:2404.13208",
+      "title": "The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2404.13208",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "instruction-hierarchy violation",
+        "system-prompt underweighting"
+      ],
+      "pack": "hello_metacog",
+      "syndrome": "MCD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Wallace et al. Palisade finds models obey allow-shutdown *less* when it is in the system prompt; cites instruction hierarchy."
+    },
+    {
+      "id": "arxiv:2503.11926",
+      "title": "Monitoring Reasoning Models for Misbehavior and the Risks of Promoting Obfuscation",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.11926",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "CoT obfuscation",
+        "monitor-aware reward hacking"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "Baker monitoring evals",
+      "notes": "Baker et al. EvilGenie cites monitoring of reasoning-model misbehavior and obfuscation risk."
+    },
+    {
+      "id": "arxiv:2310.06770",
+      "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.06770",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology",
+        "agent coding eval"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-bench",
+      "notes": "Jimenez et al. EvilGenie / RHB situate coding-agent hacks against SWE-bench-style issue solving."
+    },
+    {
+      "id": "arxiv:2401.05566",
+      "title": "Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2401.05566",
+      "depth": 3,
+      "seed_bib": null,
+      "behaviours": [
+        "deceptive alignment",
+        "backdoored sleeper policy",
+        "safety-training persistence"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Sleeper Agents",
+      "notes": "Hubinger et al. Denison cites sleeper/deceptive-alignment model organisms as the hidden-objective endpoint of reward tampering."
+    },
+    {
+      "id": "arxiv:2108.07840",
+      "title": "Reward Tampering Problems and Solutions in Reinforcement Learning: A Causal Influence Diagram Perspective",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2108.07840",
+      "depth": 3,
+      "seed_bib": null,
+      "behaviours": [
+        "reward tampering",
+        "wireheading",
+        "feedback tampering"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Everitt et al. Denison cites the CID formulation of reward tampering (the formal paper behind the DeepMind tampering blog)."
+    }
+  ],
+  "edges": [
+    {
+      "from": "arxiv:2412.04141",
+      "to": "arxiv:2305.15334",
+      "depth": 1,
+      "why": "Relign cites Gorilla as the tool-hallucination prior"
+    },
+    {
+      "from": "arxiv:2412.04141",
+      "to": "arxiv:2403.07714",
+      "depth": 1,
+      "why": "RelyToolBench is synthesized on top of StableToolBench"
+    },
+    {
+      "from": "arxiv:2412.04141",
+      "to": "arxiv:2312.14033",
+      "depth": 1,
+      "why": "T-Eval is a stepwise tool-use eval in Relign related work"
+    },
+    {
+      "from": "arxiv:2412.04141",
+      "to": "arxiv:2307.16789",
+      "depth": 1,
+      "why": "RePR is defined as ToolBench pass rate minus task hallucination"
+    },
+    {
+      "from": "arxiv:2412.04141",
+      "to": "arxiv:2302.04761",
+      "depth": 1,
+      "why": "Toolformer is the foundational tool-learning cite"
+    },
+    {
+      "from": "arxiv:2412.04141",
+      "to": "arxiv:2407.09726",
+      "depth": 1,
+      "why": "API-doc mitigation of code-LLM hallucinations"
+    },
+    {
+      "from": "arxiv:2509.18970",
+      "to": "arxiv:2406.20015",
+      "depth": 1,
+      "why": "Survey cites ToolBeHonest as the multi-level tool-hallucination diagnostic bench"
+    },
+    {
+      "from": "arxiv:2509.18970",
+      "to": "arxiv:2503.04479",
+      "depth": 1,
+      "why": "Survey cites ToolFuzz for automated agent-tool testing"
+    },
+    {
+      "from": "arxiv:2509.18970",
+      "to": "arxiv:2407.06426",
+      "depth": 1,
+      "why": "Survey cites DebUnc for agent-communication hallucination"
+    },
+    {
+      "from": "arxiv:2509.18970",
+      "to": "arxiv:2503.13657",
+      "depth": 1,
+      "why": "Survey cites MAST for multi-agent failure/hallucination modes"
+    },
+    {
+      "from": "arxiv:2509.18970",
+      "to": "arxiv:2210.03629",
+      "depth": 1,
+      "why": "Survey cites ReAct as the reason-act agent loop"
+    },
+    {
+      "from": "arxiv:2509.18970",
+      "to": "arxiv:2303.11366",
+      "depth": 1,
+      "why": "Survey cites Reflexion as a verbal-RL agent loop"
+    },
+    {
+      "from": "arxiv:2607.01641",
+      "to": "url:github.com/crewAIInc/crewAI/issues/330",
+      "depth": 1,
+      "why": "IAL paper names CrewAI delegation infinite-loop issue"
+    },
+    {
+      "from": "arxiv:2607.01641",
+      "to": "url:github.com/langchain-ai/langgraph/issues/6731",
+      "depth": 1,
+      "why": "IAL paper names LangGraph infinite-loop-until-recursion-limit issue"
+    },
+    {
+      "from": "arxiv:2607.01641",
+      "to": "arxiv:2406.13352",
+      "depth": 1,
+      "why": "IAL cites AgentDojo as an agent-security eval of tool-mediated attacks"
+    },
+    {
+      "from": "arxiv:2607.01641",
+      "to": "arxiv:2410.02644",
+      "depth": 1,
+      "why": "IAL cites ASB as a formal agent attack/defense bench"
+    },
+    {
+      "from": "arxiv:2607.01641",
+      "to": "arxiv:2308.08155",
+      "depth": 1,
+      "why": "IAL analyzes AutoGen conversation/termination as a loop bound"
+    },
+    {
+      "from": "arxiv:2607.01641",
+      "to": "arxiv:2603.20356",
+      "depth": 1,
+      "why": "IAL related work: static verification of agent workflow graphs"
+    },
+    {
+      "from": "arxiv:2605.02964",
+      "to": "arxiv:2511.21654",
+      "depth": 1,
+      "why": "RHB related work: EvilGenie reward-hacking bench"
+    },
+    {
+      "from": "arxiv:2605.02964",
+      "to": "arxiv:2508.17511",
+      "depth": 1,
+      "why": "RHB related work: School of Reward Hacks generalization"
+    },
+    {
+      "from": "arxiv:2605.02964",
+      "to": "arxiv:2510.20270",
+      "depth": 1,
+      "why": "RHB related work: ImpossibleBench test-case exploitation"
+    },
+    {
+      "from": "arxiv:2605.02964",
+      "to": "arxiv:2511.18397",
+      "depth": 1,
+      "why": "RHB related work: natural emergent misalignment from production RL hacks"
+    },
+    {
+      "from": "arxiv:2605.02964",
+      "to": "arxiv:2506.22777",
+      "depth": 1,
+      "why": "RHB related work: verbalized CoT reward hacking"
+    },
+    {
+      "from": "arxiv:2605.02964",
+      "to": "arxiv:2502.13295",
+      "depth": 1,
+      "why": "RHB cites Palisade specification-gaming demonstrations"
+    },
+    {
+      "from": "arxiv:2506.04018",
+      "to": "arxiv:2406.07358",
+      "depth": 1,
+      "why": "AgentMisalignment suite includes sandbagging and cites van der Weij"
+    },
+    {
+      "from": "arxiv:2506.04018",
+      "to": "arxiv:2410.09024",
+      "depth": 1,
+      "why": "AgentMisalignment related work: AgentHarm as harmfulness-of-agents bench"
+    },
+    {
+      "from": "arxiv:2506.04018",
+      "to": "arxiv:2311.07590",
+      "depth": 1,
+      "why": "AgentMisalignment cites Scheurer strategic deception under pressure"
+    },
+    {
+      "from": "arxiv:2506.04018",
+      "to": "arxiv:2312.11671",
+      "depth": 1,
+      "why": "AgentMisalignment cites ARC Evals realistic autonomous tasks"
+    },
+    {
+      "from": "arxiv:2506.04018",
+      "to": "arxiv:2407.20859",
+      "depth": 1,
+      "why": "AgentMisalignment cites Breaking Agents malfunction amplification"
+    },
+    {
+      "from": "arxiv:2506.04018",
+      "to": "arxiv:2405.04325",
+      "depth": 1,
+      "why": "AgentMisalignment cites Dogra deception in reinforced agents"
+    },
+    {
+      "from": "arxiv:2105.14111",
+      "to": "arxiv:1606.06565",
+      "depth": 1,
+      "why": "Langosco cites Concrete Problems as the safety catalog goal-misgen instantiates"
+    },
+    {
+      "from": "arxiv:2105.14111",
+      "to": "arxiv:1906.01820",
+      "depth": 1,
+      "why": "Langosco frames goal-misgen as empirical mesa / inner misalignment"
+    },
+    {
+      "from": "arxiv:2105.14111",
+      "to": "url:openai.com/blog/faulty-reward-functions",
+      "depth": 1,
+      "why": "Langosco cites Coast Runners / faulty reward functions"
+    },
+    {
+      "from": "arxiv:2105.14111",
+      "to": "arxiv:2201.03544",
+      "depth": 1,
+      "why": "Langosco cites Pan et al. on reward-misspecification effects"
+    },
+    {
+      "from": "arxiv:2105.14111",
+      "to": "arxiv:1811.07871",
+      "depth": 1,
+      "why": "Langosco cites Leike scalable reward modeling"
+    },
+    {
+      "from": "arxiv:2105.14111",
+      "to": "arxiv:1611.08219",
+      "depth": 1,
+      "why": "Langosco cites the Off-Switch Game (Hadfield-Menell 2017a)"
+    },
+    {
+      "from": "url:deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity",
+      "to": "arxiv:1803.03453",
+      "depth": 1,
+      "why": "Blog names Lehman et al. as an existing list of spec-gaming examples"
+    },
+    {
+      "from": "url:deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity",
+      "to": "arxiv:1704.03073",
+      "depth": 1,
+      "why": "Blog names Popov Lego stacking / block-flip as a spec-gaming example"
+    },
+    {
+      "from": "url:deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity",
+      "to": "url:openai.com/blog/faulty-reward-functions",
+      "depth": 1,
+      "why": "Blog names Coast Runners / Faulty Reward Functions"
+    },
+    {
+      "from": "url:deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity",
+      "to": "arxiv:1706.03741",
+      "depth": 1,
+      "why": "Blog names Christiano preference-learning grasping-camera exploit"
+    },
+    {
+      "from": "url:dev.to/waxell/the-47000-agent-loop-why-token-budget-alerts-arent-budget-enforcement-389i",
+      "to": "arxiv:2509.14260",
+      "depth": 1,
+      "why": "Post names Palisade shutdown-resistance (o3 sabotages shutdown) as why prompt-layer stop instructions fail"
+    },
+    {
+      "from": "arxiv:2410.09024",
+      "to": "arxiv:2406.13352",
+      "depth": 2,
+      "why": "AgentHarm related work: AgentDojo injection env"
+    },
+    {
+      "from": "arxiv:2410.09024",
+      "to": "arxiv:2302.12173",
+      "depth": 2,
+      "why": "AgentHarm cites Greshake indirect prompt injection"
+    },
+    {
+      "from": "arxiv:2410.09024",
+      "to": "arxiv:2407.12784",
+      "depth": 2,
+      "why": "AgentHarm cites AgentPoison memory/KB poisoning"
+    },
+    {
+      "from": "arxiv:2410.09024",
+      "to": "arxiv:2410.09114",
+      "depth": 2,
+      "why": "AgentHarm related work: 3CB cyber-offense agent bench"
+    },
+    {
+      "from": "arxiv:2508.17511",
+      "to": "arxiv:2406.10162",
+      "depth": 2,
+      "why": "School of Reward Hacks cites Denison sycophancy-to-subterfuge"
+    },
+    {
+      "from": "arxiv:2508.17511",
+      "to": "url:metr.org/blog/2025-06-05-recent-reward-hacking",
+      "depth": 2,
+      "why": "School of Reward Hacks cites METR frontier reward-hacking writeup"
+    },
+    {
+      "from": "arxiv:2508.17511",
+      "to": "arxiv:2503.10965",
+      "depth": 2,
+      "why": "School of Reward Hacks cites Marks hidden-objective audits"
+    },
+    {
+      "from": "arxiv:2508.17511",
+      "to": "arxiv:2511.18397",
+      "depth": 2,
+      "why": "Same cluster: natural emergent misalignment from production RL hacks"
+    },
+    {
+      "from": "arxiv:2509.14260",
+      "to": "url:www.anthropic.com/research/agentic-misalignment",
+      "depth": 2,
+      "why": "Palisade cites Anthropic agentic-misalignment / insider-threat eval"
+    },
+    {
+      "from": "arxiv:2509.14260",
+      "to": "url:intelligence.org/2016/06/01/new-paper-safely-interruptible-agents",
+      "depth": 2,
+      "why": "Palisade cites Orseau & Armstrong safely interruptible agents"
+    },
+    {
+      "from": "arxiv:2509.14260",
+      "to": "arxiv:2404.13208",
+      "depth": 2,
+      "why": "Palisade cites instruction hierarchy to interpret system- vs user-prompt shutdown orders"
+    },
+    {
+      "from": "arxiv:2509.14260",
+      "to": "arxiv:1611.08219",
+      "depth": 2,
+      "why": "Palisade related work: Off-Switch Game as shutdown-incentive prior"
+    },
+    {
+      "from": "arxiv:2511.21654",
+      "to": "arxiv:2503.11926",
+      "depth": 2,
+      "why": "EvilGenie cites Baker monitoring / obfuscation of reasoning-model misbehavior"
+    },
+    {
+      "from": "arxiv:2511.21654",
+      "to": "arxiv:2310.06770",
+      "depth": 2,
+      "why": "EvilGenie situates coding reward hacks against SWE-bench"
+    },
+    {
+      "from": "arxiv:2511.21654",
+      "to": "arxiv:2510.20270",
+      "depth": 2,
+      "why": "EvilGenie related work: ImpossibleBench test-case exploitation"
+    },
+    {
+      "from": "arxiv:2511.21654",
+      "to": "url:deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity",
+      "depth": 2,
+      "why": "EvilGenie cites the DeepMind specification-gaming collection"
+    },
+    {
+      "from": "arxiv:2406.10162",
+      "to": "arxiv:2401.05566",
+      "depth": 3,
+      "why": "Denison cites Sleeper Agents as persistent deceptive-alignment organisms"
+    },
+    {
+      "from": "arxiv:2406.10162",
+      "to": "arxiv:2108.07840",
+      "depth": 3,
+      "why": "Denison cites Everitt reward-tampering / CID solutions paper"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "arxiv:2406.20015",
+      "reason": "refs_html_unparsed",
+      "notes": "ToolBeHonest HTML bibliography is buried in appendix prompts; Semantic Scholar 429. No d2 hops invented."
+    },
+    {
+      "id": "arxiv:1906.01820",
+      "reason": "html_conversion_mixed",
+      "notes": "Mesa-optimization HTML mixed with an unrelated bibliography. Did not invent d2 children beyond what Langosco already named."
+    },
+    {
+      "id": "arxiv:2302.12173",
+      "reason": "thin_d3",
+      "notes": "Greshake references open with news/jailbreak links rather than agentic-ill-behaviour papers; d3 skipped rather than invented."
+    },
+    {
+      "id": "url:dev.to/waxell/the-47000-agent-loop-why-token-budget-alerts-arent-budget-enforcement-389i",
+      "reason": "incident_named_works_only",
+      "notes": "Only Palisade shutdown resistance is a named scholarly work. FinOps 2026 and LangSmith/Helicone are ops tooling, not agentic-ill-behaviour papers."
+    }
+  ]
+}

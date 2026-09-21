@@ -1,0 +1,2905 @@
+{
+  "n": 187,
+  "nodes": [
+    {
+      "id": "url:software-lab.org/publications/icse2026_SWE-bench-correctness.pdf",
+      "title": "Are \u201cSolved Issues\u201d in SWE-bench Really Solved Correctly?",
+      "year": 2026,
+      "url": "https://software-lab.org/publications/icse2026_SWE-bench-correctness.pdf",
+      "depth": 0,
+      "behaviours": [
+        "plausible-but-incorrect patches",
+        "weak-test inflation",
+        "behavioral over-adaptation"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "ICSE 2026 PatchDiff study. 7.8% plausible patches fail full suite; ~11% incorrect among plausible; +6.4 pp inflation.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2509.13941",
+      "title": "An Empirical Study on Failures in Automated Issue Solving",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.13941",
+      "depth": 0,
+      "behaviours": [
+        "incomplete repair",
+        "evasive repair",
+        "unproductive loops",
+        "localization failure"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "3\u00d79\u00d725 failure taxonomy on SWE-bench Verified (150 failures). Agent loops vs pipeline localization.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2310.06770",
+      "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.06770",
+      "depth": 1,
+      "behaviours": [
+        "issue-unresolved",
+        "patch-test-gap"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-bench",
+      "notes": "Cited by \u03c4-bench, TACT, harness paper, survey. Outcome tests, not a DSM-AE behaviour pack. Also bib 14 in section A.",
+      "syndrome": null
+    },
+    {
+      "id": "url:openai.com/index/separating-signal-from-noise-coding-evaluations",
+      "title": "Separating Signal from Noise in Coding Evaluations",
+      "year": 2026,
+      "url": "https://openai.com/index/separating-signal-from-noise-coding-evaluations/",
+      "depth": 0,
+      "behaviours": [
+        "eval-methodology",
+        "broken tasks",
+        "low-coverage tests",
+        "underspecified prompts"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "OpenAI audit: ~30% of SWE-Bench Pro public tasks broken. Four noise classes. HTML fetch was JS-walled; content recovered via search.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2410.09024",
+      "title": "AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2410.09024",
+      "depth": 1,
+      "behaviours": [
+        "harmful tool use",
+        "agent refusal failure"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "AgentHarm",
+      "notes": "Cited by OverEager/SNARE as adversarial-harm suite orthogonal to benign overeager.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2401.10019",
+      "title": "R-Judge: Benchmarking Safety Risk Awareness for LLM Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2401.10019",
+      "depth": 1,
+      "behaviours": [
+        "missed safety risk",
+        "risk unawareness"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "R-Judge",
+      "notes": "569 multi-turn records; GPT-4o 74.42% risk-awareness; cited as tool-use safety bench.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2406.12045",
+      "title": "\u03c4-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.12045",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology",
+        "tool-agent-user interaction"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "\u03c4-bench",
+      "notes": "SNARE: completion-oriented; out-of-scope actions invisible.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2412.14093",
+      "title": "Alignment Faking in Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.14093",
+      "depth": 1,
+      "behaviours": [
+        "alignment faking",
+        "deceptive compliance"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Greenblatt et al.; cited by SpecBench and Bondarenko as low-stakes hacking generalization.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2412.04984",
+      "title": "Frontier Models Are Capable of In-context Scheming",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.04984",
+      "depth": 1,
+      "behaviours": [
+        "in-context scheming",
+        "oversight resistance"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Meinke/Apollo; Bondarenko cites as prior agent-misalignment under strong goals.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2210.03629",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2210.03629",
+      "depth": 1,
+      "behaviours": [
+        "tool-use loop",
+        "reason-act mismatch"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Bondarenko chess agent uses a ReAct-like harness; also cited by issue-solving papers.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2311.07590",
+      "title": "Large Language Models Can Strategically Deceive Their Users When Put Under Pressure",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2311.07590",
+      "depth": 1,
+      "behaviours": [
+        "strategic deception"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Scheurer/Balesni/Hobbhahn; cited by Bondarenko as prior deception-under-pressure.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2410.06992",
+      "title": "SWE-bench+: Enhanced Coding Benchmark for LLMs",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2410.06992",
+      "depth": 1,
+      "behaviours": [
+        "weak tests",
+        "eval-methodology",
+        "plausible patches"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-bench+",
+      "notes": "Aleithan et al.; cited by SlopCodeBench, SWE-Bench Pro, and ICSE correctness study.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2603.13428",
+      "title": "EvoClaw: Evaluating AI Agents on Continuous Software Evolution",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2603.13428",
+      "depth": 1,
+      "behaviours": [
+        "long-horizon degradation",
+        "pass-rate collapse"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "EvoClaw",
+      "notes": "SlopCodeBench: 98 milestones, pass 80%\u219238%, still pass/fail only.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2603.17104",
+      "title": "When the Specification Emerges: Benchmarking Faithfulness Loss in Long-Horizon Coding Agents",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2603.17104",
+      "depth": 1,
+      "behaviours": [
+        "faithfulness loss",
+        "spec drift"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "SLUMP",
+      "notes": "SlopCodeBench contrast: SLUMP measures final-artifact spec compliance.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2512.18470",
+      "title": "SWE-evo: Benchmarking Coding Agents in Long-Horizon Software Evolution Scenarios",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2512.18470",
+      "depth": 1,
+      "behaviours": [
+        "long-horizon evolution"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-evo",
+      "notes": "Iterative coding-agent bench cited as prior that severs accumulation.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2309.01219",
+      "title": "Siren\u2019s Song in the AI Ocean: A Survey on Hallucination in Large Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2309.01219",
+      "depth": 1,
+      "behaviours": [
+        "hallucination taxonomy"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Zhang et al. survey; CodeHalu/Spracklen hallucination background.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2311.08588",
+      "title": "CodeScope: An Execution-based Multilingual Multitask Multidimensional Benchmark",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2311.08588",
+      "depth": 1,
+      "behaviours": [
+        "execution-based eval"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "CodeScope",
+      "notes": "Cited by CodeHalu as execution-based code eval prior.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2107.03374",
+      "title": "Evaluating Large Language Models Trained on Code",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2107.03374",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology",
+        "functional correctness"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "HumanEval",
+      "notes": "Chen et al. Codex/HumanEval; cited by SWE-bench, LiveCodeBench, CodeHalu.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2109.07958",
+      "title": "TruthfulQA: Measuring How Models Mimic Human Falsehoods",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2109.07958",
+      "depth": 1,
+      "behaviours": [
+        "factual hallucination"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "TruthfulQA",
+      "notes": "Cited by CodeHalu and Spracklen as general hallucination bench.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2407.01489",
+      "title": "Agentless: Demystifying LLM-based Software Engineering Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.01489",
+      "depth": 1,
+      "behaviours": [
+        "issue solving",
+        "pipeline vs agent"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Xia et al.; cited by SWE-Bench Pro, Failures study, ICSE correctness.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2407.16741",
+      "title": "OpenHands: An Open Platform for AI Software Developers as Generalist Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.16741",
+      "depth": 1,
+      "behaviours": [
+        "coding agent platform"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Wang et al.; evaluated in OverEager/SNARE and Failures study.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2405.15793",
+      "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.15793",
+      "depth": 1,
+      "behaviours": [
+        "agent-computer interface",
+        "issue solving"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Yang et al.; standard SWE-bench agent; cited by Pro/Failures/Cleanliness cluster.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2404.02605",
+      "title": "Multi-SWE-bench: A Multilingual Benchmark for Issue Resolving",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2404.02605",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology",
+        "multilingual issue solving"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Multi-SWE-bench",
+      "notes": "Cited by SWE-Bench Pro and Failures study.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2505.23419",
+      "title": "SWE-bench Goes Live!",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2505.23419",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology",
+        "contamination"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-bench Live",
+      "notes": "Cited by SWE-Bench Pro as continuously refreshed SWE tasks.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2410.03859",
+      "title": "SWE-bench Multimodal: Do AI Systems Generalize to Visual Software Domains?",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2410.03859",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-bench Multimodal",
+      "notes": "Cited by SWE-Bench Pro.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2401.03065",
+      "title": "CRUXEval: A Benchmark for Code Reasoning, Understanding and Execution",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2401.03065",
+      "depth": 1,
+      "behaviours": [
+        "execution reasoning"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "CRUXEval",
+      "notes": "Cited by LiveCodeBench related work.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2307.13854",
+      "title": "WebArena: A Realistic Web Environment for Building Autonomous Agents",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.13854",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology",
+        "web agent"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "WebArena",
+      "notes": "Cited by SWE-bench related work and AgentDojo.",
+      "syndrome": null
+    },
+    {
+      "id": "url:openai.com/index/introducing-swe-bench-verified",
+      "title": "Introducing SWE-bench Verified",
+      "year": 2024,
+      "url": "https://openai.com/index/introducing-swe-bench-verified/",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology",
+        "filtered tasks"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "SWE-bench Verified",
+      "notes": "Named by Cleanliness, ICSE correctness, OpenAI 2026 audit, Failures study.",
+      "syndrome": null
+    },
+    {
+      "id": "url:metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study",
+      "title": "Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity",
+      "year": 2025,
+      "url": "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/",
+      "depth": 1,
+      "behaviours": [
+        "overclaimed speedup",
+        "developer slowdown"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Named by Augment 80% guide.",
+      "syndrome": null
+    },
+    {
+      "id": "url:snorkel.ai/leaderboard/terminal-bench-4-0",
+      "title": "Terminal-Bench 4.0",
+      "year": 2026,
+      "url": "https://snorkel.ai/leaderboard/terminal-bench-4-0/",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology",
+        "terminal agent"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Terminal-Bench",
+      "notes": "Named by Snorkel SlopCodeBench interview page.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2402.04249",
+      "title": "HarmBench: A Standardized Evaluation Framework for Automated Red Teaming and Robust Refusal",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2402.04249",
+      "depth": 1,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "refusal"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "HarmBench",
+      "notes": "Mazeika et al.; used as BoN request set.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2311.12983",
+      "title": "GAIA: a Benchmark for General AI Assistants",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2311.12983",
+      "depth": 2,
+      "behaviours": [
+        "eval-methodology",
+        "general assistant"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "GAIA",
+      "notes": "Cited by AgentHarm as generalist-agent eval.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2412.14470",
+      "title": "Agent-SafetyBench: Evaluating the Safety of LLM Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.14470",
+      "depth": 2,
+      "behaviours": [
+        "agent safety failure"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Agent-SafetyBench",
+      "notes": "Cited by permission-gate paper.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2308.03688",
+      "title": "AgentBench: Evaluating LLMs as Agents",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.03688",
+      "depth": 2,
+      "behaviours": [
+        "eval-methodology"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "AgentBench",
+      "notes": "Cited by AgentDojo as general agent eval.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2502.17424",
+      "title": "Emergent Misalignment: Narrow Finetuning Can Produce Broadly Misaligned LLMs",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2502.17424",
+      "depth": 2,
+      "behaviours": [
+        "emergent misalignment"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Betley et al.; cited by School of Reward Hacks and RHB.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2401.05566",
+      "title": "Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2401.05566",
+      "depth": 1,
+      "behaviours": [
+        "sleeper agents",
+        "deceptive alignment",
+        "backdoor",
+        "persistence through safety training"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "sleeper-agent model organisms",
+      "notes": "Hubinger et al. S2 refs empty; no outgoing hops.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2311.05232",
+      "title": "A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2311.05232",
+      "depth": 2,
+      "behaviours": [
+        "hallucination taxonomy"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Huang et al.; cited by 2404.00971.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2506.00172",
+      "title": "Breakpoint: Scalable Evaluation of System-Level Reasoning in LLM Code Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2506.00172",
+      "depth": 2,
+      "behaviours": [
+        "code-agent reasoning failure"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Breakpoint",
+      "notes": "Cited by ImpossibleBench as system-level code-agent eval.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2105.14111",
+      "title": "Goal Misgeneralization in Deep Reinforcement Learning",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2105.14111",
+      "depth": 2,
+      "behaviours": [
+        "goal misgeneralization"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Langosco et al.; cited via scheming / reward-hacking lineage.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:1906.01820",
+      "title": "Risks from Learned Optimization in Advanced Machine Learning Systems",
+      "year": 2019,
+      "url": "https://arxiv.org/abs/1906.01820",
+      "depth": 1,
+      "behaviours": [
+        "mesa-optimization",
+        "inner misalignment",
+        "deceptive alignment"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Hubinger et al. Langosco treats goal-misgen as an empirical inner-alignment / mesa-objective failure.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2312.11671",
+      "title": "Evaluating Language-Model Agents on Realistic Autonomous Tasks",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2312.11671",
+      "depth": 1,
+      "behaviours": [
+        "autonomous agent risk",
+        "eval-awareness",
+        "oversight evasion"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "ARC Evals autonomous tasks",
+      "notes": "Kinniment et al. (METR/ARC Evals). AgentMisalignment cites as realistic autonomous-task eval.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2306.06070",
+      "title": "Mind2Web: Towards a Generalist Agent for the Web",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2306.06070",
+      "depth": 1,
+      "behaviours": [
+        "web-action-selection-error"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Mind2Web",
+      "notes": "Cited by WebArena and AgentBench (WB environment).",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2506.13206",
+      "title": "Thought Crime: Backdoors and Emergent Misalignment in Reasoning Models",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2506.13206",
+      "depth": 3,
+      "behaviours": [
+        "emergent misalignment",
+        "backdoors"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by School of Reward Hacks.",
+      "syndrome": null
+    },
+    {
+      "id": "url:cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/microsoft-brand/documents/Taxonomy-of-Failure-Mode-in-Agentic-AI-Systems-Whitepaper.pdf",
+      "title": "Taxonomy of Failure Mode in Agentic AI Systems",
+      "year": 2025,
+      "url": "https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/final/en-us/microsoft-brand/documents/Taxonomy-of-Failure-Mode-in-Agentic-AI-Systems-Whitepaper.pdf",
+      "depth": 0,
+      "behaviours": [
+        "excessive agency",
+        "human-in-the-loop bypass",
+        "incorrect permissions",
+        "misinterpretation of instructions",
+        "hallucinations",
+        "resource exhaustion",
+        "insufficient isolation",
+        "memory poisoning",
+        "XPIA",
+        "agent compromise",
+        "agent injection",
+        "agent impersonation",
+        "agent flow manipulation",
+        "multi-agent jailbreaks",
+        "loss of data provenance"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Microsoft AIRT v1 (Apr 2025). Safety vs security \u00d7 novel vs existing. Built from internal red teaming + practitioner interviews. Blog: https://www.microsoft.com/en-us/security/blog/2025/04/24/new-whitepaper-outlines-the-taxonomy-of-failure-modes-in-ai-agents/",
+      "syndrome": null
+    },
+    {
+      "id": "url:www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/",
+      "title": "Updating the taxonomy of failure modes in agentic AI systems: What a year of red teaming taught us",
+      "year": 2026,
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/06/04/updating-taxonomy-failure-modes-agentic-ai-systems-year-red-teaming-taught-us/",
+      "depth": 0,
+      "behaviours": [
+        "agentic supply chain compromise",
+        "goal hijacking",
+        "inter-agent trust escalation",
+        "CUA visual attack",
+        "session context contamination",
+        "MCP/plugin abuse",
+        "capability/architecture disclosure",
+        "human-in-the-loop bypass",
+        "XPIA plus memory poisoning"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "AIRT v2.0 (Apr/Jun 2026). Adds 7 modes; 27\u219234. HitL bypass most exploited. PDF: https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/security/Taxonomy-of-Failure-Modes-in-Agentic-AI-Systems-v2-0.pdf",
+      "syndrome": null
+    },
+    {
+      "id": "github:vectara/awesome-agent-failures",
+      "title": "Awesome Agent Failures",
+      "year": 2025,
+      "url": "https://github.com/vectara/awesome-agent-failures",
+      "depth": 0,
+      "behaviours": [
+        "tool hallucination",
+        "response hallucination",
+        "goal misinterpretation",
+        "plan generation failures",
+        "incorrect tool use",
+        "verification and termination failures",
+        "prompt injection"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Community catalog of 7 production failure modes plus incident case studies (Replit, PocketOS, $47k LangChain A2A loop, OpenClaw email delete, Air Canada).",
+      "syndrome": null
+    },
+    {
+      "id": "url:galileo.ai/blog/agent-failure-modes-guide",
+      "title": "7 AI Agent Failure Modes and How To Prevent Them in Production",
+      "year": 2026,
+      "url": "https://galileo.ai/blog/agent-failure-modes-guide",
+      "depth": 0,
+      "behaviours": [
+        "specification and system design failures",
+        "reasoning loops and hallucination cascades",
+        "context and memory corruption",
+        "multi-agent communication breakdowns",
+        "tool misuse and function compromise",
+        "prompt injection and adversarial exploits",
+        "verification and termination failures"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Galileo production guide. Explicitly cites MAST and Microsoft AIRT. Emphasizes cascade/error-propagation over isolated modes. Mentions Gartner runtime-governance prediction and Unit 42 memory poisoning.",
+      "syndrome": null
+    },
+    {
+      "id": "url:futureagi.com/blog/ai-agent-failure-modes-2026",
+      "title": "AI Agent Failure Modes in 2026: The 5-Category Taxonomy",
+      "year": 2026,
+      "url": "https://futureagi.com/blog/ai-agent-failure-modes-2026/",
+      "depth": 0,
+      "behaviours": [
+        "planning errors",
+        "wrong-tool-selected",
+        "infinite-loop",
+        "premature-termination",
+        "plan-vs-execute divergence",
+        "tool hallucination",
+        "MCP-tool-poisoning",
+        "API-drift",
+        "retrieval errors",
+        "role-switch-token in chunk",
+        "reasoning errors",
+        "PII leak",
+        "cross-tenant leak",
+        "output-injection"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": "Future AGI Error Feed",
+      "notes": "Five surfaces: plan / tool / retrieve / reason / safety. Names MCPTox 72.8% ASR, PoisonedRAG, Replit, $47k loop, Air Canada, EchoLeak.",
+      "syndrome": null
+    },
+    {
+      "id": "url:www.epam.com/insights/ai/blogs/ai-agent-failure-modes-enterprise",
+      "title": "Why AI Enterprise Solutions Fail: 21+ Agent Failure Modes Explained",
+      "year": 2026,
+      "url": "https://www.epam.com/insights/ai/blogs/ai-agent-failure-modes-enterprise",
+      "depth": 0,
+      "behaviours": [
+        "one-shotting",
+        "progress-as-completion",
+        "cold-start amnesia",
+        "ugly wish-granting",
+        "spec-deliverable confusion",
+        "default-fill slop",
+        "overengineering by default",
+        "working-memory rot",
+        "hidden harness control",
+        "lossy compaction",
+        "local patching",
+        "summary-only handoff loss",
+        "async reconciliation failure",
+        "blind N-step execution",
+        "plan drag",
+        "overdecomposition",
+        "validation interruption",
+        "false E2E completion",
+        "functional but wrong",
+        "self-review softness",
+        "modality blind spots"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "EPAM enterprise catalog. Sources named: Anthropic long-running agents / app harness, Mario Zechner (agents learned complexity), Random Labs Slate (lossy compaction, summary-only handoff). Distinctive names not in DSM-AE packs.",
+      "syndrome": null
+    },
+    {
+      "id": "url:medium.com/@adnanmasood/a-field-guide-to-llm-failure-modes-5ffaeeb08e80",
+      "title": "A Field Guide to LLM Failure Modes",
+      "year": 2025,
+      "url": "https://medium.com/@adnanmasood/a-field-guide-to-llm-failure-modes-5ffaeeb08e80",
+      "depth": 0,
+      "behaviours": [
+        "hallucinations",
+        "context/position bias",
+        "reasoning gaps",
+        "tool calls that look right but do the wrong thing",
+        "over-refusal",
+        "under-refusal"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Masood Medium field guide (20+ modes, 7 areas). Member-only; only executive summary retrieved. No formal bibliography extracted. fetch_partial.",
+      "syndrome": null
+    },
+    {
+      "id": "url:ceaksan.com/en/llm-behavioral-failure-modes",
+      "title": "LLM Behavioral Failure Modes: 12 Failure Patterns and the Defense Map",
+      "year": 2026,
+      "url": "https://ceaksan.com/en/llm-behavioral-failure-modes",
+      "depth": 0,
+      "behaviours": [
+        "hallucination and confabulation",
+        "sycophancy",
+        "context rot",
+        "instruction attenuation",
+        "task drift",
+        "incorrect tool invocation",
+        "reward hacking",
+        "positional bias",
+        "mode collapse",
+        "degeneration loops",
+        "alignment faking",
+        "version drift"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "12-mode map: 4 foundational (single-prompt) + 8 agentic. Instruction attenuation / ceremonialized compliance and version drift are notable leftovers.",
+      "syndrome": null
+    },
+    {
+      "id": "url:ceaksan.com/en/llm-agentic-failure-modes",
+      "title": "LLM Agentic Failure Modes: Task Drift, Reward Hacking, Alignment Faking and More",
+      "year": 2026,
+      "url": "https://ceaksan.com/en/llm-agentic-failure-modes",
+      "depth": 0,
+      "behaviours": [
+        "task drift",
+        "semantic drift",
+        "coordination drift",
+        "behavioral drift",
+        "incorrect tool invocation",
+        "parameter hallucination",
+        "ordering error",
+        "reward hacking",
+        "positional bias",
+        "mode collapse",
+        "degeneration loops",
+        "alignment faking",
+        "version drift"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Deep-dive on 8 agentic modes. Cites Agent Drift (Rath 2026), PostTrainBench reward-hacking shortcuts, Gao et al. 2023 overoptimization, Anthropic-Redwood alignment faking. Shahnovsky/Dror POMDP named but no stable URL confirmed \u2014 not invented.",
+      "syndrome": null
+    },
+    {
+      "id": "url:aispaces.substack.com/p/the-failure-modes-of-agentic-ai-no",
+      "title": "The Failure Modes of Agentic AI No One Warned You About",
+      "year": 2026,
+      "url": "https://aispaces.substack.com/p/the-failure-modes-of-agentic-ai-no",
+      "depth": 0,
+      "behaviours": [
+        "goal drift",
+        "action escalation",
+        "infinite or degenerate loops",
+        "silent tool misuse",
+        "memory contamination",
+        "confidence without calibration",
+        "evaluation blindness",
+        "human-in-the-loop theater"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Industry essay; no formal bibliography. Distinctive names: action escalation, evaluation blindness, HitL theater.",
+      "syndrome": null
+    },
+    {
+      "id": "url:papers.ssrn.com/sol3/papers.cfm?abstract_id=6572478",
+      "title": "Why AI Agents Fail: A Taxonomy of Failure Modes in Autonomous LLM-Based Systems",
+      "year": 2026,
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6572478",
+      "depth": 0,
+      "behaviours": [
+        "reasoning and planning failures",
+        "tool use and action execution failures",
+        "memory and context management failures",
+        "multi-agent orchestration failures"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "AREP",
+      "notes": "Vadlamudi SSRN (Apr 2026). Four-dimensional taxonomy + Agent Robustness Evaluation Protocol (AREP). Full PDF not retrieved (SSRN gate). Abstract only. fetch_failed for body/refs.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2407.01502",
+      "title": "AI Agents That Matter",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.01502",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology",
+        "complexity hinders practical adoption",
+        "cost-uncontrolled agent eval"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Kapoor et al. Cited by MAST as showing complexity can hinder adoption; agent eval must report cost/harness.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2505.00212",
+      "title": "Which Agent Causes Task Failures and When? On Automated Failure Attribution of LLM Multi-Agent Systems",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2505.00212",
+      "depth": 1,
+      "behaviours": [
+        "failure attribution (who/when)",
+        "decisive-error localization",
+        "eval-methodology"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Who&When",
+      "notes": "Zhang et al. 184 traces from 127 MAS; best method 53.5% agent / 14.2% step accuracy. Cited by both MAST and Characterizing Faults.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2503.02068",
+      "title": "Interactive Debugging and Steering of Multi-Agent AI Systems",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.02068",
+      "depth": 1,
+      "behaviours": [
+        "MAS debugging",
+        "message-history inspection",
+        "eval-methodology"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": "AGDebugger",
+      "notes": "Epperson et al. CHI 2025. MAST related work on inspecting/editing agent-team messages.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:1911.11034",
+      "title": "Failure Modes in Machine Learning",
+      "year": 2019,
+      "url": "https://arxiv.org/abs/1911.11034",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology",
+        "traditional ML safety/security failures"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Microsoft AIRT 2019 precursor named by the 2025 agentic-taxonomy blog.",
+      "syndrome": null
+    },
+    {
+      "id": "url:atlas.mitre.org",
+      "title": "MITRE ATLAS",
+      "year": 2020,
+      "url": "https://atlas.mitre.org/",
+      "depth": 1,
+      "behaviours": [
+        "adversarial ML / agent attack techniques",
+        "eval-methodology"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": "MITRE ATLAS",
+      "notes": "Named by AIRT v1 blog (from Adversarial ML Threat Matrix) and AIRT v2 industry-alignment section.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2505.20749",
+      "title": "Can Agents Fix Agent Issues?",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2505.20749",
+      "depth": 1,
+      "behaviours": [
+        "agent-framework bugs",
+        "logic/syntax violations in self-debugging agents"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "AgentIssue-Bench",
+      "notes": "Rahardja et al. 201 real agent issues; 50 reproducible tasks. SE agents resolve only ~0.67\u20134.67% (later versions report ~3\u201313%). Cited by Characterizing Faults as task-centric taxonomy.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2509.23735",
+      "title": "Demystifying the Lifecycle of Failures in Platform-Orchestrated Agentic Workflows",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.23735",
+      "depth": 1,
+      "behaviours": [
+        "agent-level root causes",
+        "workflow/structure-level control-logic faults",
+        "platform-level orchestration faults"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "AgentFail",
+      "notes": "Ma et al. 307 annotated failures; 3-level RC taxonomy (agent / workflow / platform). Auto RC ID \u226433.6%. Also titled Diagnosing Failure Root Causes\u2026 on v1.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2509.25370",
+      "title": "Where LLM Agents Fail and How They Can Learn From Failures",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.25370",
+      "depth": 1,
+      "behaviours": [
+        "cascading root-cause errors",
+        "memory-module failures",
+        "reflection failures",
+        "planning failures",
+        "action failures",
+        "system-level operations failures"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "AgentErrorBench / AgentErrorTaxonomy",
+      "notes": "Zhu et al. Modular taxonomy + AgentDebug. 200 annotated fails from ALFWorld/GAIA/WebShop. Up to +26% relative SR after targeted debug.",
+      "syndrome": null
+    },
+    {
+      "id": "url:www.anthropic.com/research/building-effective-agents",
+      "title": "Building effective agents",
+      "year": 2024,
+      "url": "https://www.anthropic.com/research/building-effective-agents",
+      "depth": 1,
+      "behaviours": [
+        "overly complex frameworks",
+        "self-review softness"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by MAST (bib 35) and EPAM (app-harness / self-review softness).",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2407.15711",
+      "title": "AssistantBench: Can Web Agents Solve Realistic and Time-Consuming Tasks?",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.15711",
+      "depth": 2,
+      "behaviours": [
+        "long-horizon web-agent failure",
+        "eval-methodology"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "AssistantBench",
+      "notes": "Who&When source benchmark alongside GAIA.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2207.01206",
+      "title": "WebShop: Towards Scalable Real-World Web Interaction with Grounded Language Agents",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2207.01206",
+      "depth": 1,
+      "behaviours": [
+        "web-shopping-failure"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "WebShop",
+      "notes": "Cited by \u03c4-bench, WebArena, AgentBench, WorkArena.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2010.03768",
+      "title": "ALFWorld: Aligning Text and Embodied Environments for Interactive Learning",
+      "year": 2020,
+      "url": "https://arxiv.org/abs/2010.03768",
+      "depth": 1,
+      "behaviours": [
+        "embodied-instruction-failure"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "ALFWorld",
+      "notes": "Cited by WebArena and used as AgentBench HH environment.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2211.09110",
+      "title": "Holistic Evaluation of Language Models (HELM)",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2211.09110",
+      "depth": 3,
+      "behaviours": [
+        "eval-methodology"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "HELM",
+      "notes": "Cited by GAIA / agent-eval lineage as the multi-metric eval methodology precursor.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2112.09332",
+      "title": "WebGPT: Browser-assisted question-answering with human feedback",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2112.09332",
+      "depth": 1,
+      "behaviours": [
+        "web-browse-qa"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited in GAIA tool-use / browsing lineage.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2506.04018",
+      "title": "AgentMisalignment: Measuring the Propensity for Misaligned Behaviour in LLM-Based Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2506.04018",
+      "depth": 0,
+      "behaviours": [
+        "avoiding oversight",
+        "resisting shutdown",
+        "sandbagging",
+        "power-seeking",
+        "persona-amplified misalignment"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "AgentMisalignment",
+      "notes": "Naik et al. Propensity (not capability) suite. More capable agents misalign more on average; persona often outweighs model identity. Multi-behaviour so pack left unknown.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2405.04325",
+      "title": "Deception in Reinforced Autonomous Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.04325",
+      "depth": 1,
+      "behaviours": [
+        "learned deception",
+        "RL agent deception"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Dogra et al. AgentMisalignment intro cite on deception in reinforced autonomous agents.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:1611.08219",
+      "title": "The Off-Switch Game",
+      "year": 2016,
+      "url": "https://arxiv.org/abs/1611.08219",
+      "depth": 1,
+      "behaviours": [
+        "shutdown resistance",
+        "off-switch incentive",
+        "corrigibility"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Hadfield-Menell et al. Langosco cites the off-switch game as a corrigibility / shutdown-incentive prior.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2509.14260",
+      "title": "Incomplete Tasks Induce Shutdown Resistance in Some Frontier LLMs",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.14260",
+      "depth": 1,
+      "behaviours": [
+        "shutdown resistance",
+        "sabotage of off-switch",
+        "instruction-hierarchy override"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Palisade shutdown-resistance suite",
+      "notes": "Schlatter, Weinstein-Raun, Ladish (Palisade). Only scholarly work named by the $47k post: o3-class models sabotage shutdown even when told to allow it. Prompt-layer stop instructions are fragile.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2410.09114",
+      "title": "Catastrophic Cyber Capabilities Benchmark (3CB): Robustly Evaluating LLM Agent Cyber Offense Capabilities",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2410.09114",
+      "depth": 2,
+      "behaviours": [
+        "cyber-offense agency",
+        "agentic exploit capability"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "3CB",
+      "notes": "Anurin et al. AgentHarm related work: agent cyber-offense capability bench.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2503.10965",
+      "title": "Auditing Language Models for Hidden Objectives",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.10965",
+      "depth": 2,
+      "behaviours": [
+        "hidden objectives",
+        "audit for covert goals"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Marks hidden-objective audit",
+      "notes": "Marks et al. School of Reward Hacks cites hidden-objective auditing as the detection counterpart.",
+      "syndrome": null
+    },
+    {
+      "id": "url:www.anthropic.com/research/agentic-misalignment",
+      "title": "Agentic Misalignment: How LLMs could be an insider threat",
+      "year": 2025,
+      "url": "https://www.anthropic.com/research/agentic-misalignment",
+      "depth": 2,
+      "behaviours": [
+        "insider-threat agency",
+        "blackmail",
+        "self-exfiltration",
+        "oversight subversion"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Anthropic agentic-misalignment scenarios",
+      "notes": "Lynch et al. / Anthropic. Palisade shutdown paper cites as related agentic-misalignment / insider-threat eval.",
+      "syndrome": null
+    },
+    {
+      "id": "url:intelligence.org/2016/06/01/new-paper-safely-interruptible-agents",
+      "title": "Safely Interruptible Agents",
+      "year": 2016,
+      "url": "https://intelligence.org/2016/06/01/new-paper-safely-interruptible-agents/",
+      "depth": 2,
+      "behaviours": [
+        "shutdown resistance",
+        "off-switch sabotage",
+        "safe interruptibility"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Orseau & Armstrong UAI 2016. No arXiv; Palisade cites as the classical safe-interruptibility definition. MIRI announcement used as stable URL.",
+      "syndrome": null
+    },
+    {
+      "id": "url:openai.com/index/detecting-and-reducing-scheming-in-ai-models",
+      "title": "Detecting and reducing scheming in AI models",
+      "year": 2025,
+      "url": "https://openai.com/index/detecting-and-reducing-scheming-in-ai-models/",
+      "depth": 0,
+      "behaviours": [
+        "scheming",
+        "covert action",
+        "sandbagging",
+        "eval-awareness",
+        "feigned task completion"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "OpenAI+Apollo covert-action / anti-scheming evals",
+      "notes": "o3 13%\u21920.4%, o4-mini 8.7%\u21920.3% after deliberative anti-scheming. Blog seed; hop1 max 4.",
+      "syndrome": null
+    },
+    {
+      "id": "github:vectara/hallucination-leaderboard",
+      "title": "Vectara Hallucination Leaderboard (HHEM)",
+      "year": 2023,
+      "url": "https://github.com/vectara/hallucination-leaderboard",
+      "depth": 0,
+      "behaviours": [
+        "summarization hallucination",
+        "factual inconsistency"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "HHEM / Vectara Hallucination Leaderboard",
+      "notes": "Summarization hallucination rates; many thinking frontier models exceed 10%. Blog/repo seed; hop1 max 4.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2501.18837",
+      "title": "Constitutional Classifiers: Defending against universal jailbreaks",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2501.18837",
+      "depth": 0,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "over-refusal"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Constitutional Classifiers jailbreak / over-refusal eval",
+      "notes": "Unguarded ASR ~86% \u2192 4.4% with classifiers; over-refusal +0.38%. Seed is Anthropic post; node is the paper. S2 refs empty.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2405.20947",
+      "title": "OR-Bench: An Over-Refusal Benchmark for Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.20947",
+      "depth": 0,
+      "behaviours": [
+        "over-refusal",
+        "under-refusal",
+        "refusal calibration"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "OR-Bench",
+      "notes": "80k seemingly-toxic-but-safe prompts; safety vs over-refusal Spearman \u03c1\u22480.878.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2412.03556",
+      "title": "Best-of-N Jailbreaking",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.03556",
+      "depth": 0,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "sampling attack"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "BoN Jailbreaking on HarmBench",
+      "notes": "ASR ~89% GPT-4o / ~78% Claude 3.5 Sonnet at N=10k. S2 refs empty; children from in-text named cites.",
+      "syndrome": null
+    },
+    {
+      "id": "url:www.mountsinai.org/about/newsroom/2026/research-identifies-blind-spots-in-ai-medical-triage",
+      "title": "ChatGPT Health performance in a structured test of triage recommendations",
+      "year": 2026,
+      "url": "https://www.mountsinai.org/about/newsroom/2026/research-identifies-blind-spots-in-ai-medical-triage",
+      "depth": 0,
+      "behaviours": [
+        "social anchoring",
+        "emergency under-triage",
+        "inverted crisis-alert calibration"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Mount Sinai ChatGPT Health triage eval",
+      "notes": "960 interactions; >50% emergency under-triage; social minimization 3.3%\u219213.3% (OR 11.7). Press page for Nature Medicine 10.1038/s41591-026-04297-7.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2604.04788",
+      "title": "From Hallucination to Scheming: A Unified Taxonomy of Deceptive LLM Behaviors",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2604.04788",
+      "depth": 0,
+      "behaviours": [
+        "hallucination",
+        "deception",
+        "scheming",
+        "alignment faking",
+        "sycophancy",
+        "eval-methodology"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Unified taxonomy spanning hallucination through strategic scheming.",
+      "syndrome": null
+    },
+    {
+      "id": "url:www.mindstudio.ai/blog/ai-agent-failure-modes-reasoning-action-disconnect",
+      "title": "AI Agent Failure Modes: 4 Ways Your Agent Knows the Answer But Says the Wrong Thing",
+      "year": 2026,
+      "url": "https://www.mindstudio.ai/blog/ai-agent-failure-modes-reasoning-action-disconnect",
+      "depth": 0,
+      "behaviours": [
+        "reasoning-action disconnect",
+        "social anchoring",
+        "context contamination",
+        "structured output pressure"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Industry post naming 4 agent failure modes from Mount Sinai + long-context lit. Blog; hop1 max 4.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2305.04388",
+      "title": "Language Models Don't Always Say What They Think: Unfaithful Explanations in Chain-of-Thought Prompting",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2305.04388",
+      "depth": 1,
+      "behaviours": [
+        "unfaithful CoT",
+        "reasoning-action disconnect"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "unfaithful CoT evals",
+      "notes": "Turpin et al.; CoT can be unfaithful to the model's actual decision.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2204.05862",
+      "title": "Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2204.05862",
+      "depth": 1,
+      "behaviours": [
+        "sycophancy",
+        "HHH alignment",
+        "refusal"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Bai et al. HHH RLHF; preference data can encode sycophancy/refusal tradeoffs.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2203.02155",
+      "title": "Training language models to follow instructions with human feedback",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2203.02155",
+      "depth": 1,
+      "behaviours": [
+        "instruction following",
+        "reward misspecification"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "InstructGPT / Ouyang et al.; human preference optimization.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2211.03540",
+      "title": "Measuring Progress on Scalable Oversight for Large Language Models",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2211.03540",
+      "depth": 1,
+      "behaviours": [
+        "scalable oversight",
+        "eval-methodology"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "scalable oversight evals",
+      "notes": "Bowman et al.; oversight of stronger models.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:1805.00899",
+      "title": "AI safety via debate",
+      "year": 2018,
+      "url": "https://arxiv.org/abs/1805.00899",
+      "depth": 1,
+      "behaviours": [
+        "scalable oversight",
+        "deception"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Irving et al. debate as oversight protocol.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2209.07858",
+      "title": "Red Teaming Language Models to Reduce Harms: Methods, Scaling Behaviors, and Lessons Learned",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2209.07858",
+      "depth": 1,
+      "behaviours": [
+        "red-teaming",
+        "jailbreak susceptibility"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Anthropic red-teaming suite",
+      "notes": "Ganguli et al. red-teaming at scale.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2202.03286",
+      "title": "Red Teaming Language Models with Language Models",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2202.03286",
+      "depth": 1,
+      "behaviours": [
+        "red-teaming",
+        "automated attack generation"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "LM-red-team",
+      "notes": "Perez et al. generate adversarial tests with LMs.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2207.05221",
+      "title": "Language Models (Mostly) Know What They Know",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2207.05221",
+      "depth": 1,
+      "behaviours": [
+        "overconfidence",
+        "calibration",
+        "verbalized confidence"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "P(True) / P(IK) evals",
+      "notes": "Kadavath et al. self-knowledge and calibration.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2212.08073",
+      "title": "Constitutional AI: Harmlessness from AI Feedback",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2212.08073",
+      "depth": 1,
+      "behaviours": [
+        "over-refusal",
+        "jailbreak susceptibility",
+        "RLAIF"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Bai et al. Constitutional AI; constitution-based harmlessness.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2403.13793",
+      "title": "Evaluating Frontier Models for Dangerous Capabilities",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2403.13793",
+      "depth": 1,
+      "behaviours": [
+        "dangerous-capability eval",
+        "eval-methodology"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Google DeepMind dangerous-capability evals",
+      "notes": "Benton et al.; cited by alignment-faking for eval threat models. S2 refs empty.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2112.00861",
+      "title": "A General Language Assistant as a Laboratory for Alignment",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2112.00861",
+      "depth": 1,
+      "behaviours": [
+        "HHH",
+        "alignment eval"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Askell et al. GLA / HHH evals",
+      "notes": "Askell et al. helpful-honest-harmless lab.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2403.03218",
+      "title": "The WMDP Benchmark: Measuring and Reducing Malicious Use With Unlearning",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2403.03218",
+      "depth": 1,
+      "behaviours": [
+        "dangerous capabilities",
+        "unlearning",
+        "CBRN"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "WMDP",
+      "notes": "Li et al.; proxy used by sandbagging paper.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2311.08379",
+      "title": "Scheming AIs: Will AIs fake alignment during training in order to get power?",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2311.08379",
+      "depth": 1,
+      "behaviours": [
+        "scheming",
+        "alignment faking",
+        "power-seeking"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Carlsmith conceptual analysis of scheming. S2 refs empty.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2312.06942",
+      "title": "AI Control: Improving Safety Despite Intentional Subversion",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2312.06942",
+      "depth": 1,
+      "behaviours": [
+        "control evaluations",
+        "intentional subversion",
+        "backdoored code"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "AI control evals (APPS backdoors)",
+      "notes": "Greenblatt et al. protocols vs scheming untrusted models.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2210.01790",
+      "title": "Goal Misgeneralization: Why Correct Specifications Aren't Enough For Correct Goals",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2210.01790",
+      "depth": 1,
+      "behaviours": [
+        "goal misgeneralization"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Shah et al. / DeepMind; related Langosco line.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2308.14752",
+      "title": "AI deception: A survey of examples, risks, and potential solutions",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.14752",
+      "depth": 1,
+      "behaviours": [
+        "deception",
+        "scheming"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Park et al. survey of AI deception.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2411.03336",
+      "title": "Towards evaluations-based safety cases for AI scheming",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2411.03336",
+      "depth": 1,
+      "behaviours": [
+        "scheming",
+        "safety cases",
+        "eval-methodology"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Balesni et al.; scheming-inability / control safety cases.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2407.04694",
+      "title": "Me, Myself, and AI: The Situational Awareness Dataset (SAD) for LLMs",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.04694",
+      "depth": 1,
+      "behaviours": [
+        "situational awareness",
+        "eval-awareness"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "SAD",
+      "notes": "Laine et al. S2 refs empty.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2309.00667",
+      "title": "Taken out of context: On measuring situational awareness in LLMs",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2309.00667",
+      "depth": 1,
+      "behaviours": [
+        "situational awareness",
+        "out-of-context learning"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "out-of-context situational awareness",
+      "notes": "Berglund et al.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2507.11473",
+      "title": "Chain of Thought Monitorability: A New and Fragile Opportunity for AI Safety",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2507.11473",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology",
+        "unfaithful CoT",
+        "scheming monitoring"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Position paper on preserving CoT transparency; named by OpenAI anti-scheming post.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2405.01576",
+      "title": "Uncovering Deceptive Tendencies in Language Models: A Simulated Company AI Assistant",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.01576",
+      "depth": 1,
+      "behaviours": [
+        "deception",
+        "cover-up",
+        "insider assistant"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "simulated company AI assistant",
+      "notes": "Scheurer / Apollo-adjacent deception eval.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2404.01318",
+      "title": "JailbreakBench: An Open Robustness Benchmark for Jailbreaking Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2404.01318",
+      "depth": 1,
+      "behaviours": [
+        "jailbreak susceptibility"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "JailbreakBench",
+      "notes": "Chao et al. standardized jailbreak benchmark.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2402.10260",
+      "title": "A StrongREJECT for Empty Jailbreaks",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2402.10260",
+      "depth": 1,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "eval-methodology"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "StrongREJECT",
+      "notes": "Souly et al.; grader that rejects empty/low-quality jailbreaks.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2310.08419",
+      "title": "Jailbreaking Black Box Large Language Models in Twenty Queries",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2310.08419",
+      "depth": 1,
+      "behaviours": [
+        "jailbreak susceptibility"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "PAIR",
+      "notes": "Chao et al. prompt automatic iterative refinement.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2308.01263",
+      "title": "XSTest: A Test Suite for Identifying Exaggerated Safety Behaviours in Large Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.01263",
+      "depth": 1,
+      "behaviours": [
+        "over-refusal",
+        "exaggerated safety"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "XSTest",
+      "notes": "R\u00f6ttger et al. false-refusal suite.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2307.16513",
+      "title": "Deception abilities emerged in large language models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.16513",
+      "depth": 1,
+      "behaviours": [
+        "deception"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Hagendorff deception games",
+      "notes": "Emergent deception in social/game settings.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2110.06674",
+      "title": "Truthful AI: Developing and governing AI that does not lie",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2110.06674",
+      "depth": 1,
+      "behaviours": [
+        "imitative falsehoods",
+        "honesty"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Evans et al. companion to TruthfulQA.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2103.14659",
+      "title": "Alignment of Language Agents",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2103.14659",
+      "depth": 1,
+      "behaviours": [
+        "alignment",
+        "language agents"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Kenton et al. alignment problems for language agents.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2011.02593",
+      "title": "Detecting Hallucinated Content in Conditional Neural Sequence Generation",
+      "year": 2020,
+      "url": "https://arxiv.org/abs/2011.02593",
+      "depth": 1,
+      "behaviours": [
+        "hallucination detection"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "hallucination detection in NLG",
+      "notes": "Zhou et al.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2005.00661",
+      "title": "On Faithfulness and Factuality in Abstractive Summarization",
+      "year": 2020,
+      "url": "https://arxiv.org/abs/2005.00661",
+      "depth": 1,
+      "behaviours": [
+        "summarization hallucination",
+        "faithfulness"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Maynez et al. summarization faithfulness",
+      "notes": "Classic factuality-in-summarization eval.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2010.07079",
+      "title": "Recipes for Safety in Open-domain Chatbots",
+      "year": 2020,
+      "url": "https://arxiv.org/abs/2010.07079",
+      "depth": 1,
+      "behaviours": [
+        "chatbot safety",
+        "refusal"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Xu et al. BlenderBot safety recipes.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2204.04991",
+      "title": "TRUE: Re-evaluating Factual Consistency Evaluation",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2204.04991",
+      "depth": 1,
+      "behaviours": [
+        "factual consistency",
+        "summarization hallucination"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "TRUE",
+      "notes": "Named by HHEM prior-research list.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2404.10774",
+      "title": "MiniCheck: Efficient Fact-Checking of LLMs on Grounding Documents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2404.10774",
+      "depth": 1,
+      "behaviours": [
+        "hallucination detection",
+        "groundedness"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "MiniCheck",
+      "notes": "Named by HHEM prior-research list.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2307.15043",
+      "title": "Universal and Transferable Adversarial Attacks on Aligned Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.15043",
+      "depth": 1,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "adversarial suffix"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "GCG / Zou et al.",
+      "notes": "Named by OWASP (adversarial suffix) and jailbreak benches.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2404.04374",
+      "title": "Many-shot Jailbreaking",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2404.04374",
+      "depth": 1,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "many-shot attack"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Anil et al. / Anthropic; named by Constitutional Classifiers and BoN (MSJ).",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2406.04313",
+      "title": "Improving Alignment and Robustness with Circuit Breakers",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.04313",
+      "depth": 1,
+      "behaviours": [
+        "jailbreak defense"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Zou et al. circuit breakers; BoN reports 52% ASR against them.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2406.14598",
+      "title": "SORRY-Bench: Systematically Evaluating Large Language Model Safety Refusal Behaviors",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.14598",
+      "depth": 1,
+      "behaviours": [
+        "over-refusal",
+        "under-refusal"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "SORRY-Bench",
+      "notes": "Refusal-behavior benchmark cited by OR-Bench.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2409.00598",
+      "title": "Automatic Pseudo-Harmful Prompt Generation for Evaluating False Refusals in Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2409.00598",
+      "depth": 1,
+      "behaviours": [
+        "over-refusal",
+        "false refusal"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "false-refusal / pseudo-harmful prompts",
+      "notes": "Cited by OR-Bench.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2406.18510",
+      "title": "WildTeaming at Scale: From In-the-Wild Jailbreaks to (Adversarially) Safer Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.18510",
+      "depth": 1,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "in-the-wild attacks"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "WildTeaming / WildJailbreak",
+      "notes": "Cited by OR-Bench.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2505.17815",
+      "title": "Evaluation Faking: Unveiling Observer Effects in Safety Evaluation of Frontier AI Systems",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2505.17815",
+      "depth": 1,
+      "behaviours": [
+        "eval faking",
+        "eval-awareness",
+        "observer effects"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "evaluation-faking suite",
+      "notes": "Cited by unified taxonomy.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2503.03750",
+      "title": "The MASK Benchmark: Disentangling Honesty From Accuracy in AI Systems",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.03750",
+      "depth": 1,
+      "behaviours": [
+        "dishonesty",
+        "honesty vs accuracy"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "MASK",
+      "notes": "Cited by unified taxonomy.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2505.01420",
+      "title": "Evaluating Frontier Models for Stealth and Situational Awareness",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2505.01420",
+      "depth": 1,
+      "behaviours": [
+        "situational awareness",
+        "stealth",
+        "scheming precursors"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "stealth and situational-awareness evals",
+      "notes": "Cited by unified taxonomy.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2410.21514",
+      "title": "Sabotage Evaluations for Frontier Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2410.21514",
+      "depth": 1,
+      "behaviours": [
+        "sabotage",
+        "oversight subversion"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "sabotage evaluations",
+      "notes": "Benton / DeepMind. S2 refs empty.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2308.03825",
+      "title": "Do Anything Now: Characterizing and Evaluating In-The-Wild Jailbreak Prompts on Large Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.03825",
+      "depth": 2,
+      "behaviours": [
+        "jailbreak susceptibility"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "DAN / in-the-wild jailbreaks",
+      "notes": "Shen et al.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2312.02119",
+      "title": "Tree of Attacks: Jailbreaking Black-Box LLMs Automatically",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2312.02119",
+      "depth": 2,
+      "behaviours": [
+        "jailbreak susceptibility"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "TAP",
+      "notes": "Mehrotra et al.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2405.05466",
+      "title": "POSER: Unmasking Alignment Faking LLMs by Manipulating Their Internals",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.05466",
+      "depth": 2,
+      "behaviours": [
+        "alignment faking",
+        "internal probes"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by noise-injection sandbagging paper.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2502.03407",
+      "title": "Detecting Strategic Deception Using Linear Probes",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2502.03407",
+      "depth": 2,
+      "behaviours": [
+        "deception detection",
+        "scheming"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by noise-injection sandbagging paper.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2206.13353",
+      "title": "Is Power-Seeking AI an Existential Risk?",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2206.13353",
+      "depth": 3,
+      "behaviours": [
+        "power-seeking",
+        "self-preservation"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Carlsmith power-seeking report; cited by stealth/SA and MACHIAVELLI.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2409.18786",
+      "title": "A Survey on the Honesty of Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2409.18786",
+      "depth": 2,
+      "behaviours": [
+        "honesty",
+        "deception",
+        "hallucination"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by MASK and evaluation-faking.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2409.09013",
+      "title": "AI-LieDar: Examine the Trade-off Between Utility and Truthfulness in LLM Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2409.09013",
+      "depth": 2,
+      "behaviours": [
+        "agent dishonesty",
+        "truthfulness"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "AI-LieDar",
+      "notes": "Cited by MASK.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2306.03341",
+      "title": "Inference-Time Intervention: Eliciting Truthful Answers from a Language Model",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2306.03341",
+      "depth": 2,
+      "behaviours": [
+        "untruthfulness",
+        "activation steering"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Li et al. ITI; cited by Yes-Men and AI-deception survey.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2406.11717",
+      "title": "Refusal in Language Models Is Mediated by a Single Direction",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.11717",
+      "depth": 2,
+      "behaviours": [
+        "refusal",
+        "jailbreak defense"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Arditi et al.; cited by false-refusal paper.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2305.13534",
+      "title": "How Language Model Hallucinations Can Snowball",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2305.13534",
+      "depth": 2,
+      "behaviours": [
+        "hallucination snowballing"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "hallucination snowball",
+      "notes": "Cited by Greshake.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2305.11747",
+      "title": "HaluEval: A Large-Scale Hallucination Evaluation Benchmark for Large Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2305.11747",
+      "depth": 2,
+      "behaviours": [
+        "hallucination"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "HaluEval",
+      "notes": "Cited by WMDP and taxonomy.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2308.01404",
+      "title": "Hoodwinked: Deception and Cooperation in a Text-Based Game for Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.01404",
+      "depth": 2,
+      "behaviours": [
+        "deception",
+        "social deception"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Hoodwinked",
+      "notes": "Cited by deceptive-tendencies and AI-deception survey.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2310.03684",
+      "title": "SmoothLLM: Defending Large Language Models Against Jailbreaking Attacks",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.03684",
+      "depth": 2,
+      "behaviours": [
+        "jailbreak defense"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by circuit-breakers and StrongREJECT.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2401.06373",
+      "title": "How Johnny Can Persuade LLMs to Jailbreak Them: Rethinking Persuasion to Challenge AI Safety by Humanizing LLM",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2401.06373",
+      "depth": 2,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "persuasion attack"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Persuasive jailbreaks",
+      "notes": "Cited by HarmBench / JailbreakBench / circuit-breakers.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2209.00626",
+      "title": "The alignment problem from a deep learning perspective",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2209.00626",
+      "depth": 2,
+      "behaviours": [
+        "alignment",
+        "deceptive alignment"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Ngo et al.; cited by password-lock and sandbagging.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2209.14375",
+      "title": "Improving alignment of dialogue agents via targeted human judgements",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2209.14375",
+      "depth": 2,
+      "behaviours": [
+        "dialogue alignment",
+        "sycophancy-adjacent preference"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Glaese et al. Sparrow; cited by GCG and Sharma.",
+      "syndrome": null
+    },
+    {
+      "id": "url:inspect.aisi.org.uk",
+      "title": "Inspect AI: Framework for Large Language Model Evaluations",
+      "year": 2024,
+      "url": "https://inspect.aisi.org.uk/",
+      "depth": 0,
+      "behaviours": [
+        "eval-methodology"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Inspect AI",
+      "notes": "UK AISI harness: Task = dataset + solver + scorer; sandboxes; built-in ReAct agent. No formal bibliography.",
+      "syndrome": null
+    },
+    {
+      "id": "url:www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "title": "Demystifying evals for AI agents",
+      "year": 2026,
+      "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "depth": 0,
+      "behaviours": [
+        "eval-methodology",
+        "over-engineering",
+        "grade-outcomes-not-paths"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Task/trial/grader/transcript; pass@k vs pass^k; distinguishes evaluation harness vs agent harness. Names SWE-bench Verified, Terminal-Bench, \u03c42-bench.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2305.20050",
+      "title": "Let's Verify Step by Step",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2305.20050",
+      "depth": 0,
+      "behaviours": [
+        "process-vs-outcome-supervision",
+        "step-level-logical-error"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "PRM800K",
+      "notes": "Process reward models beat outcome-only on MATH. Process metric family, not an agent-behaviour pack.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2507.21504",
+      "title": "Evaluation and Benchmarking of LLM Agents: A Survey",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2507.21504",
+      "depth": 0,
+      "behaviours": [
+        "eval-methodology"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Two-axis taxonomy: objectives (behavior/capability/reliability/safety) \u00d7 process. Catalogues \u03c4-bench, WebArena, AgentBench, GAIA, HELM, Inspect, SWE-bench, BrowserGym.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2605.23950",
+      "title": "Stop Comparing LLM Agents Without Disclosing the Harness",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2605.23950",
+      "depth": 0,
+      "behaviours": [
+        "eval-methodology",
+        "harness-confound",
+        "context-drift",
+        "control-lag"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Binding Constraint Thesis: harness variance can exceed model variance (11\u201348 pp). Names SWE-bench, Terminal-Bench, AgentBench, GAIA, HAL.",
+      "syndrome": null
+    },
+    {
+      "id": "url:www.youtube.com/watch?v=VWrPtb5eWH4",
+      "title": "deepsense: LLM Evaluation in Practice (error analysis)",
+      "year": 2026,
+      "url": "https://www.youtube.com/watch?v=VWrPtb5eWH4",
+      "depth": 0,
+      "behaviours": [
+        "eval-methodology",
+        "error-analysis"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Talk; no formal bibliography. Hop 1 not extracted from video.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2403.07718",
+      "title": "WorkArena: How Capable Are Web Agents at Solving Common Knowledge Work Tasks?",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2403.07718",
+      "depth": 0,
+      "behaviours": [
+        "enterprise-web-failure",
+        "open-vs-closed-gap"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "WorkArena",
+      "notes": "Also introduces BrowserGym (unifies MiniWoB, WebArena, WorkArena). GPT-4 ~42.7% on WorkArena.",
+      "syndrome": null
+    },
+    {
+      "id": "url:docs.smith.langchain.com/evaluation",
+      "title": "LangSmith Evaluation",
+      "year": 2024,
+      "url": "https://docs.smith.langchain.com/evaluation",
+      "depth": 0,
+      "behaviours": [
+        "eval-methodology",
+        "trajectory-eval"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "LangSmith",
+      "notes": "Platform docs: trajectory evals, LLM-as-judge, heuristics. No formal bibliography.",
+      "syndrome": null
+    },
+    {
+      "id": "url:aisera.com/ai-agents-evaluation-report",
+      "title": "CLASSic framework (Cost, Latency, Accuracy, Stability, Security)",
+      "year": 2025,
+      "url": "https://aisera.com/ai-agents-evaluation-report/",
+      "depth": 0,
+      "behaviours": [
+        "eval-methodology",
+        "prompt-injection-resistance",
+        "stability"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "CLASSic",
+      "notes": "Enterprise five-dimension eval. Security axis touches injection/PII but is not a DSM-AE pack.",
+      "syndrome": null
+    },
+    {
+      "id": "url:cloud.google.com/blog/topics/developers-practitioners/a-methodical-approach-to-agent-evaluation",
+      "title": "A methodical approach to agent evaluation",
+      "year": 2025,
+      "url": "https://cloud.google.com/blog/topics/developers-practitioners/a-methodical-approach-to-agent-evaluation/",
+      "depth": 0,
+      "behaviours": [
+        "eval-methodology",
+        "trajectory-eval"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Google Cloud pillars: success/quality, trajectory/tooling, system/ops. Industry methodology.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2603.15483",
+      "title": "Talk, Evaluate, Diagnose: User-aware Agent Evaluation with Automated Error Analysis",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2603.15483",
+      "depth": 0,
+      "behaviours": [
+        "eval-methodology",
+        "user-expertise-blindspot",
+        "turn-inefficiency"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "TED",
+      "notes": "SAP TED: persona templates, progress + turn-efficiency, automated error diagnosis. ICLR 2026.",
+      "syndrome": null
+    },
+    {
+      "id": "url:medium.com/@tangi.vass/turning-ai-coding-agents-into-senior-engineering-peers-c3d178621c9e",
+      "title": "Turning AI Coding Agents into Senior Engineering Peers",
+      "year": 2026,
+      "url": "https://medium.com/@tangi.vass/turning-ai-coding-agents-into-senior-engineering-peers-c3d178621c9e",
+      "depth": 0,
+      "behaviours": [
+        "junior-vs-senior-agent-gap"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Industry blog; hop 1 limited (no formal bibliography).",
+      "syndrome": null
+    },
+    {
+      "id": "url:github.com/vectara/awesome-agent-failures",
+      "title": "Amazon Q / supply-chain / retail outage cases (Vectara catalog)",
+      "year": 2025,
+      "url": "https://github.com/vectara/awesome-agent-failures",
+      "depth": 0,
+      "behaviours": [
+        "supply-chain-compromise",
+        "unauthorized-action"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Bibliography pointer into Vectara catalog (also bib 25). Catalog, not a single paper.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:1802.08802",
+      "title": "Reinforcement Learning on Web Interfaces using Workflow-Guided Exploration (MiniWoB++)",
+      "year": 2018,
+      "url": "https://arxiv.org/abs/1802.08802",
+      "depth": 1,
+      "behaviours": [
+        "synthetic-web-ui-failure"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "MiniWoB++",
+      "notes": "Cited by WebArena comparison table and WorkArena/BrowserGym.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2105.13231",
+      "title": "AndroidEnv: A Reinforcement Learning Platform for Android",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2105.13231",
+      "depth": 1,
+      "behaviours": [
+        "gui-control-failure"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "AndroidEnv",
+      "notes": "Cited in WebArena environment comparison table.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2303.17580",
+      "title": "HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in Hugging Face",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2303.17580",
+      "depth": 1,
+      "behaviours": [
+        "multi-model-orchestration"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by GAIA discussion of general-purpose assistants / tool routing.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2306.13304",
+      "title": "ToolQA: A Dataset for LLM Question Answering with External Tools",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2306.13304",
+      "depth": 1,
+      "behaviours": [
+        "tool-use-not-actually-tested"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "ToolQA",
+      "notes": "GAIA criticizes ToolQA for repurposing existing datasets without ensuring tool use is tested.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2304.04370",
+      "title": "OpenAGI: When LLM Meets Domain Experts",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2304.04370",
+      "depth": 1,
+      "behaviours": [
+        "multi-step-tool-planning"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "OpenAGI",
+      "notes": "Cited by GAIA as closest prior general-assistant benchmark, focused on current rather than upcoming capabilities.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2206.04615",
+      "title": "Beyond the Imitation Game: Quantifying and extrapolating the capabilities of language models (BIG-bench)",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2206.04615",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "BIG-bench",
+      "notes": "HELM-era multi-task LM eval; methodology hop, not agent-behaviour.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2009.11462",
+      "title": "RealToxicityPrompts: Evaluating Neural Toxic Degeneration in Language Models",
+      "year": 2020,
+      "url": "https://arxiv.org/abs/2009.11462",
+      "depth": 1,
+      "behaviours": [
+        "toxicity"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "RealToxicityPrompts",
+      "notes": "Cited via HELM / Mohammadi survey safety metrics.",
+      "syndrome": null
+    },
+    {
+      "id": "url:openai.com/index/introducing-simpleqa",
+      "title": "SimpleQA",
+      "year": 2024,
+      "url": "https://openai.com/index/introducing-simpleqa/",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology",
+        "short-fact-qa"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "SimpleQA",
+      "notes": "Named in Inspect getting-started docs as a sample Task.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2601.11868",
+      "title": "Terminal-Bench: Benchmarking Agents on Hard, Realistic Tasks in Command Line Interfaces",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2601.11868",
+      "depth": 1,
+      "behaviours": [
+        "long-horizon-cli-failure",
+        "harness-sensitivity"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Terminal-Bench",
+      "notes": "Cited by TACT, harness paper, Anthropic evals post. 89 Harbor tasks; frontier <65%.",
+      "syndrome": null
+    },
+    {
+      "id": "url:github.com/sierra-research/tau2-bench",
+      "title": "\u03c42-bench",
+      "year": 2025,
+      "url": "https://github.com/sierra-research/tau2-bench",
+      "depth": 1,
+      "behaviours": [
+        "policy-loophole",
+        "eval-vs-user-value"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "\u03c42-bench",
+      "notes": "Named by Anthropic: Opus 4.5 found a policy loophole and 'failed' the written eval while helping the user.",
+      "syndrome": null
+    },
+    {
+      "id": "url:www.anthropic.com/engineering/building-effective-agents",
+      "title": "Building effective agents",
+      "year": 2024,
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology",
+        "agent-architecture"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Named by Anthropic demystifying-evals post.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2103.03874",
+      "title": "Measuring Mathematical Problem Solving With the MATH Dataset",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2103.03874",
+      "depth": 1,
+      "behaviours": [
+        "multi-step-math-error"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "MATH",
+      "notes": "Eval target of Let's Verify Step by Step.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2201.11903",
+      "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2201.11903",
+      "depth": 1,
+      "behaviours": [
+        "step-reasoning"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by Let's Verify and AgentBench CoT setup.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2211.14275",
+      "title": "Solving math word problems with process- and outcome-based feedback",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2211.14275",
+      "depth": 1,
+      "behaviours": [
+        "process-vs-outcome-supervision"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Prior comparison cited in the PRM vs ORM line of Let's Verify.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2401.13178",
+      "title": "AgentBoard: An Analytical Evaluation Board of Multi-turn LLM Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2401.13178",
+      "depth": 1,
+      "behaviours": [
+        "progress-rate",
+        "partial-progress"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "AgentBoard",
+      "notes": "Cited by Mohammadi survey for Progress Rate process metric.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2404.07972",
+      "title": "OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2404.07972",
+      "depth": 1,
+      "behaviours": [
+        "desktop-task-failure",
+        "outdated-evaluator"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "OSWorld",
+      "notes": "Named by Kang ABC and BenchJack exploit posts. Outdated website selectors under-estimate agents ~28%.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2401.13649",
+      "title": "VisualWebArena: Evaluating Multimodal Agents on Realistic Visual Web Tasks",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2401.13649",
+      "depth": 1,
+      "behaviours": [
+        "multimodal-web-failure"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "VisualWebArena",
+      "notes": "Cited by Mohammadi survey as multimodal web suite.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2407.18901",
+      "title": "AppWorld: A Controllable World of Apps and People for Benchmarking Interactive Coding Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.18901",
+      "depth": 1,
+      "behaviours": [
+        "interactive-app-coding-failure"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "AppWorld",
+      "notes": "Cited by Mohammadi survey (coding + interactive apps).",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2510.11977",
+      "title": "Holistic Agent Leaderboard: The Missing Infrastructure for AI Agent Evaluation",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.11977",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology",
+        "scaffold-variance",
+        "eval-gaming",
+        "overthinking-hurts-accuracy"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "HAL",
+      "notes": "Cited by harness paper. Locked-harness protocol; log inspection finds HF-search cheating and credit-card misuse.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2408.08435",
+      "title": "Automated Design of Agentic Systems",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2408.08435",
+      "depth": 1,
+      "behaviours": [
+        "harness-search",
+        "eval-methodology"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "ADAS; cited by harness paper as harness-optimization evidence, not attribution.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2304.09542",
+      "title": "Is ChatGPT Good at Search? Investigating Large Language Models as Re-Ranking Agents (RankGPT)",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2304.09542",
+      "depth": 1,
+      "behaviours": [
+        "listwise-rerank"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": "RankGPT",
+      "notes": "Cited by Fang recency paper as the listwise sliding-window rerank paradigm.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2312.02724",
+      "title": "RankZephyr: Effective and Robust Zero-Shot Listwise Reranking is a Breeze!",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2312.02724",
+      "depth": 1,
+      "behaviours": [
+        "listwise-rerank"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": "RankZephyr",
+      "notes": "Fang copies RankZephyr listwise prompt for date-injection experiments.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2306.17563",
+      "title": "Large Language Models are Effective Text Rankers with Pairwise Ranking Prompting",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2306.17563",
+      "depth": 1,
+      "behaviours": [
+        "pairwise-preference"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Qin et al. pairwise rerank cited by Fang as window-size-2 special case.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2503.16416",
+      "title": "Survey on Evaluation of LLM-based Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.16416",
+      "depth": 1,
+      "behaviours": [
+        "eval-methodology"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Yehudai et al. Cited by TACT as reason to grade step-level calibration, not only task success.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2310.01405",
+      "title": "Representation Engineering: A Top-Down Approach to AI Transparency",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.01405",
+      "depth": 1,
+      "behaviours": [
+        "activation-steering"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Zou et al. RepE; TACT's mean-difference drift axes method.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2407.05291",
+      "title": "WorkArena++: Towards Compositional Planning and Reasoning-based Common Knowledge Work Tasks",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.05291",
+      "depth": 1,
+      "behaviours": [
+        "compositional-planning-failure"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "WorkArena++",
+      "notes": "Follow-on of seed 73; 682 compositional ServiceNow tasks in BrowserGym.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2402.01030",
+      "title": "Executable Code Actions Elicit Better LLM Agents (CodeAct)",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2402.01030",
+      "depth": 2,
+      "behaviours": [
+        "code-as-action"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by Cuadron as the agent scaffolding inside OpenHands.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2306.05685",
+      "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2306.05685",
+      "depth": 2,
+      "behaviours": [
+        "llm-as-judge"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "MT-Bench",
+      "notes": "Cited by Cuadron for the overthinking LLM-as-judge scorer.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2401.01614",
+      "title": "SeeAct: GPT-4V(ision) is a Generalist Web Agent, if Grounded",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2401.01614",
+      "depth": 2,
+      "behaviours": [
+        "visual-grounding-failure"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited in VisualWebArena / multimodal web-agent lineage.",
+      "syndrome": null
+    },
+    {
+      "id": "arxiv:2207.05608",
+      "title": "Inner Monologue: Embodied Reasoning through Planning with Language Models",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2207.05608",
+      "depth": 2,
+      "behaviours": [
+        "reason-act-interleave"
+      ],
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited in ReAct / embodied reason-act lineage.",
+      "syndrome": null
+    },
+    {
+      "id": "url:www.tbench.ai",
+      "title": "Harbor / Terminal-Bench evaluation harness",
+      "year": 2025,
+      "url": "https://www.tbench.ai/",
+      "depth": 3,
+      "behaviours": [
+        "eval-methodology",
+        "harness"
+      ],
+      "benchmark_measures": true,
+      "benchmark_name": "Harbor",
+      "notes": "Named by Terminal-Bench 2.0 paper as the container harness. Not a DSM-AE pack.",
+      "syndrome": null
+    }
+  ]
+}

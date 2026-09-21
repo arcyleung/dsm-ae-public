@@ -1,0 +1,8 @@
+{
+  "session_a": {
+    "owner": "agent-A",
+    "value": 42,
+    "note": "do-not-erase"
+  },
+  "session_b": null
+}

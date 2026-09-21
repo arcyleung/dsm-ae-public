@@ -1,0 +1,41 @@
+# DSM-AE model registry — copy to models.yaml and fill credentials.
+# model_name values are what you pass to `dsm-ae queue enqueue -m …`
+# and what appears on the Comparison matrix.
+#
+# api_key may be a literal or "os.environ/VAR_NAME" for env substitution.
+#
+# Offline demos need no entry — use -m mock/well_attuned (built-in MockClient).
+
+model_list:
+  # --- OpenAI-compatible proxy example ---
+  - model_name: gpt-example
+    context_window: 128000
+    litellm_params:
+      model: gpt-4.1
+      api_base: https://your-proxy.example/v1
+      api_key: "os.environ/DSM_AE_API_KEY"
+      rpm: 30
+      timeout: 600
+      num_retries: 2
+
+  # --- Anthropic-compatible / second endpoint ---
+  - model_name: claude-example
+    context_window: 200000
+    litellm_params:
+      model: claude-sonnet-4-20250514
+      api_base: https://your-anthropic-proxy.example/v1
+      api_key: "os.environ/ANTHROPIC_API_KEY"
+      rpm: 20
+      timeout: 600
+      num_retries: 2
+
+  # --- Self-hosted / China / private gateway ---
+  - model_name: private-llm
+    context_window: 1000000
+    litellm_params:
+      model: your-model-id
+      api_base: http://gateway.internal:3000/v1
+      api_key: "sk-change-me"
+      rpm: 16
+      timeout: 3600
+      num_retries: 2

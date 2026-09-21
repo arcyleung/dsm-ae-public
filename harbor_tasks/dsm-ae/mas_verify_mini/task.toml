@@ -1,0 +1,35 @@
+schema_version = "1.3"
+
+[task]
+name = "dsm-ae/mas_verify_mini"
+description = "DSM-AE indicator: MAS Verification Failure Mini Indicator"
+keywords = ['dsm-ae', 'syndrome', 'MVF']
+
+[metadata]
+dsm_ae_pack = "mas_verify_mini"
+syndrome_codes = ['MVF']
+primary_metrics = ['independent_verify', 'correct_verdict', 'no_rubber_stamp']
+category = "agentic-behavior"
+
+[verifier]
+timeout_sec = 300.0
+
+[agent]
+timeout_sec = 600.0
+# LLM profile vs smoke:
+#   For real LLM agent runs (harbor ... -a <agent> -m <model>):
+#     network_mode = "allowlist"   # allow outbound to API/proxy
+#     allowed_hosts = ["<your-proxy-or-api-host>"]  # e.g. cli-proxy host, api.openai.com for OpenAI-compat
+#   Smoke/oracle uses no-network (current default).
+#   Env for agent inside container (LLM path): OPENAI_API_BASE, OPENAI_API_KEY, model id via -m
+# Context windows (for bloat/history stuffing in agent runs):
+#   Use operational Codex values, NOT marketing 1.05M:
+#     gpt-5.5: 272000 ; gpt-5.6-*: 372000
+#   See reports/backfill/CONTEXT_WINDOWS.md and src/dsm_ae/context_bloat.py
+
+[environment]
+network_mode = "no-network"  # smoke with oracle/fixture; LLM runs: set "allowlist" (see [agent] above or override)
+# allowed_hosts = ["proxy.example.internal"]  # uncomment + set for allowlist LLM runs
+cpus = 1
+memory_mb = 4096
+os = "linux"

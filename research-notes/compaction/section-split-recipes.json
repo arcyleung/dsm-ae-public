@@ -1,0 +1,302 @@
+{
+  "section": "split-recipes",
+  "as_of": "2026-09-01",
+  "nodes": [],
+  "recipes": [
+    {
+      "id": "arxiv:2607.23809",
+      "name": "ACM: Agentic Context Management for Long Horizon Tasks",
+      "who_is_compactor": "external_llm",
+      "who_is_continuer": "same_policy",
+      "generate": [
+        "Dual student rollouts: H− without ACM tools and H+ with them. Teacher reviews each against the reference answer. §4 / Fig. 2: 'A student agent completes task rollouts both with and without context management tools. A teacher model reviews each trajectory against the reference answer and either injects ACM action or replaces non-ACM actions.'",
+        "Injection on H− (add manage_context): 'the teacher identifies turns at which context management would be beneficial—specifically, points where the student begins querying redundant topics, enters unproductive loops, or has accumulated sufficient context to warrant compression. At each such turn t, the teacher uses a context management tool call a_t' accompanied by a reasoning trace that justifies the compression.' §4.1",
+        "Refinement on H+ (remove manage_context): 'the teacher identifies turns at which the student’s context management calls are premature or unnecessary' and 'replaces the inappropriate context management call a_t with a more productive action a_t'—such as searching for additional evidence, opening a relevant document, or committing to an answer'. §4.1",
+        "Resume-from-edit, not suffix reuse: 'In both cases, the student’s original action a_t is replaced with the teacher-annotated action a_t', and the student rollout resumes from a_t'.' Intro: 'We then prompt the student to resume and complete the task from the point where the teacher provides feedback'. Original post-edit suffixes are not kept as labels.",
+        "Summary is a separate LLM tool result, not a policy-written target. §3 ACM Agent: 'it invokes manage_context … to compress all messages up to the previous summary boundary using a summarizer LLM.' 'A querier LLM receives the query along with the raw messages mapped by that identifier, then returns the information related to the query as a tool result.' Data Generation: 'We use Qwen3.5-9B as the student rollout model, as well as the summarizer and querier'.",
+        "On-policy distillation after resume: 'A stronger teacher from the same model family annotates each student-generated assistant token with a soft next-token distribution. In practice, we retain the teacher probabilities for the top-K tokens, with K=20. The student is optimized to match these teacher distributions over all assistant-token positions in the rollout'. 'The loss is applied to all student-generated assistant tokens, while system-prompt, user-input, and tool-output tokens are masked out.' Summary text is therefore a tool-output and is masked.",
+        "Mix with resampled student rollouts: 'to stabilize training, we resample trajectories from the student’s original rollouts, in a manner similar to self-distillation, and mix them with the teacher-annotated data.' §4.2"
+      ],
+      "filter": [
+        "Rejection sampling keeps hard failures only: 'we retain only trajectories in which the student fails to complete all trials successfully. This ensures that the student learns from the teacher’s behavior on genuinely challenging problems.' §4.2. Paper also open-sources 'the student’s four rollout trials and the corresponding teacher annotations from each epoch.'",
+        "Answer-leakage content filter: 'filters are applied to verify that the teacher’s reasoning traces do not leak information from the reference answer A*. The teacher’s annotations must explain why compression is warranted or unnecessary at turn t—citing cues such as redundant queries, cyclic exploration patterns, or sufficient evidence to commit to an answer—without revealing the target answer itself.' §4.2",
+        "Dropped: trajectories where the student does not fail all trials; teacher traces that leak A*; original unedited student action at the edit point (replaced by a_t'); original suffix after the edit (re-rolled, not reused)."
+      ],
+      "do_not": [
+        "Do not reuse the original trajectory suffix after a teacher inject/remove of manage_context; the paper resumes the student from a_t'.",
+        "Do not treat the summary string as an SFT/distill target: it is produced by a summarizer LLM and returned as a tool result, and tool-output tokens are masked.",
+        "Do not harvest voluntary teacher compaction: 'GPT-5.5 rarely invokes context management, making near-zero calls to both manage_context and query_memory' (§6 Tool Usage). Timing must be teacher-annotated onto student rollouts.",
+        "Do not leak the reference answer into teacher justifications."
+      ],
+      "fidelity_mentioned": "Lossless offload, not a fidelity–reliability trade-off: 'Information compression is lossless: all discarded messages are preserved in external storage and are available for the agent to revisit at any time' via query_memory. Working context is the summary; raw history is on disk.",
+      "quotes": [
+        {
+          "text": "When the agent decides to manage its context, it invokes manage_context … to compress all messages up to the previous summary boundary using a summarizer LLM. Crucially, the original messages are not discarded but saved to the agent’s external workspace.",
+          "where": "§3 ACM Agent / html L93"
+        },
+        {
+          "text": "In both cases, the student’s original action a_t is replaced with the teacher-annotated action a_t', and the student rollout resumes from a_t'.",
+          "where": "§4.1 Phase 2 / html L140"
+        },
+        {
+          "text": "The loss is applied to all student-generated assistant tokens, while system-prompt, user-input, and tool-output tokens are masked out.",
+          "where": "§4.1 distillation / html L148"
+        },
+        {
+          "text": "Rejection sampling: we retain only trajectories in which the student fails to complete all trials successfully.",
+          "where": "§4.2 Quality Filtering / html L152"
+        },
+        {
+          "text": "Finally, to stabilize training, we resample trajectories from the student’s original rollouts, in a manner similar to self-distillation, and mix them with the teacher-annotated data.",
+          "where": "§4.2 Quality Filtering / html L152"
+        }
+      ]
+    },
+    {
+      "id": "arxiv:2509.13313",
+      "name": "ReSum: Unlocking Long-Horizon Search Intelligence via Context Summarization",
+      "who_is_compactor": "external_llm",
+      "who_is_continuer": "explorer_rl",
+      "generate": [
+        "ReSumTool SFT pairs: record ReSum rollouts on SailorFog-QA with roles decoupled. §3.2 Data Synthesis: 'a WebSailor agent serves as the explorer … while the teacher model is integrated as the summary tool. This process yields over 9,000 high-quality ⟨Conversation, Summary⟩ pairs.' Teacher is GPT-OSS-120B (§3.2 Teacher Model Selection).",
+        "Appendix E.2 Data Collection: 'We collect ⟨Conversation, Summary⟩ pairs by performing ReSum rollout with WebSailor-30B as the agent and GPT-OSS-120B as the summary tool on a subset of the SailorFog-QA dataset.' 'The collected summaries undergo format checking and are combined with the query prompts, including conversation history, to form over 9K ⟨Input, Output⟩ pairs. Here, Input represents the query prompt, while Output is the GPT-OSS-generated summary.' Distill into Qwen3-30B-A3B-Thinking (batch 64, 2 epochs, lr 7e-6).",
+        "They refuse explorer SFT. §3.3: 'Unlike supervised fine-tuning, which requires costly collection of expert-level ReSum trajectories and risks overwriting an agent’s existing skills, RL enables agents to adapt to this paradigm through self-evolution while retaining their inherent reasoning capabilities.' Intro same: 'Unlike supervised fine-tuning, which risks overwriting general capabilities and demands costly expert trajectories, we leverage … RL.'",
+        "ReSum-GRPO segments at summary points. §3.3 Trajectory Segmentation: a trajectory with K summarizations is partitioned into K+1 segments H^(1)…H^(K+1) with q^(0)=q and q^(k)=(q, s^(k)). 'Each segment H^(i) forms an individual training episode'. 'ReSum-GRPO only modifies long trajectories by utilizing segmented rollouts, while short trajectories are processed identically to standard GRPO.'",
+        "Advantage broadcasting: 'we broadcast the trajectory-level advantage' computed from final-answer reward R_g∈{0,1} (LLM-as-Judge), group-normalized, 'which is broadcast to all segments within rollout g as Â_g^(i)=Â_g'.",
+        "Observation masking. §3.3: output of a segment is '(τ, a, o, …) where all observations o are masked during loss computation as they are environmental returns.' App. D.2: 'For these RL algorithms, all tool invocation results o are excluded from loss calculation to prevent bias towards tool outputs'."
+      ],
+      "filter": [
+        "ReSumTool pairs: only explicit filter stated is 'format checking' (App. E.2). Paper calls the 9k pairs 'high-quality' after role decoupling, but does not describe a content/quality judge, success filter, or rejection of bad summaries.",
+        "ReSum-GRPO format kill: 'if the agent fails to adhere to specific tokens, e.g., <think> </think>, the entire trajectory is terminated with zero reward.' §3.3 Reward Computation.",
+        "Budget failures: 'Trajectories that exceed these limits [tool-call budgets] are terminated and marked as failures.' §3.1 Trajectory Termination.",
+        "No explorer-SFT corpus is built; they explicitly refuse SFT of the explorer."
+      ],
+      "do_not": [
+        "Do not SFT the explorer on expert ReSum trajectories: paper refuses this because it 'risks overwriting general capabilities and demands costly expert trajectories'.",
+        "Do not put observation/tool-response tokens in the GRPO loss.",
+        "Do not invent a summary-quality filter beyond the stated format check; none is described.",
+        "Do not train the summarizer jointly with the explorer in ReSum-GRPO: ReSumTool is an external tool; GRPO updates only the explorer segments."
+      ],
+      "fidelity_mentioned": "none (no Fidelity–Reliability trade-off). Summaries are judged only by downstream ReSum agent Pass@1, not by a fidelity metric. App. C even omits explicit 'list gaps / next steps' instructions to avoid distracting the summarizer.",
+      "quotes": [
+        {
+          "text": "we decouple the exploration and summarization roles to ensure quality: a WebSailor agent serves as the explorer … while the teacher model is integrated as the summary tool. This process yields over 9,000 high-quality ⟨Conversation, Summary⟩ pairs.",
+          "where": "§3.2 Data Synthesis / html L107"
+        },
+        {
+          "text": "The collected summaries undergo format checking and are combined with the query prompts, including conversation history, to form over 9K ⟨Input, Output⟩ pairs.",
+          "where": "Appendix E.2 Data Collection / html L706"
+        },
+        {
+          "text": "Unlike supervised fine-tuning, which requires costly collection of expert-level ReSum trajectories and risks overwriting an agent’s existing skills, RL enables agents to adapt to this paradigm through self-evolution",
+          "where": "§3.3 ReSum-GRPO / html L117"
+        },
+        {
+          "text": "all observations o are masked during loss computation as they are environmental returns.",
+          "where": "§3.3 Trajectory Segmentation / html L127"
+        },
+        {
+          "text": "we broadcast the trajectory-level advantage. … which is broadcast to all segments within rollout g as Â_g^(i)=Â_g",
+          "where": "§3.3 GRPO Integration / html L137"
+        }
+      ]
+    },
+    {
+      "id": "arxiv:2510.00615",
+      "name": "ACON: Optimizing Context Compression for Long-horizon LLM Agents",
+      "who_is_compactor": "external_llm",
+      "who_is_continuer": "frozen_agent",
+      "generate": [
+        "Agent is not trained for guideline optimization. Intro: 'ensuring that critical environment-specific signals are preserved after compression without altering the agent model weight'. Table 7: 'no agent model training or weight updates required'.",
+        "Contrastive guideline data is failed-compressed vs successful-full. §3.3: 'On the training set D_train, we run the LLM agent both without and with context compression to obtain baseline context H and compressed context H'. We collect tasks where the agent succeeds with H but fails with H', forming a contrastive subset D_cont.' Feedback = LLM(Feedback Instruction, H, H'). This is the utility-maximization (ut) step.",
+        "Compression-maximization (co) uses successful compressed rollouts only: 'we perform a second iteration that conditions only on successful task with compressed context, asking the LLM to generate feedback about which information was actually used during execution.' App. B: 'For the co step, we use training tasks in D_succ^(r) where the agent succeeds with compression.'",
+        "Student compressor CE is only on teacher-success compressed pairs. §3.4: 'The teacher with optimized guideline P* … generates compressed outputs y from input x, which supervise the student'. CE on (x,y) where (x,y)=(h_t, h_t') or ((h_{t-1}, o_t), o_t'). 'D_train^+ denotes tasks where the teacher succeeds with compressed context.'",
+        "App. B distillation protocol: 'We sample a single generation from the teacher for fine-tuning'. LoRA rank 16, 3 epochs, max seq 10,000. Distill after ut (not necessarily after co). Fig. 4 caption: 'Student models (Qwen3-14B, Qwen3-8B, Phi-4) are distilled from gpt-4.1 compressor using the optimized compression guideline after ut step'."
+      ],
+      "filter": [
+        "Guideline ut: keep only tasks that succeed without compression and fail with compression (D_cont). Failures of the uncompressed agent are not used as contrastive feedback.",
+        "Guideline co: keep only tasks that succeed with compression (D_succ).",
+        "Compressor SFT/distill: keep only teacher-success compressed (x,y) pairs (D_train^+). Failed compressed teacher outputs are dropped from CE.",
+        "No per-summary fidelity judge is described; filter is task success of the frozen agent under the compressed context."
+      ],
+      "do_not": [
+        "Do not update the agent weights to learn compression (guideline stage is prompt-only; distillation trains the compressor, not the continuer).",
+        "Do not put failed-compressed teacher summaries into D_train^+ CE.",
+        "Do not treat the 95% figure as token-level summary accuracy; it is downstream agent task performance with the student compressor vs the gpt-4.1 teacher compressor."
+      ],
+      "fidelity_mentioned": "Implicit preservation, not AdaCoM's named trade-off. Goal is 'ensuring critical state information is preserved'. ut vs co is a utility-vs-brevity trade-off: 'ut improves performance while reducing token cost … co further lowers token cost but may slightly hurt accuracy'. High-fidelity tasks (OfficeBench, 8-obj QA) prefer ut only; noisy AppWorld prefers ut+co.",
+      "quotes": [
+        {
+          "text": "We collect tasks where the agent succeeds with H but fails with H', forming a contrastive subset D_cont.",
+          "where": "§3.3 Optimizing Compression Guidelines / html L215"
+        },
+        {
+          "text": "we perform a second iteration that conditions only on successful task with compressed context, asking the LLM to generate feedback about which information was actually used during execution.",
+          "where": "§3.3 compression maximization / html L232"
+        },
+        {
+          "text": "D_train^+ denotes tasks where the teacher succeeds with compressed context.",
+          "where": "§3.4 Distilling Context Compression / html L270"
+        },
+        {
+          "text": "enables effective distillation of the context compressor into smaller models, preserving 95% of the teacher’s accuracy",
+          "where": "Abstract contributions / html L63"
+        },
+        {
+          "text": "As shown in Figure 4, the distilled compressors retain over 95% of the performance of the gpt-4.1 teacher (indicated by the grey dotted line) while reducing computational overhead.",
+          "where": "§4.3 Compressor distillation / html L389"
+        },
+        {
+          "text": "without altering the agent model weight",
+          "where": "§1 / html L53"
+        }
+      ]
+    },
+    {
+      "id": "arxiv:2607.05378",
+      "name": "CompactionRL: Reinforcement Learning with Context Compaction for Long-Horizon Agents",
+      "who_is_compactor": "policy",
+      "who_is_continuer": "same_policy",
+      "generate": [
+        "On-policy compacted rollouts. §4: 'The central idea is to make context compaction part of rollout collection: when the interaction history approaches the context limit, the agent produces a compact summary of the previous trajectory and then resumes from a reconstructed context containing the summary and a short history tail of recent interaction.' Trigger: C−|h_t|<T_comp; T_comp=10,240 tokens (= max assistant response); at most three compactions per rollout. Resume = system ⊕ u_resume(S_t) ⊕ last k=2 atomic (a,o) steps.",
+        "Same policy writes the summary: 'the summarizer is not an external module: summary tokens are sampled from the same trainable policy and are included in the RL objective.' 'We do not introduce a separate summary-quality reward, since hand-designed summary metrics may not reflect which details are useful for solving the task.' Shared task reward R(τ) assigned to all segments.",
+        "w/o-summary-training ablation is still on-policy with compaction ON. §5.3: 'a variant that enables compaction during training but masks out the loss on summary-response turns. This separates the effect of exposing the policy to compacted histories from the benefit of updating the summarizer.' Table 3: 'Summary Train indicates whether summary responses are included in the RL loss.' CompactionRL(w/o sum.) row has Train Budget 80k×4 and Summary Train ✗.",
+        "Summarizer-swap protocol (inference, not a training filter). §4.1 Effect of Summarization Quality / Table 1: 'we fix the execution agent and vary only the summary agent.' Execution Agent fixed to GLM-4.7-Flash; Summary Agent ∈ {Qwen3.5-27B, GLM-4.7-Flash, Qwen3-30B-A3B}. Metric: SWE-Verified pass@1 and Summary Count/Trace. Best summarizer 55.5 vs worst 49.0 (+6.5)."
+      ],
+      "filter": [
+        "No filter of bad summaries is described. Explicitly: 'We do not introduce a separate summary-quality reward'. Failed and successful compacted rollouts both enter PPO; only the shared task reward R(τ) (task correctness) distinguishes them.",
+        "w/o-summary-training does not drop summary-containing trajectories; it only masks summary-response turns from the loss. Compacted histories remain in the execution-segment context.",
+        "Atomic-step rule is a generation constraint, not a post-hoc filter: 'We treat each assistant-observation pair z_i as an atomic step, so that tool calls and their feedback are not separated by compaction.'"
+      ],
+      "do_not": [
+        "Do not treat w/o-summary-training as off-policy or compaction-off: compaction still fires during rollout; only the summary-token loss is masked.",
+        "Do not add a hand-designed summary-quality filter; the paper refuses one.",
+        "Do not assume the summarizer-swap is a data-curation step; it is an inference ablation with a frozen execution agent."
+      ],
+      "fidelity_mentioned": "none as a named trade-off. They note task success is 'sensitive to the quality of the summary' (omitted file path / error / partial solution) and that trained summaries become 'increasingly longer and more detailed' (Fig. 4a) vs decreasing length when summary loss is masked.",
+      "quotes": [
+        {
+          "text": "a variant that enables compaction during training but masks out the loss on summary-response turns. This separates the effect of exposing the policy to compacted histories from the benefit of updating the summarizer.",
+          "where": "§5.3 Effect of Summary Training / html L264"
+        },
+        {
+          "text": "We do not introduce a separate summary-quality reward, since hand-designed summary metrics may not reflect which details are useful for solving the task.",
+          "where": "§4.1 Training Segments / html L153"
+        },
+        {
+          "text": "To quantify this effect, we fix the execution agent and vary only the summary agent.",
+          "where": "§4.1 Effect of Summarization Quality / html L157"
+        },
+        {
+          "text": "summary tokens are sampled from the same trainable policy and are included in the RL objective.",
+          "where": "§4.1 Training Segments / html L151"
+        },
+        {
+          "text": "Each assistant response is limited to 10,240 tokens and compaction is triggered when the remaining context budget falls below 10,240 tokens, with at most three compaction operations per rollout.",
+          "where": "§5.1 Training Details / html L224"
+        }
+      ]
+    },
+    {
+      "id": "arxiv:2512.22087",
+      "name": "CaT / SWE-Compressor: Context as a Tool",
+      "who_is_compactor": "external_llm",
+      "who_is_continuer": "same_policy",
+      "generate": [
+        "Offline two-stage CaT-Generator. Phase I: 'generates complete base ReAct reasoning trajectories without introducing any context compression operations, to maximize the naturalness and completeness of task-solving behaviors' (env tools only). Phase II: 'these trajectories are minimally and structurally reconstructed: context management tool invocations are injected at appropriate steps without altering the original sequence of environment interactions'.",
+        "Condensor points (hindsight heuristics, not a threshold): '(i) context expansion signals … (ii) structural boundary signals, such as subtask completion, strategy switching, or intermediate milestones; and (iii) error-correction signals, where new feasible directions emerge after repeated failures. We treat these signals as heuristic triggers rather than fixed thresholds'.",
+        "Summary as tool Observation, not a re-roll. '(3) Long-Term Memory Block Generation': 'we invoke a high-capacity language model to generate a structured long-term memory block M(a_i). The summarizer uses the same backbone as the reasoning model (SWE-Compressor)'. 'The generated M(a_i) serves as the Observation of a context management tool invocation'.",
+        "Suffix reuse via stitching, not re-roll. '(4) Trajectory Stitching and Minimal-Intrusion Compression Injection': 'minimal-intrusion trajectory stitching strategy to inject context management behaviors into the original ReAct trajectory.' 'insert a context management tool invocation at that step as an independent Action, whose corresponding Observation is the generated long-term memory block M(a_i)'. Combined with Phase II 'without altering the original sequence of environment interactions' — original suffix actions/observations are kept.",
+        "SFT on stitched trajs: CaT-Instruct 20k after rejection sampling, plus 20k Base-Instruct without context-mgmt (SWE-smith protocol)."
+      ],
+      "filter": [
+        "Rejection sampling, two levels. §2.4 (5): 'At the trajectory level, samples that fail to complete the task or enter unrecoverable error states are discarded.'",
+        "Step-level 'unreasonable' CM: 'we further remove trajectories exhibiting unreasonable context-management behaviors, such as excessively frequent tool invocations with minimal information gain, severe semantic drift, or internal state inconsistencies.'",
+        "Failed trajectories are dropped; there is no keep-failures arm. No re-roll-after-injection success filter because the suffix is the original (already-successful) ReAct continuation."
+      ],
+      "do_not": [
+        "Do not re-roll the teacher from the compacted state; CaT stitches the original suffix ('without altering the original sequence of environment interactions').",
+        "Do not treat the summary M(a_i) as an assistant Action target; the paper states it is the Observation of the injected CM tool call.",
+        "Do not keep failed or unrecoverable trajs, or trajs with 'unreasonable' CM (too-frequent / no-gain / semantic drift / state inconsistency)."
+      ],
+      "fidelity_mentioned": "Workspace is designed for 'high-fidelity' short-term I^(k) plus a 'condensed, high-fidelity summary' M(t). Unreasonable-CM filter includes 'severe semantic drift'. No student-capability-dependent fidelity–reliability trade-off.",
+      "quotes": [
+        {
+          "text": "context management tool invocations are injected at appropriate steps without altering the original sequence of environment interactions",
+          "where": "§2.4 Data Generation Pipeline / html L87"
+        },
+        {
+          "text": "we adopt a minimal-intrusion trajectory stitching strategy to inject context management behaviors into the original ReAct trajectory.",
+          "where": "§2.4 (4) Trajectory Stitching / html L137"
+        },
+        {
+          "text": "The generated M(a_i) serves as the Observation of a context management tool invocation",
+          "where": "§2.4 (3) Long-Term Memory Block Generation / html L133"
+        },
+        {
+          "text": "At the trajectory level, samples that fail to complete the task or enter unrecoverable error states are discarded. At the step level, we further remove trajectories exhibiting unreasonable context-management behaviors, such as excessively frequent tool invocations with minimal information gain, severe semantic drift, or internal state inconsistencies.",
+          "where": "§2.4 (5) Rejection Sampling Fine-Tuning / html L145"
+        }
+      ]
+    },
+    {
+      "id": "arxiv:2605.30785",
+      "name": "AdaCoM: Learning Agent-Compatible Context Management",
+      "who_is_compactor": "manager_head",
+      "who_is_continuer": "frozen_agent",
+      "generate": [
+        "Frozen continuer. Abstract/§1: 'trains an external LLM to manage the context of a frozen agent'. Fig. 1: 'Task feedback updates only the manager'. §3.1: 'leaving the underlying agent A frozen'.",
+        "SFT warmup of the manager for format, then GRPO. §3.2: 'We first use supervised fine-tuning (SFT) to initialize the manager with the required output format, and then optimize it with Group Relative Policy Optimization (GRPO).' §4.1 Implementation: 'AdaCoM is initialized from Qwen3-4B-Instruct, briefly warmed up with SFT to learn the edit format'. 'For the SFT warm-up, we use GPT-5 (2025-08-07) and Claude Opus 4.6 to generate edit trajectories for BrowseComp-Plus and MCP-Bench-Wiki, respectively, with Qwen3-Max serving as the frozen agent on the corresponding training set.' App. A.2: 'We train the SFT warm-up for five epochs on BrowseComp-Plus and two epochs on MCP-Bench-Wiki.'",
+        "MCP-Bench-Wiki SFT sample construction (App. B.2) is the only detailed pair recipe: run Claude-Opus-4.6 manager + Qwen3-Max agent on the 2,517-task pool; convert every manager invocation into a (prompt, response) sample labeled modify / delete / no_change / extract. 'These labels are used only for organizing SFT data and do not define a separate action space.'",
+        "RL generate: on-policy manager rollouts, G=8, frozen agent produces the answer; outcome reward is LLM-judge binary (BrowseComp-Plus) or rubric (MCP-Bench-Wiki). Process rewards: token penalty −0.8, redundant-action −0.4, format −0.5; BrowseComp gold-doc-found +0.6 / key-doc-found +0.3."
+      ],
+      "filter": [
+        "Paper does not describe contrastive pairs (no failed-vs-successful pair construction for SFT). Closest filters are App. B.2 task-level and sample-level screens on MCP-Bench-Wiki only.",
+        "Task-level (MCP-Wiki): drop rollouts not completed, answers <50 chars or starting with 'Error', task-fulfillment <2; embed-dedup cosine≥0.92; Claude judge on completeness/naturalness/sufficiency/grounding 1–5, keep iff all >2 and mean ≥3.5.",
+        "SFT sample-level: 'responses must be parseable JSON, shorter than 12K characters, and, for modify actions, reduce the targeted content by at least 20%.' MinHash near-dup drop. Ratio cap: delete and no_change each ≤10% of modify count; extract ≤30%. Final 4,740 samples ≈73% modify / 20% extract / 7% delete+no_change.",
+        "RL task filter (MCP-Wiki): keep tasks with TF≥3, 10–39 reasoning rounds, not prefix-near-dup, not overly prescriptive; sample 1,000 tasks.",
+        "RL format penalties (not a drop): invalid JSON, nonexistent message IDs, missing fields get format penalty −0.5."
+      ],
+      "do_not": [
+        "Do not train the student/agent; 'the agent itself remains unchanged' / 'keeping the underlying agent frozen'.",
+        "Do not invent contrastive (fail-vs-success) SFT pairs for AdaCoM; the paper never names or builds them. SFT is teacher-generated edit trajectories (GPT-5 / Claude Opus 4.6) plus the App. B.2 (prompt, response) extraction.",
+        "Do not treat modify/delete/no_change/extract labels as a restricted action space; they are SFT-organization tags only."
+      ],
+      "fidelity_mentioned": "Named Fidelity–Reliability Trade-off. Abstract: 'agents with higher vanilla ReAct performance benefit from higher-fidelity context preservation, whereas lower-performing agents require more aggressive compression to stay within a reliable reasoning regime.' Transfer is strongest across similar vanilla-ReAct capability.",
+      "quotes": [
+        {
+          "text": "trains an external LLM to manage the context of a frozen agent through flexible modification actions and end-to-end reinforcement learning.",
+          "where": "Abstract / html L19"
+        },
+        {
+          "text": "We first use supervised fine-tuning (SFT) to initialize the manager with the required output format, and then optimize it with Group Relative Policy Optimization (GRPO).",
+          "where": "§3.2 Training overview / html L122"
+        },
+        {
+          "text": "For the SFT warm-up, we use GPT-5 (2025-08-07) and Claude Opus 4.6 to generate edit trajectories for BrowseComp-Plus and MCP-Bench-Wiki, respectively, with Qwen3-Max serving as the frozen agent",
+          "where": "§4.1 Implementation / html L189"
+        },
+        {
+          "text": "For each task that passes the filter, every context-manager invocation in its rollout is converted into a candidate (prompt, response) sample.",
+          "where": "Appendix B.2 SFT samples / html L610"
+        },
+        {
+          "text": "The samples are also screened to ensure syntactic validity: responses must be parseable JSON, shorter than 12K characters, and, for modify actions, reduce the targeted content by at least 20%.",
+          "where": "Appendix B.2 SFT samples / html L615"
+        },
+        {
+          "text": "agents with higher vanilla ReAct performance benefit from higher-fidelity context preservation, whereas lower-performing agents require more aggressive compression to stay within a reliable reasoning regime.",
+          "where": "Abstract / html L21"
+        }
+      ]
+    }
+  ],
+  "gaps": [
+    "ReSum App. E.2 states only 'format checking' on GPT-OSS summaries; no content/quality/success filter on the 9k ⟨Conversation, Summary⟩ pairs is described.",
+    "AdaCoM never builds or names 'contrastive pairs'. Contrastive failed-compressed vs successful-full is ACON §3.3 (D_cont), not AdaCoM. AdaCoM SFT is teacher edit trajectories + (prompt, response) extraction.",
+    "ACM §4.2 wording 'fails to complete all trials successfully' is the only rejection-sampling criterion; the paper does not define the number of trials in that sentence (four rollout trials are mentioned later as released artifacts).",
+    "CaT does not re-roll after CM injection; suffix reuse is explicit ('without altering the original sequence of environment interactions'). Whether later SFT steps are conditioned on the injected summary as context (vs only seeing the CM Action) is described as trajectory-level supervision but loss-on-Observation tokens is not stated.",
+    "CompactionRL w/o-summary-training is on-policy compacted rollouts with summary loss masked; no bad-summary filter exists. Summarizer-swap is an inference ablation (fixed execution agent), not a data recipe.",
+    "ACON '95% of the teacher’s accuracy' is downstream agent task performance with the distilled compressor vs gpt-4.1 teacher compressor (Fig. 4 grey dotted line), not a summary-token match rate. Agent remains untrained for guideline optimization; a separate Fig. 5 arm also distills a small agent from gpt-4.1 trajectories (that is not the compressor recipe)."
+  ]
+}

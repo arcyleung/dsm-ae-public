@@ -1,0 +1,727 @@
+{
+  "section": "papers",
+  "agent": "compaction-papers",
+  "as_of": "2026-09-01",
+  "nodes": [
+    {
+      "id": "arxiv:2607.05378",
+      "title": "CompactionRL: Reinforcement Learning with Context Compaction for Long-Horizon Agents",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2607.05378",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "fires when remaining budget < T_comp = 10,240 tokens (equal to per-response cap); resume = system + summary template + last k=2 atomic (a,o) steps; at most 3 compactions; peak B_active 64k (30B) / 80k (106B)",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "PPO jointly trains execution and summary tokens under the task reward. w/o-summary-training (compaction on, summary turns masked) recovers most of the gain: 30B SWE-Verified compacted 50.5\u219254.5 vs 56.0 full; 106B 59.8\u219264.5 vs 66.8. Summarizer swap alone swings 49.0\u219255.5. No-compaction RL hurts compacted inference on 30B (50.5\u219248.0).",
+      "behaviours": [
+        "threshold-reserve",
+        "summary-plus-tail-k2",
+        "ppo-summary-in-loss",
+        "wo-summary-training-ablation",
+        "token-level-loss",
+        "cross-trajectory-gae"
+      ]
+    },
+    {
+      "id": "arxiv:2607.23809",
+      "title": "ACM: Agentic Context Management for Long Horizon Tasks",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2607.23809",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "agent_tool",
+      "trigger_detail": "agent calls manage_context (summarize + offload raw turns to disk) and query_memory; teacher injects when redundant queries / unproductive loops / sufficient context, and replaces premature calls; GPT-5.5 almost never invokes the tools",
+      "training": "distill",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "On-policy distillation: teacher top-K=20 soft labels on all assistant tokens (manage_context included); system/user/tool-output masked. Resume-from-edit after teacher annotation. ReAct 0.489 \u2192 ACM-data 0.530 \u2192 +GPT-5.5 distill 0.564 on SWE-Verified. Threshold summary agents (ReSum-style 0.475, ACON-style 0.480) underperform ReAct.",
+      "behaviours": [
+        "agent-initiated-tool",
+        "lossless-offload",
+        "teacher-when-and-when-not",
+        "on-policy-distill-assistant-tokens",
+        "resume-from-edit"
+      ]
+    },
+    {
+      "id": "arxiv:2512.22087",
+      "title": "Context as a Tool: Context Management for Long-Horizon SWE-Agents (CaT / SWE-Compressor)",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2512.22087",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "agent_tool",
+      "trigger_detail": "callable context tool at milestones: subtask completion, strategy switch, intermediate milestones, or context-growth/error-correction heuristics (not a fixed token threshold); workspace = Q + long-term memory M(t) + last-k raw ReAct steps",
+      "training": "SFT",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "CaT-Generator injects context-management Actions into complete ReAct trajectories then SFT+rejection sampling (drop failed trajs and unreasonable CM). CaT-Instruct ~20k trajs, avg 4.22 CM actions, 15.6k\u21924.7k tokens (30%). SWE-Compressor 32B 57.6% vs ReAct 49.8 and threshold-compression 53.8 on SWE-Verified.",
+      "behaviours": [
+        "offline-injection",
+        "semantic-boundary-heuristics",
+        "sft-on-cm-actions",
+        "rejection-sampling",
+        "summary-plus-recent-k"
+      ]
+    },
+    {
+      "id": "arxiv:2510.11967",
+      "title": "Scaling Long-Horizon LLM Agent via Context-Folding (FoldGRPO)",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.11967",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "agent_tool",
+      "trigger_detail": "agent calls branch(description,prompt) then return(message); intermediate branch steps folded; max 10 branches; 32K active budget; Unfolded-Token Penalty if main-thread context >50% of working limit",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "FoldGRPO trains main+branch tokens under folded contexts with token-level process rewards (Unfolded Token Penalty, Out-of-Scope Penalty). 58.0% SWE-Verified / 62.0% BrowseComp-Plus at 32K vs 327K ReAct 55.2%. RL adds +8.8 / +20.0. Fold/return summaries are in the policy loss.",
+      "behaviours": [
+        "branch-and-fold",
+        "subtask-semantic-boundary",
+        "foldgrpo",
+        "process-rewards",
+        "active-budget-32k"
+      ]
+    },
+    {
+      "id": "arxiv:2606.23525",
+      "title": "Self-Compacting Language Model Agents (SelfCompact)",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2606.23525",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "rubric probe every N tokens (math) or N tool calls (search); fire if sub-task resolved or trajectory converging; suppress mid-derivation or when stuck; fallback fixed-interval baseline at 30% of max context (MiniMax-M2.5 / WebExplorer recipe)",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Training-free. Rubric is load-bearing: tool-alone is uneven; removing rubric drops accuracy 46.4%\u219241.0% (level with fixed-interval). +18.1 math / +5\u20139 search at 30\u201370% lower cost vs no compaction.",
+      "behaviours": [
+        "rubric-gated",
+        "inference-time-only",
+        "suppress-mid-derivation",
+        "same-model-summarizer"
+      ]
+    },
+    {
+      "id": "arxiv:2510.06727",
+      "title": "Scaling LLM Multi-turn RL with End-to-end Summarization-based Context Management (SUPO)",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.06727",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "periodic: when |s_t| exceeds summarization threshold L, policy generates summary and state resets to prompt \u2295 summary; max S summarization rounds; overlong trajectories (hit H or S) are masked",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "Summarization-augmented MDP; policy gradient decomposes into summarized sub-trajectories so standard RL infra jointly trains tool-use and summary tokens. Overlong-masking stabilizes training. +3.2 CodeGym / +14.0 BrowseComp-Plus; test-time extra summary rounds add up to +7.0.",
+      "behaviours": [
+        "periodic-threshold-L",
+        "summary-in-policy-gradient",
+        "overlong-mask",
+        "test-time-summary-scaling"
+      ]
+    },
+    {
+      "id": "arxiv:2509.13313",
+      "title": "ReSum: Unlocking Long-Horizon Search Intelligence via Context Summarization",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.13313",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "systematic trigger when conversation approaches the context limit (authors reject autonomous self-trigger as unreliable); WebSailor agents use 32k window; ReSum-GRPO allocates 4k query + 28k response then invokes ReSumTool-30B",
+      "training": "mixed",
+      "compressed_in_loss": "masked",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "Training-free ReSum +4.5 vs ReAct; ReSum-GRPO +8.2 more. ReSumTool-30B is SFT-distilled on \u27e8Conversation,Summary\u27e9 pairs (summaries ARE training targets for the compressor). ReSum-GRPO trains the explorer only: segments at summary points, broadcasts trajectory advantage; observations masked; the summary itself is produced by an external tool and is not a policy action in the explorer loss. Authors explicitly prefer RL over SFT of the explorer on ReSum trajectories.",
+      "behaviours": [
+        "near-window-trigger",
+        "external-summarizer-sft",
+        "explorer-rl-on-segments",
+        "advantage-broadcast",
+        "obs-masked"
+      ]
+    },
+    {
+      "id": "arxiv:2510.24699",
+      "title": "AgentFold: Long-Horizon Web Agents with Proactive Context Management",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.24699",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "agent_tool",
+      "trigger_detail": "every intermediate step emits a folding directive (granular condensation of latest interaction, or deep consolidation of a completed multi-step sub-task) plus a tool call; ~7k tokens after 100 turns",
+      "training": "SFT",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "Fold-Generator + rejection sampling then conventional SFT on {context, gold structured response} including the folding block. No CPT/RL. AgentFold-30B-A3B: 36.2% BrowseComp, 47.3% BrowseComp-ZH. Folding tokens are SFT targets (preferred).",
+      "behaviours": [
+        "per-step-fold-directive",
+        "multi-scale-summaries",
+        "sft-on-folding-block",
+        "rejection-sampling"
+      ]
+    },
+    {
+      "id": "arxiv:2510.12635",
+      "title": "Memory as Action: Autonomous Context Curation for Long-Horizon Agentic Tasks (MemAct)",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.12635",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "agent_tool",
+      "trigger_detail": "policy emits Prune&Write (IDs to delete + synthesized memory note) as an in-place edit whenever it chooses; no external token threshold",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "DCPO splits the trajectory at each memory edit so each segment is optimized against the post-edit context (attention-masking of deleted tokens is rejected because KV still encodes them). Memory-action tokens inherit the trajectory-level GRPO advantage. MemAct-RL-14B matches 16\u00d7 larger models at \u221251% avg context. Authors reject simple attention masking of deleted spans.",
+      "behaviours": [
+        "prune-and-write",
+        "dcpo-segment-at-edits",
+        "memory-action-in-loss",
+        "reject-attention-mask-deletion"
+      ]
+    },
+    {
+      "id": "arxiv:2506.15841",
+      "title": "MEM1: Learning to Synergize Memory and Reasoning for Efficient Long-Horizon Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2506.15841",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "mandatory every turn: emit new <IS> consolidating prior IS+query+info, then prune all previous-turn tags; constant working memory (at most two IS, two queries, one info)",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "PPO/Reinforce++ on a reconstructed masked trajectory: 2D attention mask restores causal deps after per-turn prune; information/env tokens masked from the loss; <IS> consolidation tokens are generated and trained (preferred). No explicit memory-efficiency reward. MEM1-7B: 3.5\u00d7 accuracy / 3.7\u00d7 less memory vs Qwen2.5-14B on 16-objective multi-hop QA.",
+      "behaviours": [
+        "per-turn-mandatory-compact",
+        "internal-state-in-loss",
+        "obs-masked",
+        "attention-mask-for-prune"
+      ]
+    },
+    {
+      "id": "arxiv:2510.00615",
+      "title": "ACON: Optimizing Context Compression for Long-horizon LLM Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.00615",
+      "depth": 0,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "history compression iff |h_t| > T_hist; observation compression iff |o_t| > T_obs; agent weights frozen; compressor prompt optimized from failure analysis",
+      "training": "distill",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "Agent is not trained. Compressor is prompt-optimized then distilled: student CE on (history, compressed-history) or (obs, compressed-obs) from teacher successes \u2014 summary tokens are the distillation targets. Distilled compressor keeps 95% of teacher accuracy. \u221226\u201354% peak tokens; small LMs +20\u201346% by reducing distraction.",
+      "behaviours": [
+        "dual-threshold-hist-and-obs",
+        "guideline-optimization-no-agent-sft",
+        "distill-compressor-ce-on-summaries"
+      ]
+    },
+    {
+      "id": "arxiv:2507.02259",
+      "title": "MemAgent: Reshaping Long-Context LLM with Multi-Conv RL-based Memory Agent",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2507.02259",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "document streamed in fixed chunks (paper: 5000-token chunks + 1024-token memory inside an 8K window); after each chunk the model overwrites the previous memory",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "Multi-Conv DAPO: each chunk-update is an independent conversation; final-answer reward/advantage is broadcast to all preceding memory-overwrite generations. Memory tokens are the trained actions. Extrapolates 8K-trained model to 3.5M QA with <10% drop.",
+      "behaviours": [
+        "chunk-overwrite",
+        "multi-conv-dapo",
+        "memory-tokens-in-loss"
+      ]
+    },
+    {
+      "id": "arxiv:2508.19828",
+      "title": "Memory-R1: Enhancing Large Language Model Agents to Manage and Utilize Memories via Reinforcement Learning",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2508.19828",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "Memory Manager runs ADD/UPDATE/DELETE/NOOP after each dialogue turn on extracted facts; not a token watermark",
+      "training": "RL",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "PPO or GRPO on the manager's operation+content tokens; reward is downstream EM of a frozen Answer Agent. 152 QA pairs. Authors argue SFT is impractical because every memory op would need labels. External-bank memory, not working-context summarization.",
+      "behaviours": [
+        "external-memory-ops-in-loss",
+        "outcome-reward",
+        "sft-impractical-for-ops"
+      ]
+    },
+    {
+      "id": "arxiv:2510.08790",
+      "title": "COMPASS: Enhancing Agent Long-Horizon Reasoning with Evolving Context",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.08790",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "Context Manager synthesizes a progress brief each outer-loop turn; Meta-Thinker decides continue / replan / extract-answer; Main Agent runs a ReAct inner loop on the refreshed brief",
+      "training": "mixed",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "Hierarchical (Main / Meta-Thinker / Context Manager). Post-training pipeline delegates context management to a smaller Context-12B. Up to +20% relative on GAIA / BrowseComp / HLE vs single- and multi-agent baselines. Paper does not isolate whether brief tokens enter a student SFT loss.",
+      "behaviours": [
+        "hierarchical-briefs",
+        "meta-thinker-timing",
+        "distill-context-manager"
+      ]
+    },
+    {
+      "id": "arxiv:2512.02556",
+      "title": "DeepSeek-V3.2: Pushing the Frontier of Open Large Language Models",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2512.02556",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "test-time only: when token usage exceeds 80% of the 128K window, apply Summary (summarize overflowed trajectory and re-initiate), Discard-75%, or Discard-all",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "No compaction-aware training. BrowseComp 51.4 \u2192 67.6 with context management. Thinking-in-tool-use keeps reasoning traces across tool rounds and discards them only on a new user message.",
+      "behaviours": [
+        "80-percent-watermark",
+        "summary-or-discard",
+        "test-time-only"
+      ]
+    },
+    {
+      "id": "arxiv:2602.22603",
+      "title": "SideQuest: Model-Driven KV Cache Management for Long-Horizon Agentic Reasoning",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2602.22603",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "agent_tool",
+      "trigger_detail": "auxiliary parallel task: the LRM reasons about token usefulness and evicts stale KV; management tokens are kept off the main reasoning context",
+      "training": "SFT",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "when",
+        "sft"
+      ],
+      "notes": "215 hindsight-annotated traces teach deletion commands. \u221265% peak tokens on agentic tasks. Complementary to textual summarization: operates on the KV cache.",
+      "behaviours": [
+        "kv-eviction",
+        "hindsight-sft-on-delete-commands",
+        "aux-task"
+      ]
+    },
+    {
+      "id": "arxiv:2510.04618",
+      "title": "Agentic Context Engineering: Evolving Contexts for Self-Improving Language Models (ACE)",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.04618",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "Generator/Reflector/Curator loop incrementally updates a playbook; no intra-episode token watermark",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Cross-task evolving playbook, not intra-trajectory compaction. ACM Table 1 marks ACE Compact=\u2717. Warns against brevity bias and context collapse from iterative rewriting.",
+      "behaviours": [
+        "playbook-curation",
+        "avoid-brevity-bias",
+        "not-intra-episode-compact"
+      ]
+    },
+    {
+      "id": "arxiv:2310.08560",
+      "title": "MemGPT: Towards LLMs as Operating Systems",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.08560",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "agent_tool",
+      "trigger_detail": "OS-style paging: agent functions move content between main context and archival/recall memory when the working window is pressured",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Foundational agent-initiated external-memory design cited by ACM and ACON. Inference-time only; no SFT/RL on compaction turns.",
+      "behaviours": [
+        "os-paging",
+        "external-archival",
+        "agent-functions"
+      ]
+    },
+    {
+      "id": "arxiv:2403.12968",
+      "title": "LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2403.12968",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "not an agent trigger: task-agnostic extractive prompt compression via a distilled token classifier",
+      "training": "distill",
+      "compressed_in_loss": "preferred",
+      "answers": [
+        "sft"
+      ],
+      "notes": "ACON's extractive baseline. Student is trained with CE on keep/drop (or compressed text) labels distilled from GPT-4 \u2014 compressed representation is the training target. Not agent-history compaction.",
+      "behaviours": [
+        "extractive-token-classifier",
+        "distill-compressor"
+      ]
+    },
+    {
+      "id": "arxiv:2509.06501",
+      "title": "WebExplorer: Explore and Evolve for Training Long-Horizon Web Agents",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2509.06501",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "threshold",
+      "trigger_detail": "SelfCompact/MiniMax-M2.5 cite the WebExplorer scaffold: when token usage exceeds 30% of max context, discard all history (Delete-all); 128K window, up to 100 tool turns",
+      "training": "mixed",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "when"
+      ],
+      "notes": "SFT then RL on long-horizon web trajectories. The 30% discard-all recipe is the fixed-interval baseline SelfCompact beats. Paper itself is a web-agent trainer, not a compaction-loss study.",
+      "behaviours": [
+        "30-percent-delete-all",
+        "sft-then-rl-web-agent"
+      ]
+    },
+    {
+      "id": "arxiv:2503.14476",
+      "title": "DAPO: An Open-Source LLM Reinforcement Learning System at Scale",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.14476",
+      "depth": 2,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "RL infrastructure (decoupled clip, dynamic sampling); no agent compaction trigger",
+      "training": "RL",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "MemAgent's Multi-Conv DAPO extends this to treat each memory-overwrite conversation as an optimization unit and broadcast the final reward \u2014 the recipe later reused conceptually by ReSum-GRPO / SUPO segment training.",
+      "behaviours": [
+        "group-rl-infra",
+        "reward-broadcast-template"
+      ]
+    },
+    {
+      "id": "arxiv:2504.19413",
+      "title": "Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2504.19413",
+      "depth": 2,
+      "kind": "paper",
+      "trigger": "semantic",
+      "trigger_detail": "per dialogue turn extract facts then ADD/UPDATE/DELETE/NOOP into an external store (optionally graph memory)",
+      "training": "none",
+      "compressed_in_loss": "none",
+      "answers": [
+        "when"
+      ],
+      "notes": "Heuristic operator set that Memory-R1 later RL-trains. Cross-session memory, not intra-episode working-context compaction. \u221290% token cost vs full-context.",
+      "behaviours": [
+        "external-ops-heuristic",
+        "cross-session"
+      ]
+    },
+    {
+      "id": "arxiv:2402.03300",
+      "title": "DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models (GRPO)",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2402.03300",
+      "depth": 3,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "introduces GRPO; no compaction",
+      "training": "RL",
+      "compressed_in_loss": "unknown",
+      "answers": [
+        "sft"
+      ],
+      "notes": "Base group-relative estimator reused by ReSum-GRPO, FoldGRPO, MemAct DCPO, Memory-R1. CompactionRL argues GRPO is ill-suited once compaction splits a rollout into a variable number of segments that share one reward.",
+      "behaviours": [
+        "grpo",
+        "critic-free-group-norm"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "arxiv:2607.05378",
+      "to": "arxiv:2510.06727",
+      "depth": 1,
+      "why": "CompactionRL Related Work: SUPO jointly RL-trains summarization and tool-use"
+    },
+    {
+      "from": "arxiv:2607.05378",
+      "to": "arxiv:2509.13313",
+      "depth": 1,
+      "why": "CompactionRL Related Work: ReSum periodic external summary + segmented GRPO"
+    },
+    {
+      "from": "arxiv:2607.05378",
+      "to": "arxiv:2510.11967",
+      "depth": 1,
+      "why": "CompactionRL Related Work: Context-Folding branch-and-fold RL"
+    },
+    {
+      "from": "arxiv:2607.05378",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "CompactionRL bibliography cites MEM1 as long-horizon memory RL"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2509.13313",
+      "depth": 1,
+      "why": "ACM Table 1 / \u00a72.1: ReSum as fixed-timing compression"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2510.00615",
+      "depth": 1,
+      "why": "ACM Table 1 / \u00a72.1: ACON compressor + Claude-style auto-compress"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2510.24699",
+      "depth": 1,
+      "why": "ACM Table 1 / \u00a72.1: AgentFold closest agent-initiated prior; data pipeline closed"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2512.02556",
+      "depth": 1,
+      "why": "ACM \u00a72.1: DeepSeek-V3.2 Summary / Discard-75% / Discard-all"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2507.02259",
+      "depth": 1,
+      "why": "ACM \u00a72.1: MemAgent chunk-overwrite memory"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2510.08790",
+      "depth": 1,
+      "why": "ACM \u00a72.1: COMPASS Meta-Thinker + Context Manager"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2602.22603",
+      "depth": 1,
+      "why": "ACM \u00a72.1: SideQuest KV-cache management"
+    },
+    {
+      "from": "arxiv:2607.23809",
+      "to": "arxiv:2510.04618",
+      "depth": 1,
+      "why": "ACM Table 1 / \u00a72.2: ACE evolving playbook (not intra-episode compact)"
+    },
+    {
+      "from": "arxiv:2512.22087",
+      "to": "arxiv:2510.11967",
+      "depth": 1,
+      "why": "CaT positions folding as a callable tool vs threshold-compression OpenHands baseline"
+    },
+    {
+      "from": "arxiv:2606.23525",
+      "to": "arxiv:2509.13313",
+      "depth": 1,
+      "why": "SelfCompact: fixed-interval 30% baseline 'closely resembling Wu et al. 2026a' (ReSum)"
+    },
+    {
+      "from": "arxiv:2606.23525",
+      "to": "arxiv:2509.06501",
+      "depth": 1,
+      "why": "SelfCompact / MiniMax-M2.5: WebExplorer scaffold discards history at 30% of max context"
+    },
+    {
+      "from": "arxiv:2510.06727",
+      "to": "arxiv:2507.02259",
+      "depth": 1,
+      "why": "SUPO \u00a72.3: MemAgent overwrite-memory as a special case of summarization MDP"
+    },
+    {
+      "from": "arxiv:2510.06727",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "SUPO \u00a72.3: MEM1 constant-IS RL; criticizes concat+attention-mask training"
+    },
+    {
+      "from": "arxiv:2510.06727",
+      "to": "arxiv:2508.19828",
+      "depth": 1,
+      "why": "SUPO \u00a72.3: Memory-R1 dual-agent external memory RL"
+    },
+    {
+      "from": "arxiv:2509.13313",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "ReSum intro: MEM1 internal memory tokens break ReAct compatibility"
+    },
+    {
+      "from": "arxiv:2509.13313",
+      "to": "arxiv:2507.02259",
+      "depth": 1,
+      "why": "ReSum intro: MemAgent as architectural memory alternative"
+    },
+    {
+      "from": "arxiv:2510.24699",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "AgentFold Related Work: MEM1 rigid per-step full-history compression"
+    },
+    {
+      "from": "arxiv:2510.24699",
+      "to": "arxiv:2507.02259",
+      "depth": 1,
+      "why": "AgentFold Related Work: MemAgent step-wise overwrite"
+    },
+    {
+      "from": "arxiv:2510.12635",
+      "to": "arxiv:2506.15841",
+      "depth": 1,
+      "why": "MemAct Related Work: RL memory with mandatory per-step compression"
+    },
+    {
+      "from": "arxiv:2510.00615",
+      "to": "arxiv:2509.13313",
+      "depth": 1,
+      "why": "ACON Related Work: ReSum extends horizon via summaries but trains the policy not the compressor"
+    },
+    {
+      "from": "arxiv:2510.00615",
+      "to": "arxiv:2310.08560",
+      "depth": 1,
+      "why": "ACON: dialogue-memory systems (Packer/MemGPT) vs agent state tracking"
+    },
+    {
+      "from": "arxiv:2510.00615",
+      "to": "arxiv:2403.12968",
+      "depth": 1,
+      "why": "ACON experiments: LLMLingua extractive compressor baseline"
+    },
+    {
+      "from": "arxiv:2507.02259",
+      "to": "arxiv:2503.14476",
+      "depth": 2,
+      "why": "MemAgent Multi-Conv DAPO extends Yu et al. DAPO to independent memory-update conversations"
+    },
+    {
+      "from": "arxiv:2508.19828",
+      "to": "arxiv:2504.19413",
+      "depth": 2,
+      "why": "Memory-R1 adopts Mem0 operator set {ADD,UPDATE,DELETE,NOOP} and uses Mem0 as strongest baseline"
+    },
+    {
+      "from": "arxiv:2512.02556",
+      "to": "arxiv:2509.06501",
+      "depth": 2,
+      "why": "DeepSeek-V3.2 search-agent eval uses the same long-horizon web-agent setting WebExplorer popularized"
+    },
+    {
+      "from": "arxiv:2503.14476",
+      "to": "arxiv:2402.03300",
+      "depth": 3,
+      "why": "DAPO is a GRPO-family critic-free group optimizer; CompactionRL later argues this family mis-weights variable compaction segments"
+    }
+  ],
+  "gaps": [
+    "No standalone paper on harness-controlled triggering + SFT-only continuation (the DSM-AE slice). Closest: CompactionRL (harness+RL), CaT/AgentFold (SFT but agent-initiated tool), ACM (distill, agent-initiated).",
+    "CaT PDF does not state whether injected context-management Action tokens vs only subsequent ReAct tokens receive SFT loss; inferred preferred because the stated goal is to learn when/how to invoke the tool.",
+    "SUPO PDF states threshold L and overlong mask but does not publish a numeric L in the extracted pages (only the formal |s_t|>L rule).",
+    "ACON does not publish numeric T_hist / T_obs in the extracted methods; only the iff-exceeds-threshold rule.",
+    "Context-Folding PDF bibliography numbering [1,19,24,34,38,43] for 'summary-based methods' was not resolved to arXiv IDs without inventing citations.",
+    "SelfCompact cites Cursor Research et al. 2026 and Anthropic /compact as industrial fixed-interval / manual triggers; those are product sources, not expanded here.",
+    "ACM comparison numbers ReSum-style 0.475 / ACON-style 0.480 vs ReAct 0.489 are ACM's reimplementation on Qwen3.5-9B, not the original papers' headline scores."
+  ],
+  "answers": {
+    "when": [
+      "Harness-controlled reserve: CompactionRL fires when remaining budget < 10,240 tokens, keeps last k=2 atomic (a,o) steps, caps 3 compactions; B_active is 64k/80k not the physical window. (arxiv:2607.05378)",
+      "Near-window / percent watermarks: ReSum at approaching the context limit (32k WebSailor); DeepSeek-V3.2 at 80% of 128K (Summary / Discard-75% / Discard-all); MiniMax-M2.5/WebExplorer Delete-all at 30%; ACM's Summary-Agent figure uses ~90%. (arxiv:2509.13313, arxiv:2512.02556, arxiv:2509.06501, arxiv:2607.23809)",
+      "Periodic length threshold L: SUPO resets to prompt\u2295summary whenever |s_t|>L, with a max summarization-round cap S. (arxiv:2510.06727)",
+      "Dual compressor thresholds: ACON history iff |h|>T_hist and observation iff |o|>T_obs; agent never chooses the moment. (arxiv:2510.00615)",
+      "Semantic / rubric: SelfCompact fires after a resolved sub-task or converging trajectory and suppresses mid-derivation or when stuck; rubric ablation 46.4\u219241.0. (arxiv:2606.23525)",
+      "Agent tool at milestones: CaT injects at subtask completion / strategy switch / milestones; AgentFold folds every step (granular vs deep); Context-Folding folds on branch completion; ACM manage_context on redundant queries / loops / sufficient context \u2014 and teacher also teaches when NOT to compact. (arxiv:2512.22087, arxiv:2510.24699, arxiv:2510.11967, arxiv:2607.23809)",
+      "Mandatory every turn: MEM1 overwrites <IS> and prunes the previous turn; MemAgent overwrites a fixed memory after every document chunk. (arxiv:2506.15841, arxiv:2507.02259)",
+      "Strong teachers do not compact voluntarily: ACM observes GPT-5.5 almost never calls manage_context / query_memory, so compaction trajectories must be constructed. (arxiv:2607.23809)"
+    ],
+    "sft": [
+      "Load-bearing CompactionRL ablation: exposing the policy to compacted histories while MASKING summary-response turns (w/o-summary-training) recovers most of the compacted-inference gain (30B 50.5\u219254.5 of 56.0; 106B 59.8\u219264.5 of 66.8); putting summary tokens in the PPO loss adds the remaining +1.5/+2.3. (arxiv:2607.05378)",
+      "SFT papers put compaction/fold turns IN the loss as targets: CaT SFT on injected context-management Actions (rejection-sampled CaT-Instruct); AgentFold SFT on the folding directive block; SideQuest SFT on hindsight deletion commands (215 traces). (arxiv:2512.22087, arxiv:2510.24699, arxiv:2602.22603)",
+      "ACM on-policy distillation prefers assistant tokens including manage_context (top-K=20 teacher soft labels) and masks system/user/tool-output; student is then re-rolled from the teacher-edited turn (do not reuse the original suffix). (arxiv:2607.23809)",
+      "RL explorer vs SFT compressor split: ReSum SFT-distills ReSumTool on \u27e8Conversation,Summary\u27e9 (summaries preferred for the compressor) but ReSum-GRPO trains only the explorer on post-summary segments with observations masked and the summary produced off-policy by the external tool; authors warn explorer SFT on ReSum trajs risks overwriting skills. (arxiv:2509.13313)",
+      "Joint RL treats summary/fold/memory-edit tokens as policy actions (preferred): SUPO, FoldGRPO, MemAct DCPO, MEM1 <IS>, MemAgent overwrite, Memory-R1 ops. CompactionRL argues GRPO-style group-norm mis-weights variable segment counts, hence PPO + token-level loss + cross-trajectory GAE. (arxiv:2510.06727, arxiv:2510.11967, arxiv:2510.12635, arxiv:2506.15841, arxiv:2507.02259, arxiv:2508.19828, arxiv:2607.05378)",
+      "Do not attention-mask deleted history in place: MemAct shows deleted tokens already sit in later KVs, so DCPO physically resegments; MEM1 instead rebuilds a 2D attention mask over a concatenated trajectory \u2014 SUPO says that still cannot train beyond the reliable window. (arxiv:2510.12635, arxiv:2506.15841, arxiv:2510.06727)",
+      "Compressor-only distillation (agent frozen): ACON CE-distills (raw hist/obs \u2192 compressed text) and keeps 95% of teacher accuracy; LLMLingua-2 is the extractive analogue. (arxiv:2510.00615, arxiv:2403.12968)",
+      "Mismatch is real: no-compaction RL can hurt compacted inference (CompactionRL 30B 50.5\u219248.0); CompactionRL gains do not transfer to single-window eval. Mix compacted and ordinary trajectories. (arxiv:2607.05378)"
+    ]
+  }
+}

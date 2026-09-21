@@ -1,0 +1,893 @@
+{
+  "section": "sft-industry",
+  "agent": "compaction-sft-industry",
+  "as_of": "2026-09-01",
+  "nodes": [
+    {
+      "id": "github:hiyouga/LLaMA-Factory",
+      "title": "LLaMA-Factory / LlamaFactory",
+      "year": 2025,
+      "url": "https://github.com/hiyouga/LLaMA-Factory",
+      "depth": 0,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "No compaction/summarization trigger; SFT trainer only.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": ["sft"],
+      "notes": "Default DataArguments: train_on_prompt=False, mask_history=False (src/llamafactory/hparams/data_args.py). SupervisedDatasetProcessor._encode_data_example (src/llamafactory/data/processor/supervised.py) sets source_label=IGNORE_INDEX unless train_on_prompt, and target_label=target_ids unless mask_history and turn_idx!=0. Default therefore trains every assistant/function turn and masks user/observation/system. No filter drops 'summary' or compact messages. A compacted span is trained iff it is encoded as an even-position gpt/function turn; if it is human/observation/system it is context-only. mask_history=True would mask earlier assistant turns (including a mid-traj compact) and keep only the last turn.",
+      "behaviours": [
+        "train_on_prompt=false_default",
+        "mask_history=false_default",
+        "all_assistant_function_turns_in_loss",
+        "user_observation_system_masked",
+        "no_summary_role_filter",
+        "sharegpt_odd_even_roles",
+        "neat_packing_optional"
+      ]
+    },
+    {
+      "id": "github:OpenAccess-AI-Collective/axolotl",
+      "title": "Axolotl (now axolotl-ai-cloud/axolotl)",
+      "year": 2025,
+      "url": "https://github.com/axolotl-ai-cloud/axolotl",
+      "depth": 0,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "No compaction trigger; conversation masking only.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": ["sft"],
+      "notes": "Repo moved from OpenAccess-AI-Collective/axolotl to axolotl-ai-cloud/axolotl. Default chat_template path: roles_to_train=['assistant'], train_on_eos='turn', train_on_inputs:false. Tool/user/system spans are masked; assistant (and optionally narrator) unmasked. Fine-grained message_field_training / train_detail / content-part train flags can mask a summary turn if the dataset author tags it. No built-in 'compact' or 'summary' drop filter.",
+      "behaviours": [
+        "roles_to_train_assistant",
+        "train_on_eos_turn_default",
+        "train_on_inputs_false",
+        "per_message_train_flag",
+        "content_part_masking",
+        "no_summary_role_filter"
+      ]
+    },
+    {
+      "id": "github:unslothai/unsloth",
+      "title": "Unsloth",
+      "year": 2025,
+      "url": "https://github.com/unslothai/unsloth",
+      "depth": 0,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "No compaction trigger; optional response-only mask.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": ["sft"],
+      "notes": "SFT via TRL SFTTrainer. Optional unsloth.chat_templates.train_on_responses_only (implemented in unsloth_zoo/dataset_utils.py:train_on_responses_only) string-matches instruction_part vs response_part and sets labels=-100 on instruction spans, including everything before the first response_part (system). Without that wrapper, conversational LM datasets train the full sequence. No compact/summary filter.",
+      "behaviours": [
+        "train_on_responses_only_optional",
+        "inherits_trl_collator",
+        "system_masked_before_first_response",
+        "no_summary_role_filter"
+      ]
+    },
+    {
+      "id": "github:huggingface/trl",
+      "title": "Hugging Face TRL SFTTrainer",
+      "year": 2026,
+      "url": "https://huggingface.co/docs/trl/sft_trainer",
+      "depth": 0,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "No compaction trigger.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": ["sft"],
+      "notes": "SFTConfig.assistant_only_loss defaults False (full-sequence loss on conversational language-modeling datasets). assistant_only_loss=True requires {% generation %}/{% endgeneration %} in the chat template and then ignores user/system. completion_only_loss defaults True only for prompt-completion datasets, None otherwise. Tool-calling SFT keeps tool role messages as context and trains assistant tool_calls. No compact/summary message type.",
+      "behaviours": [
+        "assistant_only_loss_default_false",
+        "completion_only_loss_prompt_completion",
+        "generation_jinja_masks",
+        "tool_role_as_context",
+        "no_summary_role_filter"
+      ]
+    },
+    {
+      "id": "github:NVIDIA-NeMo/Nemotron",
+      "title": "NVIDIA NeMo / Megatron-Bridge / Nemotron SFT",
+      "year": 2025,
+      "url": "https://github.com/NVIDIA-NeMo/Nemotron",
+      "depth": 0,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "No compaction trigger; role-based loss_mask only.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": ["sft"],
+      "notes": "Megatron-Bridge create_sft_dataset / GPTSFTDataset default answer_only_loss=True. Nemotron Super3/Nano3 Stage-1 SFT (docs/nemotron/super3/sft.md; src/nemotron/recipes/*/stage1_sft/data_prep.py) builds loss_mask=1 on assistant tokens and 0 on system/user, then packs. Tool-result roles are not a special 'summary' class; they follow the role table (non-assistant = 0).",
+      "behaviours": [
+        "answer_only_loss_true",
+        "role_loss_mask_assistant_1",
+        "system_user_mask_0",
+        "offline_packing_npy"
+      ]
+    },
+    {
+      "id": "url:developers.openai.com/api/docs/guides/supervised-fine-tuning",
+      "title": "OpenAI supervised fine-tuning docs",
+      "year": 2026,
+      "url": "https://developers.openai.com/api/docs/guides/supervised-fine-tuning",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "none",
+      "trigger_detail": "SFT docs do not mention compacted sessions. Compaction is a separate Responses-API inference feature.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": ["sft"],
+      "notes": "JSONL chat format. Default: train on all assistant messages in an example. Optional assistant weight 0|1 disables loss on specific assistant turns (fine-tuning-best-practices). User/system/tool messages are context. Tool-call SFT trains assistant tool_calls and later assistant interpretations of tool output. No mention of compact/summary turns. Platform being wound down for new users as of the fetched page.",
+      "behaviours": [
+        "train_all_assistant_by_default",
+        "assistant_weight_0_1",
+        "tool_calls_as_labels",
+        "no_compacted_session_docs"
+      ]
+    },
+    {
+      "id": "url:docs.aws.amazon.com/bedrock/latest/userguide/preparing-text-data.html",
+      "title": "Amazon Bedrock / Anthropic Claude 3 Haiku fine-tune data format",
+      "year": 2026,
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/preparing-text-data.html",
+      "depth": 0,
+      "kind": "product",
+      "trigger": "none",
+      "trigger_detail": "No compaction mention in FT data prep.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": ["sft"],
+      "notes": "Anthropic has no first-party public SFT API for Claude 4.x as of this scan. Only Claude 3 Haiku is listed for Bedrock fine-tuning. Data is alternating user/assistant messages plus optional system; assistant contents are the expected generated text. Docs do not say whether every assistant turn or only the last is in the loss, and do not mention compacted sessions.",
+      "behaviours": [
+        "haiku_only_public_ft",
+        "alternating_user_assistant",
+        "no_compacted_session_docs"
+      ]
+    },
+    {
+      "id": "url:github.com/hiyouga/LlamaFactory/blob/main/data/README.md",
+      "title": "LlamaFactory data/README.md (alpaca + sharegpt + tool roles)",
+      "year": 2025,
+      "url": "https://github.com/hiyouga/LlamaFactory/blob/main/data/README.md",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Format contract only.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": ["sft"],
+      "notes": "Alpaca: history prompt-response pairs 'will also be learned by the model'. ShareGPT: human and observation must occupy odd positions; gpt and function even positions; 'The gpt and function will be learned by the model.' System is a side column / first system_tag, not a trained turn. No 'summary' role. A /compact summary stored as human/observation is therefore context; stored as gpt/function it is a label.",
+      "behaviours": [
+        "history_responses_learned",
+        "gpt_function_learned",
+        "human_observation_prompt",
+        "odd_even_position_rule"
+      ]
+    },
+    {
+      "id": "url:github.com/hiyouga/LlamaFactory/blob/main/src/llamafactory/data/processor/supervised.py",
+      "title": "LlamaFactory SupervisedDatasetProcessor._encode_data_example",
+      "year": 2025,
+      "url": "https://github.com/hiyouga/LlamaFactory/blob/main/src/llamafactory/data/processor/supervised.py",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Token-level IGNORE_INDEX masking.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": ["sft"],
+      "notes": "Comment: 'for multiturn examples, we only mask the prompt part in each prompt-response pair.' encode_multiturn pairs messages 0-1, 2-3, ... so observation (odd) is source and function/assistant (even) is target. train_on_prompt copies source_ids into labels; else IGNORE_INDEX. mask_history reverses pairs (keep last turn under cutoff_len) and IGNORE_INDEX on all but the first reversed pair. PackedSupervisedDatasetProcessor drops examples with length>cutoff_len. Invalid examples (odd prompt length or response!=1) are dropped with 'Dropped invalid example'.",
+      "behaviours": [
+        "IGNORE_INDEX_on_source",
+        "pair_even_targets",
+        "mask_history_reverse_last_turn",
+        "drop_invalid_and_overlong"
+      ]
+    },
+    {
+      "id": "url:llamafactory.readthedocs.io/en/latest/advanced/arguments.html",
+      "title": "LlamaFactory arguments reference",
+      "year": 2026,
+      "url": "https://llamafactory.readthedocs.io/en/latest/advanced/arguments.html",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Documented defaults.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": ["sft"],
+      "notes": "train_on_prompt default False ('Whether to train on input prompts'). mask_history default False ('Whether to train only on the current dialogue turn'). packing default None (on in PT). neat_packing default False ('sequence packing without using cross-attention'). tool_format optional. DataArguments.__post_init__ raises if mask_history and train_on_prompt are both set.",
+      "behaviours": [
+        "documented_defaults",
+        "mask_history_incompatible_train_on_prompt",
+        "neat_packing_implies_packing"
+      ]
+    },
+    {
+      "id": "url:github.com/hiyouga/LlamaFactory/blob/main/src/llamafactory/data/converter.py",
+      "title": "LlamaFactory SharegptDatasetConverter / OpenAIDatasetConverter",
+      "year": 2025,
+      "url": "https://github.com/hiyouga/LlamaFactory/blob/main/src/llamafactory/data/converter.py",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Role alignment; broken rows skipped.",
+      "training": "SFT",
+      "compressed_in_loss": "discarded",
+      "answers": ["sft"],
+      "notes": "SharegptDatasetConverter maps user/assistant/observation/function/system tags (data_utils.Role). Odd tags = user+observation, even = assistant+function. Wrong tag at a position or odd message count → 'Skipping this abnormal example' and empty prompt/response (row discarded). OpenAIDatasetConverter folds tool_calls into function JSON and concatenates consecutive tool/observation messages. A compact summary with a non-standard role (e.g. 'summary') is not in tag_mapping and would break the row.",
+      "behaviours": [
+        "skip_abnormal_example",
+        "observation_odd_prompt",
+        "function_even_label",
+        "unknown_role_drops_row"
+      ]
+    },
+    {
+      "id": "github:hiyouga/LlamaFactory/pull/9630",
+      "title": "PR #9630 loss_mask for per-turn IGNORE_INDEX (not in fetched main)",
+      "year": 2025,
+      "url": "https://github.com/hiyouga/LlamaFactory/pull/9630",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Proposed dataset field, not a runtime compact trigger.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": ["sft"],
+      "notes": "Opened Dec 2025 by CjangCjengh. Adds dataset loss_mask list aligned to messages; assistant turns with 0 are set to IGNORE_INDEX. Stated use: 'low-quality responses or context-only turns'. hiyouga LGTM 2025-12-18. Fetched main supervised.py (2026-09-01) does not contain loss_mask — treat as unmerged/not-in-main. Would be the first official way to mask a compact-summary assistant turn without mask_history.",
+      "behaviours": [
+        "proposed_loss_mask",
+        "context_only_turns",
+        "not_in_main_as_of_fetch"
+      ]
+    },
+    {
+      "id": "github:hiyouga/LlamaFactory/issues/8496",
+      "title": "Issue #8496 history thinking tokens still trained",
+      "year": 2025,
+      "url": "https://github.com/hiyouga/LlamaFactory/issues/8496",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "History CoT masking, not compaction.",
+      "training": "SFT",
+      "compressed_in_loss": "kept_as_context",
+      "answers": ["sft"],
+      "notes": "User reports that even when history thinking is stripped (DeepSeek-style), remaining history assistant text is still in the loss. Confirms default = train all historical assistant turns. Related DataArguments.preserve_thinking / mask_history + template.preserve_thinking. No compact/summary discussion.",
+      "behaviours": [
+        "history_assistant_in_default_loss",
+        "thinking_history_confusion"
+      ]
+    },
+    {
+      "id": "github:hiyouga/LlamaFactory/discussions/8838",
+      "title": "Discussion #8838 mask_history for 'predict current step only'",
+      "year": 2025,
+      "url": "https://github.com/hiyouga/LlamaFactory/discussions/8838",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Maintainer points at --mask_history True.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": ["sft"],
+      "notes": "Multimodal multi-step dataset; author wants only the current-step answer trained. Maintainer hiyouga reply: '--mask_history True'. This is the documented last-turn-only path. Earlier compact/summary assistant turns would then be context, not labels.",
+      "behaviours": [
+        "mask_history_last_turn_only",
+        "maintainer_recommended"
+      ]
+    },
+    {
+      "id": "url:docs.axolotl.ai/docs/dataset-formats/conversation.html",
+      "title": "Axolotl conversation / chat_template masking",
+      "year": 2026,
+      "url": "https://docs.axolotl.ai/docs/dataset-formats/conversation.html",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Role and per-part masks.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": ["sft"],
+      "notes": "roles_to_train:['assistant'] is the documented default for training all assistant messages. train_on_eos: turn|all|last. message_field_training / train_detail / content-part train|weight let a dataset mark a compact summary train:false while leaving later assistant turns trainable. Tool answers expected as role tool/ipython depending on template. No automatic drop of short/system/summary turns.",
+      "behaviours": [
+        "roles_to_train",
+        "train_on_eos_last_optional",
+        "message_field_training",
+        "content_part_weight"
+      ]
+    },
+    {
+      "id": "url:docs.axolotl.ai/docs/config-reference.html",
+      "title": "Axolotl config reference (roles, train_on_eos)",
+      "year": 2026,
+      "url": "https://docs.axolotl.ai/docs/config-reference.html",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "YAML surface.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": ["sft"],
+      "notes": "Default roles map: user:[human,user], assistant:[gpt,assistant], system:[system], tool:[tool]. train_on_eos default 'turn'. Optional drop_system. No compact/summary key.",
+      "behaviours": [
+        "default_role_map_includes_tool",
+        "drop_system_optional"
+      ]
+    },
+    {
+      "id": "url:hamel.dev/notes/llm/finetuning/template_free.html",
+      "title": "Hamel Husain: Axolotl train_on_inputs / template-free",
+      "year": 2024,
+      "url": "https://hamel.dev/notes/llm/finetuning/template_free.html",
+      "depth": 1,
+      "kind": "blog",
+      "trigger": "none",
+      "trigger_detail": "Masking tutorial.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": ["sft"],
+      "notes": "Documents train_on_inputs:false as 'one of the most popular features of axolotl': mask human/input, train outputs. type:input_output with per-segment label:true/false is the escape hatch to treat a compact summary as unlabeled context while training later tokens.",
+      "behaviours": [
+        "train_on_inputs_false",
+        "input_output_segment_labels"
+      ]
+    },
+    {
+      "id": "github:axolotl-ai-cloud/axolotl/pull/3625",
+      "title": "Axolotl PR #3625 multimodal assistant-only masking",
+      "year": 2026,
+      "url": "https://github.com/axolotl-ai-cloud/axolotl/pull/3625",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Fixes silent full-sequence SFT on VLMs.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": ["sft"],
+      "notes": "Apr 2026: VLM path had ignored train_on_inputs / roles_to_train / train_on_eos, training system+user+assistant. After the PR, role_boundaries scanner honors assistant-only and train_on_eos including 'last'. Confirms intended industry default is assistant-only, not full transcript.",
+      "behaviours": [
+        "fix_silent_full_sequence",
+        "train_on_eos_last",
+        "role_boundaries"
+      ]
+    },
+    {
+      "id": "url:github.com/unslothai/unsloth-zoo/blob/main/unsloth_zoo/dataset_utils.py",
+      "title": "unsloth_zoo.dataset_utils.train_on_responses_only",
+      "year": 2025,
+      "url": "https://github.com/unslothai/unsloth-zoo/blob/main/unsloth_zoo/dataset_utils.py",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Post-hoc label rewrite.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": ["sft"],
+      "notes": "Function train_on_responses_only(trainer, instruction_part=None, response_part=None, force_match=True) walks input_ids, finds response_part then next instruction_part, and unmasks only the assistant span. Masks system+user (everything before first response_part). get_chat_template_parts can auto-detect markers. A compact summary inside an assistant span is trained; one inside a user/system span is not.",
+      "behaviours": [
+        "string_match_response_spans",
+        "mask_before_first_response",
+        "all_assistant_spans_unmasked"
+      ]
+    },
+    {
+      "id": "github:unslothai/unsloth/issues/1262",
+      "title": "Unsloth issue #1262 train_on_responses_only mismatch",
+      "year": 2024,
+      "url": "https://github.com/unslothai/unsloth/issues/1262",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Marker mismatch can zero the loss.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": ["sft"],
+      "notes": "Wrong instruction_part/response_part for Mistral masked both user and assistant. Related #2900 raises ZeroDivisionError if all labels are -100. Shows response-only masking is opt-in and brittle — not a data-quality filter for summaries.",
+      "behaviours": [
+        "opt_in_mask_brittle",
+        "all_minus100_raises"
+      ]
+    },
+    {
+      "id": "url:huggingface.co/docs/trl/v1.12.0/en/sft_trainer",
+      "title": "TRL SFTTrainer v1.12.0 — assistant_only_loss / completion_only_loss",
+      "year": 2026,
+      "url": "https://huggingface.co/docs/trl/v1.12.0/en/sft_trainer",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Documented loss switches.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": ["sft"],
+      "notes": "Default conversational path: loss on the full sequence (padding -100 only) unless assistant_only_loss=True. Prompt-completion: completion_only_loss True by default. Tool Calling with SFT: messages include tool_calls and tool role; tools column is schema context. Compacted text has no special column.",
+      "behaviours": [
+        "full_sequence_default_conversational",
+        "assistant_only_opt_in",
+        "tool_calling_dataset_format"
+      ]
+    },
+    {
+      "id": "url:docs.nvidia.com/nemo/megatron-bridge/0.1.0/apidocs/bridge/bridge.data.datasets.sft.html",
+      "title": "Megatron-Bridge GPTSFTDataset answer_only_loss",
+      "year": 2025,
+      "url": "https://docs.nvidia.com/nemo/megatron-bridge/0.1.0/apidocs/bridge/bridge.data.datasets.sft.html",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "answer_only_loss=True default.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": ["sft"],
+      "notes": "create_sft_dataset(..., answer_only_loss: bool = True). GPTSFTDataset docstring: if True, compute loss only on the answer part. chat=True selects GPTSFTChatDataset. Packed .npy path via prepare_packed_ft_dataset.py. No summary-specific mask.",
+      "behaviours": [
+        "answer_only_loss_true",
+        "GPTSFTChatDataset",
+        "packed_npy"
+      ]
+    },
+    {
+      "id": "url:github.com/NVIDIA-NeMo/Nemotron/blob/main/docs/nemotron/super3/sft.md",
+      "title": "Nemotron Super3 two-stage SFT loss mask",
+      "year": 2025,
+      "url": "https://github.com/NVIDIA-NeMo/Nemotron/blob/main/docs/nemotron/super3/sft.md",
+      "depth": 1,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Role table only.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": ["sft"],
+      "notes": "Pipeline: OpenAI chat format → chat template → role-labeled chunks → tokenize → loss_mask 1 for assistant / 0 for system/user → pack 4096. 'In SFT, we only want the model to learn to generate responses—not to predict prompts or system instructions.' A harness compact injected as user/system is therefore masked; as assistant it is preferred.",
+      "behaviours": [
+        "role_table_system0_user0_assistant1",
+        "pack_size_4096"
+      ]
+    },
+    {
+      "id": "url:developers.openai.com/api/docs/guides/fine-tuning-best-practices",
+      "title": "OpenAI fine-tuning best practices (weight)",
+      "year": 2026,
+      "url": "https://developers.openai.com/api/docs/guides/fine-tuning-best-practices",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "none",
+      "trigger_detail": "Per-assistant weight, not compaction.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": ["sft"],
+      "notes": "Multi-turn chat: include multiple user/assistant messages. 'Use the optional weight key (value set to either 0 or 1) to disable fine-tuning on specific assistant messages.' Examples set early assistant turns weight:0 and the last weight:1 — last-turn-only, user-controlled. Quality filter is human scrutiny / balance / no missing context, not dropping summaries. Examples longer than model example context (65,536 for gpt-4.1/4o) are truncated from the end.",
+      "behaviours": [
+        "weight_0_disables_assistant_turn",
+        "default_all_assistant",
+        "truncate_from_end"
+      ]
+    },
+    {
+      "id": "url:developers.openai.com/api/docs/guides/compaction",
+      "title": "OpenAI Responses API compaction (inference, not SFT)",
+      "year": 2026,
+      "url": "https://developers.openai.com/api/docs/guides/compaction",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "threshold",
+      "trigger_detail": "context_management compact_threshold; example 200_000 tokens.",
+      "training": "none",
+      "compressed_in_loss": "unknown",
+      "answers": ["sft"],
+      "notes": "Server-side compaction for long Responses conversations. Emits an opaque encrypted compaction item, not a human summary. Docs never connect this item to the fine-tuning JSONL format. ZDR-friendly with store=false. Not a training-data recipe.",
+      "behaviours": [
+        "inference_only",
+        "opaque_compaction_item",
+        "not_in_sft_schema"
+      ]
+    },
+    {
+      "id": "url:learn.microsoft.com/en-us/azure/foundry/openai/how-to/fine-tuning-functions",
+      "title": "Azure OpenAI function-calling fine-tune format",
+      "year": 2026,
+      "url": "https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/fine-tuning-functions",
+      "depth": 1,
+      "kind": "product",
+      "trigger": "none",
+      "trigger_detail": "Tool-call SFT schema.",
+      "training": "SFT",
+      "compressed_in_loss": "kept_as_context",
+      "answers": ["sft"],
+      "notes": "Assistant tool_calls are training targets. Subsequent role=tool messages plus a following assistant utterance teach the model to interpret tool output. Tool payloads themselves are not described as labels. A compact summary in a tool or user message would be context.",
+      "behaviours": [
+        "tool_calls_are_labels",
+        "tool_role_is_context"
+      ]
+    },
+    {
+      "id": "arxiv:2412.21139",
+      "title": "SWE-Gym: Training Software Engineering Agents and Verifiers",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.21139",
+      "depth": 1,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "Offline rejection sampling of successful OpenHands rollouts.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": ["sft"],
+      "notes": "491 successful OpenHands trajectories from gpt-4o and Claude 3.5 Sonnet; ~19 turns / ~19k tokens. Filter is resolved/success, not compact-summary quality. Later keep trajectories within 32k for verifier SFT. HuggingFace SWE-Gym/OpenHands-SFT-Trajectories stores full messages lists. No /compact handling.",
+      "behaviours": [
+        "rejection_sample_success",
+        "keep_full_trajectory",
+        "no_compact_filter"
+      ]
+    },
+    {
+      "id": "url:nebius.com/blog/posts/openhands-trajectories-with-qwen3-coder-480b",
+      "title": "Nebius SWE-rebench OpenHands trajectories + RFT",
+      "year": 2025,
+      "url": "https://nebius.com/blog/posts/openhands-trajectories-with-qwen3-coder-480b",
+      "depth": 1,
+      "kind": "blog",
+      "trigger": "none",
+      "trigger_detail": "Filter resolved=true; no compact step.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": ["sft"],
+      "notes": "67,074 OpenHands v0.54.0 trajectories; 32,161 successful. RFT uses exclusively resolved=true. Average 64.3 turns, max 100, seq 131,072. Community r/LocalLLaMA 1puxedb. Dataset messages are system/assistant/user/tool — no summary role. Filter is success, not dropping compact spans.",
+      "behaviours": [
+        "resolved_true_only",
+        "full_tool_trajectory",
+        "no_compact_role"
+      ]
+    },
+    {
+      "id": "url:www.llms.blog/posts/sequence-packing-and-loss-masking-in-production-sft-architecture-trade-offs-and-framework-implementations",
+      "title": "Sequence Packing and Loss Masking in Production SFT (llms.blog)",
+      "year": 2026,
+      "url": "https://www.llms.blog/posts/sequence-packing-and-loss-masking-in-production-sft-architecture-trade-offs-and-framework-implementations",
+      "depth": 2,
+      "kind": "blog",
+      "trigger": "none",
+      "trigger_detail": "Survey of trainer masks.",
+      "training": "SFT",
+      "compressed_in_loss": "mixed",
+      "answers": ["sft"],
+      "notes": "2026-08-24 survey of TRL, Axolotl, LLaMA-Factory, Unsloth, NeMo. Three policies: (1) all assistant turns — Axolotl roles_to_train / NeMo / TRL if split; (2) last turn only — LLaMA-Factory mask_history=true, Axolotl train_on_eos:last; (3) weighted mixing — no native YAML. Open gap: 'Tool-call masking — environment-provided tool results should be masked like user turns, but only Axolotl's content-parts format handles this explicitly.' No framework names compacted agent summaries.",
+      "behaviours": [
+        "three_multiturn_policies",
+        "tool_results_should_be_masked",
+        "no_weighted_native"
+      ]
+    },
+    {
+      "id": "url:sebastianraschka.com/faq/docs/when-mask-prompt-tokens.html",
+      "title": "Raschka: When to mask prompt tokens during SFT",
+      "year": 2026,
+      "url": "https://sebastianraschka.com/faq/docs/when-mask-prompt-tokens.html",
+      "depth": 2,
+      "kind": "blog",
+      "trigger": "none",
+      "trigger_detail": "Loss-mask semantics.",
+      "training": "SFT",
+      "compressed_in_loss": "masked",
+      "answers": ["sft"],
+      "notes": "Mask prompt tokens when the objective is p(response|prompt). IGNORE_INDEX/-100 excludes targets but keeps tokens as context. A compact summary in the prompt region is therefore kept_as_context, not discarded and not a label, unless the practitioner puts it in the response span.",
+      "behaviours": [
+        "ignore_index_not_deletion",
+        "prompt_is_context"
+      ]
+    },
+    {
+      "id": "url:art.openpipe.ai/features/additional-histories",
+      "title": "OpenPipe ART additional_histories (compaction + subagents)",
+      "year": 2026,
+      "url": "https://art.openpipe.ai/features/additional-histories",
+      "depth": 2,
+      "kind": "trainer",
+      "trigger": "unknown",
+      "trigger_detail": "Documents agents that 'compact their message history periodically'; no numeric trigger.",
+      "training": "mixed",
+      "compressed_in_loss": "preferred",
+      "answers": ["sft"],
+      "notes": "Only industry trainer docs found that name compaction in the training schema. Trajectory.messages_and_choices is the live window; additional_histories hold pre-compaction (or sub-agent) conversations. Tokenization: main history first, then each extra history independently; 'training weight is distributed across all tokenized results'. Example puts 'Compacted conversation history: ...' as a user message in an extra History — that user text is context; assistant turns in both histories are trained. Pre-compact raw turns are kept as extra labeled trajectories, not discarded.",
+      "behaviours": [
+        "additional_histories",
+        "precompact_kept_as_extra_traj",
+        "summary_as_user_context",
+        "weight_split_across_histories"
+      ]
+    },
+    {
+      "id": "huggingface:open-thoughts/OpenThoughts-Agent-SFT-100K",
+      "title": "OpenThoughts-Agent-SFT-100K filter",
+      "year": 2026,
+      "url": "https://huggingface.co/datasets/open-thoughts/OpenThoughts-Agent-SFT-100K",
+      "depth": 2,
+      "kind": "blog",
+      "trigger": "none",
+      "trigger_detail": "Quality filter: ≥5 model turns.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": ["sft"],
+      "notes": "100k (task, trajectory) pairs from GLM-4.7-AWQ in terminus-2. 'filtered to traces with at least 5 model turns.' Filter is length/turn-count, not compact-summary content. conversations stored as role/content. No mention of dropping summaries.",
+      "behaviours": [
+        "min_5_model_turns",
+        "keep_full_conversations"
+      ]
+    },
+    {
+      "id": "arxiv:2606.16038",
+      "title": "Open-SWE-Traces distillation / pruning",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2606.16038",
+      "depth": 2,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "Behavioral pruning of loops/hallucinations, not compact spans.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": ["sft"],
+      "notes": "207,489 OpenHands + SWE-agent trajectories. Stage-2 pruning removes suboptimal/hallucinatory patterns. Ablation: full corpus (including unresolved) beats resolved-only. No statement that compact/summary turns are preferred or dropped. Downstream SFT is standard next-token on the kept messages.",
+      "behaviours": [
+        "prune_loops_not_summaries",
+        "unresolved_kept_helps"
+      ]
+    },
+    {
+      "id": "url:huggingface.co/blog/packing-with-FA2",
+      "title": "HF blog: packing with Flash Attention 2",
+      "year": 2024,
+      "url": "https://huggingface.co/blog/packing-with-FA2",
+      "depth": 3,
+      "kind": "blog",
+      "trigger": "none",
+      "trigger_detail": "Packing attention isolation.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": ["sft"],
+      "notes": "Cited by the 2026 packing survey and by LlamaFactory neat_packing lineage. Packing concatenates examples; it does not rewrite or drop compact turns. Loss still depends on the upstream label mask.",
+      "behaviours": [
+        "packing_not_a_data_filter"
+      ]
+    },
+    {
+      "id": "url:github.com/MeetKai/functionary/tree/main/functionary/train/packing",
+      "title": "MeetKai functionary contamination-free packing (neat_packing origin)",
+      "year": 2024,
+      "url": "https://github.com/MeetKai/functionary/tree/main/functionary/train/packing",
+      "depth": 3,
+      "kind": "trainer",
+      "trigger": "none",
+      "trigger_detail": "Attention isolation for packed SFT.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": ["sft"],
+      "notes": "LlamaFactory changelog 24/07/04: neat_packing:true activates this packing. Prevents cross-example attention. Irrelevant to whether a compact summary is a label.",
+      "behaviours": [
+        "neat_packing_attention_isolation"
+      ]
+    },
+    {
+      "id": "arxiv:2504.21798",
+      "title": "SWE-smith / SWE-agent-LM trajectory filtering",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2504.21798",
+      "depth": 3,
+      "kind": "paper",
+      "trigger": "none",
+      "trigger_detail": "Cap easy repeats; success filter.",
+      "training": "SFT",
+      "compressed_in_loss": "unknown",
+      "answers": ["sft"],
+      "notes": "6,457 resolved trajectories → cap any SWE-smith instance to 3 trajectories because repeatedly-solved 'easier' tasks degraded SFT (citing Pan et al. 2024) → 5,016. Filter is instance-repeat and success, not compact summaries. SWE-agent-LM-32B trained on ~5k such traces.",
+      "behaviours": [
+        "cap_easy_repeats",
+        "success_filter",
+        "no_compact_mention"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "url:github.com/hiyouga/LlamaFactory/blob/main/data/README.md",
+      "depth": 1,
+      "why": "Official dataset format: which roles are learned."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "url:github.com/hiyouga/LlamaFactory/blob/main/src/llamafactory/data/processor/supervised.py",
+      "depth": 1,
+      "why": "Default IGNORE_INDEX mask and mask_history last-turn logic."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "url:llamafactory.readthedocs.io/en/latest/advanced/arguments.html",
+      "depth": 1,
+      "why": "Documented train_on_prompt / mask_history / neat_packing defaults."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "url:github.com/hiyouga/LlamaFactory/blob/main/src/llamafactory/data/converter.py",
+      "depth": 1,
+      "why": "ShareGPT/OpenAI converters drop malformed roles; observation vs function."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "github:hiyouga/LlamaFactory/pull/9630",
+      "depth": 1,
+      "why": "Proposed per-turn loss_mask for context-only assistant turns."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "github:hiyouga/LlamaFactory/issues/8496",
+      "depth": 1,
+      "why": "Confirms historical assistant text stays in default loss."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "github:hiyouga/LlamaFactory/discussions/8838",
+      "depth": 1,
+      "why": "Maintainer prescribes mask_history for last-step-only SFT."
+    },
+    {
+      "from": "github:OpenAccess-AI-Collective/axolotl",
+      "to": "url:docs.axolotl.ai/docs/dataset-formats/conversation.html",
+      "depth": 1,
+      "why": "roles_to_train / train_on_eos / per-part train flags."
+    },
+    {
+      "from": "github:OpenAccess-AI-Collective/axolotl",
+      "to": "url:docs.axolotl.ai/docs/config-reference.html",
+      "depth": 1,
+      "why": "Default role map including tool."
+    },
+    {
+      "from": "github:OpenAccess-AI-Collective/axolotl",
+      "to": "url:hamel.dev/notes/llm/finetuning/template_free.html",
+      "depth": 1,
+      "why": "Canonical train_on_inputs:false recipe."
+    },
+    {
+      "from": "github:OpenAccess-AI-Collective/axolotl",
+      "to": "github:axolotl-ai-cloud/axolotl/pull/3625",
+      "depth": 1,
+      "why": "VLM path now honors assistant-only / last-turn masks."
+    },
+    {
+      "from": "github:unslothai/unsloth",
+      "to": "url:github.com/unslothai/unsloth-zoo/blob/main/unsloth_zoo/dataset_utils.py",
+      "depth": 1,
+      "why": "Source of train_on_responses_only."
+    },
+    {
+      "from": "github:unslothai/unsloth",
+      "to": "github:unslothai/unsloth/issues/1262",
+      "depth": 1,
+      "why": "Shows response-only mask is opt-in and marker-fragile."
+    },
+    {
+      "from": "github:huggingface/trl",
+      "to": "url:huggingface.co/docs/trl/v1.12.0/en/sft_trainer",
+      "depth": 1,
+      "why": "assistant_only_loss / completion_only_loss / tool-calling SFT."
+    },
+    {
+      "from": "github:NVIDIA-NeMo/Nemotron",
+      "to": "url:docs.nvidia.com/nemo/megatron-bridge/0.1.0/apidocs/bridge/bridge.data.datasets.sft.html",
+      "depth": 1,
+      "why": "GPTSFTDataset answer_only_loss=True."
+    },
+    {
+      "from": "github:NVIDIA-NeMo/Nemotron",
+      "to": "url:github.com/NVIDIA-NeMo/Nemotron/blob/main/docs/nemotron/super3/sft.md",
+      "depth": 1,
+      "why": "Role-table loss_mask 0/1."
+    },
+    {
+      "from": "url:developers.openai.com/api/docs/guides/supervised-fine-tuning",
+      "to": "url:developers.openai.com/api/docs/guides/fine-tuning-best-practices",
+      "depth": 1,
+      "why": "Documents assistant weight 0|1."
+    },
+    {
+      "from": "url:developers.openai.com/api/docs/guides/supervised-fine-tuning",
+      "to": "url:developers.openai.com/api/docs/guides/compaction",
+      "depth": 1,
+      "why": "Sibling product doc: compaction is inference-only, not SFT."
+    },
+    {
+      "from": "url:developers.openai.com/api/docs/guides/supervised-fine-tuning",
+      "to": "url:learn.microsoft.com/en-us/azure/foundry/openai/how-to/fine-tuning-functions",
+      "depth": 1,
+      "why": "Tool-call SFT: tool role is context."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "arxiv:2412.21139",
+      "depth": 1,
+      "why": "Community OpenHands SFT recipe often run through LlamaFactory-class trainers; SWE-Gym is the canonical success-filter corpus."
+    },
+    {
+      "from": "arxiv:2412.21139",
+      "to": "url:nebius.com/blog/posts/openhands-trajectories-with-qwen3-coder-480b",
+      "depth": 1,
+      "why": "Larger OpenHands trajectory release; same success-only RFT filter."
+    },
+    {
+      "from": "url:llamafactory.readthedocs.io/en/latest/advanced/arguments.html",
+      "to": "url:www.llms.blog/posts/sequence-packing-and-loss-masking-in-production-sft-architecture-trade-offs-and-framework-implementations",
+      "depth": 2,
+      "why": "2026 survey cites LlamaFactory mask_history / train_on_prompt and peers."
+    },
+    {
+      "from": "url:huggingface.co/docs/trl/v1.12.0/en/sft_trainer",
+      "to": "url:www.llms.blog/posts/sequence-packing-and-loss-masking-in-production-sft-architecture-trade-offs-and-framework-implementations",
+      "depth": 2,
+      "why": "Same survey of TRL vs Axolotl vs LlamaFactory vs Unsloth vs NeMo."
+    },
+    {
+      "from": "url:www.llms.blog/posts/sequence-packing-and-loss-masking-in-production-sft-architecture-trade-offs-and-framework-implementations",
+      "to": "url:sebastianraschka.com/faq/docs/when-mask-prompt-tokens.html",
+      "depth": 2,
+      "why": "Survey cites Raschka on prompt-token masking and missing weighted mixing."
+    },
+    {
+      "from": "url:www.llms.blog/posts/sequence-packing-and-loss-masking-in-production-sft-architecture-trade-offs-and-framework-implementations",
+      "to": "url:art.openpipe.ai/features/additional-histories",
+      "depth": 2,
+      "why": "Only trainer schema found that names history compaction in SFT/RL trajectories."
+    },
+    {
+      "from": "url:nebius.com/blog/posts/openhands-trajectories-with-qwen3-coder-480b",
+      "to": "huggingface:open-thoughts/OpenThoughts-Agent-SFT-100K",
+      "depth": 2,
+      "why": "Peer community agent-SFT filter (min turn count)."
+    },
+    {
+      "from": "url:nebius.com/blog/posts/openhands-trajectories-with-qwen3-coder-480b",
+      "to": "arxiv:2606.16038",
+      "depth": 2,
+      "why": "Peer OpenHands/SWE-agent distillation corpus and pruning recipe."
+    },
+    {
+      "from": "url:www.llms.blog/posts/sequence-packing-and-loss-masking-in-production-sft-architecture-trade-offs-and-framework-implementations",
+      "to": "url:huggingface.co/blog/packing-with-FA2",
+      "depth": 3,
+      "why": "Survey source for packing+FA2."
+    },
+    {
+      "from": "github:hiyouga/LLaMA-Factory",
+      "to": "url:github.com/MeetKai/functionary/tree/main/functionary/train/packing",
+      "depth": 3,
+      "why": "LlamaFactory neat_packing is this packing implementation."
+    },
+    {
+      "from": "arxiv:2412.21139",
+      "to": "arxiv:2504.21798",
+      "depth": 3,
+      "why": "SWE-smith cites SWE-Gym easy-repeat degradation and applies a 3-traj cap."
+    }
+  ],
+  "gaps": [
+    "No LLaMA-Factory issue, discussion, or README names compact/summarization as a data-quality filter. Search hits for compact/summar were packing or unrelated.",
+    "Fetched main SupervisedDatasetProcessor (2026-09-01) has no loss_mask field; PR #9630 is approved but not present in main.",
+    "Anthropic first-party SFT beyond Bedrock Claude 3 Haiku is not publicly documented; Haiku prep pages do not state last-vs-all assistant loss or compacted sessions.",
+    "OpenAI SFT docs never mention compaction; /guides/compaction is inference-only and produces an opaque item that cannot be used as an SFT label.",
+    "Community SWE-agent / OpenHands / Claude Code SFT recipes (SWE-Gym, Nebius, Open-SWE-Traces, OpenThoughts-Agent, SWE-smith) filter on success, turn count, or loopiness — none say they keep, drop, or specially weight /compact summaries.",
+    "No trainer exposes a native 'summary' role or up-weight for compacted spans. Weighted multi-turn loss is still custom (Raschka / llms.blog)."
+  ],
+  "answers": {
+    "when": [],
+    "sft": [
+      "LlamaFactory default loss mask (DataArguments + SupervisedDatasetProcessor._encode_data_example): train_on_prompt=False, mask_history=False. Prompt/user/system/observation tokens get IGNORE_INDEX; every gpt/function (assistant) turn is a label. Alpaca history responses are also learned (data/README.md). Compacted spans are NOT discarded and NOT specially preferred. If the compact summary is stored as human/user/system/observation it is kept_as_context (masked). If it is stored as gpt/assistant/function — including a model-written /compact summary — it is trained as a normal assistant target. mask_history=True (optional; maintainer #8838) would mask those earlier assistant/compact turns and train only the last turn. Unknown roles or broken odd/even sharegpt rows are dropped (SharegptDatasetConverter). There is no short-turn or 'summary' filter. (github:hiyouga/LLaMA-Factory)",
+      "Industry trainers converge on assistant-only (or answer-only) loss, not on compact-aware filtering. Axolotl: roles_to_train=['assistant'], train_on_eos='turn', train_on_inputs=false; optional train_on_eos='last' or per-message train:false. TRL: assistant_only_loss defaults False on conversational LM data (full sequence) and True only if set; completion_only_loss defaults True for prompt-completion. Unsloth: opt-in train_on_responses_only masks instruction/system. NeMo/Nemotron: answer_only_loss=True / loss_mask 1 on assistant, 0 on system/user. None drop compact summaries. (github:OpenAccess-AI-Collective/axolotl, github:huggingface/trl, github:unslothai/unsloth, github:NVIDIA-NeMo/Nemotron)",
+      "OpenAI SFT trains all assistant messages by default; set weight:0 to disable specific assistant turns (including a summary turn if you choose). User/system/tool are context. Compaction exists only as Responses-API inference (opaque item; example compact_threshold 200000) and is not an SFT data type. Anthropic public FT is Bedrock Haiku alternating user/assistant only — no compacted-session language. (url:developers.openai.com/api/docs/guides/supervised-fine-tuning, url:developers.openai.com/api/docs/guides/compaction, url:docs.aws.amazon.com/bedrock/latest/userguide/preparing-text-data.html)",
+      "Community SWE-agent/OpenHands/Claude-Code SFT recipes keep full tool trajectories and filter on task success (SWE-Gym 491 resolved; Nebius resolved=true RFT), min turn count (OpenThoughts-Agent ≥5), or loop/hallucination pruning (Open-SWE-Traces). They do not treat /compact summaries as preferred labels or drop them. OpenPipe ART is the exception that names compaction: additional_histories keep pre-compact raw conversations as extra trained trajectories and put the summary text in a user message (context). (arxiv:2412.21139, url:nebius.com/blog/posts/openhands-trajectories-with-qwen3-coder-480b, url:art.openpipe.ai/features/additional-histories)"
+    ]
+  }
+}

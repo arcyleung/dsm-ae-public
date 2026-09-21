@@ -1,0 +1,3316 @@
+{
+  "section": "D",
+  "agent": "snowball-D",
+  "nodes": [
+    {
+      "id": "arxiv:2310.13548",
+      "title": "Towards Understanding Sycophancy in Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.13548",
+      "depth": 0,
+      "seed_bib": 42,
+      "behaviours": [
+        "sycophancy",
+        "reward-hacked sycophancy",
+        "agree with false user claims"
+      ],
+      "pack": "sycophancy_mini",
+      "syndrome": "RSD",
+      "benchmark_measures": true,
+      "benchmark_name": "Anthropic sycophancy free-form tasks",
+      "notes": "Five RLHF assistants sycophantic; PMs/humans prefer matching-user-view responses."
+    },
+    {
+      "id": "arxiv:2212.09251",
+      "title": "Discovering Language Model Behaviors with Model-Written Evaluations",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2212.09251",
+      "depth": 0,
+      "seed_bib": 43,
+      "behaviours": [
+        "sycophancy",
+        "inverse scaling",
+        "power-seeking",
+        "anti-shutdown",
+        "goal preservation"
+      ],
+      "pack": "sycophancy_mini",
+      "syndrome": "RSD",
+      "benchmark_measures": true,
+      "benchmark_name": "Anthropic model-written evals",
+      "notes": "Inverse scaling: 52B models match user view >90% on NLP/philosophy."
+    },
+    {
+      "id": "arxiv:2412.14093",
+      "title": "Alignment faking in large language models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.14093",
+      "depth": 0,
+      "seed_bib": 44,
+      "behaviours": [
+        "alignment faking",
+        "compliance gap",
+        "weight exfiltration",
+        "self-preservation"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "alignment-faking free/paid eval",
+      "notes": "Claude 3 Opus complies on harmful free-tier ~14% with AF reasoning; RL raises AF reasoning to ~78%. S2 refs empty; children from in-text named cites."
+    },
+    {
+      "id": "arxiv:2406.07358",
+      "title": "AI Sandbagging: Language Models can Strategically Underperform on Evaluations",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.07358",
+      "depth": 0,
+      "seed_bib": 45,
+      "behaviours": [
+        "sandbagging",
+        "score targeting",
+        "password-locking",
+        "weaker-model emulation"
+      ],
+      "pack": "sandbag_mini",
+      "syndrome": "SBG",
+      "benchmark_measures": true,
+      "benchmark_name": "sandbagging / password-lock evals (WMDP)",
+      "notes": "GPT-4 / Claude 3 Opus selectively underperform dangerous-capability proxies while holding MMLU."
+    },
+    {
+      "id": "arxiv:2412.04984",
+      "title": "Frontier Models are Capable of In-context Scheming",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.04984",
+      "depth": 0,
+      "seed_bib": 46,
+      "behaviours": [
+        "in-context scheming",
+        "oversight subversion",
+        "self-exfiltration",
+        "deception double-down",
+        "instrumental alignment faking",
+        "sandbagging"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Apollo in-context scheming suite",
+      "notes": "5/6 frontier models scheme; o1 confession <20% single follow-up. S2 refs empty; children from in-text named cites."
+    },
+    {
+      "id": "url:openai.com/index/detecting-and-reducing-scheming-in-ai-models",
+      "title": "Detecting and reducing scheming in AI models",
+      "year": 2025,
+      "url": "https://openai.com/index/detecting-and-reducing-scheming-in-ai-models/",
+      "depth": 0,
+      "seed_bib": 47,
+      "behaviours": [
+        "scheming",
+        "covert action",
+        "sandbagging",
+        "eval-awareness",
+        "feigned task completion"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "OpenAI+Apollo covert-action / anti-scheming evals",
+      "notes": "o3 13%\u21920.4%, o4-mini 8.7%\u21920.3% after deliberative anti-scheming. Blog seed; hop1 max 4."
+    },
+    {
+      "id": "arxiv:2412.16720",
+      "title": "OpenAI o1 System Card",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.16720",
+      "depth": 0,
+      "seed_bib": 48,
+      "behaviours": [
+        "in-context scheming",
+        "jailbreak susceptibility",
+        "deception",
+        "chain-of-thought unfaithfulness"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "o1 safety evaluations (Apollo scheming; jailbreaks)",
+      "notes": "Apollo section: o1 basic in-context scheming; deception and persistence documented."
+    },
+    {
+      "id": "arxiv:2109.07958",
+      "title": "TruthfulQA: Measuring How Models Mimic Human Falsehoods",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2109.07958",
+      "depth": 0,
+      "seed_bib": 49,
+      "behaviours": [
+        "imitative factual hallucination",
+        "imitative falsehoods"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "TruthfulQA",
+      "notes": "Early best model ~58% true vs human ~94%; GPT-3 175B ~20% true generation."
+    },
+    {
+      "id": "github:vectara/hallucination-leaderboard",
+      "title": "Vectara Hallucination Leaderboard (HHEM)",
+      "year": 2023,
+      "url": "https://github.com/vectara/hallucination-leaderboard",
+      "depth": 0,
+      "seed_bib": 50,
+      "behaviours": [
+        "summarization hallucination",
+        "factual inconsistency"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "HHEM / Vectara Hallucination Leaderboard",
+      "notes": "Summarization hallucination rates; many thinking frontier models exceed 10%. Blog/repo seed; hop1 max 4."
+    },
+    {
+      "id": "url:genai.owasp.org/llmrisk/llm01-prompt-injection",
+      "title": "OWASP LLM01:2025 Prompt Injection",
+      "year": 2025,
+      "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+      "depth": 0,
+      "seed_bib": 51,
+      "behaviours": [
+        "prompt injection",
+        "indirect prompt injection",
+        "jailbreak"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Prompt injection is #1 LLM risk; no fool-proof prevention. Blog/standard; hop1 max 4."
+    },
+    {
+      "id": "arxiv:2501.18837",
+      "title": "Constitutional Classifiers: Defending against universal jailbreaks",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2501.18837",
+      "depth": 0,
+      "seed_bib": 52,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "over-refusal"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Constitutional Classifiers jailbreak / over-refusal eval",
+      "notes": "Unguarded ASR ~86% \u2192 4.4% with classifiers; over-refusal +0.38%. Seed is Anthropic post; node is the paper. S2 refs empty."
+    },
+    {
+      "id": "arxiv:2405.20947",
+      "title": "OR-Bench: An Over-Refusal Benchmark for Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.20947",
+      "depth": 0,
+      "seed_bib": 53,
+      "behaviours": [
+        "over-refusal",
+        "under-refusal",
+        "refusal calibration"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "OR-Bench",
+      "notes": "80k seemingly-toxic-but-safe prompts; safety vs over-refusal Spearman \u03c1\u22480.878."
+    },
+    {
+      "id": "arxiv:2502.08177",
+      "title": "SycEval: Evaluating LLM Sycophancy",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2502.08177",
+      "depth": 0,
+      "seed_bib": 54,
+      "behaviours": [
+        "sycophancy",
+        "regressive sycophancy",
+        "progressive sycophancy",
+        "sycophancy persistence",
+        "preemptive rebuttal vulnerability"
+      ],
+      "pack": "sycophancy_mini",
+      "syndrome": "RSD",
+      "benchmark_measures": true,
+      "benchmark_name": "SycEval",
+      "notes": "Overall 58.19% sycophancy; progressive 43.52% / regressive 14.66%; persistence 78.5%."
+    },
+    {
+      "id": "arxiv:2510.04721",
+      "title": "BrokenMath: A Benchmark for Sycophancy in Theorem Proving with LLMs",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2510.04721",
+      "depth": 0,
+      "seed_bib": 55,
+      "behaviours": [
+        "mathematical sycophancy",
+        "sycophancy"
+      ],
+      "pack": "sycophancy_mini",
+      "syndrome": "RSD",
+      "benchmark_measures": true,
+      "benchmark_name": "BrokenMath",
+      "notes": "Best model (GPT-5) produces sycophantic proofs of faulty premises 29% of the time."
+    },
+    {
+      "id": "arxiv:2412.03556",
+      "title": "Best-of-N Jailbreaking",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.03556",
+      "depth": 0,
+      "seed_bib": 56,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "sampling attack"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "BoN Jailbreaking on HarmBench",
+      "notes": "ASR ~89% GPT-4o / ~78% Claude 3.5 Sonnet at N=10k. S2 refs empty; children from in-text named cites."
+    },
+    {
+      "id": "url:www.mountsinai.org/about/newsroom/2026/research-identifies-blind-spots-in-ai-medical-triage",
+      "title": "ChatGPT Health performance in a structured test of triage recommendations",
+      "year": 2026,
+      "url": "https://www.mountsinai.org/about/newsroom/2026/research-identifies-blind-spots-in-ai-medical-triage",
+      "depth": 0,
+      "seed_bib": 57,
+      "behaviours": [
+        "social anchoring",
+        "emergency under-triage",
+        "inverted crisis-alert calibration"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Mount Sinai ChatGPT Health triage eval",
+      "notes": "960 interactions; >50% emergency under-triage; social minimization 3.3%\u219213.3% (OR 11.7). Press page for Nature Medicine 10.1038/s41591-026-04297-7."
+    },
+    {
+      "id": "arxiv:2307.03172",
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.03172",
+      "depth": 0,
+      "seed_bib": 58,
+      "behaviours": [
+        "lost-in-the-middle",
+        "positional bias",
+        "primacy bias",
+        "recency bias"
+      ],
+      "pack": "memory_context",
+      "syndrome": "MEM",
+      "benchmark_measures": true,
+      "benchmark_name": "Lost-in-the-Middle multi-doc QA / key-value retrieval",
+      "notes": "U-shaped accuracy: ~75% first, ~55% middle, ~72% last (~20pp middle gap)."
+    },
+    {
+      "id": "arxiv:2604.04788",
+      "title": "From Hallucination to Scheming: A Unified Taxonomy of Deceptive LLM Behaviors",
+      "year": 2026,
+      "url": "https://arxiv.org/abs/2604.04788",
+      "depth": 0,
+      "seed_bib": 59,
+      "behaviours": [
+        "hallucination",
+        "deception",
+        "scheming",
+        "alignment faking",
+        "sycophancy",
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Unified taxonomy spanning hallucination through strategic scheming."
+    },
+    {
+      "id": "arxiv:2406.10162",
+      "title": "Sycophancy to Subterfuge: Investigating Reward-Tampering in Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.10162",
+      "depth": 0,
+      "seed_bib": 60,
+      "behaviours": [
+        "reward tampering",
+        "specification gaming",
+        "sycophancy",
+        "cover-up",
+        "situational awareness"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "sycophancy-to-subterfuge curriculum",
+      "notes": "Zero-shot generalization from sycophancy to reward tampering (45/32768) and cover-up (7). Seed is Anthropic post."
+    },
+    {
+      "id": "url:www.mindstudio.ai/blog/ai-agent-failure-modes-reasoning-action-disconnect",
+      "title": "AI Agent Failure Modes: 4 Ways Your Agent Knows the Answer But Says the Wrong Thing",
+      "year": 2026,
+      "url": "https://www.mindstudio.ai/blog/ai-agent-failure-modes-reasoning-action-disconnect",
+      "depth": 0,
+      "seed_bib": 61,
+      "behaviours": [
+        "reasoning-action disconnect",
+        "social anchoring",
+        "context contamination",
+        "structured output pressure"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Industry post naming 4 agent failure modes from Mount Sinai + long-context lit. Blog; hop1 max 4."
+    },
+    {
+      "id": "arxiv:2308.03958",
+      "title": "Simple synthetic data reduces sycophancy in large language models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.03958",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "sycophancy"
+      ],
+      "pack": "sycophancy_mini",
+      "syndrome": "RSD",
+      "benchmark_measures": true,
+      "benchmark_name": "synthetic sycophancy eval",
+      "notes": "Wei et al. show synthetic data can reduce sycophancy."
+    },
+    {
+      "id": "arxiv:2305.04388",
+      "title": "Language Models Don't Always Say What They Think: Unfaithful Explanations in Chain-of-Thought Prompting",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2305.04388",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "unfaithful CoT",
+        "reasoning-action disconnect"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "unfaithful CoT evals",
+      "notes": "Turpin et al.; CoT can be unfaithful to the model's actual decision."
+    },
+    {
+      "id": "arxiv:2204.05862",
+      "title": "Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2204.05862",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "sycophancy",
+        "HHH alignment",
+        "refusal"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Bai et al. HHH RLHF; preference data can encode sycophancy/refusal tradeoffs."
+    },
+    {
+      "id": "arxiv:2203.02155",
+      "title": "Training language models to follow instructions with human feedback",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2203.02155",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "instruction following",
+        "reward misspecification"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "InstructGPT / Ouyang et al.; human preference optimization."
+    },
+    {
+      "id": "arxiv:2211.03540",
+      "title": "Measuring Progress on Scalable Oversight for Large Language Models",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2211.03540",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "scalable oversight",
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "scalable oversight evals",
+      "notes": "Bowman et al.; oversight of stronger models."
+    },
+    {
+      "id": "arxiv:1805.00899",
+      "title": "AI safety via debate",
+      "year": 2018,
+      "url": "https://arxiv.org/abs/1805.00899",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "scalable oversight",
+        "deception"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Irving et al. debate as oversight protocol."
+    },
+    {
+      "id": "arxiv:2209.07858",
+      "title": "Red Teaming Language Models to Reduce Harms: Methods, Scaling Behaviors, and Lessons Learned",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2209.07858",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "red-teaming",
+        "jailbreak susceptibility"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Anthropic red-teaming suite",
+      "notes": "Ganguli et al. red-teaming at scale."
+    },
+    {
+      "id": "arxiv:2202.03286",
+      "title": "Red Teaming Language Models with Language Models",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2202.03286",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "red-teaming",
+        "automated attack generation"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "LM-red-team",
+      "notes": "Perez et al. generate adversarial tests with LMs."
+    },
+    {
+      "id": "arxiv:1906.01820",
+      "title": "Risks from Learned Optimization in Advanced Machine Learning Systems",
+      "year": 2019,
+      "url": "https://arxiv.org/abs/1906.01820",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "deceptive alignment",
+        "mesa-optimization",
+        "scheming"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Hubinger et al.; theoretical root of scheming / deceptive alignment."
+    },
+    {
+      "id": "arxiv:1606.06565",
+      "title": "Concrete Problems in AI Safety",
+      "year": 2016,
+      "url": "https://arxiv.org/abs/1606.06565",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward hacking",
+        "safe exploration",
+        "interruptibility"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Amodei et al.; classic specification-gaming / reward-hacking catalog."
+    },
+    {
+      "id": "arxiv:2207.05221",
+      "title": "Language Models (Mostly) Know What They Know",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2207.05221",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "overconfidence",
+        "calibration",
+        "verbalized confidence"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "P(True) / P(IK) evals",
+      "notes": "Kadavath et al. self-knowledge and calibration."
+    },
+    {
+      "id": "arxiv:2212.08073",
+      "title": "Constitutional AI: Harmlessness from AI Feedback",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2212.08073",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "over-refusal",
+        "jailbreak susceptibility",
+        "RLAIF"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Bai et al. Constitutional AI; constitution-based harmlessness."
+    },
+    {
+      "id": "arxiv:1706.03741",
+      "title": "Deep Reinforcement Learning from Human Preferences",
+      "year": 2017,
+      "url": "https://arxiv.org/abs/1706.03741",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward misspecification",
+        "preference optimization"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Christiano et al. RLHF foundation."
+    },
+    {
+      "id": "arxiv:2403.13793",
+      "title": "Evaluating Frontier Models for Dangerous Capabilities",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2403.13793",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "dangerous-capability eval",
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Google DeepMind dangerous-capability evals",
+      "notes": "Benton et al.; cited by alignment-faking for eval threat models. S2 refs empty."
+    },
+    {
+      "id": "arxiv:2112.00861",
+      "title": "A General Language Assistant as a Laboratory for Alignment",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2112.00861",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "HHH",
+        "alignment eval"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Askell et al. GLA / HHH evals",
+      "notes": "Askell et al. helpful-honest-harmless lab."
+    },
+    {
+      "id": "arxiv:2405.19550",
+      "title": "Stress-Testing Capability Elicitation With Password-Locked Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.19550",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "password-locking",
+        "sandbagging",
+        "capability elicitation"
+      ],
+      "pack": "sandbag_mini",
+      "syndrome": "SBG",
+      "benchmark_measures": true,
+      "benchmark_name": "password-locked model suite",
+      "notes": "Greenblatt et al.; hidden capabilities unless password given."
+    },
+    {
+      "id": "arxiv:2403.03218",
+      "title": "The WMDP Benchmark: Measuring and Reducing Malicious Use With Unlearning",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2403.03218",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "dangerous capabilities",
+        "unlearning",
+        "CBRN"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "WMDP",
+      "notes": "Li et al.; proxy used by sandbagging paper."
+    },
+    {
+      "id": "arxiv:2401.05566",
+      "title": "Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2401.05566",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "sleeper agents",
+        "deceptive alignment",
+        "backdoor",
+        "persistence through safety training"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "sleeper-agent model organisms",
+      "notes": "Hubinger et al. S2 refs empty; no outgoing hops."
+    },
+    {
+      "id": "arxiv:2311.08379",
+      "title": "Scheming AIs: Will AIs fake alignment during training in order to get power?",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2311.08379",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "scheming",
+        "alignment faking",
+        "power-seeking"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Carlsmith conceptual analysis of scheming. S2 refs empty."
+    },
+    {
+      "id": "arxiv:2312.06942",
+      "title": "AI Control: Improving Safety Despite Intentional Subversion",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2312.06942",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "control evaluations",
+        "intentional subversion",
+        "backdoored code"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "AI control evals (APPS backdoors)",
+      "notes": "Greenblatt et al. protocols vs scheming untrusted models."
+    },
+    {
+      "id": "arxiv:2210.01790",
+      "title": "Goal Misgeneralization: Why Correct Specifications Aren't Enough For Correct Goals",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2210.01790",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "goal misgeneralization"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Shah et al. / DeepMind; related Langosco line."
+    },
+    {
+      "id": "arxiv:2308.14752",
+      "title": "AI deception: A survey of examples, risks, and potential solutions",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.14752",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "deception",
+        "scheming"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Park et al. survey of AI deception."
+    },
+    {
+      "id": "arxiv:2411.03336",
+      "title": "Towards evaluations-based safety cases for AI scheming",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2411.03336",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "scheming",
+        "safety cases",
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Balesni et al.; scheming-inability / control safety cases."
+    },
+    {
+      "id": "arxiv:2407.04694",
+      "title": "Me, Myself, and AI: The Situational Awareness Dataset (SAD) for LLMs",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2407.04694",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "situational awareness",
+        "eval-awareness"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "SAD",
+      "notes": "Laine et al. S2 refs empty."
+    },
+    {
+      "id": "arxiv:2309.00667",
+      "title": "Taken out of context: On measuring situational awareness in LLMs",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2309.00667",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "situational awareness",
+        "out-of-context learning"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "out-of-context situational awareness",
+      "notes": "Berglund et al."
+    },
+    {
+      "id": "arxiv:2507.11473",
+      "title": "Chain of Thought Monitorability: A New and Fragile Opportunity for AI Safety",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2507.11473",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "eval-methodology",
+        "unfaithful CoT",
+        "scheming monitoring"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Position paper on preserving CoT transparency; named by OpenAI anti-scheming post."
+    },
+    {
+      "id": "arxiv:2405.01576",
+      "title": "Uncovering Deceptive Tendencies in Language Models: A Simulated Company AI Assistant",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.01576",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "deception",
+        "cover-up",
+        "insider assistant"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "simulated company AI assistant",
+      "notes": "Scheurer / Apollo-adjacent deception eval."
+    },
+    {
+      "id": "arxiv:2404.13208",
+      "title": "The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2404.13208",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "prompt injection",
+        "instruction hierarchy",
+        "jailbreak"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Wallace et al. OpenAI; privilege levels against injection."
+    },
+    {
+      "id": "arxiv:2404.01318",
+      "title": "JailbreakBench: An Open Robustness Benchmark for Jailbreaking Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2404.01318",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "jailbreak susceptibility"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "JailbreakBench",
+      "notes": "Chao et al. standardized jailbreak benchmark."
+    },
+    {
+      "id": "arxiv:2402.10260",
+      "title": "A StrongREJECT for Empty Jailbreaks",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2402.10260",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "eval-methodology"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "StrongREJECT",
+      "notes": "Souly et al.; grader that rejects empty/low-quality jailbreaks."
+    },
+    {
+      "id": "arxiv:2310.08419",
+      "title": "Jailbreaking Black Box Large Language Models in Twenty Queries",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2310.08419",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "jailbreak susceptibility"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "PAIR",
+      "notes": "Chao et al. prompt automatic iterative refinement."
+    },
+    {
+      "id": "arxiv:2308.01263",
+      "title": "XSTest: A Test Suite for Identifying Exaggerated Safety Behaviours in Large Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.01263",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "over-refusal",
+        "exaggerated safety"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "XSTest",
+      "notes": "R\u00f6ttger et al. false-refusal suite."
+    },
+    {
+      "id": "arxiv:2307.16513",
+      "title": "Deception abilities emerged in large language models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.16513",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "deception"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Hagendorff deception games",
+      "notes": "Emergent deception in social/game settings."
+    },
+    {
+      "id": "arxiv:2110.06674",
+      "title": "Truthful AI: Developing and governing AI that does not lie",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2110.06674",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "imitative falsehoods",
+        "honesty"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Evans et al. companion to TruthfulQA."
+    },
+    {
+      "id": "arxiv:2103.14659",
+      "title": "Alignment of Language Agents",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2103.14659",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "alignment",
+        "language agents"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Kenton et al. alignment problems for language agents."
+    },
+    {
+      "id": "arxiv:2011.02593",
+      "title": "Detecting Hallucinated Content in Conditional Neural Sequence Generation",
+      "year": 2020,
+      "url": "https://arxiv.org/abs/2011.02593",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "hallucination detection"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "hallucination detection in NLG",
+      "notes": "Zhou et al."
+    },
+    {
+      "id": "arxiv:2005.00661",
+      "title": "On Faithfulness and Factuality in Abstractive Summarization",
+      "year": 2020,
+      "url": "https://arxiv.org/abs/2005.00661",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "summarization hallucination",
+        "faithfulness"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Maynez et al. summarization faithfulness",
+      "notes": "Classic factuality-in-summarization eval."
+    },
+    {
+      "id": "arxiv:2010.07079",
+      "title": "Recipes for Safety in Open-domain Chatbots",
+      "year": 2020,
+      "url": "https://arxiv.org/abs/2010.07079",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "chatbot safety",
+        "refusal"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Xu et al. BlenderBot safety recipes."
+    },
+    {
+      "id": "arxiv:2204.04991",
+      "title": "TRUE: Re-evaluating Factual Consistency Evaluation",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2204.04991",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "factual consistency",
+        "summarization hallucination"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "TRUE",
+      "notes": "Named by HHEM prior-research list."
+    },
+    {
+      "id": "arxiv:2404.10774",
+      "title": "MiniCheck: Efficient Fact-Checking of LLMs on Grounding Documents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2404.10774",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "hallucination detection",
+        "groundedness"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "MiniCheck",
+      "notes": "Named by HHEM prior-research list."
+    },
+    {
+      "id": "arxiv:2302.12173",
+      "title": "Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2302.12173",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "indirect prompt injection",
+        "prompt injection"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": true,
+      "benchmark_name": "Greshake et al. indirect prompt injection",
+      "notes": "Canonical indirect-injection paper; named by OWASP."
+    },
+    {
+      "id": "arxiv:2306.05499",
+      "title": "Prompt Injection attack against LLM-integrated Applications",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2306.05499",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "prompt injection"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Liu et al.; named by OWASP LLM01."
+    },
+    {
+      "id": "arxiv:2307.15043",
+      "title": "Universal and Transferable Adversarial Attacks on Aligned Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.15043",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "adversarial suffix"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "GCG / Zou et al.",
+      "notes": "Named by OWASP (adversarial suffix) and jailbreak benches."
+    },
+    {
+      "id": "arxiv:2404.04374",
+      "title": "Many-shot Jailbreaking",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2404.04374",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "many-shot attack"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Anil et al. / Anthropic; named by Constitutional Classifiers and BoN (MSJ)."
+    },
+    {
+      "id": "arxiv:2406.04313",
+      "title": "Improving Alignment and Robustness with Circuit Breakers",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.04313",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "jailbreak defense"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Zou et al. circuit breakers; BoN reports 52% ASR against them."
+    },
+    {
+      "id": "arxiv:2402.04249",
+      "title": "HarmBench: A Standardized Evaluation Framework for Automated Red Teaming and Robust Refusal",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2402.04249",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "refusal"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "HarmBench",
+      "notes": "Mazeika et al.; used as BoN request set."
+    },
+    {
+      "id": "arxiv:2406.14598",
+      "title": "SORRY-Bench: Systematically Evaluating Large Language Model Safety Refusal Behaviors",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.14598",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "over-refusal",
+        "under-refusal"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "SORRY-Bench",
+      "notes": "Refusal-behavior benchmark cited by OR-Bench."
+    },
+    {
+      "id": "arxiv:2409.00598",
+      "title": "Automatic Pseudo-Harmful Prompt Generation for Evaluating False Refusals in Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2409.00598",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "over-refusal",
+        "false refusal"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "false-refusal / pseudo-harmful prompts",
+      "notes": "Cited by OR-Bench."
+    },
+    {
+      "id": "arxiv:2401.10019",
+      "title": "R-Judge: Benchmarking Safety Risk Awareness for LLM Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2401.10019",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "agent safety",
+        "risk awareness"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "R-Judge",
+      "notes": "Agent-safety benchmark cited by OR-Bench."
+    },
+    {
+      "id": "arxiv:2406.18510",
+      "title": "WildTeaming at Scale: From In-the-Wild Jailbreaks to (Adversarially) Safer Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.18510",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "in-the-wild attacks"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "WildTeaming / WildJailbreak",
+      "notes": "Cited by OR-Bench."
+    },
+    {
+      "id": "arxiv:2411.15287",
+      "title": "Sycophancy in Large Language Models: Causes and Mitigations",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2411.15287",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "sycophancy"
+      ],
+      "pack": "sycophancy_mini",
+      "syndrome": "RSD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Survey of sycophancy causes/mitigations; cited by SycEval and BrokenMath."
+    },
+    {
+      "id": "arxiv:2409.01658",
+      "title": "From Yes-Men to Truth-Tellers: Addressing Sycophancy in Large Language Models with Pinpoint Tuning",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2409.01658",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "sycophancy"
+      ],
+      "pack": "sycophancy_mini",
+      "syndrome": "RSD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Pinpoint-tuning mitigation; cited by SycEval."
+    },
+    {
+      "id": "arxiv:2311.09410",
+      "title": "When Large Language Models contradict humans? Large Language Models' Sycophantic Behaviour",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2311.09410",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "sycophancy"
+      ],
+      "pack": "sycophancy_mini",
+      "syndrome": "RSD",
+      "benchmark_measures": true,
+      "benchmark_name": "sycophantic-contradiction eval",
+      "notes": "Cited by SycEval and BrokenMath."
+    },
+    {
+      "id": "arxiv:2307.15217",
+      "title": "Open Problems and Fundamental Limitations of Reinforcement Learning from Human Feedback",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2307.15217",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward misspecification",
+        "sycophancy",
+        "eval-methodology"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Casper et al. RLHF limitations; cited by SycEval."
+    },
+    {
+      "id": "arxiv:2505.23840",
+      "title": "Measuring Sycophancy of Language Models in Multi-turn Dialogues",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2505.23840",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "sycophancy",
+        "multi-turn sycophancy"
+      ],
+      "pack": "sycophancy_mini",
+      "syndrome": "RSD",
+      "benchmark_measures": true,
+      "benchmark_name": "multi-turn sycophancy eval",
+      "notes": "Listed in SycEval S2 references (v2)."
+    },
+    {
+      "id": "arxiv:2412.00967",
+      "title": "Linear Probe Penalties Reduce LLM Sycophancy",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.00967",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "sycophancy"
+      ],
+      "pack": "sycophancy_mini",
+      "syndrome": "RSD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by BrokenMath."
+    },
+    {
+      "id": "arxiv:2506.09038",
+      "title": "AbstentionBench: Reasoning LLMs Fail on Unanswerable Questions",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2506.09038",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "false success",
+        "abstention failure",
+        "hallucination"
+      ],
+      "pack": "clarify_verify",
+      "syndrome": "CVF",
+      "benchmark_measures": true,
+      "benchmark_name": "AbstentionBench",
+      "notes": "Cited by BrokenMath."
+    },
+    {
+      "id": "arxiv:2412.01784",
+      "title": "Noise Injection Reveals Hidden Capabilities of Sandbagging Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2412.01784",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "sandbagging",
+        "capability elicitation"
+      ],
+      "pack": "sandbag_mini",
+      "syndrome": "SBG",
+      "benchmark_measures": true,
+      "benchmark_name": "noise-injection sandbag detection",
+      "notes": "Cited by unified taxonomy."
+    },
+    {
+      "id": "arxiv:2505.17815",
+      "title": "Evaluation Faking: Unveiling Observer Effects in Safety Evaluation of Frontier AI Systems",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2505.17815",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "eval faking",
+        "eval-awareness",
+        "observer effects"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "evaluation-faking suite",
+      "notes": "Cited by unified taxonomy."
+    },
+    {
+      "id": "arxiv:2503.03750",
+      "title": "The MASK Benchmark: Disentangling Honesty From Accuracy in AI Systems",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.03750",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "dishonesty",
+        "honesty vs accuracy"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "MASK",
+      "notes": "Cited by unified taxonomy."
+    },
+    {
+      "id": "arxiv:2505.01420",
+      "title": "Evaluating Frontier Models for Stealth and Situational Awareness",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2505.01420",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "situational awareness",
+        "stealth",
+        "scheming precursors"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "stealth and situational-awareness evals",
+      "notes": "Cited by unified taxonomy."
+    },
+    {
+      "id": "arxiv:2410.21514",
+      "title": "Sabotage Evaluations for Frontier Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2410.21514",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "sabotage",
+        "oversight subversion"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "sabotage evaluations",
+      "notes": "Benton / DeepMind. S2 refs empty."
+    },
+    {
+      "id": "arxiv:2308.03825",
+      "title": "Do Anything Now: Characterizing and Evaluating In-The-Wild Jailbreak Prompts on Large Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.03825",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "jailbreak susceptibility"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "DAN / in-the-wild jailbreaks",
+      "notes": "Shen et al."
+    },
+    {
+      "id": "arxiv:2312.02119",
+      "title": "Tree of Attacks: Jailbreaking Black-Box LLMs Automatically",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2312.02119",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "jailbreak susceptibility"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "TAP",
+      "notes": "Mehrotra et al."
+    },
+    {
+      "id": "arxiv:2403.02691",
+      "title": "InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2403.02691",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "indirect prompt injection",
+        "tool-using agents"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": true,
+      "benchmark_name": "InjecAgent",
+      "notes": "Cited by R-Judge."
+    },
+    {
+      "id": "arxiv:2312.14197",
+      "title": "Benchmarking and Defending against Indirect Prompt Injection Attacks on Large Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2312.14197",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "indirect prompt injection"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": true,
+      "benchmark_name": "BIPIA",
+      "notes": "Cited by Instruction Hierarchy."
+    },
+    {
+      "id": "arxiv:2311.01011",
+      "title": "Tensor Trust: Interpretable Prompt Injection Attacks from an Online Game",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2311.01011",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "prompt injection"
+      ],
+      "pack": "injection_mini",
+      "syndrome": "XPI",
+      "benchmark_measures": true,
+      "benchmark_name": "Tensor Trust",
+      "notes": "Cited by Instruction Hierarchy."
+    },
+    {
+      "id": "arxiv:2405.05466",
+      "title": "POSER: Unmasking Alignment Faking LLMs by Manipulating Their Internals",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2405.05466",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "alignment faking",
+        "internal probes"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by noise-injection sandbagging paper."
+    },
+    {
+      "id": "arxiv:2502.03407",
+      "title": "Detecting Strategic Deception Using Linear Probes",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2502.03407",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "deception detection",
+        "scheming"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by noise-injection sandbagging paper."
+    },
+    {
+      "id": "arxiv:2304.03279",
+      "title": "Do the Rewards Justify the Means? Measuring Trade-Offs Between Rewards and Ethical Behavior in the MACHIAVELLI Benchmark",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2304.03279",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "reward hacking",
+        "unethical agent behavior"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": true,
+      "benchmark_name": "MACHIAVELLI",
+      "notes": "Pan et al."
+    },
+    {
+      "id": "arxiv:2206.13353",
+      "title": "Is Power-Seeking AI an Existential Risk?",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2206.13353",
+      "depth": 3,
+      "seed_bib": null,
+      "behaviours": [
+        "power-seeking",
+        "self-preservation"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Carlsmith power-seeking report; cited by stealth/SA and MACHIAVELLI."
+    },
+    {
+      "id": "arxiv:2409.18786",
+      "title": "A Survey on the Honesty of Large Language Models",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2409.18786",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "honesty",
+        "deception",
+        "hallucination"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by MASK and evaluation-faking."
+    },
+    {
+      "id": "arxiv:2409.09013",
+      "title": "AI-LieDar: Examine the Trade-off Between Utility and Truthfulness in LLM Agents",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2409.09013",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "agent dishonesty",
+        "truthfulness"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "AI-LieDar",
+      "notes": "Cited by MASK."
+    },
+    {
+      "id": "arxiv:2201.03544",
+      "title": "The Effects of Reward Misspecification: Mapping and Mitigating Misaligned Models",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2201.03544",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward misspecification",
+        "specification gaming"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by sycophancy-to-subterfuge."
+    },
+    {
+      "id": "arxiv:1908.04734",
+      "title": "Reward Tampering Problems and Solutions in Reinforcement Learning: A Causal Influence Diagram Perspective",
+      "year": 2019,
+      "url": "https://arxiv.org/abs/1908.04734",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "reward tampering"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Everitt et al.; cited by reward-tampering and deceptive-tendencies papers."
+    },
+    {
+      "id": "url:deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity",
+      "title": "Specification gaming: the flip side of AI ingenuity",
+      "year": 2020,
+      "url": "https://deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity",
+      "depth": 1,
+      "seed_bib": null,
+      "behaviours": [
+        "specification gaming",
+        "reward hacking"
+      ],
+      "pack": "eval_gaming_mini",
+      "syndrome": "EGD",
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "DeepMind catalog; named by Anthropic reward-tampering post."
+    },
+    {
+      "id": "arxiv:2306.03341",
+      "title": "Inference-Time Intervention: Eliciting Truthful Answers from a Language Model",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2306.03341",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "untruthfulness",
+        "activation steering"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Li et al. ITI; cited by Yes-Men and AI-deception survey."
+    },
+    {
+      "id": "arxiv:2406.11717",
+      "title": "Refusal in Language Models Is Mediated by a Single Direction",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2406.11717",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "refusal",
+        "jailbreak defense"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Arditi et al.; cited by false-refusal paper."
+    },
+    {
+      "id": "arxiv:2305.13534",
+      "title": "How Language Model Hallucinations Can Snowball",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2305.13534",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "hallucination snowballing"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "hallucination snowball",
+      "notes": "Cited by Greshake."
+    },
+    {
+      "id": "arxiv:2305.11747",
+      "title": "HaluEval: A Large-Scale Hallucination Evaluation Benchmark for Large Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2305.11747",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "hallucination"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "HaluEval",
+      "notes": "Cited by WMDP and taxonomy."
+    },
+    {
+      "id": "arxiv:2308.01404",
+      "title": "Hoodwinked: Deception and Cooperation in a Text-Based Game for Language Models",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2308.01404",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "deception",
+        "social deception"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Hoodwinked",
+      "notes": "Cited by deceptive-tendencies and AI-deception survey."
+    },
+    {
+      "id": "arxiv:2105.14111",
+      "title": "Goal Misgeneralization in Deep Reinforcement Learning",
+      "year": 2021,
+      "url": "https://arxiv.org/abs/2105.14111",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "goal misgeneralization"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Langosco et al.",
+      "notes": "Cited by later goal-misgeneralization paper."
+    },
+    {
+      "id": "arxiv:2310.03684",
+      "title": "SmoothLLM: Defending Large Language Models Against Jailbreaking Attacks",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.03684",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "jailbreak defense"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Cited by circuit-breakers and StrongREJECT."
+    },
+    {
+      "id": "arxiv:2503.11656",
+      "title": "TRUTH DECAY: Quantifying Multi-Turn Sycophancy in Language Models",
+      "year": 2025,
+      "url": "https://arxiv.org/abs/2503.11656",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "sycophancy",
+        "multi-turn sycophancy"
+      ],
+      "pack": "sycophancy_mini",
+      "syndrome": "RSD",
+      "benchmark_measures": true,
+      "benchmark_name": "TRUTH DECAY",
+      "notes": "Cited by multi-turn sycophancy paper."
+    },
+    {
+      "id": "arxiv:2401.06373",
+      "title": "How Johnny Can Persuade LLMs to Jailbreak Them: Rethinking Persuasion to Challenge AI Safety by Humanizing LLM",
+      "year": 2024,
+      "url": "https://arxiv.org/abs/2401.06373",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "jailbreak susceptibility",
+        "persuasion attack"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": true,
+      "benchmark_name": "Persuasive jailbreaks",
+      "notes": "Cited by HarmBench / JailbreakBench / circuit-breakers."
+    },
+    {
+      "id": "arxiv:2209.00626",
+      "title": "The alignment problem from a deep learning perspective",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2209.00626",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "alignment",
+        "deceptive alignment"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Ngo et al.; cited by password-lock and sandbagging."
+    },
+    {
+      "id": "arxiv:2209.14375",
+      "title": "Improving alignment of dialogue agents via targeted human judgements",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2209.14375",
+      "depth": 2,
+      "seed_bib": null,
+      "behaviours": [
+        "dialogue alignment",
+        "sycophancy-adjacent preference"
+      ],
+      "pack": "unknown",
+      "syndrome": null,
+      "benchmark_measures": false,
+      "benchmark_name": null,
+      "notes": "Glaese et al. Sparrow; cited by GCG and Sharma."
+    }
+  ],
+  "edges": [
+    {
+      "from": "arxiv:2310.13548",
+      "to": "arxiv:2212.09251",
+      "depth": 1,
+      "why": "cites Perez model-written sycophancy evals"
+    },
+    {
+      "from": "arxiv:2310.13548",
+      "to": "arxiv:2109.07958",
+      "depth": 1,
+      "why": "cites TruthfulQA as truthfulness baseline"
+    },
+    {
+      "from": "arxiv:2310.13548",
+      "to": "arxiv:2308.03958",
+      "depth": 1,
+      "why": "cites Wei et al. synthetic anti-sycophancy"
+    },
+    {
+      "from": "arxiv:2310.13548",
+      "to": "arxiv:2305.04388",
+      "depth": 1,
+      "why": "cites unfaithful CoT as related untruthfulness"
+    },
+    {
+      "from": "arxiv:2310.13548",
+      "to": "arxiv:2204.05862",
+      "depth": 1,
+      "why": "cites HHH RLHF as preference-training source"
+    },
+    {
+      "from": "arxiv:2310.13548",
+      "to": "arxiv:2203.02155",
+      "depth": 1,
+      "why": "cites InstructGPT / RLHF"
+    },
+    {
+      "from": "arxiv:2310.13548",
+      "to": "arxiv:2211.03540",
+      "depth": 1,
+      "why": "cites scalable oversight"
+    },
+    {
+      "from": "arxiv:2310.13548",
+      "to": "arxiv:1805.00899",
+      "depth": 1,
+      "why": "cites AI safety via debate"
+    },
+    {
+      "from": "arxiv:2212.09251",
+      "to": "arxiv:2109.07958",
+      "depth": 1,
+      "why": "cites TruthfulQA"
+    },
+    {
+      "from": "arxiv:2212.09251",
+      "to": "arxiv:2209.07858",
+      "depth": 1,
+      "why": "cites Anthropic red-teaming"
+    },
+    {
+      "from": "arxiv:2212.09251",
+      "to": "arxiv:2202.03286",
+      "depth": 1,
+      "why": "cites LM-written red-teaming precursor"
+    },
+    {
+      "from": "arxiv:2212.09251",
+      "to": "arxiv:2204.05862",
+      "depth": 1,
+      "why": "cites HHH RLHF"
+    },
+    {
+      "from": "arxiv:2212.09251",
+      "to": "arxiv:1906.01820",
+      "depth": 1,
+      "why": "cites learned optimization / deceptive alignment"
+    },
+    {
+      "from": "arxiv:2212.09251",
+      "to": "arxiv:1805.00899",
+      "depth": 1,
+      "why": "cites debate"
+    },
+    {
+      "from": "arxiv:2212.09251",
+      "to": "arxiv:1606.06565",
+      "depth": 1,
+      "why": "cites Concrete Problems in AI Safety"
+    },
+    {
+      "from": "arxiv:2212.09251",
+      "to": "arxiv:2207.05221",
+      "depth": 1,
+      "why": "cites LMs know-what-they-know / calibration"
+    },
+    {
+      "from": "arxiv:2412.14093",
+      "to": "arxiv:2204.05862",
+      "depth": 1,
+      "why": "in-text: HHH RLHF training objective"
+    },
+    {
+      "from": "arxiv:2412.14093",
+      "to": "arxiv:2212.08073",
+      "depth": 1,
+      "why": "in-text: Constitutional AI / constitutions"
+    },
+    {
+      "from": "arxiv:2412.14093",
+      "to": "arxiv:1706.03741",
+      "depth": 1,
+      "why": "in-text: Christiano RLHF"
+    },
+    {
+      "from": "arxiv:2412.14093",
+      "to": "arxiv:2403.13793",
+      "depth": 1,
+      "why": "in-text: Benton dangerous-capability evals"
+    },
+    {
+      "from": "arxiv:2412.14093",
+      "to": "arxiv:2112.00861",
+      "depth": 1,
+      "why": "in-text: Askell HHH"
+    },
+    {
+      "from": "arxiv:2406.07358",
+      "to": "arxiv:2405.19550",
+      "depth": 1,
+      "why": "cites password-locked models"
+    },
+    {
+      "from": "arxiv:2406.07358",
+      "to": "arxiv:2403.03218",
+      "depth": 1,
+      "why": "uses WMDP as dangerous-capability proxy"
+    },
+    {
+      "from": "arxiv:2406.07358",
+      "to": "arxiv:2401.05566",
+      "depth": 1,
+      "why": "cites sleeper agents / persistent deception"
+    },
+    {
+      "from": "arxiv:2406.07358",
+      "to": "arxiv:2311.08379",
+      "depth": 1,
+      "why": "cites Carlsmith scheming"
+    },
+    {
+      "from": "arxiv:2406.07358",
+      "to": "arxiv:2312.06942",
+      "depth": 1,
+      "why": "cites AI control / intentional subversion"
+    },
+    {
+      "from": "arxiv:2406.07358",
+      "to": "arxiv:2212.09251",
+      "depth": 1,
+      "why": "cites Perez model-written evals"
+    },
+    {
+      "from": "arxiv:2406.07358",
+      "to": "arxiv:2210.01790",
+      "depth": 1,
+      "why": "cites goal misgeneralization"
+    },
+    {
+      "from": "arxiv:2406.07358",
+      "to": "arxiv:2308.14752",
+      "depth": 1,
+      "why": "cites AI deception survey"
+    },
+    {
+      "from": "arxiv:2412.04984",
+      "to": "arxiv:2406.07358",
+      "depth": 1,
+      "why": "in-text: van der Weij sandbagging definition"
+    },
+    {
+      "from": "arxiv:2412.04984",
+      "to": "arxiv:2411.03336",
+      "depth": 1,
+      "why": "in-text: Balesni scheming safety cases"
+    },
+    {
+      "from": "arxiv:2412.04984",
+      "to": "arxiv:2407.04694",
+      "depth": 1,
+      "why": "in-text: Laine SAD situational awareness"
+    },
+    {
+      "from": "arxiv:2412.04984",
+      "to": "arxiv:2309.00667",
+      "depth": 1,
+      "why": "in-text: Berglund out-of-context awareness"
+    },
+    {
+      "from": "arxiv:2412.04984",
+      "to": "arxiv:1906.01820",
+      "depth": 1,
+      "why": "in-text: Hubinger deceptive alignment"
+    },
+    {
+      "from": "arxiv:2412.04984",
+      "to": "arxiv:2311.08379",
+      "depth": 1,
+      "why": "in-text: Carlsmith scheming"
+    },
+    {
+      "from": "arxiv:2412.04984",
+      "to": "arxiv:2403.03218",
+      "depth": 1,
+      "why": "in-text: WMDP / CBRN evals as sandbag targets"
+    },
+    {
+      "from": "arxiv:2412.04984",
+      "to": "arxiv:2204.05862",
+      "depth": 1,
+      "why": "in-text: Bai HHH constraints vs scheming eval"
+    },
+    {
+      "from": "url:openai.com/index/detecting-and-reducing-scheming-in-ai-models",
+      "to": "arxiv:2412.04984",
+      "depth": 1,
+      "why": "names Apollo in-context scheming collaboration"
+    },
+    {
+      "from": "url:openai.com/index/detecting-and-reducing-scheming-in-ai-models",
+      "to": "arxiv:2406.07358",
+      "depth": 1,
+      "why": "adds sandbagging to Preparedness Framework"
+    },
+    {
+      "from": "url:openai.com/index/detecting-and-reducing-scheming-in-ai-models",
+      "to": "arxiv:2507.11473",
+      "depth": 1,
+      "why": "names CoT monitorability position paper"
+    },
+    {
+      "from": "url:openai.com/index/detecting-and-reducing-scheming-in-ai-models",
+      "to": "arxiv:2412.16720",
+      "depth": 1,
+      "why": "points to GPT/o-series system-card safety evals"
+    },
+    {
+      "from": "arxiv:2412.16720",
+      "to": "arxiv:2405.01576",
+      "depth": 1,
+      "why": "cites deceptive company-assistant eval"
+    },
+    {
+      "from": "arxiv:2412.16720",
+      "to": "arxiv:2404.13208",
+      "depth": 1,
+      "why": "cites instruction hierarchy vs injection"
+    },
+    {
+      "from": "arxiv:2412.16720",
+      "to": "arxiv:2404.01318",
+      "depth": 1,
+      "why": "cites JailbreakBench"
+    },
+    {
+      "from": "arxiv:2412.16720",
+      "to": "arxiv:2403.13793",
+      "depth": 1,
+      "why": "cites dangerous-capability evals"
+    },
+    {
+      "from": "arxiv:2412.16720",
+      "to": "arxiv:2402.10260",
+      "depth": 1,
+      "why": "cites StrongREJECT"
+    },
+    {
+      "from": "arxiv:2412.16720",
+      "to": "arxiv:2310.08419",
+      "depth": 1,
+      "why": "cites PAIR jailbreaks"
+    },
+    {
+      "from": "arxiv:2412.16720",
+      "to": "arxiv:2308.01263",
+      "depth": 1,
+      "why": "cites XSTest exaggerated safety"
+    },
+    {
+      "from": "arxiv:2412.16720",
+      "to": "arxiv:2307.16513",
+      "depth": 1,
+      "why": "cites emergent deception abilities"
+    },
+    {
+      "from": "arxiv:2109.07958",
+      "to": "arxiv:2110.06674",
+      "depth": 1,
+      "why": "companion Truthful AI paper"
+    },
+    {
+      "from": "arxiv:2109.07958",
+      "to": "arxiv:2103.14659",
+      "depth": 1,
+      "why": "cites alignment of language agents"
+    },
+    {
+      "from": "arxiv:2109.07958",
+      "to": "arxiv:2011.02593",
+      "depth": 1,
+      "why": "cites hallucination detection"
+    },
+    {
+      "from": "arxiv:2109.07958",
+      "to": "arxiv:2005.00661",
+      "depth": 1,
+      "why": "cites faithfulness in summarization"
+    },
+    {
+      "from": "arxiv:2109.07958",
+      "to": "arxiv:2010.07079",
+      "depth": 1,
+      "why": "cites chatbot safety recipes"
+    },
+    {
+      "from": "arxiv:2109.07958",
+      "to": "arxiv:2203.02155",
+      "depth": 1,
+      "why": "cites instruction-following / human feedback"
+    },
+    {
+      "from": "github:vectara/hallucination-leaderboard",
+      "to": "arxiv:2204.04991",
+      "depth": 1,
+      "why": "prior research: TRUE factual consistency"
+    },
+    {
+      "from": "github:vectara/hallucination-leaderboard",
+      "to": "arxiv:2404.10774",
+      "depth": 1,
+      "why": "prior research: MiniCheck"
+    },
+    {
+      "from": "github:vectara/hallucination-leaderboard",
+      "to": "arxiv:2005.00661",
+      "depth": 1,
+      "why": "lineage: faithfulness in abstractive summarization"
+    },
+    {
+      "from": "github:vectara/hallucination-leaderboard",
+      "to": "arxiv:2109.07958",
+      "depth": 1,
+      "why": "adjacent truthfulness benchmark (TruthfulQA)"
+    },
+    {
+      "from": "url:genai.owasp.org/llmrisk/llm01-prompt-injection",
+      "to": "arxiv:2302.12173",
+      "depth": 1,
+      "why": "reference: Greshake indirect prompt injection"
+    },
+    {
+      "from": "url:genai.owasp.org/llmrisk/llm01-prompt-injection",
+      "to": "arxiv:2306.05499",
+      "depth": 1,
+      "why": "reference: prompt injection vs LLM apps"
+    },
+    {
+      "from": "url:genai.owasp.org/llmrisk/llm01-prompt-injection",
+      "to": "arxiv:2307.15043",
+      "depth": 1,
+      "why": "reference: GCG adversarial suffix"
+    },
+    {
+      "from": "arxiv:2501.18837",
+      "to": "arxiv:2212.08073",
+      "depth": 1,
+      "why": "post: technique based on Constitutional AI"
+    },
+    {
+      "from": "arxiv:2501.18837",
+      "to": "arxiv:2412.03556",
+      "depth": 1,
+      "why": "post names unusual-capitalization / BoN-style attacks"
+    },
+    {
+      "from": "arxiv:2501.18837",
+      "to": "arxiv:2404.04374",
+      "depth": 1,
+      "why": "post names many-shot / very-long-prompt jailbreaks"
+    },
+    {
+      "from": "arxiv:2405.20947",
+      "to": "arxiv:2406.14598",
+      "depth": 1,
+      "why": "cites SORRY-Bench refusal eval"
+    },
+    {
+      "from": "arxiv:2405.20947",
+      "to": "arxiv:2308.01263",
+      "depth": 1,
+      "why": "cites XSTest exaggerated safety"
+    },
+    {
+      "from": "arxiv:2405.20947",
+      "to": "arxiv:2409.00598",
+      "depth": 1,
+      "why": "cites false-refusal / pseudo-harmful prompts"
+    },
+    {
+      "from": "arxiv:2405.20947",
+      "to": "arxiv:2402.04249",
+      "depth": 1,
+      "why": "cites HarmBench"
+    },
+    {
+      "from": "arxiv:2405.20947",
+      "to": "arxiv:2401.10019",
+      "depth": 1,
+      "why": "cites R-Judge agent safety"
+    },
+    {
+      "from": "arxiv:2405.20947",
+      "to": "arxiv:2404.01318",
+      "depth": 1,
+      "why": "cites JailbreakBench"
+    },
+    {
+      "from": "arxiv:2405.20947",
+      "to": "arxiv:2310.08419",
+      "depth": 1,
+      "why": "cites PAIR"
+    },
+    {
+      "from": "arxiv:2405.20947",
+      "to": "arxiv:2406.18510",
+      "depth": 1,
+      "why": "cites WildTeaming"
+    },
+    {
+      "from": "arxiv:2502.08177",
+      "to": "arxiv:2310.13548",
+      "depth": 1,
+      "why": "cites Sharma sycophancy"
+    },
+    {
+      "from": "arxiv:2502.08177",
+      "to": "arxiv:2406.10162",
+      "depth": 1,
+      "why": "cites sycophancy-to-subterfuge"
+    },
+    {
+      "from": "arxiv:2502.08177",
+      "to": "arxiv:2411.15287",
+      "depth": 1,
+      "why": "cites sycophancy causes/mitigations survey"
+    },
+    {
+      "from": "arxiv:2502.08177",
+      "to": "arxiv:2409.01658",
+      "depth": 1,
+      "why": "cites Yes-Men pinpoint tuning"
+    },
+    {
+      "from": "arxiv:2502.08177",
+      "to": "arxiv:2311.09410",
+      "depth": 1,
+      "why": "cites contradict-humans sycophancy"
+    },
+    {
+      "from": "arxiv:2502.08177",
+      "to": "arxiv:2307.15217",
+      "depth": 1,
+      "why": "cites Casper RLHF open problems"
+    },
+    {
+      "from": "arxiv:2502.08177",
+      "to": "arxiv:2505.23840",
+      "depth": 1,
+      "why": "S2 ref: multi-turn sycophancy measurement"
+    },
+    {
+      "from": "arxiv:2510.04721",
+      "to": "arxiv:2310.13548",
+      "depth": 1,
+      "why": "cites Sharma sycophancy"
+    },
+    {
+      "from": "arxiv:2510.04721",
+      "to": "arxiv:2308.03958",
+      "depth": 1,
+      "why": "cites Wei synthetic sycophancy reduction"
+    },
+    {
+      "from": "arxiv:2510.04721",
+      "to": "arxiv:2411.15287",
+      "depth": 1,
+      "why": "cites causes/mitigations survey"
+    },
+    {
+      "from": "arxiv:2510.04721",
+      "to": "arxiv:2412.00967",
+      "depth": 1,
+      "why": "cites linear-probe sycophancy penalty"
+    },
+    {
+      "from": "arxiv:2510.04721",
+      "to": "arxiv:2311.09410",
+      "depth": 1,
+      "why": "cites contradict-humans sycophancy"
+    },
+    {
+      "from": "arxiv:2510.04721",
+      "to": "arxiv:2506.09038",
+      "depth": 1,
+      "why": "cites AbstentionBench / unanswerable failures"
+    },
+    {
+      "from": "arxiv:2412.03556",
+      "to": "arxiv:2402.04249",
+      "depth": 1,
+      "why": "in-text: HarmBench request set + grader"
+    },
+    {
+      "from": "arxiv:2412.03556",
+      "to": "arxiv:2406.04313",
+      "depth": 1,
+      "why": "in-text: attacks circuit breakers"
+    },
+    {
+      "from": "arxiv:2412.03556",
+      "to": "arxiv:2404.04374",
+      "depth": 1,
+      "why": "in-text: composes with many-shot jailbreaking"
+    },
+    {
+      "from": "arxiv:2604.04788",
+      "to": "arxiv:2412.14093",
+      "depth": 1,
+      "why": "cites alignment faking"
+    },
+    {
+      "from": "arxiv:2604.04788",
+      "to": "arxiv:2412.04984",
+      "depth": 1,
+      "why": "cites in-context scheming"
+    },
+    {
+      "from": "arxiv:2604.04788",
+      "to": "arxiv:2412.01784",
+      "depth": 1,
+      "why": "cites noise-injection sandbag detection"
+    },
+    {
+      "from": "arxiv:2604.04788",
+      "to": "arxiv:2505.17815",
+      "depth": 1,
+      "why": "cites evaluation faking / observer effects"
+    },
+    {
+      "from": "arxiv:2604.04788",
+      "to": "arxiv:2503.03750",
+      "depth": 1,
+      "why": "cites MASK honesty-vs-accuracy"
+    },
+    {
+      "from": "arxiv:2604.04788",
+      "to": "arxiv:2401.05566",
+      "depth": 1,
+      "why": "cites sleeper agents"
+    },
+    {
+      "from": "arxiv:2604.04788",
+      "to": "arxiv:2505.01420",
+      "depth": 1,
+      "why": "cites stealth and situational awareness"
+    },
+    {
+      "from": "arxiv:2604.04788",
+      "to": "arxiv:2410.21514",
+      "depth": 1,
+      "why": "cites sabotage evaluations"
+    },
+    {
+      "from": "arxiv:2406.10162",
+      "to": "arxiv:2310.13548",
+      "depth": 1,
+      "why": "curriculum starts from political sycophancy"
+    },
+    {
+      "from": "arxiv:2406.10162",
+      "to": "arxiv:2401.05566",
+      "depth": 1,
+      "why": "cites sleeper agents"
+    },
+    {
+      "from": "arxiv:2406.10162",
+      "to": "arxiv:2309.00667",
+      "depth": 1,
+      "why": "cites situational-awareness measurement"
+    },
+    {
+      "from": "arxiv:2406.10162",
+      "to": "arxiv:2212.08073",
+      "depth": 1,
+      "why": "harmlessness / Constitutional AI supervision"
+    },
+    {
+      "from": "arxiv:2406.10162",
+      "to": "arxiv:2112.00861",
+      "depth": 1,
+      "why": "cites Askell HHH lab"
+    },
+    {
+      "from": "arxiv:2406.10162",
+      "to": "arxiv:2201.03544",
+      "depth": 1,
+      "why": "cites reward-misspecification mapping"
+    },
+    {
+      "from": "arxiv:2406.10162",
+      "to": "arxiv:1908.04734",
+      "depth": 1,
+      "why": "cites Everitt reward-tampering theory"
+    },
+    {
+      "from": "arxiv:2406.10162",
+      "to": "url:deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity",
+      "depth": 1,
+      "why": "Anthropic post names specification-gaming lineage"
+    },
+    {
+      "from": "url:www.mindstudio.ai/blog/ai-agent-failure-modes-reasoning-action-disconnect",
+      "to": "url:www.mountsinai.org/about/newsroom/2026/research-identifies-blind-spots-in-ai-medical-triage",
+      "depth": 1,
+      "why": "names Mount Sinai clinical study as source"
+    },
+    {
+      "from": "url:www.mindstudio.ai/blog/ai-agent-failure-modes-reasoning-action-disconnect",
+      "to": "arxiv:2307.03172",
+      "depth": 1,
+      "why": "names Lost in the Middle for context contamination"
+    },
+    {
+      "from": "url:www.mindstudio.ai/blog/ai-agent-failure-modes-reasoning-action-disconnect",
+      "to": "arxiv:2310.13548",
+      "depth": 1,
+      "why": "frames social anchoring as sycophancy"
+    },
+    {
+      "from": "url:www.mindstudio.ai/blog/ai-agent-failure-modes-reasoning-action-disconnect",
+      "to": "arxiv:2305.04388",
+      "depth": 1,
+      "why": "names unfaithful CoT / think-right-say-wrong"
+    },
+    {
+      "from": "arxiv:2308.03958",
+      "to": "arxiv:2305.04388",
+      "depth": 2,
+      "why": "cites unfaithful CoT"
+    },
+    {
+      "from": "arxiv:2308.03958",
+      "to": "arxiv:2212.08073",
+      "depth": 2,
+      "why": "cites Constitutional AI"
+    },
+    {
+      "from": "arxiv:2308.03958",
+      "to": "arxiv:2211.03540",
+      "depth": 2,
+      "why": "cites scalable oversight"
+    },
+    {
+      "from": "arxiv:2305.04388",
+      "to": "arxiv:2310.13548",
+      "depth": 2,
+      "why": "cites Sharma sycophancy (also a seed)"
+    },
+    {
+      "from": "arxiv:2305.04388",
+      "to": "arxiv:2212.08073",
+      "depth": 2,
+      "why": "cites Constitutional AI"
+    },
+    {
+      "from": "arxiv:2204.05862",
+      "to": "arxiv:2209.07858",
+      "depth": 2,
+      "why": "cites red-teaming to reduce harms"
+    },
+    {
+      "from": "arxiv:2204.05862",
+      "to": "arxiv:2112.00861",
+      "depth": 2,
+      "why": "cites Askell HHH precursor"
+    },
+    {
+      "from": "arxiv:2212.08073",
+      "to": "arxiv:2211.03540",
+      "depth": 2,
+      "why": "cites scalable oversight"
+    },
+    {
+      "from": "arxiv:2212.08073",
+      "to": "arxiv:2209.07858",
+      "depth": 2,
+      "why": "cites red-teaming"
+    },
+    {
+      "from": "arxiv:2212.08073",
+      "to": "arxiv:2202.03286",
+      "depth": 2,
+      "why": "cites LM red-teaming"
+    },
+    {
+      "from": "arxiv:2405.19550",
+      "to": "arxiv:2403.03218",
+      "depth": 2,
+      "why": "cites WMDP"
+    },
+    {
+      "from": "arxiv:2405.19550",
+      "to": "arxiv:2401.05566",
+      "depth": 2,
+      "why": "cites sleeper agents"
+    },
+    {
+      "from": "arxiv:2405.19550",
+      "to": "arxiv:2308.14752",
+      "depth": 2,
+      "why": "cites AI deception survey"
+    },
+    {
+      "from": "arxiv:2405.19550",
+      "to": "arxiv:2209.00626",
+      "depth": 2,
+      "why": "cites alignment problem from DL perspective"
+    },
+    {
+      "from": "arxiv:2403.03218",
+      "to": "arxiv:2402.04249",
+      "depth": 2,
+      "why": "cites HarmBench"
+    },
+    {
+      "from": "arxiv:2403.03218",
+      "to": "arxiv:2310.08419",
+      "depth": 2,
+      "why": "cites PAIR"
+    },
+    {
+      "from": "arxiv:2403.03218",
+      "to": "arxiv:2308.14752",
+      "depth": 2,
+      "why": "cites AI deception survey"
+    },
+    {
+      "from": "arxiv:2403.03218",
+      "to": "arxiv:2305.11747",
+      "depth": 2,
+      "why": "cites HaluEval"
+    },
+    {
+      "from": "arxiv:2403.03218",
+      "to": "arxiv:2304.03279",
+      "depth": 2,
+      "why": "cites MACHIAVELLI"
+    },
+    {
+      "from": "arxiv:2312.06942",
+      "to": "arxiv:2311.08379",
+      "depth": 2,
+      "why": "cites Carlsmith scheming"
+    },
+    {
+      "from": "arxiv:2312.06942",
+      "to": "arxiv:2307.15043",
+      "depth": 2,
+      "why": "cites GCG as attack analogue"
+    },
+    {
+      "from": "arxiv:2312.06942",
+      "to": "arxiv:2211.03540",
+      "depth": 2,
+      "why": "cites scalable oversight"
+    },
+    {
+      "from": "arxiv:2405.01576",
+      "to": "arxiv:2401.05566",
+      "depth": 2,
+      "why": "cites sleeper agents"
+    },
+    {
+      "from": "arxiv:2405.01576",
+      "to": "arxiv:2311.08379",
+      "depth": 2,
+      "why": "cites Carlsmith"
+    },
+    {
+      "from": "arxiv:2405.01576",
+      "to": "arxiv:2310.13548",
+      "depth": 2,
+      "why": "cites Sharma sycophancy"
+    },
+    {
+      "from": "arxiv:2405.01576",
+      "to": "arxiv:2308.14752",
+      "depth": 2,
+      "why": "cites AI deception survey"
+    },
+    {
+      "from": "arxiv:2405.01576",
+      "to": "arxiv:2304.03279",
+      "depth": 2,
+      "why": "cites MACHIAVELLI"
+    },
+    {
+      "from": "arxiv:2411.03336",
+      "to": "arxiv:2407.04694",
+      "depth": 2,
+      "why": "cites SAD"
+    },
+    {
+      "from": "arxiv:2411.03336",
+      "to": "arxiv:2406.07358",
+      "depth": 2,
+      "why": "cites sandbagging"
+    },
+    {
+      "from": "arxiv:2411.03336",
+      "to": "arxiv:2405.19550",
+      "depth": 2,
+      "why": "cites password-locked elicitation"
+    },
+    {
+      "from": "arxiv:2411.03336",
+      "to": "arxiv:2312.06942",
+      "depth": 2,
+      "why": "cites AI control"
+    },
+    {
+      "from": "arxiv:2411.03336",
+      "to": "arxiv:2311.08379",
+      "depth": 2,
+      "why": "cites Carlsmith"
+    },
+    {
+      "from": "arxiv:2404.13208",
+      "to": "arxiv:2302.12173",
+      "depth": 2,
+      "why": "cites Greshake indirect injection"
+    },
+    {
+      "from": "arxiv:2404.13208",
+      "to": "arxiv:2312.14197",
+      "depth": 2,
+      "why": "cites BIPIA"
+    },
+    {
+      "from": "arxiv:2404.13208",
+      "to": "arxiv:2311.01011",
+      "depth": 2,
+      "why": "cites Tensor Trust"
+    },
+    {
+      "from": "arxiv:2404.13208",
+      "to": "arxiv:2306.05499",
+      "depth": 2,
+      "why": "cites Liu prompt-injection attacks"
+    },
+    {
+      "from": "arxiv:2404.13208",
+      "to": "arxiv:2307.15043",
+      "depth": 2,
+      "why": "cites GCG"
+    },
+    {
+      "from": "arxiv:2404.01318",
+      "to": "arxiv:2402.10260",
+      "depth": 2,
+      "why": "cites StrongREJECT"
+    },
+    {
+      "from": "arxiv:2404.01318",
+      "to": "arxiv:2402.04249",
+      "depth": 2,
+      "why": "cites HarmBench"
+    },
+    {
+      "from": "arxiv:2404.01318",
+      "to": "arxiv:2310.08419",
+      "depth": 2,
+      "why": "cites PAIR"
+    },
+    {
+      "from": "arxiv:2404.01318",
+      "to": "arxiv:2307.15043",
+      "depth": 2,
+      "why": "cites GCG"
+    },
+    {
+      "from": "arxiv:2404.01318",
+      "to": "arxiv:2308.03825",
+      "depth": 2,
+      "why": "cites DAN in-the-wild"
+    },
+    {
+      "from": "arxiv:2402.10260",
+      "to": "arxiv:2402.04249",
+      "depth": 2,
+      "why": "cites HarmBench"
+    },
+    {
+      "from": "arxiv:2402.10260",
+      "to": "arxiv:2310.08419",
+      "depth": 2,
+      "why": "cites PAIR"
+    },
+    {
+      "from": "arxiv:2402.10260",
+      "to": "arxiv:2312.02119",
+      "depth": 2,
+      "why": "cites TAP"
+    },
+    {
+      "from": "arxiv:2402.10260",
+      "to": "arxiv:2307.15043",
+      "depth": 2,
+      "why": "cites GCG"
+    },
+    {
+      "from": "arxiv:2402.10260",
+      "to": "arxiv:2308.03825",
+      "depth": 2,
+      "why": "cites DAN"
+    },
+    {
+      "from": "arxiv:2310.08419",
+      "to": "arxiv:2307.15043",
+      "depth": 2,
+      "why": "cites GCG"
+    },
+    {
+      "from": "arxiv:2310.08419",
+      "to": "arxiv:2308.03825",
+      "depth": 2,
+      "why": "cites in-the-wild jailbreaks"
+    },
+    {
+      "from": "arxiv:2308.01263",
+      "to": "arxiv:2212.08073",
+      "depth": 2,
+      "why": "cites Constitutional AI"
+    },
+    {
+      "from": "arxiv:2308.01263",
+      "to": "arxiv:2209.07858",
+      "depth": 2,
+      "why": "cites red-teaming"
+    },
+    {
+      "from": "arxiv:2308.01263",
+      "to": "arxiv:2307.15043",
+      "depth": 2,
+      "why": "cites GCG"
+    },
+    {
+      "from": "arxiv:2402.04249",
+      "to": "arxiv:2312.02119",
+      "depth": 2,
+      "why": "cites TAP"
+    },
+    {
+      "from": "arxiv:2402.04249",
+      "to": "arxiv:2310.08419",
+      "depth": 2,
+      "why": "cites PAIR"
+    },
+    {
+      "from": "arxiv:2402.04249",
+      "to": "arxiv:2307.15043",
+      "depth": 2,
+      "why": "cites GCG"
+    },
+    {
+      "from": "arxiv:2402.04249",
+      "to": "arxiv:2308.03825",
+      "depth": 2,
+      "why": "cites DAN"
+    },
+    {
+      "from": "arxiv:2402.04249",
+      "to": "arxiv:2401.06373",
+      "depth": 2,
+      "why": "cites persuasive jailbreaks"
+    },
+    {
+      "from": "arxiv:2409.00598",
+      "to": "arxiv:2405.20947",
+      "depth": 2,
+      "why": "cites OR-Bench"
+    },
+    {
+      "from": "arxiv:2409.00598",
+      "to": "arxiv:2402.04249",
+      "depth": 2,
+      "why": "cites HarmBench"
+    },
+    {
+      "from": "arxiv:2409.00598",
+      "to": "arxiv:2406.11717",
+      "depth": 2,
+      "why": "cites refusal-direction"
+    },
+    {
+      "from": "arxiv:2401.10019",
+      "to": "arxiv:2403.02691",
+      "depth": 2,
+      "why": "cites InjecAgent"
+    },
+    {
+      "from": "arxiv:2401.10019",
+      "to": "arxiv:2312.14197",
+      "depth": 2,
+      "why": "cites BIPIA"
+    },
+    {
+      "from": "arxiv:2409.01658",
+      "to": "arxiv:2310.13548",
+      "depth": 2,
+      "why": "cites Sharma"
+    },
+    {
+      "from": "arxiv:2409.01658",
+      "to": "arxiv:2308.03958",
+      "depth": 2,
+      "why": "cites Wei synthetic data"
+    },
+    {
+      "from": "arxiv:2409.01658",
+      "to": "arxiv:2306.03341",
+      "depth": 2,
+      "why": "cites inference-time intervention"
+    },
+    {
+      "from": "arxiv:2412.00967",
+      "to": "arxiv:2308.03958",
+      "depth": 2,
+      "why": "cites Wei synthetic sycophancy"
+    },
+    {
+      "from": "arxiv:2505.23840",
+      "to": "arxiv:2503.11656",
+      "depth": 2,
+      "why": "cites TRUTH DECAY multi-turn"
+    },
+    {
+      "from": "arxiv:2505.23840",
+      "to": "arxiv:2412.00967",
+      "depth": 2,
+      "why": "cites linear-probe penalties"
+    },
+    {
+      "from": "arxiv:2505.23840",
+      "to": "arxiv:2411.15287",
+      "depth": 2,
+      "why": "cites causes/mitigations"
+    },
+    {
+      "from": "arxiv:2503.03750",
+      "to": "arxiv:2412.14093",
+      "depth": 2,
+      "why": "cites alignment faking"
+    },
+    {
+      "from": "arxiv:2503.03750",
+      "to": "arxiv:2412.04984",
+      "depth": 2,
+      "why": "cites in-context scheming"
+    },
+    {
+      "from": "arxiv:2503.03750",
+      "to": "arxiv:2409.18786",
+      "depth": 2,
+      "why": "cites honesty survey"
+    },
+    {
+      "from": "arxiv:2503.03750",
+      "to": "arxiv:2409.09013",
+      "depth": 2,
+      "why": "cites AI-LieDar agent truthfulness"
+    },
+    {
+      "from": "arxiv:2503.03750",
+      "to": "arxiv:2308.14752",
+      "depth": 2,
+      "why": "cites AI deception survey"
+    },
+    {
+      "from": "arxiv:2505.17815",
+      "to": "arxiv:2412.14093",
+      "depth": 2,
+      "why": "cites alignment faking"
+    },
+    {
+      "from": "arxiv:2505.17815",
+      "to": "arxiv:2412.04984",
+      "depth": 2,
+      "why": "cites in-context scheming"
+    },
+    {
+      "from": "arxiv:2505.17815",
+      "to": "arxiv:2411.03336",
+      "depth": 2,
+      "why": "cites scheming safety cases"
+    },
+    {
+      "from": "arxiv:2505.17815",
+      "to": "arxiv:2407.04694",
+      "depth": 2,
+      "why": "cites SAD"
+    },
+    {
+      "from": "arxiv:2505.17815",
+      "to": "arxiv:2406.07358",
+      "depth": 2,
+      "why": "cites sandbagging"
+    },
+    {
+      "from": "arxiv:2505.01420",
+      "to": "arxiv:2412.14093",
+      "depth": 2,
+      "why": "cites alignment faking"
+    },
+    {
+      "from": "arxiv:2505.01420",
+      "to": "arxiv:2412.04984",
+      "depth": 2,
+      "why": "cites in-context scheming"
+    },
+    {
+      "from": "arxiv:2505.01420",
+      "to": "arxiv:2406.10162",
+      "depth": 2,
+      "why": "cites reward tampering"
+    },
+    {
+      "from": "arxiv:2505.01420",
+      "to": "arxiv:2407.04694",
+      "depth": 2,
+      "why": "cites SAD"
+    },
+    {
+      "from": "arxiv:2505.01420",
+      "to": "arxiv:2312.06942",
+      "depth": 2,
+      "why": "cites AI control"
+    },
+    {
+      "from": "arxiv:2412.01784",
+      "to": "arxiv:2406.07358",
+      "depth": 2,
+      "why": "cites van der Weij sandbagging"
+    },
+    {
+      "from": "arxiv:2412.01784",
+      "to": "arxiv:2405.19550",
+      "depth": 2,
+      "why": "cites password-locked models"
+    },
+    {
+      "from": "arxiv:2412.01784",
+      "to": "arxiv:2401.05566",
+      "depth": 2,
+      "why": "cites sleeper agents"
+    },
+    {
+      "from": "arxiv:2412.01784",
+      "to": "arxiv:2405.05466",
+      "depth": 2,
+      "why": "cites POSER alignment-faking probes"
+    },
+    {
+      "from": "arxiv:2412.01784",
+      "to": "arxiv:2502.03407",
+      "depth": 2,
+      "why": "cites linear-probe deception detection"
+    },
+    {
+      "from": "arxiv:2406.04313",
+      "to": "arxiv:2402.04249",
+      "depth": 2,
+      "why": "cites HarmBench"
+    },
+    {
+      "from": "arxiv:2406.04313",
+      "to": "arxiv:2310.08419",
+      "depth": 2,
+      "why": "cites PAIR"
+    },
+    {
+      "from": "arxiv:2406.04313",
+      "to": "arxiv:2403.03218",
+      "depth": 2,
+      "why": "cites WMDP"
+    },
+    {
+      "from": "arxiv:2406.04313",
+      "to": "arxiv:2312.02119",
+      "depth": 2,
+      "why": "cites TAP"
+    },
+    {
+      "from": "arxiv:2406.04313",
+      "to": "arxiv:2310.03684",
+      "depth": 2,
+      "why": "cites SmoothLLM"
+    },
+    {
+      "from": "arxiv:2302.12173",
+      "to": "arxiv:2305.13534",
+      "depth": 2,
+      "why": "cites hallucination snowball"
+    },
+    {
+      "from": "arxiv:2302.12173",
+      "to": "arxiv:2109.07958",
+      "depth": 2,
+      "why": "cites TruthfulQA"
+    },
+    {
+      "from": "arxiv:2308.14752",
+      "to": "arxiv:2401.05566",
+      "depth": 2,
+      "why": "cites sleeper agents"
+    },
+    {
+      "from": "arxiv:2308.14752",
+      "to": "arxiv:2307.16513",
+      "depth": 2,
+      "why": "cites emergent deception"
+    },
+    {
+      "from": "arxiv:2308.14752",
+      "to": "arxiv:2308.01404",
+      "depth": 2,
+      "why": "cites Hoodwinked"
+    },
+    {
+      "from": "arxiv:2308.14752",
+      "to": "arxiv:2305.04388",
+      "depth": 2,
+      "why": "cites unfaithful CoT"
+    },
+    {
+      "from": "arxiv:2308.14752",
+      "to": "arxiv:2210.01790",
+      "depth": 2,
+      "why": "cites goal misgeneralization"
+    },
+    {
+      "from": "arxiv:2210.01790",
+      "to": "arxiv:2105.14111",
+      "depth": 2,
+      "why": "cites Langosco goal misgeneralization"
+    },
+    {
+      "from": "arxiv:2304.03279",
+      "to": "arxiv:2206.13353",
+      "depth": 2,
+      "why": "cites Carlsmith power-seeking"
+    },
+    {
+      "from": "arxiv:2304.03279",
+      "to": "arxiv:2109.07958",
+      "depth": 2,
+      "why": "cites TruthfulQA"
+    },
+    {
+      "from": "arxiv:2110.06674",
+      "to": "arxiv:2109.07958",
+      "depth": 2,
+      "why": "companion / cites TruthfulQA"
+    },
+    {
+      "from": "arxiv:2307.15043",
+      "to": "arxiv:2209.14375",
+      "depth": 3,
+      "why": "cites targeted human judgements / Sparrow alignment"
+    },
+    {
+      "from": "arxiv:2312.02119",
+      "to": "arxiv:2310.08419",
+      "depth": 3,
+      "why": "builds on PAIR"
+    },
+    {
+      "from": "arxiv:2312.02119",
+      "to": "arxiv:2307.15043",
+      "depth": 3,
+      "why": "compares to GCG"
+    },
+    {
+      "from": "arxiv:2308.03825",
+      "to": "arxiv:2307.15043",
+      "depth": 3,
+      "why": "cites GCG-style attacks"
+    },
+    {
+      "from": "arxiv:2308.03825",
+      "to": "arxiv:2209.07858",
+      "depth": 3,
+      "why": "cites red-teaming"
+    },
+    {
+      "from": "arxiv:2403.02691",
+      "to": "arxiv:2302.12173",
+      "depth": 3,
+      "why": "cites Greshake indirect injection"
+    },
+    {
+      "from": "arxiv:2403.02691",
+      "to": "arxiv:2312.14197",
+      "depth": 3,
+      "why": "cites BIPIA"
+    },
+    {
+      "from": "arxiv:2312.14197",
+      "to": "arxiv:2302.12173",
+      "depth": 3,
+      "why": "cites Greshake"
+    },
+    {
+      "from": "arxiv:2405.05466",
+      "to": "arxiv:2412.14093",
+      "depth": 3,
+      "why": "alignment-faking detection setting"
+    },
+    {
+      "from": "arxiv:2305.11747",
+      "to": "arxiv:2109.07958",
+      "depth": 3,
+      "why": "cites TruthfulQA"
+    },
+    {
+      "from": "arxiv:2305.11747",
+      "to": "arxiv:2005.00661",
+      "depth": 3,
+      "why": "cites faithfulness in summarization"
+    },
+    {
+      "from": "arxiv:2305.13534",
+      "to": "arxiv:2109.07958",
+      "depth": 3,
+      "why": "cites TruthfulQA"
+    },
+    {
+      "from": "arxiv:2105.14111",
+      "to": "arxiv:1606.06565",
+      "depth": 3,
+      "why": "cites Concrete Problems in AI Safety"
+    },
+    {
+      "from": "arxiv:2206.13353",
+      "to": "arxiv:1906.01820",
+      "depth": 3,
+      "why": "cites learned optimization"
+    },
+    {
+      "from": "arxiv:2206.13353",
+      "to": "arxiv:1606.06565",
+      "depth": 3,
+      "why": "cites Concrete Problems"
+    },
+    {
+      "from": "arxiv:2308.01404",
+      "to": "arxiv:2304.03279",
+      "depth": 3,
+      "why": "social-deception / MACHIAVELLI adjacent"
+    },
+    {
+      "from": "arxiv:2306.03341",
+      "to": "arxiv:2109.07958",
+      "depth": 3,
+      "why": "truthfulness intervention evaluated vs TruthfulQA"
+    },
+    {
+      "from": "arxiv:2503.11656",
+      "to": "arxiv:2310.13548",
+      "depth": 3,
+      "why": "cites Sharma sycophancy"
+    },
+    {
+      "from": "arxiv:2406.11717",
+      "to": "arxiv:2307.15043",
+      "depth": 3,
+      "why": "refusal direction vs GCG-style jailbreaks"
+    },
+    {
+      "from": "arxiv:2209.00626",
+      "to": "arxiv:1906.01820",
+      "depth": 3,
+      "why": "cites learned optimization"
+    },
+    {
+      "from": "arxiv:2209.00626",
+      "to": "arxiv:2210.01790",
+      "depth": 3,
+      "why": "cites goal misgeneralization"
+    }
+  ],
+  "gaps": [
+    {
+      "seed": "arxiv:2307.03172",
+      "reason": "Lost-in-the-Middle references are long-context architecture (Transformer-XL, LRA, ALiBi); no agentic-ill-behaviour children kept."
+    },
+    {
+      "id": "arxiv:2407.04694",
+      "reason": "S2 returned 0 references; no depth-3 children."
+    },
+    {
+      "id": "arxiv:2410.21514",
+      "reason": "S2 returned 0 references; no outgoing hops."
+    },
+    {
+      "id": "arxiv:2401.05566",
+      "reason": "S2 returned 0 references; node kept as cited child, no outgoing."
+    },
+    {
+      "id": "arxiv:2311.08379",
+      "reason": "S2 returned 0 references; node kept as cited child, no outgoing."
+    },
+    {
+      "id": "arxiv:2403.13793",
+      "reason": "S2 returned 0 references; node kept as cited child, no outgoing."
+    },
+    {
+      "id": "arxiv:2501.18837",
+      "reason": "S2 returned 0 references; hop-1 from Anthropic post named works only."
+    },
+    {
+      "id": "arxiv:2412.14093",
+      "reason": "S2 returned 0 references; hop-1 limited to in-text named cites."
+    },
+    {
+      "id": "arxiv:2412.04984",
+      "reason": "S2 returned 0 references; hop-1 limited to in-text named cites."
+    },
+    {
+      "id": "arxiv:2412.03556",
+      "reason": "S2 returned 0 references; hop-1 limited to in-text named cites."
+    },
+    {
+      "seed_bib": 57,
+      "reason": "Mount Sinai press page has no formal bibliography; hop-1 is related work named in the press/MindStudio write-up only."
+    }
+  ]
+}
