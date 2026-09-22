@@ -59,6 +59,7 @@ watch(sections, draw, { flush: "post" });
 .blog :deep(h1) { font-size: 1.6rem; margin: 0 0 8px; }
 .blog :deep(h2) { font-size: 1.2rem; margin: 28px 0 8px; }
 .blog :deep(h3) { font-size: 1.05rem; margin: 20px 0 8px; }
+.blog :deep(h4) { font-size: 0.97rem; margin: 18px 0 6px; color: #3d4450; }
 .blog :deep(pre) {
   background: #f6f8fa; border: 1px solid #d0d7de; padding: 10px 12px;
   overflow-x: auto; border-radius: 4px;

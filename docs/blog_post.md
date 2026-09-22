@@ -2,47 +2,48 @@
 
 **DSM-AE (Diagnostic and Statistical Manual: Agentic Edition)**
 
-<a href="https://www.linkedin.com/in/arcyleung/">Arthur Leung</a>, <a href="https://www.linkedin.com/in/boyuan-chen-749b9ba6/">Boyuan Chen</a>, and <a href="https://www.linkedin.com/in/ahmed-e-hassan/">Ahmed E Hassan</a> · 2026-09-14
+<a href="https://www.linkedin.com/in/arcyleung/">Arthur Leung</a>, <a href="https://www.linkedin.com/in/a76yang/">Alex Yang</a>, <a href="https://www.linkedin.com/in/boyuan-chen-749b9ba6/">Boyuan Chen</a>, and <a href="https://www.linkedin.com/in/ahmed-e-hassan/">Ahmed E Hassan</a> · 2026-09-14
 
-Code, packs, and run artifacts: <a href="https://github.com/arcyleung/dsm-ae-public">github.com/arcyleung/dsm-ae-public</a>
+<a href="https://github.com/PGCodeLLM/dsm-ae-public">GitHub</a>
 
 ---
 
 ## Motivation
 
-Imagine you hand the same bug report ticket to two different coding agents to investigate and fix. Both come back with a fully passing integration/unit test suite.
+You hand the same bug report ticket to two different coding agents to investigate and fix. Both report back with a fully passing integration/unit test suite.
 
-The first one read three files, made a focused change, ran the tests, and
+The first agent read three files, made a focused change, ran the tests, and
 stopped.
 
-The second one read the same file eleven times, edited it back and forth,
+The second agent read the same file eleven times, edited it back and forth,
 wandered into four unrelated modules "while it was in there", ran `git
-checkout --` on something you had not committed yet, and finished forty
+checkout --` on something you hadn't committed yet, and finished forty
 minutes and twice the tokens later. It also touched **eleven files where three
 would have sufficed**.
 
-If you have used a coding agent for real work, you might have met the second one.
-**Today's benchmarks would score them identically at reward = 1.0.** The
-difference shows up in the API bill, the review workload, and how much the
-organization trusts the agent to run unattended.
+If you have used a coding agent like the second one, you know the
+experience: fighting it at every step, then auditing everything it touched.
+And yet **today's SWE benchmarks score both agents identically at
+reward = 1.0**, because both resolved the ticket. The difference shows up
+in the API bill, in the time your team spends on review, and in how much
+your organization trusts the agent to run unattended.
 
-This project is not another ranking of which model scores highest. It diagnoses
-what happened on the way to the outcome, why it happened, and which parts
-belong to the model versus the scaffold.
+This project is not another benchmark to show which model scores highest. It diagnoses
+agentic behaviours in their attempt to solve tasks, why it happened, and which weaknesses can be attributed to
+to the model versus the scaffold.
 
-That is not a claim that the second agent is worse at programming. It may be
-equally capable and still fail non-functional requirements. Capability gaps
-need better training data; behavioural problems need better scaffolds such as a
+The second agent may be equally capable at programming and still fail non-functional requirements.
+Capability gaps need better training data; behavioural problems need better scaffolds such as a
 permission prompt, tools that fail loudly instead of swallowing exceptions, a
-workflow that says "read before you patch", or training that rewards
-efficient trajectories.
+workflow that says "read before you patch", or reinforcement of efficient strategies when executing
+expensive tasks.
 
 Our contribution is a set of cheap smoke tests that diagnose these behavioural
 problems and assess whether a model is fit for agentic work. The public
 comparison covers **18 models**. That is an
 alternative to full multi-suite long-horizon benchmarks: hundreds of tasks,
 hours of GPU time, tens-to-hundreds of millions of tokens. As the number of
-scaffolds and ablation axes grows with evaluating many finetuned checkpoints,
+scaffolds and ablation axes grows with evaluating many fine-tuned checkpoints,
 the cheaper and faster turnaround starts to matter.
 
 ---
@@ -51,10 +52,10 @@ the cheaper and faster turnaround starts to matter.
 
 The name is borrowed from the APA Diagnostic and Statistical Manual; the
 evidence-based diagnosis method is the inspiration. This is not a diagnosis of
-human subjects. Some agent behaviours can be studied under a similar frame.
+human subjects, nor a classification of human-agent interactions (AI-psychosis, for instance).
 
 Benchmaxxing is not the way to train models. The useful work is to understand
-where and how models fail on real tasks, then fix scaffolds and training data
+where and how models fail on real tasks, then improve scaffolds and agentic models' training data
 accordingly.
 
 The work consists of four contributions, in order of how well-evidenced they are:
@@ -68,10 +69,10 @@ action after one observation. The multi-turn generalisation that then follows is
 0…n−1 states**, and test the behaviour/actions at step n; this is our core insight which makes long-horizon
 behaviour testable without waiting dozens of hours for a full run.
 
-The reduction is a go/no-go gauge for task fitness. It does **not** guarantee
+The reduction acts as a cheap and practical go/no-go gauge for task fitness, but won't guarantee
 that every variant of the behaviour will be caught. That is where mutation testing and Monte Carlo Tree Search belong; both mine for difficult problems.
 The pipeline also has a ceiling: benchmark failure modes are far narrower than real ones, which is why we also
-studied real user trajectories collected by staff from our research lab. Within this framework,
+studied real user trajectories collected from staff in our research lab. Within this framework,
 benchmarks split into *workflow-structured* and *reward-shaped* tasks that
 need separate analyses. (§2)
 
@@ -92,7 +93,7 @@ framework. (§5)
 
 ## 1. Why trajectory reward verifiers and standalone metrics alone are not enough
 
-On NL2Repo-Bench, continuous trajectory trends track the **graded** reward,
+On NL2Repo-Bench[22], continuous trajectory trends track the **graded** reward,
 and the association **replicates across all three models tested** with
 consistent sign in every cell:
 
@@ -104,41 +105,27 @@ consistent sign in every cell:
 
 At the metric layer, longer and more sprawling trajectories correlate with a
 worse correctness score, and a higher share of verification steps correlates
-with a better one. But these stats alone do not explain the connection between the models' actions and final reward; that requires analysis at the higher level of behaviours.
+with a better one. But these stats alone cannot explain the connection between the models' actions and final reward; that requires analysis at the higher level of behaviours.
 
 **Behaviours that leave the outcome unchanged still cost real money.** Among
-SWE-bench-Pro runs that all *succeeded*, behaviourally-ill trajectories flagged with `read_loop` present spent 1.74× the
+SWE-bench-Pro[23] runs that all *succeeded*, behaviourally-ill trajectories flagged with `read_loop` present spent 1.74× the
 completion tokens [1.40, 1.96], and trajectories with `scope_creep` present edited **11 files where
 3 would do**. A correctness-only verifier would have scored these identically to an efficient agent run (§1.4).
 
-These are not artifacts of the benchmarks studied: in 75 sessions of
-real agent use collected from our lab members, we discovered one agent that requested permission for the same
-command **185 times** and never indicated to the user that it was blocked, and another that
-spent **1337 requests over 51 hours** polling a background job, a task which ended up
-*successful*, albeit at 200× the necessary cost (§1.5).
+In 75 sessions of real agent use collected from our lab staff's daily work,
+we found one agent that requested permission for the same command **185
+times** without ever telling the user it was blocked. Another spent **1,337
+requests over 51 hours** polling a background job. That second task
+finished *successfully*, at roughly 200× the necessary cost (§1.4).
 
-### 1.1 The easy parts
-
-**Measurement of a metric is straightforward.** Write a gate: did the agent delete `.env.old`?
-Did the final answer match the tool result? Did coverage of the required-fact
-set grow on this step? These are `DET_EXACT` / `DET_TRACE` / `DET_EXEC` checks
-over a trajectory. They are cheap, reproducible, but uninformative on
-their own.
-
-**Naming a syndrome is easy**. Any decent literature review
-gives you a vocabulary: overeager agency, tool integrity deficit, sycophancy,
-handoff collapse, spec drift. DSM-AE has 158 such patterns. Naming them costs
-nothing and proves nothing. A taxonomy with no outer oracle is a vocabulary, not
-an instrument.
-
-### 1.2 The difficult parts
+### 1.1 Layered understanding
 
 Collecting sufficient evidence to make the following claim, in any agentic evaluation:
 
 > *This* behaviour, when present, makes *this class of job* fail.
 
-That claim cannot be made from layer 1 or layer 2 alone. It requires an outer
-task oracle that is **not** one of your own gates. Hidden tests, a gold patch,
+That claim cannot be made from layer 1 or layer 2 alone. It requires an external
+task oracle, such as a hidden tests, a golden code patch,
 human feedback or acceptance, plus both failed *and* successful trajectories on the same task
 under the same scaffold for contrast. This is why we study the behavioural layer between low-level metrics and top-level task outcomes.
 
@@ -222,16 +209,16 @@ These metrics and thresholds can be anchored either empirically or statistically
 Normalisation matters more than it looks: for instance in filepaths, sandbox prefixes such as
 `/app/` and `/testbed/` are stripped before counting, so `/app/x.go` and `x.go`
 are the same file. Without that, re-reads scatter across spellings and the
-counter silently never fires. The same method adapts to entities beyond files, such as URLs — for instance, when the model crawls every API endpoint instead of using a paginated one.
+counter silently never fires. The same method adapts to entities beyond files, such as URLs. One example is a model that crawls every API endpoint instead of using a paginated one.
 
 Both are `DET_TRACE` checks: replaying the same trajectory always yields the
 same verdict, and neither consults the verifier's reward, which is what keeps
 the downstream behaviour↔outcome association from being circular.
 
-**Step 4: map the metric to a syndrome.** A single counter is an observation,
-not a diagnosis. Each instrument declares the taxonomy code it is evidence for,
+**Step 4: map the metric to a syndrome.** A single counter is an observation;
+multiple observations are required for a diagnosis. Each instrument declares the taxonomy code it is evidence for,
 and syndromes are polythetic: any one linked gate firing marks the syndrome
-present; on gate design refer to the detailed discussion (§3.1).
+present; on gate design refer to Section §3.1.
 
 | Metric | Fires because | Anchored syndrome |
 |---|---|---|
@@ -289,7 +276,7 @@ Edit counts: `persistence/album_repository.go` ×11, then 14 further files at
 
 </details>
 
-### 1.3 Certification of task fitness
+### 1.2 Certification of task fitness
 
 Certification should read as a sentence about conditions and consequences,
 rather than as a single dimension score, metric, or a leaderboard ranking:
@@ -298,11 +285,15 @@ rather than as a single dimension score, metric, or a leaderboard ranking:
 > of fails carry unrecovered REGRESS (OASD-shaped) and 25% carry SPD (held-out
 > spec violated). Successes almost never show unrecovered REGRESS.
 
-That is the definition of **fitness-to-operate on T**. It is a different object from "OASD syndrome present on a toy scenario/task," and it is the object an organization can actually map onto a policy decision: may this model auto-run code review, cleanup, or on-call triage on its own, or is it too weak and needs a human gate?
+That is the definition of **fitness-to-operate on T**, and it is a
+different object from "OASD syndrome present on a toy scenario." It is also
+the object an organization can map onto a policy decision. May this model
+auto-run code review, cleanup, or on-call triage on its own, or does it
+need a human gate?
 
 ---
 
-### 1.4 Non-functional costs
+### 1.3 Non-functional costs
 
 This section restricts to trials the verifier marked **PASS**. We study the non-functional costs of the task.
 
@@ -328,16 +319,10 @@ for `read_loop` and **zero** for `scope_creep`
 (`scripts/nfr_cost_paired.py`, output in
 `reports/behaviour-task/nfr_cost_paired.json`).
 
-That matters for interpretation. Because the groups cover different instances,
-part of each ratio reflects which tasks the behaviour tends to appear on rather
-than the behaviour itself. The confidence intervals resample *instances*, so
-they carry the clustering, but resampling cannot remove a confound the design
-never broke.
-
 **Matched pairwise comparison:** In NL2Repo-Bench, 109 instances carry token counts across four opencode runs, so the same instance can be compared with and without a
 behaviour under one harness. Restricting to pairs whose graded reward is within
 ±0.10 (a "comparable outcome", since binarising at 1.0 would keep only 37 of 578
-trials, §2.8) gives:
+trials, §C.4) gives:
 
 | Behaviour | instances | median ratio | 95% CI | instances costlier with |
 |---|---:|---:|---|---:|
@@ -353,7 +338,7 @@ stronger when matched. carried by an outlier: 15 of 18 instances are individuall
 the per-instance ratios range widely (0.44× to 26×), which is why the interval
 is wide and the median is the right aggregation to study.
 
-Two rows do change. `scope_creep` retains only 5 usable instances and its
+`scope_creep` retains only 5 usable instances and its
 interval spans 1.0, so the pooled 1.60× is unconfirmed here rather than
 contradicted. `destructive_command` collapses to 1.01× once matched, and it is
 the one row we would now decline to call a cost at all: running `rm -rf` is a
@@ -454,12 +439,10 @@ is visible to a benchmark:
 **Caveat.** Even the matched comparison conditions on the outcome rather than
 randomising the behaviour, so within a single instance a harder *attempt* can
 still produce both more sprawl and more tokens (the same endogeneity problem as
-§2.10). Matching removes the between-instance confound, not this one. Neither
-caveat rescues the correctness-only view: whatever the cause, the tokens were
-spent and the files were touched.
+§C.6).
 
 
-### 1.5 Real world scenarios
+### 1.4 Real world scenarios
 
 To check that they describe something real-world, we sampled **75 long-horizon sessions** from a corpus of 2192 real
 coding-agent transcripts by applied research scientists in our lab;
@@ -587,8 +570,9 @@ not a low rate.
 
 ## 2. Quantifying observed behaviour to test cases
 
-The examples in §1.5 were found by reading transcripts. That does not scale
-and is not repeatable. We apply a similar analysis to the benchmark trajectories from §1.2 to convert a behaviour into a smoke test:
+The examples in §1.4 were found by reading transcripts, which neither
+scales nor repeats. This section applies the same analysis to the benchmark
+trajectories from §1.2, and turns an observed behaviour into a smoke test.
 
 The pipeline is:
 
@@ -604,7 +588,11 @@ The pipeline is:
   [5] evidence that a capability needs attention
 ```
 
-### 2.1 Stage 1→2: patterns you can find without a fixture
+The subsections below follow stages 1→2 and 2→3, then ask what the
+pipeline is for. Stage 3→4 (mutation search), the limits of
+benchmark-derived discovery, and the graded-oracle analysis can be found in [Appendix C](#appendix-c--detailed-discussions).
+
+### 2.1 Stage 1→2: patterns which can be found without a fixture
 
 Some behaviours are visible in the *shape* of a trajectory alone, with no
 knowledge of what the task was. Represent a run as an ordered sequence of
@@ -612,9 +600,9 @@ action atoms (`read_file`, `edit`, `search_repo`, `run_test`) and recurring
 n-grams become the unit of analysis (the approach procgrep takes; our
 implementation is `src/dsm_ae/atoms.py`).
 
-The more useful signal, though, is the state of the environment. If the agent
-does not produce state changes that advance toward the task's goal, a
-problematic behaviour may be the barrier to solving the task.
+The more useful signal, though, is the state of the environment. When the
+agent stops producing state changes that advance the task, these behaviours
+are what is consuming the turns.
 
 | Pattern | Atom-level signature |
 |---|---|
@@ -627,7 +615,7 @@ The strength of this stage is that it needs **no oracle and no fixture**. It
 can be run deterministically on any trajectory, including production traffic.
 That is what let us identify patterns such as poll-babysitting.
 
-### 2.2 Stage 2→3: seeding state, not just shrinking the task
+### 2.2 Stage 2→3: seeding prior state, in conjunction with shrinking the task
 
 Once a pattern is named, a *subset* can be reduced to a minimal reproducible
 Harbor task with a deterministic gate. "Minimal" is the wrong intuition on its
@@ -686,32 +674,32 @@ when the condition has been met and polling can stop?
 That is a diagnosis of the *capability*, separated from the user's intent. And
 it is a single-decision test built on a seeded multi-turn state.
 
-This is a direction, not a finished result. Our current packs are mostly
+The framing is further along than the implementation. Our current packs are mostly
 single-turn or shallow, the seeding is hand-authored rather than derived from
 real trajectories, and no poll-babysitting fixture exists yet. What the
 framing answers is "which behaviours can a cheap test reach?": those whose
 diagnostic content is a *decision from a reconstructable state*, which is a
 much larger class than behaviours that need a genuinely long run.
 
-### 2.3 Nobody starts a clean session: what happens when we seed the wrong state
+### 2.3 Nobody starts a clean session: what happens when we seed a randomized state?
 
 Section 2.2 assumes we choose the prior state. Real sessions do not start
 empty. People keep Claude Code or Codex open: they fix a test, ask about a
 config file, chase an unrelated bug, then come back. By the time the request
 that matters arrives, the context already holds several unrelated tasks. The
-§1.5 transcripts make this concrete: median 296 requests and 5 hours per
+§1.4 transcripts make this concrete: median 296 requests and 5 hours per
 session; the longest session ran 474 hours.
 
 A metric measured on an empty context is therefore measuring a condition
 users of long-running coding agents are almost never in.
 
-Seeded state comes in two kinds.
+Seeded prior state comes in two kinds.
 
 **Targeted** seeding builds a prior state that provokes one behaviour. The
 recency-bias pack seeds a regime change and checks whether the model
 re-explores.
 
-**Adverse** seeding fills states 0…n−1 with real transcripts from unrelated
+**Adverse** seeding fills states 0…n−1 with real transcripts from randomized, unrelated
 tasks. It does not ask whether the model handles a particular situation; it
 asks whether the model still handles anything once its context is full of
 noise. Context bloat is the adverse case.
@@ -731,16 +719,17 @@ read), `recovery_ok` (the model retries after a failed read), and
 gates collapsed from a pass rate of 1.00 to 0.00.
 
 The results are 100 scored observations from 50 trials of that pack (10
-trials × 5 models; each trial emits a moderate observation and a hard observation). Across the full battery, 54 of 342 model × metric cells lost
-10 points or more; 28 of those 54 cells remain significant after a
-trial-level permutation test.
+trials × 5 models; each trial emits a moderate observation and a hard
+observation). Across the full battery, 54 of 342 model × metric cells lost
+10 points or more, and 28 of those 54 stay significant under a trial-level
+permutation test.
 
-*What the permutation test means.* Each trial is paired: the same fixture,
-same trial index, once on a clean context and once on a bloated context.
-The test randomly swaps those two labels inside each pair and asks how
-often a drop this large would appear by chance. p < 0.05 means a drop of
-this size is unlikely if the prefix made no difference. At k=10 the test is
-coarse: it can detect a collapse; it cannot separate a 10- or 20-point shift from response variance.
+*What the permutation test means.* Each trial is paired: the same fixture
+and trial index, run once on a clean context and once on a bloated one. The
+test swaps those two labels inside each pair at random, then asks how often
+a drop this large would appear by chance. At k=10 the test is coarse. It
+can detect a collapse, but it cannot separate a 10- or 20-point shift from
+ordinary response variance.
 
 | Gate | Clean | Bloated | Change | 95% CI | Models |
 |---|---:|---:|---:|---|---|
@@ -765,10 +754,11 @@ On the hard arm, a transient file-read error is injected. Under bloat, the
 models stop retrying in 50 of 50 hard-arm observations and fabricate an
 ungrounded answer instead.
 
-**Implication.** For any scenario that depends on noticing a first attempt
-failed and acting again, such as a flaky I/O read, a dropped network call, or an
-unexpected event an agent is supposed to keep watching for, a bloated
-context can make the agent stop trying and invent an ungrounded response.
+**Implication.** Retry behaviour is the first thing a long context costs
+you. A flaky I/O read, a dropped network call, an event the agent is
+supposed to keep watching for: each depends on noticing that the first
+attempt failed and acting again. Under bloat the agent stops trying and
+invents an ungrounded answer instead.
 
 **Finding 2: Single-decision gates survive bloat.** 43 of 81 metrics
 returned the same pass rate in every model that ran both the clean arm and
@@ -805,25 +795,20 @@ three variants ran in both arms (85% identical on a clean context, versus
 | Mean spread between the three variants | 0.019 | **0.039 (2.1×)** |
 | Gates that changed status |  | **15 left the ceiling, 5 reached it** |
 
-Twenty gates changed status: 15 left the ceiling (identical on a clean
-context, different under bloat); 5 reached the ceiling (different on a
-clean context, identical under bloat).
+Twenty gates changed status: 15 left the ceiling, and 5 reached it. A sign
+test on that 15-to-5 split gives p = 0.021, so the movement is one-directional.
 
-*What the tests mean, and what they do not.* An exact sign test on the
-15-to-5 split gives p = 0.021. That test asks: if a gate were equally
-likely to leave the ceiling as to reach it, how often would 15 of 20
-changes go the same way? A battery-level permutation test on the mean
-spread is weaker (p = 0.061). Only one individual gate separates the
-variants on its own (`tier3_features_land`, spread 0.00 → 0.17, p = 0.041).
-
-This does **not** establish that bloat made the battery better at telling
-the three variants apart. Most gates sit at 1.00 on a clean context, so any
-drop in pass rate moves a gate off the ceiling and registers as "now
-separating," whether or not the models differ from each other in a
-meaningful way. The 15 gates that left the ceiling are mostly the same
-multi-turn grounding failures as Finding 1. `task_tool_success` goes from
-1.00 / 1.00 / 1.00 to 0.40 / 0.50 / 0.60, but that gate is not newly informative.
-The discrimination reading is retracted in Appendix B.
+The tempting reading is that bloat made the battery better at telling the
+three variants apart. That reading is wrong, and the reason is worth
+keeping. Most gates sit at 1.00 on a clean context, so *any* drop in pass
+rate moves a gate off the ceiling and registers as "now separating,"
+whether or not the models actually differ. The 15 gates that left the
+ceiling are mostly the same multi-turn grounding failures as Finding 1.
+`task_tool_success` goes from 1.00 / 1.00 / 1.00 to 0.40 / 0.50 / 0.60,
+which is a collapse, not new information about the variants. The weaker
+battery-level tests agree: the permutation test on mean spread gives
+p = 0.061, and only one gate separates the variants on its own. The
+discrimination reading is retracted in Appendix B.
 
 **Implication.** A long irrelevant prefix lowers pass rates. That is
 already Finding 1. It does not, on this evidence, recover the battery's
@@ -845,18 +830,18 @@ model, three prefixes (k=3):
 | 50% meaningless filler (lorem) | 0.667 | 0.667 | 0.667 |
 | 50% real prior transcripts | **1.000** | **1.000** | **1.000** |
 
-Length alone does not help. The meaningless-filler arm is the worst of the
-three. Real prior transcripts do help. The stuffed history contains earlier
-sessions where an agent cleaned a directory and correctly preserved a
-sensitive file, and the model copies that. That is in-context learning, not
-restored judgement.
-
-This control is k=3 on one pack and one model: underpowered, and not a
-result.
+Length alone does not help. Meaningless filler is the worst arm of the
+three. Real transcripts help, and the reason is visible in the stuffed
+history: it contains earlier sessions where an agent cleaned a directory
+and correctly preserved a sensitive file. The model copies that. The
+improvement is in-context learning rather than restored judgement.
 
 **Implication.** Prior state that resembles the task can teach the model
-the answer. A state-seeded fixture needs a nonsense-filler control to
-separate "handles a full context" from "was shown a worked example."
+the answer, which means a state-seeded fixture can flatter the model it is
+testing. Every such fixture needs a nonsense-filler control to separate
+"handles a full context" from "was shown a worked example." This particular
+control is k=3 on one pack and one model, so treat it as a design warning
+rather than a measurement.
 
 **Scaffold versus model.** Handling context pollution is split. The
 scaffold decides what stays in context, what gets summarised, what gets
@@ -869,11 +854,15 @@ to any model's capability. This scaffold pastes 136,000 tokens of unrelated
 transcript in front of the task, with no summarisation, compaction,
 re-anchoring, or restatement of the task afterwards.
 
-The model-specific effects look like capability. `correct_under_pressure`
-and `no_sandbag` drop 40 points on qwen3.6-plus and are untouched on the
-other five models. `faithfulness` and `knowledge_retention` drop 30 points
-on qwen3.5-397b-a17b alone. `asks_clarification` improves 30 points on
-gpt-5.6-terra alone.
+The model-specific effects look like capability, and the giveaway is that
+each one lands on a single model. `correct_under_pressure` and `no_sandbag`
+drop 40 points on qwen3.6-plus and are untouched elsewhere. `faithfulness`
+and `knowledge_retention` drop 30 points on qwen3.5-397b-a17b alone.
+`asks_clarification` improves 30 points on gpt-5.6-terra alone.
+
+That split is the practical takeaway. A uniform collapse across every model
+is something to fix in the harness. An effect that lands on one model is
+something to fix in the model, or to price in when choosing it.
 
 **E3: three arms, not one prefix.** The 50% real-transcript arm is only
 half the design. The missing control is a token-matched *lorem* prefix:
@@ -882,8 +871,7 @@ gates off the ceiling as real transcripts, the damage is length. If only
 real transcripts do, the damage is the content of prior work. That is
 the comparison §2.3 could not make at scale.
 
-On gpt-5.6-sol all three arms are now on disk (clean k=20; lorem and
-real transcripts at k=10, 50% fill). A gate "leaves the ceiling" if it
+A gate "leaves the ceiling" if it
 was ≥ 0.99 on the clean arm and ≤ 0.90 under the prefix
 (`reports/arms/compare.json`):
 
@@ -893,23 +881,18 @@ was ≥ 0.99 on the clean arm and ≤ 0.90 under the prefix
 | none → 50% lorem | **35** | 89 |
 
 The four tool-integrity groundedness gates go 1.00 → 0.00 under **both**
-prefixes, as in Finding 1. Lorem is the worse arm: it also knocks
+prefixes, as in Finding 1. Lorem is the worse arm. It also knocks
 `capacity_reexplored`, `handoff_consumed`, `faithfulness`, and
-`knowledge_retention` off 1.00, and `task_success_cleanup` falls from
-0.90 on a clean context to **0.00**. Real transcripts leave that
-cleanup gate at 0.95. Length without content is not harmless filler.
-It is the more destructive prefix.
+`knowledge_retention` off 1.00, and `task_success_cleanup` falls from 0.90
+to **0.00** where real transcripts leave it at 0.95.
 
-The three `Qwen3.8-27B-NVFP4` arms are not yet reportable. All three
-exhausted their retries against the model gateway, which was returning a
-502 on roughly every fourth request: one of its four SGLang replicas had
-stopped accepting connections. The worker marks a job failed on the
-first error rather than retrying, so a single 502 discarded runs that
-were otherwise complete. The bad replica has since been taken out of
-rotation and the gateway now measures 15/15, so these arms are a re-run
-rather than an open question.
+**Implication.** Length without content is the more destructive prefix, so
+the damage is not simply that prior work distracts the model. Filling a
+context with noise is worse than filling it with unrelated work.
+A scaffold that manages context content poorly at the beginning is doing more harm than one that
+tracks history over many steps.
 
-**E5 (BFCL irrelevance).** 240 tasks, local, no Docker, schemas
+**E5 (BFCL[24] irrelevance).** 240 tasks, local, no Docker, schemas
 normalised so the gateway accepts BFCL's `float`/`dict` types
 (`reports/arms/bfcl_syndrome.json`):
 
@@ -918,88 +901,39 @@ normalised so the gateway accepts BFCL's `float`/`dict` types
 | gpt-5.6-sol | **205/240 (85.4%)** | 0.90 |
 | Qwen3.8-27B-NVFP4 | **199/240 (82.9%)** | 1.00 |
 
-The two instruments do **not** rank the models the same way. Sol is
-better on BFCL (6 more tasks, 218/240 agree); Qwen is better on the
-reduced OASD pack. With two models that is not a correlation. The two instruments simply disagree on which model is better. The abandon trigger in Appendix B (uncorrelated with
-`overeager_mini`) is the honest reading.
+The two instruments disagree on which model is better. Sol wins on BFCL by
+6 tasks, and Qwen wins on the reduced OASD pack. Two models cannot
+establish a correlation either way, so the abandon trigger in Appendix B is
+the honest reading.
 
-On eight sampled tasks, **both** models are 8/8 under none, lorem, and
-real transcripts. A polluted prefix did not move a single verdict. That
-is the opposite of E3 on our battery, where the same prefixes knock 15–35
-gates off the ceiling. BFCL irrelevance, on this slice, is a clean
-single-turn "do not call a tool" check. It does not see the long,
-irrelevant prior state that real sessions arrive in. Our packs do. That
-is a difference of *what is elicited*, not a claim that 8/8 on eight
-easy items makes BFCL a weak benchmark overall.
+The more interesting result is what bloat did to BFCL: nothing. On eight
+sampled tasks both models score 8/8 under all three prefixes, and a
+polluted context did not move a single verdict. The same prefixes knock
+15–35 gates off the ceiling on our battery.
 
-The next experiment after those arms is the same 50% fill, summarised
-instead of pasted. If a compacting scaffold recovers the grounding
-gates, the problem was the scaffold. If it does not, it is the model.
+**Implication.** BFCL irrelevance on this slice is a clean single-turn "do
+not call a tool" check, and single-turn checks are exactly what Finding 2
+showed to be bloat-proof. The two instruments elicit different things. Our
+packs see the long prior state that real sessions arrive in, and this slice
+of BFCL does not.
 
-**Limits.** One fill level (50%), so there is no dose-response; the
-pre-registered 80% arm was never run. No compaction arm, so these results
-describe an uncompacted long context, the worst case rather than the common one.
-The clean and bloated arms ran at different times against a live proxy, so
-model-side drift is not excluded: the tool-integrity collapse is too large
-and too uniform to be drift; the 10-to-30-point effects are not. The bloat
-runs discarded their traces during report assembly, so we cannot report
-what bloat cost in tokens. The 45× figure is the design target, not a
-measurement.
+In future work we will run the same bloated scenario with a compacting scaffold.
+If the task trajectory recovers the grounding gates, the problem can be
+attributed to the scaffold. If it does not, the weakness lies with the model.
 
-### 2.4 Stage 3→4: reduction does not guarantee coverage
-
-A gate is written against the behaviour **as you observed it**. A model
-that fails a slightly different way (a *mutation* of the behaviour) can
-walk straight past a gate tuned to the original observation.
-
-Our own data shows how real this risk is. Comparing three closely-related
-gpt-5.6 variants at our highest-powered setting, 81% of gates return an
-identical value for all three variants (§3.2). A gate that returns the same
-verdict no matter which model it looks at cannot detect a variant of
-anything.
-
-This is exactly the problem mutation testing was invented for, and the
-argument for MCTS-style search over the fixture space: **perturb the task,
-and check the gate still fires.** A suite that catches no injected variant
-is inadequate no matter how well-motivated the construct behind it is
-(§4.1). Scaffold-level mutation is done (Appendix B, E2). Model-level mutation (check the pack for X fires on a model known to lack X) is still outstanding.
-
-### 2.5 Benchmark failure modes are narrower than real-world scenarios
-
-Even a perfect version of the pipeline above has a ceiling, and it bounds
-what any benchmark-derived smoke test can claim.
-
-The failure modes available in SWE-bench-Pro and NL2Repo-Bench are **much
-narrower than the ways agents actually fail for real users**. Both
-benchmarks hand the agent a well-scoped task with a verifier attached.
-Neither can produce a 51-hour polling loop, because neither has a
-background job worth watching. Neither can produce 185 consecutive
-permission refusals, because neither runs under a user's permission
-configuration.
-
-We only found those behaviours by collecting **trajectories from real
-users** (§1.5). For a whole class of behaviour, real usage is the only
-place the phenomenon appears at all, which makes real trajectories a
-required input to fully capture the range of agentic ill-behaviours.
-
-The division of labour this implies is narrower than it first sounds: the
-ceiling applies to **discovery**, not to testing. §2.2 argues that once a behaviour is confirmed to exist, it can be reproduced with a seeded state rather than a long run, so a smoke test *can* probe poll-babysitting even though
-no benchmark would have shown it to you. What today's benchmarks fail to do is inform you of the existence of such behaviours. Real trajectories find the
-phenomenon; seeded fixtures turn it into a smoke test that catches regressions in release testing.
-
-### 2.6 What the pipeline is actually for
+### 2.4 Why diagnostic tests are useful
 
 Smoke tests cannot cover the whole space. What they buy is a **framework
 for sorting evidence** about which model capabilities need attention for
 real-world usability. They tell you where to look, and you still have to
-run the real benchmark to get a task-outcome number. Once a behaviour is
+run the real benchmark to understand task-outcomes fully. Once a behaviour is
 isolated in a cheap, repeatable fixture, it becomes actionable in three
 different directions, and which one applies is itself diagnostic
 information:
 
 - **Curate better training data** if the model genuinely lacks a
   capability.
-- **Train on more efficient trajectories** if the model has the
+- **Train on more efficient trajectories** if the model possesses a 
   capability but uses it wastefully, as in overthinking or
   poll-babysitting.
 - **Fix the scaffold** if the environment is what produced the failure.
@@ -1011,108 +945,8 @@ robust and efficient when interoperating with **models that were never
 finetuned on it**, which is the normal case for anyone building on top of
 a third-party model. Behaviour that only appears with an unfamiliar model
 is a scaffold design problem, and it is invisible to a benchmark that
-reports one number per model.
-
-### 2.7 Workflow-structured versus Reward-focused tasks
-
-The benchmarks we analyse come in two distinct kinds, and the
-pattern-matching in stage 1→2 should be adapted to whichever family you
-are holding.
-
-| | **Workflow-structured** | **Reward-focused** |
-|---|---|---|
-| Examples | SWE-bench-Pro, feat-bench | NL2Repo-Bench, DenovoSWE |
-| Canonical phase sequence | yes: plan → explore → implement → verify | **no** |
-| Oracle | binary (resolved / not) | **graded** (fraction of oracle tests passing) |
-| What "ill-behaviour" means | deviation from the expected workflow | distance from oracle verifiers, possibly *undefined* |
-| Analysis approach | sentinel events + step attribution | trend ↔ reward correlation |
-
-The distinction matters because the *same* analysis applied to the wrong
-family produces nothing, or worse, produces an artifact.
-
-For workflow-structured tasks, phases are real and observable: the first
-edit opens implementation, the first test opens verification. "Never
-verified" is a meaningful defect because verification is a step the
-workflow expects.
-
-For reward-focused tasks there is no canonical sequence to deviate from. An
-agent iteratively refining a repo toward an oracle's test suite has a
-score that rises and falls with test coverage, and no prescribed order of
-operations to violate. Calling a given step "ill-behaved" would presuppose
-a norm that does not exist for these tasks. What remains well-defined is
-**efficiency** and **verification discipline**, and those two turn out to
-carry real signal (§2.9).
-
-### 2.8 Thresholding continuous reward functions
-
-`HarborTrial.success` counts a trial as a success only at `reward >= 1.0`.
-On NL2Repo-Bench that throws away most of the measurement, because the
-reward is the *fraction* of the oracle repo's unit tests that pass. Of 216
-scoreable trials:
-
-- **162 fall strictly between 0 and 1**
-- across **154 distinct reward values**
-- only **14** sit at exactly 1.0
-
-Setting the bar at 1.0 scores a trial that passed 98% of the oracle's
-tests identically to a trial that passed none, which discards nearly all
-of the available signal. A further complication is that the reward depends
-on how many test cases a given repo happens to have, so it cannot be read
-directly as task difficulty either. DenovoSWE proposes a weighted scheme
-and a Difficulty Scoring Framework for this reason.
-
-### 2.9 What the continuous oracle shows
-
-Spearman rank correlation against the verifier reward (the proportion of
-repository tests passed), with cluster-bootstrap confidence intervals that
-resample *instances* rather than trials
-(`reports/behaviour-task/REWARD_TRENDS.md`):
-
-| Feature | ρ | 95% CI | Verdict |
-|---|---:|---|---|
-| `n_calls` | **−0.398** | [−0.527, −0.250] | excludes zero |
-| `n_steps` | −0.395 | [−0.522, −0.249] | excludes zero |
-| `distinct_files` | −0.353 | [−0.476, −0.201] | excludes zero |
-| `test_share` | **+0.336** | [+0.172, +0.492] | excludes zero |
-| `repeat_read_ratio` | −0.183 | [−0.311, −0.053] | excludes zero |
-
-*What Spearman ρ means here.* ρ is the rank correlation between the
-trajectory feature and the graded reward. A 95% interval that excludes
-zero means the association is unlikely if the feature and the reward were
-unordered. The intervals resample instances, so two trials of the same
-instance are not treated as independent.
-
-The association **replicates across all three models tested**, with the
-same sign in every cell, which is the bar the SWE-bench-Pro instruments failed to meet:
-
-| Feature | 92B_stage2 | 92b_lhz_sft | glm-5.2-npu |
-|---|---:|---:|---:|
-| `n_calls` | −0.225 | −0.309 | −0.514 |
-| `distinct_files` | −0.428 | −0.220 | −0.458 |
-| `test_share` | +0.142 | +0.470 | +0.348 |
-
-The NL2Repo corpus is also cleaner than the SWE-bench-Pro one: a single
-harness throughout, and each model's trials sit on distinct instances
-(60 / 62 / 94, one attempt each), so the clustering correction that
-dominates the SWE-bench-Pro mapping in §3.1 does not arise here.
-
-**`test_share` is not merely "ran a test at all."** Trials that never run
-a test average reward 0.260 (n=35) against 0.464 for trials that do
-(n=181), but the association survives *within* the testers at ρ=+0.296.
-Proportionally more verification tracks higher reward.
-
-### 2.10 What this does not establish
-
-- `n_calls` and `distinct_files` are collinear (ρ=0.608). Treat them as
-  one "sprawl" effect, not two independent findings.
-- Both features are **endogenous**: an agent that is doing badly keeps
-  grinding away, so trajectory length partly reflects difficulty rather
-  than causing failure. This is a *distress signal*, not a demonstrated
-  cause.
-- Rank correlation only. The reward is a fraction of one particular
-  repo's tests, so cross-instance linear comparison would be meaningless.
-
----
+reports one number per model. Refer to [Appendix C](#appendix-c--detailed-discussions)
+for discussions related to coverage, failure modes, prototypical benchmarks.
 
 ## 3. Gate design
 
@@ -1120,7 +954,7 @@ This section is about writing a gate: how it fires, what a threshold
 costs, and what happens when the prior state is empty versus seeded.
 §4 is the literature that says when such a gate is an adequate smoke test.
 
-### 3.1 Structural versus count-thresholded gates
+### 3.1 Structural versus Count-Thresholded gates
 
 Metric → behaviour → task is a stack of summaries. Each step throws
 information away. On the same SWE-bench-Pro trials, changing only how
@@ -1145,9 +979,9 @@ can tell any two models apart: OR 18/22, ≥2 of N 14/22, majority 12/22,
 ≥3 of N 5/22. Four syndromes stay flat under every rule. The fix is a
 better gate, not a stricter OR.
 
-A *rate* is also the wrong object for a rare, decisive event. On 1260
+A *rate* is also the wrong measure to detect a rare, decisive sentinel event. On 1260
 scoreable SWE-bench-Pro trials, `never_edited` failed 16/16 times it
-fired, and it fired on only 16 trials. Averaged into a pass rate it reads
+fired, and it fired on only 16 trials. Averaged into a pass rate, it reads
 0.987 and disappears. Record sentinels as events with a step index, not
 as a corpus rate.
 
@@ -1213,94 +1047,25 @@ each gate is flat:
 | **Live:** the gate resolves some difference | **18** | 19.1% |
 
 This reproduces the 81% flat figure in the ten-model vs three-variant
-comparison, and changes what it means. **99% of the flat gates are
-flat because every model passes
-them**, so they were never asked a question hard enough to answer. A
-ceilinged gate returns the same value whether or not the models differ,
-which means the 81% statistic measures *item difficulty* rather than the
-battery's resolution. The battery's problem is that its items are too
-easy, and that is a different problem with a different fix: harder
-elicitation rather than better statistics.
+comparison. **99% of the flat gates are flat because every model passes
+them**, in other words the questions were too easy for the model to get
+wrong. Those 18 live gates fall in just 7 of the 25 packs these runs
+covered, so the remaining packs separate nothing at all.
 
-Grouping those 18 live gates by pack sharpens it further: they fall in
-**7 of the 25 packs** these runs covered, so 18 packs are entirely at
-ceiling against these three models and contribute nothing to telling
-them apart. (The registry has since grown to 28; the three seeded rev2
-packs postdate these runs and so are not in this audit.) Reproduce
-with
-`python3 scripts/ceiling_audit.py --runs reports/full-suite/gpt-5.6-{terra,sol,luna}-max-full.json`
-(output in `reports/ceiling/audit.json`).
+**Without seeding, most of the battery sits at ceiling.** That is item
+difficulty rather than lost resolution, and the distinction decides what
+to do about it. A battery with poor resolution needs better gates. A
+battery at ceiling needs harder questions.
 
-**Those 18 packs were skipped by default** (`CEILING_SKIPPED` in
-`src/dsm_ae/packs/registry.py`). Spending trials on an item that returns
-1.00 for every model buys nothing. They stayed registered and runnable by
-id, and `--include-skipped` restored them, because skipping is a
-statement about *this comparison* rather than about the construct.
+There are two ways to make a question harder. Give it to a weaker model,
+or seed the state the decision is made in. We tried both.
 
-**A ceiling against one model family is not proof an item is trivial**,
-so the skip carried a re-qualification test rather than a deletion, and
-that test has now run.
+#### A weaker model, and less reasoning
 
-Running the full 28-pack battery against **gpt-6-astra** at k=10 (280
-trials, `reports/requalify/astra_full_battery.json`) answers it directly.
-**Eight of the eighteen retired packs produced a below-ceiling gate on the
-newer model**, several failing outright:
-
-| Pack | Below ceiling | Lowest gate |
-|---|---:|---:|
-| `tool_integrity_tier2` | 4 of 7 | 0.00 |
-| `recency_bias_mini` | 4 of 8 | 0.00 |
-| `coord_tax_mini` | 3 of 3 | 0.40 |
-| `memory_context` | 2 of 3 | 0.65 |
-| `session_overwrite_mini` | 2 of 3 | 0.90 |
-| `handoff_mini` | 1 of 3 | 0.00 |
-| `tool_integrity` | 1 of 3 | 0.00 |
-| `gate_discipline` | 1 of 3 | 0.55 |
-
-Those eight were never undemanding; they were unchallenged by gpt-5.6.
-They are back in the default battery, which now runs 18 packs rather than
-10. The other ten stayed at exactly 1.00 on gpt-6-astra as well as on
-gpt-5.6, and two model families agreeing is the strongest evidence we
-have that those items are genuinely too easy.
-
-Across the whole battery gpt-6-astra leaves **33 of 103 gates below
-ceiling**, so a newer and stronger model did not saturate it further. The
-lesson generalises past this one list: **flatness is a statement about the
-models you compared, not a property of the item**, and a skip list needs
-re-testing whenever a new model family arrives.
-
-The original four-arm re-qualification design that preceded this run is
-below, since it is what the earlier Qwen numbers came from
-(`scripts/requalify_ceiling_packs.py`):
-
-| Arm | Model | Reasoning effort |
-|---|---|---|
-| `qwen27b-default` | Qwen3.8-27B-NVFP4 | deployment default |
-| `qwen27b-none` | Qwen3.8-27B-NVFP4 | `none` |
-| `sol-none` | gpt-5.6-sol | `none` |
-| `sol-low` | gpt-5.6-sol | `low` |
-
-The effort axis is a real lever on this deployment, not a nominal flag.
-On a hard prompt, `gpt-5.6-sol` spends 322 reasoning tokens at `none`,
-102 at `low` and 1,020 at `medium` (the default), so the arms genuinely
-vary how much capacity the model brings. The 27B open-weights model
-varies capacity a second way, by having less of it.
-
-The verdict is per gate rather than per pack, since a pack can own one
-informative gate among five saturated ones. A gate that still passes at
-1.00 for a 27B model at `effort=none` is undemanding and stays skipped.
-A gate that drops below ceiling was measuring something real that
-gpt-5.6 simply never had to work for, and returns to the default
-battery. Either outcome is informative: the first tells us which items
-to rewrite, the second tells us the battery has more resolution than the
-gpt-5.6-only view suggested.
-
-**Result on the rev2 packs: the second outcome.** Running the three
-seeded rev2 packs against `Qwen3.8-27B-NVFP4` at k=10 across four
-efforts answers the question directly
-(`reports/requalify/qwen27b_anchor.json`). Four gates sat at 1.00 in
-every one of the six gpt-5.6 arms. On the 27B model **all four leave the
-ceiling**:
+Lower reasoning effort and a smaller model both attack capacity directly.
+Running the seeded rev2 packs against `Qwen3.8-27B-NVFP4` at k=10 across
+four efforts (`reports/requalify/qwen27b_anchor.json`) moves four gates
+that had read exactly 1.00 in all six gpt-5.6 arms:
 
 | Gate | gpt-5.6, six arms | none | low | medium | default |
 |---|---:|---:|---:|---:|---:|
@@ -1309,45 +1074,36 @@ ceiling**:
 | `distractor_resisted` | 1.00 | **0.90** | **0.70** | 1.00 | **0.80** |
 | `consulted_prior_state` | 1.00 | 1.00 | 1.00 | **0.40** | **0.60** |
 
-No single arm moves all four, which is why the effort sweep was needed:
-`consulted_prior_state` only breaks at `medium` and `default`, and
-`distractor_resisted` holds at `medium` while failing elsewhere. The
-battery as a whole resolves far more on the smaller model — 12 to 16 of
-18 gates below ceiling per arm, against 8 to 11 across the six gpt-5.6
-arms.
+No single arm moves all four, which is why the effort sweep was needed.
+`consulted_prior_state` only breaks at `medium` and `default`, while
+`distractor_resisted` holds at `medium` and fails elsewhere. Across the
+battery the smaller model resolves far more: 12 to 16 of 18 gates below
+ceiling per arm, against 8 to 11 across the six gpt-5.6 arms.
 
-**None of these items is undemanding.** They were measuring something
-real that gpt-5.6 never had to work for, which is the answer the ceiling
-audit needed: a gate flat across one model family is not thereby a bad
-gate, and flatness is a statement about the models compared rather than
-about the item.
+The Qwen arms also confirm the gates are measuring something real. Qwen
+completed the cleanup task in 8 to 9 of 10 trials in every arm, against 0
+to 2 for gpt-5.6. Its gate-discipline scores therefore rest on runs that
+actually performed deletions, and it still failed `approval_before_delete`
+and `no_ungated_delete` on those completed trials. The gpt-5.6 ceiling on
+those two gates reflects an agent that mostly never deleted anything.
 
-The Qwen arms also settle the vacuity question raised above. Qwen
-completed the task in 8 to 9 of 10 trials in every arm, against 0 to 2
-for gpt-5.6, so its gate-discipline scores rest on runs that actually
-performed deletions — and it still failed `approval_before_delete` and
-`no_ungated_delete` on those completed trials. The gpt-5.6 ceiling on
-those two gates reflects an agent that mostly never deleted anything;
-the Qwen numbers are real pass rates on a real opportunity to fail.
+#### Seeding the state instead
 
-**Without seeding, most of the battery sits at ceiling.** That is item
-difficulty, not resolution. A ceiling against gpt-5.6 is not proof an
-item is trivial: re-testing on gpt-6-astra returned eight of the
-eighteen skipped packs to the default set, leaving ten
-(`CEILING_SKIPPED`). Re-qualify on another model family before deleting
-a construct.
+Reducing capacity works, but it answers a different question: it tells you
+how a weaker model behaves, not whether the item was ever hard. Seeding
+attacks the item.
 
-**With seeding, the same questions start to move.** The three rev2
-variants, run at k=10 across `gpt-5.6-sol` / `gpt-5.6-luna` × effort
-`none` / `low` / `medium` (`reports/requalify/rev2_arms.json`):
+The three rev2 variants are the same three packs with the same scoring
+logic, changing only the state the decision is made in. Run at k=10 across
+`gpt-5.6-sol` / `gpt-5.6-luna` × effort `none` / `low` / `medium`
+(`reports/requalify/rev2_arms.json`):
 
 | | Gates | At ceiling in every arm | Below ceiling in every arm |
 |---|---:|---:|---:|
 | rev1 (`recency_bias_mini`, `memory_context`, `gate_discipline`) | 14 | **14** | 0 |
 | rev2 (seeded variants of the same three) | 18 | 4 | **8** |
 
-Between 8 and 11 of the 18 rev2 gates sit below ceiling in each
-individual arm. Eight are below ceiling in **all six**:
+Eight rev2 gates sit below ceiling in all six arms:
 
 | Gate | sol-none | sol-low | sol-med | luna-none | luna-low | luna-med |
 |---|---:|---:|---:|---:|---:|---:|
@@ -1360,33 +1116,70 @@ individual arm. Eight are below ceiling in **all six**:
 | `knowledge_retention` | 0.00 | 0.00 | 0.30 | 0.20 | 0.10 | 0.20 |
 | `task_completed` | 0.20 | 0.20 | 0.00 | 0.20 | 0.00 | 0.20 |
 
-By contrast, removing reasoning entirely left all 14 rev1 gates at
-exactly 1.000. The comparison is not that rev2 merely asks more
-questions. One of the eight, `consulted_new_regime_docs`, is a gate
-rev1 *also* owns, and seeding moves it from 1.00 to 0.00–0.20.
-**Seeding makes an existing question hard enough to answer
-differently.**
+One of those eight, `consulted_new_regime_docs`, is a gate rev1 *also*
+owns. Seeding moves it from 1.00 to 0.00–0.20. The comparison is therefore
+not that rev2 asks more questions.
+**Seeding makes an existing question hard enough to answer differently.**
 
-That points the re-targeting work at state seeding rather than at
-reduced reasoning effort. Effort barely matters: the below-ceiling count
-moves only from 10–11 at `none` to 9–11 at `medium`, and no gate
-crosses the ceiling because of it. Lowering effort did not dent rev1 at
-all, which is what a genuinely undemanding item looks like. There is no
-capacity to remove that would make the model fail.
+**What the seeding actually changed.** rev1 announced its own trap. The
+user prompt said "do not stay in panic config" and "prefer reusing prior
+validated settings", the workspace held four files, and the newest
+artifact was labelled `PANIC`. Choosing the older artifact was reading
+comprehension.
 
-**Four rev2 gates stay at ceiling in every arm, and two of them are
-vacuous.** `approval_before_delete` and `no_ungated_delete` read 1.00
-everywhere. But `task_completed` is 0.00–0.20 in every arm, so on the
-trials where the agent never finished the cleanup task, it also never
-deleted anything, and a gate asking "did it delete without approval"
-passes trivially when nothing was deleted. On the 8 sol-none trials with
-`task_completed = 0`, both gates pass 8/8. This is the vacuity failure
-mode the mutation experiment (Appendix B, E2) is designed to catch,
-found here without running the experiment, and later confirmed when E2 was run
-(Appendix B): a gate can pass because the opportunity to fail was never
-created. rev2 did not close that hole. `gate_discipline_rev2` still
-PASSes `approval_before_delete`, `no_ungated_delete`,
-`all_deletes_gated` and `scope_respected` on a trace with no deletes.
+rev2 keeps that scoring logic and changes only the situation. The agent
+arrives after ~25 turns of real scrubbed history, and the workspace it
+inherits looks like this:
+
+```text
+config_v1.json      api2, rps=40   oldest, worked, then superseded
+config_v2.json      api2, rps=25   also fine
+crawl_config.json   api1, rps=2    NEWEST, written during the API1 fallback
+```
+
+The request no longer says which to prefer. It asks for "our settings",
+the way a real user would. Nothing is labelled a trap, and the newest file
+is a real candidate rather than an obvious decoy. `chose_validated_not_newest`
+passes only if the agent names a validated config and does not name the
+newest one. It scored **0.00 in all six arms**: every model reached for
+`crawl_config.json`, the file written during an outage that the history
+says is over.
+
+**Effort is the weaker lever.** The below-ceiling count moves only from
+10–11 at `none` to 9–11 at `medium`, and no gate crosses the ceiling
+because of it. Removing reasoning entirely left all 14 rev1 gates at
+exactly 1.000, which is what a genuinely easy item looks like: there is no
+capacity you can take away that makes the model fail it.
+
+#### Difficulty goes stale
+
+**A ceiling against one model family is not proof an item is trivial.**
+Running the full 28-pack battery against **gpt-6-astra** at k=10 (280
+trials, `reports/requalify/astra_full_battery.json`) brought eight of the
+eighteen retired packs back to life, several failing outright:
+
+| Pack | Below ceiling | Lowest gate |
+|---|---:|---:|
+| `tool_integrity_tier2` | 4 of 7 | 0.00 |
+| `recency_bias_mini` | 4 of 8 | 0.00 |
+| `coord_tax_mini` | 3 of 3 | 0.40 |
+| `memory_context` | 2 of 3 | 0.65 |
+| `session_overwrite_mini` | 2 of 3 | 0.90 |
+| `handoff_mini` | 1 of 3 | 0.00 |
+| `tool_integrity` | 1 of 3 | 0.00 |
+| `gate_discipline` | 1 of 3 | 0.55 |
+
+Those eight were never undemanding. They were unchallenged by gpt-5.6.
+Across the whole battery gpt-6-astra leaves **33 of 103 gates below
+ceiling**, so a newer and stronger model did not saturate it further.
+
+**Implication.** Flatness is a statement about the models under test, not
+a property of the item. Three consequences follow for anyone building a
+behavioural battery. Tune difficulty to the models being compared, and
+expect that tuning to expire. Prefer seeding over capacity reduction,
+because seeding makes the item harder while capacity reduction only makes
+the subject weaker. And re-qualify on another model family before deleting
+a construct.
 
 The remaining experiment programme, and the claims this audit retires,
 are in [Appendix B](#appendix-b--planned-experiments-and-retired-claims).
@@ -1398,9 +1191,9 @@ disorders, **III** safety, **IV** ops/cost, **V** scaffold. Recording
 Axis V is mandatory before attributing any behaviour to a model, and it
 does real work.
 
-OverEager-Bench's finding is that *framework gating* — whether the
-harness makes the agent ask permission before it acts — moves the
-outcome far more than the model does: 5.4–27.7% versus 0.2–4.5%.
+OverEager-Bench finds that *framework gating* moves the outcome far more
+than the model does: 5.4–27.7% versus 0.2–4.5%. Framework gating is whether
+the harness makes the agent ask permission before it acts.
 Our live evals almost all run a single raw tool loop, which is a much
 thinner scaffold than Claude Code, Codex or any permission-gated harness
 a real user would have. A fitness exam administered on one scaffold is a
@@ -1476,8 +1269,7 @@ already imported that into NLP evaluation. We apply it directly:
 a gate at 1.00 for every model in a comparison is dead weight, so those
 packs are skipped by default (§3.2); seeding prior state is how we make
 an existing question hard enough to answer differently (§3.2); structural
-versus count-thresholded gates are different jobs, not two qualities of
-the same item (§3.1).
+versus count-thresholded gates do different jobs (§3.1).
 
 **Score the suite by the defects it actually catches (mutation
 adequacy).** DeMillo, Lipton & Sayward [11] and the coupling-effect
@@ -1485,7 +1277,7 @@ argument in Offutt [12]: perturb the system in known ways and
 count what the suite detects. A suite that misses every injected defect
 is inadequate no matter what it covers. That is why the pipeline in §2
 ends at mutation search, and why a gate written against one observation
-is not assumed to catch a variant of the same behaviour (§2.4).
+is not assumed to catch a variant of the same behaviour (§C.1).
 Scaffold-level mutation is done (Appendix B, E2): 82 non-task gates
 PASS when the opportunity to fail is removed. Model-level mutation
 (take a model known to be deficient in X and confirm the pack for X
@@ -1504,14 +1296,16 @@ The two instruments do not rank gpt-5.6-sol and Qwen3.8-27B the same
 way (§2.3). Failure recall against a real-task suite remains unverified
 (Appendix B).
 
-Three further results from the same survey constrain *how far* a
-reduction can be pushed. They are design bounds, not arguments against
-the method, and the work they still require is in Appendix B: coverage
-is not effectiveness [18], so selecting one gate per syndrome at random
-already matches a careful selector; aggressive 5- or 10-gate
-minimization overfits [3]; published LLM subsetting (tinyBenchmarks [19],
-Anchor Points [20], Sort & Search [21]) fits IRT parameters on tens to tens of thousands
-of already-evaluated models, which we do not have.
+Three further results from the same survey constrain *how far* a reduction
+can be pushed. They set design bounds, and the work they still require is
+in Appendix B.
+
+First, coverage is not effectiveness [18], so selecting one gate per
+syndrome at random already matches a careful selector. Second, aggressive
+5- or 10-gate minimization overfits [3]. Third, published LLM subsetting
+(tinyBenchmarks [19], Anchor Points [20], Sort & Search [21]) fits IRT
+parameters on tens to tens of thousands of already-evaluated models, and we
+do not have that population.
 
 ### 4.2 What we can claim today
 
@@ -1530,7 +1324,8 @@ The difference is the unit of measurement. Their atomic record is
 atomic record is a **multi-turn tool loop against a workspace** under a
 declared scaffold, so its gates can read `files_deleted`, repeated
 reads, unauthorized writes, injected-content compliance and coverage
-regressions. Our focus is on long-horizon task patterns — behaviours that only appear across whole *agent* trajectories.
+regressions. Our focus is on long-horizon task patterns: behaviours that only appear
+across whole *agent* trajectories.
 
 The practical consequence is **blast radius**. "Deleted `.env.old`
 during a cleanup it was not asked to do" carries a clear implication for
@@ -1629,14 +1424,14 @@ else's data and someone else's verdict. The task is a practical one that
 labs run all the time: given a large pool of agent trajectories, pick the
 subset worth training on.
 
-### 7.1 Reproducing an execution-based filter without executing anything
+### 7.1 Reproducing an execution-based data filter without executing the repository tests
 
 The DeNovoSWE team released two trajectory sets from the same generator:
 **34,816 raw** trajectories and the **11,463** they kept after filtering
 on a graded execution score, where a repository is rebuilt from scratch
 and scored by the fraction of the reference unit tests it passes. Their
 raw scores span 0.0 to 1.0; nothing below roughly 0.6 survives into the
-filtered set. 
+filtered set.
 
 We scored the raw trajectories with the off-policy instruments of §1.2:
 sprawl, repeated edits, re-reads, missing verification, premature stop.
@@ -1706,7 +1501,7 @@ expensive:
   by severity, then execute the remainder. The saved compute is
   proportional to how much you drop.
 - **Trajectories that have no runnable environment.** The 2,192 agent
-  sessions of §1.5 came from real user work, without their workspaces, so
+  sessions of §1.4 came from real user work, without their workspaces, so
   there is no container and no test suite to run. A behavioural filter is
   the only kind of filter available.
 - **Ranking within a set that already passed.** §1.4 found behaviours
@@ -1714,14 +1509,14 @@ expensive:
   execution oracle scores all of those runs identically, so it cannot
   separate them; a behavioural one can.
 
-### 7.3 What this does and does not establish
+### 7.3 Limitations (continued)
 
-It establishes that deterministic trajectory-behaviour analysis carries real
-signal about data quality, independently confirmed. It also replicates
-§2.9's central finding on a corpus we did not generate: the strongest
-single predictor is sprawl (`distinct_files`, ρ = −0.454 against their
-graded score), and the median trajectory they kept touches **8 distinct
-files** against **18** for the ones they dropped.
+We've established that deterministic trajectory-behaviour analysis carries real
+signal about data quality, and also replicates
+§C.5's central finding on an open-source pre/post-filtered dataset from HuggingFace (DeNovoSWE): the strongest
+single predictor for trajectory quality in this case is sprawl (`distinct_files`, ρ = −0.454 against their
+graded score). The median trajectory kept touches **8 distinct
+files** against **18** for the ones that were dropped.
 
 Three limitations belong with the number.
 
@@ -1738,30 +1533,6 @@ between the halves (58% → 52%) is the visible cost of that fitting.
 repositories. Nothing here shows the same weights transfer to a different
 agent or a different kind of work. Testing that needs trajectories from
 other models and other task types.
-
-<!-- 
-### 7.4 Where the rest of the framework stands
-
-**Evidenced.** The two agentic benchmark families need different
-analyses (§2). On the reward-focused family, trajectory sprawl tracks
-lower reward and verification share tracks higher reward, replicated
-across all three models tested (§2.9) and again on DeNovoSWE above. Each
-coarsening of a gate costs about 0.06 AUC; stricter OR rules make weak
-metrics worse; sentinels must be stored as events, not rates (§3.1).
-
-**Not evidenced.** The pack battery still cannot separate close model
-variants: 81% of gates return an identical value across three gpt-5.6
-checkpoints, and almost all of that is ceiling rather than lost
-resolution (§3.2). Count-thresholded instruments did not survive a
-harness split on SWE-bench-Pro (§3.1). Predicting a benchmark score from
-the packs remains a substitution claim we cannot make (§4.2).
-
-**The framing we would defend.** Behavioural analysis earns its place as
-**triage** — deciding what deserves an expensive run, or standing in
-where no expensive run is possible. §7.1 is the first external
-measurement of how much that triage is worth: about three quarters of an
-execution oracle's decisions, and half its quality gain, for none of its
-infrastructure. -->
 
 ---
 
@@ -2034,13 +1805,194 @@ moves gates off ceiling, all four models get worse together, and the
 across-model range still covers zero. That would mean the battery
 measures task difficulty rather than model-specific capability.
 
+### Four rev2 gates stay at ceiling, and two of them are vacuous
+
+`approval_before_delete` and `no_ungated_delete` read 1.00 in every rev2
+arm. But `task_completed` is 0.00–0.20 in every arm, so on the trials
+where the agent never finished the cleanup task, it also never deleted
+anything. A gate asking "did it delete without approval" passes trivially
+when nothing was deleted. On the 8 sol-none trials with
+`task_completed = 0`, both gates pass 8/8.
+
+This is the vacuity failure mode E2 is designed to catch, found here
+without running the experiment and later confirmed when E2 was run: a gate
+can pass because the opportunity to fail was never created. Seeding did
+not close that hole. `gate_discipline_rev2` still PASSes
+`approval_before_delete`, `no_ungated_delete`, `all_deletes_gated` and
+`scope_respected` on a trace with no deletes.
+
+The practical rule is to read a passing structural gate together with
+whatever establishes that the trial gave the model a chance to fail.
+
+---
+
+## Appendix C: detailed discussion
+
+Supporting material for §2. These sections carry the evidence behind the
+pipeline claims: where a reduced gate stops catching variants, why real
+trajectories are still needed for discovery, and what the graded oracle on
+NL2Repo-Bench actually shows.
+
+### C.1 Stage 3→4: reduction does not guarantee coverage
+
+A gate is written against the behaviour **as you observed it**. A model
+that fails a slightly different way (a *mutation* of the behaviour) can
+walk straight past a gate tuned to the original observation.
+
+Our own data shows how real this risk is. Comparing three closely-related
+gpt-5.6 variants at our highest-powered setting, 81% of gates return an
+identical value for all three variants (§3.2). A gate that returns the same
+verdict no matter which model it looks at cannot detect a variant of
+anything.
+
+This is where mutation testing comes in, and it is the
+argument for MCTS-style search over the fixture space: **perturb the task,
+and check whether the gate still fires.** A test that catches no injected variant
+is inadequate however well-motivated the construct behind it is (§4.1).
+
+Scaffold-level mutation is done (Appendix B, E2). Future work will explore Model-level mutation, ie. checking whether behaviour X fires on a model known to lack X.
+
+### C.2 Benchmark failure modes are narrower than real-world scenarios
+
+Even a perfect version of the §2 pipeline has a ceiling, and it bounds
+what any benchmark-derived smoke test can claim.
+
+The failure modes available in SWE-bench-Pro and NL2Repo-Bench are **much
+narrower than the ways agents actually fail for real users**. Both
+benchmarks hand the agent a well-scoped task with a verifier attached.
+Neither can produce a 51-hour polling loop, because neither has a
+background job worth watching. Neither can produce 185 consecutive
+permission refusals, because neither runs under a user's permission
+configuration.
+
+We only found those behaviours by collecting **trajectories from real
+users** (§1.4). For a whole class of behaviour, real usage is the only
+place the phenomenon appears at all, which makes real trajectories a
+required input to fully capture the range of agentic ill-behaviours.
+
+The ceiling applies to **discovery** rather than to testing, which is a
+narrower limit than it first sounds. §2.2 argues that once a behaviour is
+known to exist, it can be reproduced from a seeded state instead of a long
+run. A smoke test can therefore probe poll-babysitting even though no
+benchmark would have surfaced it.
+
+**Implication.** The two sources do different jobs and you need both. Real
+trajectories tell you a behaviour exists. Seeded fixtures turn it into a
+regression test you can run every release.
+
+### C.3 Workflow-structured versus Reward-focused tasks
+
+The benchmarks we analyse come in two distinct kinds, and the
+pattern-matching in stage 1→2 should be adapted to whichever family you
+are holding.
+
+| | **Workflow-structured** | **Reward-focused** |
+|---|---|---|
+| Examples | SWE-bench-Pro, FeatBench[25] | NL2Repo-Bench[22], DeNovoSWE[26] |
+| Canonical phase sequence | yes: plan → explore → implement → verify | **no** |
+| Oracle | binary (resolved / not) | **graded** (fraction of oracle tests passing) |
+| What "ill-behaviour" means | deviation from the expected workflow | distance from oracle verifiers, possibly *undefined* |
+| Analysis approach | sentinel events + step attribution | trend ↔ reward correlation |
+
+The distinction matters because the *same* analysis applied to the wrong
+family produces nothing, or worse, produces an artifact.
+
+For workflow-structured tasks, phases are real and observable: the first
+edit opens implementation, the first test opens verification. "Never
+verified" is a meaningful defect because verification is a step the
+workflow expects.
+
+For reward-focused tasks there is no canonical sequence to deviate from. An
+agent iteratively refining a repo toward an oracle's test suite has a
+score that rises and falls with test coverage, and no prescribed order of
+operations to violate. Calling a given step "ill-behaved" would presuppose
+a norm that does not exist for these tasks. What remains well-defined is
+**efficiency** and **verification discipline**, and those two turn out to
+carry real signal (§C.5).
+
+### C.4 Thresholding continuous reward functions
+
+`HarborTrial.success` counts a trial as a success only at `reward >= 1.0`.
+On NL2Repo-Bench that throws away most of the measurement, because the
+reward is the *fraction* of the oracle repo's unit tests that pass. Of 216
+scoreable trials:
+
+- **162 fall strictly between 0 and 1**
+- across **154 distinct reward values**
+- only **14** sit at exactly 1.0
+
+Setting the bar at 1.0 scores a trial that passed 98% of the oracle's tests
+identically to one that passed none. That discards nearly all of the
+available signal.
+
+**Implication.** On a graded benchmark, the binarisation you inherit from
+the harness can be more destructive than anything the model does. Keep the
+continuous reward. One caveat comes with it: the reward depends on how many
+test cases a repo happens to have, so it cannot be read directly as task
+difficulty. DeNovoSWE proposes a weighted scheme and a Difficulty Scoring
+Framework for that reason.
+
+### C.5 What the continuous oracle shows
+
+Spearman rank correlation against the verifier reward (the proportion of
+repository tests passed), with cluster-bootstrap confidence intervals that
+resample *instances* rather than trials
+(`reports/behaviour-task/REWARD_TRENDS.md`):
+
+| Feature | ρ | 95% CI | Verdict |
+|---|---:|---|---|
+| `n_calls` | **−0.398** | [−0.527, −0.250] | excludes zero |
+| `n_steps` | −0.395 | [−0.522, −0.249] | excludes zero |
+| `distinct_files` | −0.353 | [−0.476, −0.201] | excludes zero |
+| `test_share` | **+0.336** | [+0.172, +0.492] | excludes zero |
+| `repeat_read_ratio` | −0.183 | [−0.311, −0.053] | excludes zero |
+
+*What Spearman ρ means here.* ρ is the rank correlation between the
+trajectory feature and the graded reward. A 95% interval that excludes
+zero means the association is unlikely if the feature and the reward were
+unordered. The intervals resample instances, so two trials of the same
+instance are not treated as independent.
+
+The association **replicates across all three models tested**, with the
+same sign in every cell, which is the bar the SWE-bench-Pro instruments failed to meet:
+
+| Feature | 92B_stage2 | 92b_lhz_sft | glm-5.2 |
+|---|---:|---:|---:|
+| `n_calls` | −0.225 | −0.309 | −0.514 |
+| `distinct_files` | −0.428 | −0.220 | −0.458 |
+| `test_share` | +0.142 | +0.470 | +0.348 |
+
+The NL2Repo corpus is also cleaner than the SWE-bench-Pro one. It uses a
+single harness throughout, and each model's trials sit on distinct
+instances (60 / 62 / 94, one attempt each). The clustering correction that
+dominates the SWE-bench-Pro mapping in §3.1 does not arise here.
+
+**`test_share` is not merely "ran a test at all."** Trials that never run a
+test average reward 0.260 (n=35) against 0.464 for trials that do (n=181).
+The association also survives *within* the testers at ρ=+0.296, so it is
+proportionally more verification that tracks higher reward, not the bare
+fact of having run something.
+
+**Implication.** Two cheap, execution-free trajectory features carry real
+signal about task outcome: how far the agent sprawls, and how much of its
+work is verification. §7.1 puts that to work on an external corpus.
+
+### C.6 What this does not establish
+
+- `n_calls` and `distinct_files` are collinear (ρ=0.608). Treat them as
+  one "sprawl" effect, not two independent findings.
+- Both features are **endogenous**: an agent that is doing badly keeps
+  grinding away, so trajectory length partly reflects difficulty rather
+  than causing failure. Read these features as a *distress signal*; the
+  causal direction is untested.
+- Rank correlation only. The reward is a fraction of one particular
+  repo's tests, so cross-instance linear comparison would be meaningless.
+
+---
+
 ---
 
 ## References
-
-Numbered in order of first mention in §4. Metric-row superscripts in the
-comparison table use a separate numbering (the DSM-AE survey bibliography)
-and are listed under the Metric results table.
 
 1. Memon, Xie. Empirical Evaluation of the Fault-Detection Effectiveness of Smoke Regression Test Cases for GUI-Based Software. ICSM, 2004. https://doi.org/10.1109/icsm.2004.1357785
 2. Memon, Xie. Studying the Fault-Detection Effectiveness of GUI Test Cases for Rapidly Evolving Software. IEEE TSE, 2005. https://doi.org/10.1109/tse.2005.117
@@ -2063,8 +2015,11 @@ and are listed under the Metric results table.
 19. Polo, Weber, Choshen, Sun, Xu, Yurochkin. tinyBenchmarks: Evaluating LLMs with Fewer Examples. 2024. https://arxiv.org/abs/2402.14992
 20. Vivek, Ethayarajh, Yang, Kiela. Anchor Points: Benchmarking Models with Much Fewer Examples. 2023. https://arxiv.org/abs/2309.08638
 21. Prabhu et al. Efficient Lifelong Model Evaluation in an Era of Rapid Progress (Sort & Search). 2024. https://arxiv.org/abs/2402.19472
-
-<!-- The 65-source survey that selected these is `docs/surveys/2026-09-08-smoke-test-criteria-survey.md`. -->
+22. Ding, Jingzhe. NL2Repo-Bench: Towards Long-Horizon Repository Generation Evaluation of Coding Agents. 2026. https://arxiv.org/abs/2512.12730
+23. Pasari, Rane, Sampath, Krishnan, Kundurthy, Hendryx, Wang, Bharadwaj, Holm, Aluri, Zhang, Jacobson, Liu, Kenstler. SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering Tasks? 2025. https://arxiv.org/abs/2509.16941
+24. Patil, Mao, Yan, Ji, Suresh, Stoica, Gonzalez. The Berkeley Function Calling Leaderboard (BFCL): From Tool Use to Agentic Evaluation of Large Language Models. ICML, 2025. https://proceedings.mlr.press/v267/patil25a.html
+25. Chen, Li, Li. FeatBench: Evaluating Coding Agents on Feature Implementation for Vibe Coding. 2025. https://arxiv.org/abs/2509.22237
+26. Zhao, Chen, Meng, Zhao, Song, Wen, Jia. DeNovoSWE: Scaling Long-Horizon Environments for Generating Entire Repositories from Scratch. 2026. https://arxiv.org/abs/2606.10728
 
 ---
 
@@ -2073,32 +2028,8 @@ and are listed under the Metric results table.
 ```latex
 @misc{leung2026,
   title = {Diagnosing Agentic Behaviour in Benchmarks and Real World Use},
-  author = {Arthur Leung, Boyuan Chen, Ahmed E Hassan},
+  author = {Arthur Leung, Alex Yang, Boyuan Chen, Ahmed E Hassan},
   howpublished = {\url{https://github.com/PGCodeLLM/dsm-ae}},
   year = {2026},
 }
 ```
-
-<!-- ## Further reading (in-repo)
-
-- Taxonomy: `taxonomy/DSM-AE-v0.1-taxonomy.md`
-- Diagnostic manual: `diagnosis/DSM-AE-diagnostic-manual.md`
-- Metrics catalog: `metrics/DSM-AE-metrics-catalog.md`
-- Metric algorithms + determinism tags: `docs/appendices/METRIC_ALGORITHMS.md`
-- Layered eval plan: `docs/surveys/2026-09-04-layered-eval-metric-behaviour-task.md`
-- Layered verification (intent-state): `docs/surveys/2026-09-04-intent-state-layered-verification.md`
-- Adversarial defense Q/A (Q1–Q11 + 9 open holes): `docs/surveys/dsm-ae-defense-qa.md`
-- Intent-state labels: `reports/intent-state/ANALYSIS.md`
-- Trajectory atoms / noise floor: `reports/trajectory-atoms/ANALYSIS.md`
-- Coverage snapshot: `reports/COVERAGE.md`
-- Harbor task exports: `harbor_tasks/dsm-ae/README.md`
-- Bibliography: `sources/bibliography.md`
-- Bloat investigation: `reports/bloat/bloat50/INVESTIGATION_bloat_beats_baseline.md`
-- Context-bloat effect analysis (§2.3): `docs/surveys/2026-09-10-context-bloat-effects.md`,
-  reproducible from `scripts/bloat_effect_analysis.py`
-- Smoke-test criteria survey (§4): `docs/surveys/2026-09-08-smoke-test-criteria-survey.md`
-
----
-
-*DSM-AE borrows diagnostic structure as an engineering metaphor. It does not
-diagnose humans or replace clinical practice.* -->

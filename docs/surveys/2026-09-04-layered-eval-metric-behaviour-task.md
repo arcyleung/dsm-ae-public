@@ -75,7 +75,7 @@ In-repo we do **not** have that corpus. We have:
 
 | Corpus | Task oracle? | Both classes? | Use |
 |---|---|---|---|
-| Pack work-dirs (Qwen/DeepSeek/Gemini/GPT max) | No — oracle *is* the behaviour | Sometimes | Dry-run the *pipeline*, not the mapping |
+| Pack work-dirs (Qwen/DeepSeek/GPT max) | No — oracle *is* the behaviour | Sometimes | Dry-run the *pipeline*, not the mapping |
 | Repro-shared `trial_*.json` | Same | Yes on some packs | No LiteLLM; do not ingest |
 | Harbor `harbor_tasks/dsm-ae/*` | Same toys, different runner | Same | Still one-behaviour |
 | SWE-bench / Terminal-Bench / live review | Yes | Need to run | **The actual mapping corpus** |
