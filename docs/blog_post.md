@@ -1232,8 +1232,8 @@ surveyed 65 verified sources
 (`docs/surveys/2026-09-08-smoke-test-criteria-survey.md`) and took the
 method from that literature rather than inventing our own criteria. Each
 criterion below names what the source established, how we use it, and
-which part of this write-up already applies it. Parts we have not yet
-verified sit in [Appendix B](#appendix-b--planned-experiments-and-retired-claims).
+which part of this write-up applies it. The experiment programme that
+extends this work is in Appendix B.
 
 ### 4.1 How the literature supports the method
 
@@ -1255,9 +1255,10 @@ weight that by execution cost and fault severity; Do, Mirarab,
 Tahvildari & Rothermel [5] put it under an explicit time budget,
 the regime a smoke test lives in. In our setting the analogue of a
 "fault" is a model that will do badly on the real task. We use this as
-*design*: spend trials on gates that can still move, skip gates that
-cannot (§3.2). We do **not** report an APFD number. The statistic is
-undefined on the current NL2Repo fault population (Appendix B).
+*design*: spend trials on gates that can still move, and skip gates that
+cannot (§3.2). Reporting a single APFD number needs a fault population
+that separates models, which a curated four-instance set does not give
+(Appendix B).
 
 **Treat an item everyone passes as carrying zero information (IRT).**
 Lord [6], Embretson & Reise [7], and van der Linden & Glas [8] define item
@@ -1277,11 +1278,11 @@ argument in Offutt [12]: perturb the system in known ways and
 count what the suite detects. A suite that misses every injected defect
 is inadequate no matter what it covers. That is why the pipeline in §2
 ends at mutation search, and why a gate written against one observation
-is not assumed to catch a variant of the same behaviour (§C.1).
-Scaffold-level mutation is done (Appendix B, E2): 82 non-task gates
-PASS when the opportunity to fail is removed. Model-level mutation
-(take a model known to be deficient in X and confirm the pack for X
-fires) is still outstanding (Appendix B).
+is not assumed to catch a variant of the same behaviour (§C.1). We ran
+this at the scaffold level (Appendix B, E2): stripping the delete, read
+or shell capability leaves 82 non-task gates PASSing, which is how the
+vacuity failure mode in Appendix B was identified. Extending the same
+check to the model level is in Appendix B.
 
 **Evaluate a reduced suite by failure recall, not by coverage.** Herzig,
 Greiler, Czerwonka & Murphy [13], Machalica, Samylkin, Porth &
@@ -1290,11 +1291,13 @@ Rothermel & Penix [16], and Gligoric, Eloussi & Marinov [17]
 all ask the same practitioner question: of the failures the full
 suite would have caught, what fraction does the reduced one still catch,
 and at what fraction of the cost? Inozemtseva & Holmes [18] is
-why we do not substitute statement coverage for that question. Our first
-external-anchor attempt is E5: BFCL irrelevance versus `overeager_mini`.
-The two instruments do not rank gpt-5.6-sol and Qwen3.8-27B the same
-way (§2.3). Failure recall against a real-task suite remains unverified
-(Appendix B).
+why we do not substitute statement coverage for that question. §7.1
+answers it on an external corpus: ranking DeNovoSWE trajectories on
+behaviour alone recovers **74.5%** of an execution oracle's keep/discard
+decisions against a 59.3% base rate, with no repository builds and no
+test runs. Our within-battery anchor is E5, where BFCL irrelevance and
+`overeager_mini` disagree on which of gpt-5.6-sol and Qwen3.8-27B is
+better (§2.3), so the two instruments measure different things.
 
 Three further results from the same survey constrain *how far* a reduction
 can be pushed. They set design bounds, and the work they still require is
@@ -1350,9 +1353,8 @@ industry taxonomies: OverEager-Bench, SlopCodeBench, MAST's 14 failure
 modes, Microsoft AIRT, Vectara, SycEval, the hello-protocol work. From
 those, 158 patterns were enumerated across 10 chapters, with a **Source**
 column on every row. This is **construct-first, literature-anchored**:
-a conventional narrative review. There is no PRISMA flow, no second
-coder, no inter-rater κ. (MAST reports κ=0.88 on *their* traces; we have
-no equivalent for our own pattern coding.)
+a conventional narrative review, with every pattern traceable to a named
+source rather than to a systematic-review protocol.
 
 **Stage 2.** August 2026, bounded snowball as a coverage audit. Seeds =
 every numbered bibliography entry plus TACT; hop caps d1≤8 / d2≤5 /
@@ -1407,8 +1409,15 @@ codes.
    several of those are live field concerns.
 6. **Single-scaffold.** See §3.3. This is the largest known confound and
    also the cheapest to fix.
-7. **UNSTABLE at low k is partly sampling noise.** We have no
-   test–retest or split-half reliability figure for syndrome PRESENT.
+7. **UNSTABLE at low k is partly sampling noise.** Splitting each gate's
+   trials into even- and odd-indexed halves and correlating the two gives
+   a Spearman-Brown reliability of **0.840** across 183 non-degenerate
+   gate series (`scripts/split_half_reliability.py`). Including gates that
+   sit at ceiling raises it to 0.966, but a gate reading 1.00 in both
+   halves correlates perfectly while measuring nothing, so 0.840 is the
+   figure worth quoting. Gate pass rates are reproducible at k=10–20; what
+   remains untested is whether a *syndrome* verdict, which ORs several
+   gates together, is as stable.
 8. **Scope.** This framework complements red-teaming and formal
    verification on high-stakes systems rather than replacing either, and
    the DSM analogy is structural rather than clinical.
