@@ -4,7 +4,7 @@
 
 <a href="https://www.linkedin.com/in/arcyleung/">Arthur Leung</a>, <a href="https://www.linkedin.com/in/a76yang/">Alex Yang</a>, <a href="https://www.linkedin.com/in/boyuan-chen-749b9ba6/">Boyuan Chen</a>, and <a href="https://www.linkedin.com/in/ahmed-e-hassan/">Ahmed E Hassan</a> · 2026-09-14
 
-<a href="https://github.com/PGCodeLLM/dsm-ae-public">GitHub</a>
+<a href="https://github.com/arcyleung/dsm-ae-public">GitHub</a>
 
 ---
 
