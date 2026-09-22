@@ -60,6 +60,10 @@ watch(sections, draw, { flush: "post" });
 .blog :deep(h2) { font-size: 1.2rem; margin: 28px 0 8px; }
 .blog :deep(h3) { font-size: 1.05rem; margin: 20px 0 8px; }
 .blog :deep(h4) { font-size: 0.97rem; margin: 18px 0 6px; color: #3d4450; }
+.blog :deep(img) {
+  display: block; max-width: 100%; height: auto;
+  margin: 14px 0; border: 1px solid #d0d7de; border-radius: 4px;
+}
 .blog :deep(pre) {
   background: #f6f8fa; border: 1px solid #d0d7de; padding: 10px 12px;
   overflow-x: auto; border-radius: 4px;

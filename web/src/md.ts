@@ -67,5 +67,27 @@ export function renderMarkdown(src: string): string {
   };
   md.renderer.rules.table_open = () => '<div class="table-wrap"><table>';
   md.renderer.rules.table_close = () => "</table></div>\n";
+
+  // The same markdown is served under two prefixes: /dsm-ae-blog/ locally and
+  // /dsm-ae/ on the site. A root-relative image src would 404 under one of
+  // them, so rewrite leading-slash sources onto BASE_URL. Absolute URLs and
+  // data: URIs are left alone.
+  const base = import.meta.env.BASE_URL || "/";
+  const defaultImage =
+    md.renderer.rules.image ??
+    ((tokens, idx, options, env, slf) => slf.renderToken(tokens, idx, options));
+  md.renderer.rules.image = (tokens, idx, options, env, slf) => {
+    const token = tokens[idx];
+    const i = token.attrIndex("src");
+    if (i >= 0 && token.attrs) {
+      const src = token.attrs[i][1];
+      if (src.startsWith("/") && !src.startsWith("//")) {
+        token.attrs[i][1] = base.replace(/\/$/, "") + src;
+      }
+      token.attrSet("loading", "lazy");
+    }
+    return defaultImage(tokens, idx, options, env, slf);
+  };
+
   return md.render(src);
 }

@@ -1,5 +1,7 @@
 # Diagnosing Agentic Behaviour in Benchmarks and Real World Use
 
+![A therapist sits with a clipboard, taking notes on a whale reclining in the patient's chair.](/dsm-ae-header.webp)
+
 **DSM-AE (Diagnostic and Statistical Manual: Agentic Edition)**
 
 <a href="https://www.linkedin.com/in/arcyleung/">Arthur Leung</a>, <a href="https://www.linkedin.com/in/a76yang/">Alex Yang</a>, <a href="https://www.linkedin.com/in/boyuan-chen-749b9ba6/">Boyuan Chen</a>, and <a href="https://www.linkedin.com/in/ahmed-e-hassan/">Ahmed E Hassan</a> · 2026-09-14
