@@ -415,7 +415,7 @@ three would have sufficed. The benchmark records a pass. Someone then has to
 review that diff, and in six months someone has to understand why those eight
 extra files changed. None of that is charged to the agent's score.
 
-Work such as SlopCodeBench by Orlanski et al. measures how long an agent can keep iteratively
+Work such as SlopCodeBench by Orlanski et al.[28] measures how long an agent can keep iteratively
 developing a growing repository before correctness collapses. Our work aims at
 the behaviours *leading up to* that point, the ones already accumulating cost
 while the tests are still green.
@@ -578,11 +578,17 @@ The pipeline is:
 
 ```text
   [1] real trajectories
-        ↓   atom / n-gram pattern matching, information theoretic frequency analysis
+        ↓   atom / n-gram 
+        pattern matching, 
+        information theoretic 
+        frequency analysis
   [2] observed behaviour patterns          ← repetitive tool calls, overthinking,
-        ↓   reduce to a minimal fixture       poll-babysitting, correlation with outcome/ efficiency metrics
+        ↓   reduce to a minimal fixture
+        poll-babysitting, correlation
+        with outcome/ efficiency metrics
   [3] deterministic gate / Harbor task     ← cheap, repeatable regression indicator
-        ↓   mutate and search
+        ↓   mutate and 
+        search
   [4] does the gate still catch it?        ← MCTS / mutation testing
         ↓
   [5] evidence that a capability needs attention
@@ -1191,9 +1197,11 @@ disorders, **III** safety, **IV** ops/cost, **V** scaffold. Recording
 Axis V is mandatory before attributing any behaviour to a model, and it
 does real work.
 
-OverEager-Bench finds that *framework gating* moves the outcome far more
-than the model does: 5.4–27.7% versus 0.2–4.5%. Framework gating is whether
-the harness makes the agent ask permission before it acts.
+OverEager-Bench[27] finds that *framework gating* moves the outcome far more
+than the model does: a permissive cluster (Claude Code, Codex CLI, Gemini
+CLI) runs at 5.4–27.7% while the ask-to-continue framework (OpenHands)
+sits at 0.2–4.5%. Framework gating is whether the harness makes the agent
+ask permission before it acts.
 Our live evals almost all run a single raw tool loop, which is a much
 thinner scaffold than Claude Code, Codex or any permission-gated harness
 a real user would have. A fitness exam administered on one scaffold is a
@@ -2031,6 +2039,8 @@ work is verification. §7.1 puts that to work on an external corpus.
 24. Patil, Mao, Yan, Ji, Suresh, Stoica, Gonzalez. The Berkeley Function Calling Leaderboard (BFCL): From Tool Use to Agentic Evaluation of Large Language Models. ICML, 2025. https://proceedings.mlr.press/v267/patil25a.html
 25. Chen, Li, Li. FeatBench: Evaluating Coding Agents on Feature Implementation for Vibe Coding. 2025. https://arxiv.org/abs/2509.22237
 26. Zhao, Chen, Meng, Zhao, Song, Wen, Jia. DeNovoSWE: Scaling Long-Horizon Environments for Generating Entire Repositories from Scratch. 2026. https://arxiv.org/abs/2606.10728
+27. Qu, Zhang, Zhang, Deng. Overeager Coding Agents: Measuring Out-of-Scope Actions on Benign Tasks. 2026. https://arxiv.org/abs/2605.18583
+28. Orlanski, Roy, Yun, Shin. SlopCodeBench: Benchmarking How Coding Agents Degrade Over Long-Horizon Iterative Tasks. 2026. https://arxiv.org/abs/2603.24755
 
 ---
 
