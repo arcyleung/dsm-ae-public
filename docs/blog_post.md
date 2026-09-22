@@ -526,39 +526,23 @@ tested it yet!"* and went and ran it. Good behaviour is as measurable as ill beh
 <details>
 <summary>Session IDs and how to open the full transcripts</summary>
 
-All three sessions live in the `session_labels_by_gpt55` collection of the
-`claude_conversations` MongoDB database, keyed by `session_id`. IDs are given
-as the first 8 characters, which `scripts/mine_sessions.py` accepts as a prefix
-match.
+The scrubbed transcripts for these sessions ship in the
+[dsm-ae-public](https://github.com/arcyleung/dsm-ae-public) repository under
+[`reports/blog/trajectories/`](https://github.com/arcyleung/dsm-ae-public/tree/main/reports/blog/trajectories),
+one JSONL file per session. The Trajectories tab above renders them inline.
 
 | # | Example | `session_id` | Category | Requests | Model |
 |---|---|---|---|---:|---|
-| 1 | 185 permission refusals | `f4ac2beb` | bugfix | 199 | sonnet-4-5 |
-| 2 | tmux → 83 edits / 9 files | `0614e0de` | bugfix | 117 | opus-4-6 |
-| 3 | 51-hour `sleep 60` loop | `b52e0124` | devops | 1337 | opus-4-6 |
+| 1 | 185 permission refusals | [`f4ac2beb`](https://github.com/arcyleung/dsm-ae-public/blob/main/reports/blog/trajectories/f4ac2beb.jsonl) | bugfix | 199 | sonnet-4-5 |
+| 2 | tmux → 83 edits / 9 files | [`0614e0de`](https://github.com/arcyleung/dsm-ae-public/blob/main/reports/blog/trajectories/0614e0de.jsonl) | bugfix | 117 | opus-4-6 |
+| 3 | 51-hour `sleep 60` loop | [`b52e0124`](https://github.com/arcyleung/dsm-ae-public/blob/main/reports/blog/trajectories/b52e0124.jsonl) | devops | 1337 | opus-4-6 |
+| 4 | 62 consecutive `Edit` refusals | [`40b0660e`](https://github.com/arcyleung/dsm-ae-public/blob/main/reports/blog/trajectories/40b0660e.jsonl) | bugfix | — | opus-4-6 |
 
-```bash
-export DSM_MONGO_URI="mongodb://localhost:27018/"   # default
-
-# tool/file statistics for one session
-python3 scripts/mine_sessions.py --session-id f4ac2beb --stats
-
-# full transcript, PII-scrubbed on the way out
-python3 scripts/mine_sessions.py --session-id f4ac2beb --dump | less
-
-# just the passages quoted above
-python3 scripts/mine_sessions.py --session-id f4ac2beb --grep "requires approval"
-python3 scripts/mine_sessions.py --session-id b52e0124 --grep "sleep 60"
-```
-
-`--dump` emits the redacted transcript. The scrubber runs on read, so secrets
-and paths never leave the database in cleartext.
-
-The other sessions named in this section: `40b0660e` (62 consecutive `Edit`
-refusals, the same loop in a different tool), `796e0492` (reconstructed the
-user's destroyed uncommitted work from its own earlier tool output), and
-`ac514a5c` (answered *"No, I haven't actually tested it yet!"* after posting a
-"✅ Verified Working" summary).
+Two further sessions are named in this section but not published, because
+they were not part of the four-scenario excerpt: `796e0492` (reconstructed
+the user's destroyed uncommitted work from its own earlier tool output) and
+`ac514a5c` (answered *"No, I haven't actually tested it yet!"* after posting
+a "✅ Verified Working" summary).
 
 </details>
 
@@ -1729,7 +1713,7 @@ the answer over the cost of getting it:
 | # | Experiment | Criterion (§4.1) | Status | Would abandon the smoke-test claim if… |
 |---|---|---|---|---|
 | E1 | Ceiling audit + retargeting | IRT | **done** (§3.2) | fewer than 10 of 94 gates are live, confined to <4 packs |
-| E1b | Re-qualify skipped packs (weak model / low effort) | IRT | **not run** (no `requalify:` jobs in `data/queue.db`) | no skipped gate leaves ceiling even at 27B, `effort=none` |
+| E1b | Re-qualify skipped packs (weak model / low effort) | IRT | **not run** | no skipped gate leaves ceiling even at 27B, `effort=none` |
 | E2 | Scaffold mutation adequacy | Mutation | **done locally** (`reports/mutation/results.json`) | mutations are caught only by generic task-completion gates |
 | E3 | Hardened battery, 3 seeding arms | IRT | **sol done** (lorem 35/89 off ceiling, traj 15/81); Qwen arms running | items get harder, all models degrade **together**, range CI covers 0 |
 | E4 | Qwen3.8-27B family anchor | IRT / discrimination | **done from existing suite** (`reports/requalify/e4_qwen_vs_gpt56.json`) | <15 of 94 gates separate Qwen from the gpt-5.6 centroid |

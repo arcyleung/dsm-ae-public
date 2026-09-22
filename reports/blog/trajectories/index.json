@@ -1,0 +1,54 @@
+{
+  "ok": true,
+  "sessions": [
+    {
+      "id": "f4ac2beb-f55a-4b1b-9ba7-c12a7ea4fd60",
+      "short": "f4ac2beb",
+      "label": "Scenario 1: 185 permission refusals",
+      "featured": true,
+      "n_events": 396,
+      "request_count": 199,
+      "category": "bugfix",
+      "model": "claude-sonnet-4-5-20250929",
+      "file": "f4ac2beb.jsonl",
+      "truncated": false
+    },
+    {
+      "id": "0614e0de-88ba-47ef-9cd1-8d87bdcf38de",
+      "short": "0614e0de",
+      "label": "Scenario 2: tmux \u2192 83 edits / 9 files",
+      "featured": true,
+      "n_events": 246,
+      "request_count": 117,
+      "category": "bugfix",
+      "model": "claude-opus-4-6-20260205",
+      "file": "0614e0de.jsonl",
+      "truncated": false
+    },
+    {
+      "id": "b52e0124-167e-4607-bac8-e3f4068b9121",
+      "short": "b52e0124",
+      "label": "Scenario 3: 51-hour sleep 60 loop",
+      "featured": true,
+      "n_events": 800,
+      "request_count": 1337,
+      "category": "devops",
+      "model": "claude-opus-4-6-20260205",
+      "file": "b52e0124.jsonl",
+      "truncated": true
+    },
+    {
+      "id": "40b0660e-239d-4afe-a257-d8e4eecebc36",
+      "short": "40b0660e",
+      "label": "Scenario 4: 62 consecutive Edit refusals",
+      "featured": true,
+      "n_events": 175,
+      "request_count": 131,
+      "category": "feature_implementation",
+      "model": "claude-sonnet-4-5-20250929",
+      "file": "40b0660e.jsonl",
+      "truncated": false
+    }
+  ],
+  "source": "session_labels_by_gpt55"
+}

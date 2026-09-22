@@ -38,6 +38,11 @@ reports/**/work/
 reports/harbor_runs/
 reports/_request_logs_stage/
 reports/**/trajectories/
+# ...except the four scrubbed sessions the blog links to. These are the
+# published excerpt (~340 KB), not raw workspaces.
+!reports/blog/trajectories/
+!reports/blog/trajectories/*.jsonl
+!reports/blog/trajectories/index.json
 reports/**/.dsm_ae_ckpt/
 reports/queue/progress/
 data/job_secrets/
