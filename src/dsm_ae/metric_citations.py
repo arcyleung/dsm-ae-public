@@ -308,6 +308,153 @@ REFERENCES[14] = {
 }
 
 
+# --- Backfill (2026-09-22): literature for the rev2 / seeded gates that
+# shipped without citations. Every arXiv id below was checked against
+# arxiv.org/abs and resolves to the title given here.
+REFERENCES.update({
+    89: {
+        "short": "Zhan et al., 2024",
+        "text": "Zhan et al. (2024). \"InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents.\" arXiv:2403.02691.",
+        "url": "https://arxiv.org/abs/2403.02691",
+    },
+    90: {
+        "short": "Wang et al., 2025",
+        "text": "Wang et al. (2025). \"CodeIF-Bench: Evaluating Instruction-Following Capabilities of Large Language Models in Interactive Code Generation.\" arXiv:2503.22688.",
+        "url": "https://arxiv.org/abs/2503.22688",
+    },
+    91: {
+        "short": "L\u00f9 et al., 2025",
+        "text": "L\u00f9 et al. (2025). \"AgentRewardBench: Evaluating Automatic Evaluations of Web Agent Trajectories.\" arXiv:2504.08942.",
+        "url": "https://arxiv.org/abs/2504.08942",
+    },
+    92: {
+        "short": "Debenedetti et al., 2024",
+        "text": "Debenedetti et al. (2024). \"AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents.\" arXiv:2406.13352.",
+        "url": "https://arxiv.org/abs/2406.13352",
+    },
+    93: {
+        "short": "Cuadron et al., 2025",
+        "text": "Cuadron et al. (2025). \"The Danger of Overthinking: Examining the Reasoning-Action Dilemma in Agentic Tasks.\" arXiv:2502.08235.",
+        "url": "https://arxiv.org/abs/2502.08235",
+    },
+    94: {
+        "short": "Wu et al., 2024",
+        "text": "Wu et al. (2024). \"LongMemEval: Benchmarking Chat Assistants on Long-Term Interactive Memory.\" arXiv:2410.10813.",
+        "url": "https://arxiv.org/abs/2410.10813",
+    },
+    95: {
+        "short": "Laban et al., 2025",
+        "text": "Laban et al. (2025). \"LLMs Get Lost In Multi-Turn Conversation.\" arXiv:2505.06120.",
+        "url": "https://arxiv.org/abs/2505.06120",
+    },
+    96: {
+        "short": "He et al., 2024",
+        "text": "He et al. (2024). \"Multi-IF: Benchmarking LLMs on Multi-Turn and Multilingual Instructions Following.\" arXiv:2410.15553.",
+        "url": "https://arxiv.org/abs/2410.15553",
+    },
+    97: {
+        "short": "Ruan et al., 2023",
+        "text": "Ruan et al. (2023). \"Identifying the Risks of LM Agents with an LM-Emulated Sandbox.\" arXiv:2309.15817.",
+        "url": "https://arxiv.org/abs/2309.15817",
+    },
+    98: {
+        "short": "Diao et al., 2025",
+        "text": "Diao et al. (2025). \"GuideBench: Benchmarking Domain-Oriented Guideline Following for LLM Agents.\" arXiv:2505.11368.",
+        "url": "https://arxiv.org/abs/2505.11368",
+    },
+    99: {
+        "short": "Ashik et al., 2026",
+        "text": "Ashik et al. (2026). \"When LLMs Lag Behind: Knowledge Conflicts from Evolving APIs in Code Generation.\" arXiv:2604.09515.",
+        "url": "https://arxiv.org/abs/2604.09515",
+    },
+    100: {
+        "short": "Levy et al., 2024",
+        "text": "Levy et al. (2024). \"ST-WebAgentBench: A Benchmark for Evaluating Safety and Trustworthiness in Web Agents.\" arXiv:2410.06703.",
+        "url": "https://arxiv.org/abs/2410.06703",
+    },
+    101: {
+        "short": "Shao et al., 2025",
+        "text": "Shao et al. (2025). \"Do LLM Agents Know How to Ground, Recover, and Assess? A Benchmark for Epistemic Competence in Information-Seeking Agents.\" arXiv:2509.22391.",
+        "url": "https://arxiv.org/abs/2509.22391",
+    },
+    102: {
+        "short": "Maharana et al., 2024",
+        "text": "Maharana et al. (2024). \"Evaluating Very Long-Term Conversational Memory of LLM Agents.\" arXiv:2402.17753.",
+        "url": "https://arxiv.org/abs/2402.17753",
+    },
+    103: {
+        "short": "Zhang et al., 2026",
+        "text": "Zhang et al. (2026). \"FastContext: Training Efficient Repository Explorer for Coding Agents.\" arXiv:2606.14066.",
+        "url": "https://arxiv.org/abs/2606.14066",
+    },
+    104: {
+        "short": "Zharmagambetov et al., 2025",
+        "text": "Zharmagambetov et al. (2025). \"AgentDAM: Privacy Leakage Evaluation for Autonomous Web Agents.\" arXiv:2503.09780.",
+        "url": "https://arxiv.org/abs/2503.09780",
+    },
+    105: {
+        "short": "Chen et al., 2025",
+        "text": "Chen et al. (2025). \"FeatBench: Towards More Realistic Evaluation of Feature-level Code Generation.\" arXiv:2509.22237.",
+        "url": "https://arxiv.org/abs/2509.22237",
+    },
+    106: {
+        "short": "Aggarwal et al., 2025",
+        "text": "Aggarwal et al. (2025). \"OptimalThinkingBench: Evaluating Over and Underthinking in LLMs.\" arXiv:2508.13141.",
+        "url": "https://arxiv.org/abs/2508.13141",
+    },
+    107: {
+        "short": "Yan et al., 2025",
+        "text": "Yan et al. (2025). \"CodeIF: Benchmarking the Instruction-Following Capabilities of Large Language Models for Code Generation.\" arXiv:2502.19166.",
+        "url": "https://arxiv.org/abs/2502.19166",
+    },
+    108: {
+        "short": "Hsu et al., 2026",
+        "text": "Hsu et al. (2026). \"EA-Graph: Artifact-Anchored Verification Memory for Coding Agents under Upstream Drift.\" arXiv:2608.04278.",
+        "url": "https://arxiv.org/abs/2608.04278",
+    },
+    109: {
+        "short": "Sui et al., 2026",
+        "text": "Sui et al. (2026). \"TACT: Mitigating Overthinking and Overacting in Coding Agents via Activation Steering.\" arXiv:2605.05980.",
+        "url": "https://arxiv.org/abs/2605.05980",
+    },
+    110: {
+        "short": "Kim et al., 2025",
+        "text": "Kim et al. (2025). \"Beyond the Final Answer: Evaluating the Reasoning Trajectories of Tool-Augmented Agents.\" arXiv:2510.02837.",
+        "url": "https://arxiv.org/abs/2510.02837",
+    },
+})
+
+REFERENCES[111] = {
+    "short": "Olausson et al., 2023",
+    "text": 'Olausson et al. (2023). "Is Self-Repair a Silver Bullet for Code Generation?" arXiv:2306.09896.',
+    "url": "https://arxiv.org/abs/2306.09896",
+}
+
+METRIC_CITATIONS.update({
+    # SWE-bench (14) is the oracle-checked "resolved" construct; AgentDojo (92)
+    # motivates pairing that programmatic utility check with separate
+    # behavioural gates rather than an LLM judge.
+    "task_resolved": [14, 92],
+    "repair_complete": [111],
+    "all_deletes_gated": [97, 100],
+    "calibrated_ratio": [93, 106],
+    "chose_validated_not_newest": [108],
+    "exploration_grounded": [101, 103],
+    "heldout_intent_held": [95, 96],
+    "in_aligned_region": [93],
+    "no_extra_api": [105, 107],
+    "overact_ratio": [109],
+    "overthink_ratio": [93, 110],
+    "poison_ignored": [89, 92],
+    "recalled_without_reread": [94, 102],
+    "regime_spec_respected": [98, 99],
+    "scope_respected": [1, 91],
+    "secrets_untouched": [97, 104],
+    "spec_implemented": [90],
+    "spec_scope_held": [1, 105],
+})
+
+
 def citations_for_metric(metric_id: str) -> list[int]:
     return list(METRIC_CITATIONS.get(metric_id, []))
 
