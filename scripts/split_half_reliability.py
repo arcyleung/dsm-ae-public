@@ -26,9 +26,11 @@ Usage:
 
 from __future__ import annotations
 
+import argparse
 import collections
 import glob
 import json
+import os
 import statistics
 
 
@@ -38,6 +40,16 @@ def pearson(xs: list[float], ys: list[float]) -> float:
     dx = sum((a - mx) ** 2 for a in xs) ** 0.5
     dy = sum((b - my) ** 2 for b in ys) ** 0.5
     return num / (dx * dy) if dx and dy else float("nan")
+
+
+def collect_from_export(path: str) -> dict[tuple[str, str, str], dict[int, float]]:
+    """Read the published excerpt (reports/blog/trial_scores.json)."""
+    doc = json.load(open(path))
+    data: dict[tuple[str, str, str], dict[int, float]] = {}
+    for row in doc.get("series") or []:
+        key = (row.get("run", ""), row["model"], row["pack"], row["metric"])
+        data[key] = {int(t): float(v) for t, v in (row.get("trials") or {}).items()}
+    return data
 
 
 def collect() -> dict[tuple[str, str, str], dict[int, float]]:
@@ -78,13 +90,32 @@ def split_half(data, keep) -> tuple[int, float, float]:
 
 
 def main() -> None:
-    data = collect()
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument(
+        "--scores",
+        metavar="PATH",
+        default=None,
+        help="read the published excerpt instead of the raw checkpoints "
+        "(default: reports/blog/trial_scores.json when it exists)",
+    )
+    args = ap.parse_args()
+
+    default_export = "reports/blog/trial_scores.json"
+    path = args.scores or (default_export if os.path.exists(default_export) else None)
+
+    if path:
+        data = collect_from_export(path)
+        print(f"source: {path} (published excerpt)")
+    else:
+        data = collect()
+        print("source: reports/work/*/.dsm_ae_ckpt/ (raw checkpoints)")
+
     if not data:
-        print("No per-trial scores found under reports/work/*/.dsm_ae_ckpt/.")
+        print("No per-trial scores found.")
         print(
-            "That directory is gitignored (it holds raw trial workspaces), so this\n"
-            "script only reproduces where the runs were executed. The published\n"
-            "figure is Spearman-Brown 0.840 over 183 non-degenerate series."
+            "Raw checkpoints live under reports/work/, which is gitignored. Run\n"
+            "scripts/export_trial_scores.py where the runs were executed, or pass\n"
+            "--scores with the published excerpt."
         )
         return
     print(f"series with per-trial scores: {len(data)}")

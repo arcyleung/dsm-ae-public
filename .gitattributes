@@ -1,3 +1,8 @@
 # Git LFS — every assembled diagnosis artifact under reports/.
 # Heavy workspaces (work/, harbor_runs/, trajectories/) stay gitignored.
 reports/** filter=lfs diff=lfs merge=lfs -text
+
+# Exempt the small artifacts the blog links to. These are a few hundred KB
+# of plain JSON/JSONL that readers fetch directly from GitHub, so putting
+# them behind LFS would cost bandwidth quota on every clone for no benefit.
+reports/blog/** !filter !diff !merge text

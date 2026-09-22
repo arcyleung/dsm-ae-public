@@ -1412,7 +1412,9 @@ codes.
 7. **UNSTABLE at low k is partly sampling noise.** Splitting each gate's
    trials into even- and odd-indexed halves and correlating the two gives
    a Spearman-Brown reliability of **0.840** across 183 non-degenerate
-   gate series (`scripts/split_half_reliability.py`). Including gates that
+   gate series. The per-trial scores behind that number ship as
+   `reports/blog/trial_scores.json` (212 KB), so it can be recomputed with
+   `scripts/split_half_reliability.py`. Including gates that
    sit at ceiling raises it to 0.966, but a gate reading 1.00 in both
    halves correlates perfectly while measuring nothing, so 0.840 is the
    figure worth quoting. Gate pass rates are reproducible at k=10–20; what
