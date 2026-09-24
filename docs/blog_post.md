@@ -40,7 +40,7 @@ expensive tasks.
 
 Our contribution is a set of cheap smoke tests that diagnose these behavioural
 problems and assess whether a model is fit for agentic work. The public
-comparison covers **18 models**. That is an
+comparison covers **19 models**. That is an
 alternative to full multi-suite long-horizon benchmarks: hundreds of tasks,
 hours of GPU time, tens-to-hundreds of millions of tokens. As the number of
 scaffolds and ablation axes grows with evaluating many fine-tuned checkpoints,
@@ -1669,7 +1669,7 @@ span zero, and only recovers near k≈15–20. Do not report a 5- or
 **Published LLM subsetting does not transfer yet.** tinyBenchmarks (100
 of 14K MMLU items), Anchor Points, and Sort & Search all fit item
 parameters on a large pool of *already-evaluated* models (87, ~100,
-31,000). We have 18 models and no verified pack↔task identity join.
+31,000). We have 19 models and no verified pack↔task identity join.
 That is why §4.2 claims triage, not "the battery predicts the
 benchmark." Closing this hole is a larger model pool plus a join, not
 another selector.
